@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import qs from 'query-string';
+import qs, {StringifiableRecord} from 'query-string';
 
 const {REACT_APP_STRIPE_PUBLIC_KEY} = process.env;
 
@@ -50,7 +50,7 @@ export const isValidUuid = (id: any) => {
   return regex.test(id);
 };
 
-export const updateQueryParams = (query: object) => {
+export const updateQueryParams = (query: StringifiableRecord) => {
   if (window.history.pushState) {
     window.history.pushState(
       null,

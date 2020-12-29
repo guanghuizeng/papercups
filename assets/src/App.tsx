@@ -20,7 +20,8 @@ import Pricing from './components/billing/PricingOverview';
 import Sandbox from './components/Sandbox';
 import SharedConversation from './components/conversations/SharedConversation';
 import './App.css';
-import LadingPage from "./components/landing/LadingPage";
+import './tailwind.css';
+import LadingPage from './components/landing/LadingPage';
 
 const App = () => {
   const auth = useAuth();
