@@ -20,6 +20,7 @@ import Pricing from './components/billing/PricingOverview';
 import Sandbox from './components/Sandbox';
 import SharedConversation from './components/conversations/SharedConversation';
 import './App.css';
+import LadingPage from "./components/landing/LadingPage";
 
 const App = () => {
   const auth = useAuth();
@@ -33,6 +34,7 @@ const App = () => {
     return (
       <Router>
         <Switch>
+          <Route exact={true} path="/" component={LadingPage} />
           <Route path="/demo" component={Demo} />
           <Route path="/bot/demo" component={BotDemo} />
           <Route path="/login" component={Login} />

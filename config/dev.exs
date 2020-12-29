@@ -21,7 +21,7 @@ config :chat_api, ChatApiWeb.Endpoint,
   check_origin: false,
   watchers: [
     node: [
-      "node_modules/react-scripts/bin/react-scripts.js",
+      "node_modules/@craco/craco/bin/craco.js",
       "start",
       cd: Path.expand("../assets", __DIR__)
     ]
