@@ -18,7 +18,7 @@ function Header({eventType}: any) {
           <div className="flex flex-row justify-between">
             <Link to="/">
               <div className="border border-blue-300 p-2 cursor-pointer">
-                <a>Back</a>
+                Back
               </div>
             </Link>
             <div>Edit {eventType.typeName} Event Type</div>

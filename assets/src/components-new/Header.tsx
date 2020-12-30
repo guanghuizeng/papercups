@@ -1,6 +1,20 @@
 import React from 'react';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+
+import {useAuth} from '../components/auth/AuthProvider';
+
+function StyledItem(props: any) {
+  return (
+    <DropdownMenu.Item
+      {...props}
+      className="cursor-pointer hover:bg-gray-300 focus:outline-none"
+    />
+  );
+}
 
 export default function Header() {
+  const auth = useAuth();
+
   return (
     <header
       className="text-white body-font"
@@ -16,11 +30,37 @@ export default function Header() {
           <a className="mr-5 hover:text-gray-900">Integration</a>
           <a className="mr-5 hover:text-gray-900">Help</a>
         </nav>
-        <button className="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0">
-          <i className="far fa-user-circle fa-1x" />
-          <span className="mx-2">Account</span>
-          <i className="fas fa-caret-down" />
-        </button>
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <div className="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0">
+              <i className="far fa-user-circle fa-1x" />
+              <span className="mx-2">Account</span>
+              <i className="fas fa-caret-down" />
+            </div>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content
+            className="p-3"
+            style={{
+              minWidth: 200,
+              backgroundColor: 'white',
+              borderRadius: 6,
+              boxShadow: '0px 5px 15px -5px hsla(206,22%,7%,.15)',
+            }}
+          >
+            <div className="mb-2">
+              <StyledItem onSelect={() => console.log('cut')}>
+                账号设置
+              </StyledItem>
+              <StyledItem onSelect={() => console.log('copy')}>
+                链接日历
+              </StyledItem>
+            </div>
+            <div className="border-t border-gray-200 border-solid">
+              <StyledItem onSelect={auth.logout}>Logout</StyledItem>
+            </div>
+            {/*<StyledArrow />*/}
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
       </div>
     </header>
   );

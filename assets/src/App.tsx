@@ -22,6 +22,7 @@ import SharedConversation from './components/conversations/SharedConversation';
 import './App.css';
 import './tailwind.css';
 import LadingPage from './components/landing/LadingPage';
+import Live from './components-new/book/Live';
 
 const App = () => {
   const auth = useAuth();
@@ -51,6 +52,7 @@ const App = () => {
           <Route path="/pricing" component={Pricing} />
           <Route path="/sandbox" component={Sandbox} />
           <Route path="/share" component={SharedConversation} />
+          <Route path="/live" component={Live} />
           <Route
             path="*"
             render={(props: RouteComponentProps<{}>) => (
@@ -81,6 +83,7 @@ const App = () => {
         <Route path="/pricing" component={Pricing} />
         <Route path="/sandbox" component={Sandbox} />
         <Route path="/share" component={SharedConversation} />
+        <Route path="/live" component={Live} />
         <Route path="/" component={Dashboard} />
         <Route path="*" render={() => <Redirect to="/conversations" />} />
       </Switch>

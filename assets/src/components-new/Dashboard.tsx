@@ -11,6 +11,9 @@ import {
   RouteComponentProps,
 } from 'react-router-dom';
 import EventType from './EventType';
+import Live from './book/Live';
+import {useAuth} from '../components/auth/AuthProvider';
+import {useConversations} from '../components/conversations/ConversationsProvider';
 
 function EventTypeCard({eventTypeId}: any) {
   console.log('Card', eventTypeId);
@@ -180,6 +183,11 @@ export function AppContentWrapper() {
 }
 
 export default function Dashboard() {
+  const auth = useAuth();
+  const {pathname} = useLocation();
+
+  console.log('dashboard', auth, pathname);
+
   return (
     <div>
       <Header />
