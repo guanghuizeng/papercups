@@ -960,3 +960,32 @@ export const fetchReportingData = async (
     .set('Authorization', token)
     .then((res) => res.body.data);
 };
+
+export const createEventType = async (token = getAccessToken()) => {
+  if (!token) {
+    throw new Error('Invalid token!');
+  }
+
+  // return request
+  //   .post(`/api/event_type`)
+  //     .send({event_type: {
+  //       name: 'type1'
+  //       }})
+  //     .set('Authorization', token)
+  //   .then((res) => res.body.data);
+
+  return null;
+};
+
+export const fetchEventTypes = async (token = getAccessToken()) => {
+  if (!token) {
+    throw new Error('Invalid token!');
+  }
+
+  // return request
+  //   .get(`/api/event_type`)
+  //   .set('Authorization', token)
+  //   .then((res) => res.body.data);
+
+  return null;
+};
