@@ -65,6 +65,9 @@ defmodule ChatApiWeb.Router do
     post("/slack/webhook", SlackController, :webhook)
     # TODO: move to protected route after testing?
     get("/hubspot/oauth", HubspotController, :oauth)
+
+    resources("/demos", DemoController, except: [:new, :edit])
+
   end
 
   # Protected routes

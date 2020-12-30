@@ -966,15 +966,16 @@ export const createEventType = async (token = getAccessToken()) => {
     throw new Error('Invalid token!');
   }
 
-  // return request
-  //   .post(`/api/event_type`)
-  //     .send({event_type: {
-  //       name: 'type1'
-  //       }})
-  //     .set('Authorization', token)
-  //   .then((res) => res.body.data);
-
-  return null;
+  return request
+    .post(`/api/demos`)
+    .send({
+      demo: {
+        name: 'type1',
+        count: 1,
+      },
+    })
+    .set('Authorization', token)
+    .then((res) => res.body.data);
 };
 
 export const fetchEventTypes = async (token = getAccessToken()) => {
@@ -982,10 +983,10 @@ export const fetchEventTypes = async (token = getAccessToken()) => {
     throw new Error('Invalid token!');
   }
 
-  // return request
-  //   .get(`/api/event_type`)
-  //   .set('Authorization', token)
-  //   .then((res) => res.body.data);
+  return request
+    .get(`/api/demos/`)
+    .set('Authorization', token)
+    .then((res) => res.body.data);
 
   return null;
 };
