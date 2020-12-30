@@ -2,6 +2,184 @@
 @tailwind components;
 @tailwind utilities;
 
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
 .container {
   max-width: 940px;
+}
+
+.nav-container {
+  width: 100%;
+  background-color: #393034;
+}
+
+.nav {
+  display: flex;
+  @apply flex-row;
+  @apply justify-between;
+  max-width: 1020px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 20px;
+  padding-left: 20px;
+  width: 1020px;
+  height: 64px;
+  @apply text-white;
+}
+
+.nav-menu {
+  width: 1020px;
+}
+
+.home-nav {
+  display: flex;
+  @apply flex-row;
+  @apply justify-between;
+  max-width: 1020px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 20px;
+  padding-left: 20px;
+  width: 1020px;
+  height: 118px;
+}
+
+.home-nav-content {
+  padding-top: 20px;
+}
+
+.home-content {
+  display: flex;
+  @apply flex-row;
+  @apply justify-between;
+  max-width: 1020px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 20px;
+  padding-left: 20px;
+  width: 1020px;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: 44px;
+}
+
+.nav-button {
+  padding: 7px 15px 0 0;
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: nowrap;
+  @apply cursor-pointer;
+}
+
+.underline-red {
+  text-decoration-color: red;
+  text-decoration: underline;
+}
+
+.inner-container {
+  max-width: 1020px;
+}
+
+.edit-container {
+  padding: 30px 52px;
+}
+
+.shadow-outline-1 {
+  box-shadow: 0 0 0 1px rgba(66, 153, 225, 0.5);
+}
+
+.drag {
+  position: absolute;
+  left: -24px;
+  top: 5px;
+  bottom: 10px;
+  width: 24px;
+  height: auto;
+  font-size: 22px;
+  color: #d0d0d0;
+  cursor: move;
+}
+
+.book-container-wrapper {
+  padding-right: 5%;
+  padding-left: 5%;
+  margin-top: 66px;
+  margin-bottom: 30px;
+}
+
+.book-container {
+  min-width: 900px;
+  max-width: 1060px;
+  width: 95%;
+  border: 1px solid rgba(77, 80, 85, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
+}
+
+.center-v {
+  @apply h-full flex items-center justify-center;
+}
+
+.text-16 {
+  font-size: 16px;
+}
+
+.text-light {
+  color: #adadad;
+}
+
+.py30 {
+  padding-bottom: 3px;
+  padding-top: 3px;
+}
+
+.py32 {
+  padding-bottom: 32px;
+  padding-top: 32px;
+}
+
+.px56 {
+  padding-left: 56px;
+  padding-right: 56px;
+}
+
+.px52 {
+  padding-left: 52px;
+  padding-right: 52px;
+}
+
+.pt32 {
+  padding-top: 32px;
+}
+
+.pb56 {
+  padding-bottom: 56px;
+}
+
+.weekly-hours-grid {
+  grid-template-columns: 200px repeat(auto-fill, 100px) 200px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.gentle-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1ch;
 }

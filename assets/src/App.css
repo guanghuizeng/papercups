@@ -1,62 +1,62 @@
-@import '~antd/dist/antd.css';
+/*@import '~antd/dist/antd.css';*/
 
-* {
-  box-sizing: border-box;
-}
+/** {*/
+/*  box-sizing: border-box;*/
+/*}*/
 
-html,
-body {
-  font-family: 'Open Sans', 'Helvetica Neue', Arial, san-serif;
-  font-weight: 400;
-  margin: 0;
-}
+/*html,*/
+/*body {*/
+/*  font-family: 'Open Sans', 'Helvetica Neue', Arial, san-serif;*/
+/*  font-weight: 400;*/
+/*  margin: 0;*/
+/*}*/
 
-#root {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
+/*#root {*/
+/*  height: 100%;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*}*/
 
-/* Add custom styles here */
-.TextArea--transparent,
-.TextArea--transparent:hover,
-.TextArea--transparent:focus,
-.TextArea--transparent:active {
-  border: none;
-  box-shadow: none;
-  resize: none;
-}
+/*!* Add custom styles here *!*/
+/*.TextArea--transparent,*/
+/*.TextArea--transparent:hover,*/
+/*.TextArea--transparent:focus,*/
+/*.TextArea--transparent:active {*/
+/*  border: none;*/
+/*  box-shadow: none;*/
+/*  resize: none;*/
+/*}*/
 
-.Text--markdown {
-  overflow-wrap: break-word;
-}
+/*.Text--markdown {*/
+/*  overflow-wrap: break-word;*/
+/*}*/
 
-.Text--markdown a {
-  text-decoration: underline;
-}
+/*.Text--markdown a {*/
+/*  text-decoration: underline;*/
+/*}*/
 
-.Text--white {
-  color: #fff;
-}
+/*.Text--white {*/
+/*  color: #fff;*/
+/*}*/
 
-.Text--white > h1,
-.Text--white > h2,
-.Text--white > h3,
-.Text--white > h4,
-.Text--white > h5,
-.Text--white > h6,
-.Text--white a {
-  color: #fff;
-}
+/*.Text--white > h1,*/
+/*.Text--white > h2,*/
+/*.Text--white > h3,*/
+/*.Text--white > h4,*/
+/*.Text--white > h5,*/
+/*.Text--white > h6,*/
+/*.Text--white a {*/
+/*  color: #fff;*/
+/*}*/
 
-/* Replayer */
-#SessionPlayer .replayer-wrapper {
-  left: auto !important;
-  top: auto !important;
-}
+/*!* Replayer *!*/
+/*#SessionPlayer .replayer-wrapper {*/
+/*  left: auto !important;*/
+/*  top: auto !important;*/
+/*}*/
 
-.replayer-wrapper > iframe {
-  border: none;
-  border-radius: 4px;
-  box-shadow: 0 24px 48px rgba(17, 16, 62, 0.12);
-}
+/*.replayer-wrapper > iframe {*/
+/*  border: none;*/
+/*  border-radius: 4px;*/
+/*  box-shadow: 0 24px 48px rgba(17, 16, 62, 0.12);*/
+/*}*/
