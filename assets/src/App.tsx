@@ -15,7 +15,7 @@ import RequestPasswordReset from './components/auth/RequestPasswordReset';
 import PasswordResetRequested from './components/auth/PasswordResetRequested';
 import Demo from './components/demo/Demo';
 import BotDemo from './components/demo/BotDemo';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components-new/Dashboard';
 import Pricing from './components/billing/PricingOverview';
 import Sandbox from './components/Sandbox';
 import SharedConversation from './components/conversations/SharedConversation';
