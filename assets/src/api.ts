@@ -977,6 +977,22 @@ export const createEventType = async (token = getAccessToken()) => {
     .set('Authorization', token)
     .then((res) => res.body.data);
 };
+export const createDemo = async (token = getAccessToken()) => {
+  if (!token) {
+    throw new Error('Invalid token!');
+  }
+
+  return request
+    .post(`/api/demos`)
+    .send({
+      demo: {
+        name: 'type1',
+        count: 1,
+      },
+    })
+    .set('Authorization', token)
+    .then((res) => res.body.data);
+};
 
 export const fetchEventTypes = async (token = getAccessToken()) => {
   if (!token) {

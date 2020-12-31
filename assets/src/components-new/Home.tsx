@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import React, {useEffect} from 'react';
 import {conn, db} from '../store/init';
 import {useEvents} from './EventsProvider';
+import {fetchUserProfile} from '../api';
 
 function EventTypeCard({eventTypeId}: any) {
   console.log('Card', eventTypeId);
@@ -57,21 +58,30 @@ function EventTypeCard({eventTypeId}: any) {
   );
 }
 
-function AppContent() {
-  const user = useQueryOne(
-    '[:find ?u ?l ?n ?em :in $ ?l :where [?e ":user/uid" ?u] [?e ":user/login" ?l]  [?e ":user/name" ?n]  [?e ":user/email" ?em]]',
-    'yyz',
-    ([id, login, name, email]: any) => ({id, login, name, email})
-  );
+export function Home() {
+  const {
+    currentUser,
+    account,
+    profile,
+    eventTypes,
+    createEventType,
+    fetchAllEventTypes,
+  } = useEvents();
 
-  const eventTypes = useQuery(
-    '[:find ?evt :in $ ?l :where [?ue ":user/login" ?l] [?ue ":user/eventTypes" ?evt] [?ee ":eventType/uid" ?evt]]',
-    'yyz',
-    ([id]: any) => ({id})
-  );
+  // const user = useQueryOne(
+  //   '[:find ?u ?l ?n ?em :in $ ?l :where [?e ":user/uid" ?u] [?e ":user/login" ?l]  [?e ":user/name" ?n]  [?e ":user/email" ?em]]',
+  //   'yyz',
+  //   ([id, login, name, email]: any) => ({id, login, name, email})
+  // );
 
-  console.log('user', user);
-  console.log('event types', eventTypes);
+  // const eventTypes = useQuery(
+  //   '[:find ?evt :in $ ?l :where [?ue ":user/login" ?l] [?ue ":user/eventTypes" ?evt] [?ee ":eventType/uid" ?evt]]',
+  //   'yyz',
+  //   ([id]: any) => ({id})
+  // );
+  //
+  // console.log('user', user);
+  // console.log('event types', eventTypes);
 
   return (
     <div>
@@ -123,19 +133,19 @@ function AppContent() {
                 Avatar
               </div>
               <div>
-                <div>{user.name}</div>
+                <div>{profile.display_name}</div>
                 <a
                   href="#"
                   className="block text-sm text-green-500"
                   role="menuitem"
                 >
-                  mytime.com/{user.login}
+                  {/*mytime.com/{user.login}*/}
                 </a>
               </div>
             </div>
             <div className="flex flex-row">
               <div>
-                <div className="text-green-500 border-2 border-green-500 rounded px-2">
+                <div className="text-green-500 border-2 border-green-500 rounded px-2 cursor-pointer">
                   + New Event Type
                 </div>
               </div>
@@ -143,13 +153,17 @@ function AppContent() {
             </div>
           </div>
           <div className="grid lg:grid-cols-3 grid-cols-1">
-            {eventTypes.map(({id}: any) => {
-              return (
-                <div key={id}>
-                  <EventTypeCard eventTypeId={id} />
-                </div>
-              );
+            {eventTypes.map((eventType) => {
+              console.log('Type', eventType);
+              return <div key={eventType.id}>{eventType.name}</div>;
             })}
+            {/*{eventTypes.map(({id}: any) => {*/}
+            {/*  return (*/}
+            {/*    <div key={id}>*/}
+            {/*      <EventTypeCard eventTypeId={id} />*/}
+            {/*    </div>*/}
+            {/*  );*/}
+            {/*})}*/}
           </div>
         </div>
       </section>
@@ -170,26 +184,35 @@ function AppContent() {
 //
 //   return <AppContent />;
 // }
-export function Home() {
-  const {eventTypes, createEventType, fetchAllEventTypes} = useEvents();
-
-  return (
-    <div className="flex flex-col">
-      <div
-        onClick={() => {
-          console.log('click');
-          createEventType();
-        }}
-      >
-        Create
-      </div>
-      <div
-        onClick={() => {
-          fetchAllEventTypes();
-        }}
-      >
-        List
-      </div>
-    </div>
-  );
-}
+// export function Home() {
+//   const {currentUser, account, profile, eventTypes, createEventType, fetchAllEventTypes} = useEvents();
+//
+//   console.log('Home', currentUser, account, profile)
+//
+//   return (
+//     <div className="flex flex-col">
+//       <div
+//         onClick={() => {
+//           console.log('click');
+//           createEventType();
+//         }}
+//       >
+//         Create
+//       </div>
+//       <div
+//         onClick={() => {
+//           fetchAllEventTypes();
+//         }}
+//       >
+//         List
+//       </div>
+//       <div
+//         onClick={() => {
+//           fetchUserProfile().then(r => console.log(r))
+//         }}
+//       >
+//         List
+//       </div>
+//     </div>
+//   );
+// }
