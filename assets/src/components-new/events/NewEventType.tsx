@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {EventGeneralEdit} from './EventGeneralSection';
 import {GeneralSection} from './edit/GeneralSection';
+import AvailabilitySection from './edit/AvailabilitySection';
 
 function Header({eventType}: any) {
   return (
@@ -37,6 +38,24 @@ export default function NewEventType() {
             className={`mt-2 lg:border  hover:border-black border-gray-500 lg:rounded `}
           >
             <GeneralSection
+              eventType={{}}
+              onClose={() => {
+                console.log('close');
+              }}
+              onSave={(value: any) => {
+                console.log('On Save', value);
+              }}
+              saveButtonLabel="Next"
+            />
+          </div>
+          <div
+            className={`mt-2 lg:border  hover:border-black border-gray-500 lg:rounded `}
+          >
+            <AvailabilitySection
+              user={{
+                active_availability_rule: 1,
+                own_availability_rule: 1,
+              }}
               eventType={{}}
               onClose={() => {
                 console.log('close');
