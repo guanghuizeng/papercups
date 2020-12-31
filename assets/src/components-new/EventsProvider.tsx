@@ -10,7 +10,7 @@ export const EventsContext = React.createContext<{
 
   eventTypes: Array<any>;
 
-  createEventType: () => Promise<any>;
+  createEventType: (any: any) => Promise<any>;
   fetchAllEventTypes: () => Promise<any>;
 }>({
   loading: true,
@@ -21,7 +21,7 @@ export const EventsContext = React.createContext<{
 
   eventTypes: [],
 
-  createEventType: () => Promise.resolve({}),
+  createEventType: (any: any) => Promise.resolve({}),
   fetchAllEventTypes: () => Promise.resolve([]),
 });
 
@@ -64,10 +64,10 @@ export class EventsProvider extends React.Component<Props, State> {
     });
   }
 
-  createEventType = async () => {
+  createEventType = async (value: any) => {
     console.log('createEventType');
     try {
-      await API.createEventType();
+      await API.createEventType(value);
     } catch (e) {
       console.log('Create err', e);
     }

@@ -67,6 +67,7 @@ defmodule ChatApiWeb.Router do
     get("/hubspot/oauth", HubspotController, :oauth)
 
     resources("/demos", DemoController, except: [:new, :edit])
+    resources("/event_types", EventTypeController, except: [:new, :edit])
 
   end
 

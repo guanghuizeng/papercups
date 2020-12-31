@@ -961,22 +961,21 @@ export const fetchReportingData = async (
     .then((res) => res.body.data);
 };
 
-export const createEventType = async (token = getAccessToken()) => {
+export const createEventType = async (
+  event_type: any,
+  token = getAccessToken()
+) => {
   if (!token) {
     throw new Error('Invalid token!');
   }
 
   return request
-    .post(`/api/demos`)
-    .send({
-      demo: {
-        name: 'type1',
-        count: 1,
-      },
-    })
+    .post(`/api/event_types`)
+    .send({event_type})
     .set('Authorization', token)
     .then((res) => res.body.data);
 };
+
 export const createDemo = async (token = getAccessToken()) => {
   if (!token) {
     throw new Error('Invalid token!');
@@ -1000,9 +999,7 @@ export const fetchEventTypes = async (token = getAccessToken()) => {
   }
 
   return request
-    .get(`/api/demos/`)
+    .get(`/api/event_types/`)
     .set('Authorization', token)
     .then((res) => res.body.data);
-
-  return null;
 };

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
+import * as API from '../../api';
 import {EventGeneralEdit} from './EventGeneralSection';
 import {GeneralSection} from './edit/GeneralSection';
 import AvailabilitySection from './edit/AvailabilitySection';
@@ -9,6 +10,7 @@ import {
   PERIOD_TYPE_MOVING,
   PERIOD_TYPE_UNLIMITED,
 } from '../constants';
+import {useEvents} from '../EventsProvider';
 
 function Header({eventType}: any) {
   return (
@@ -77,14 +79,19 @@ function XX({editing, setEditing, eventType}: any) {
 }
 
 export default function NewEventType() {
+  const {createEventType} = useEvents();
   const [created, setCreated] = useState(false);
   const [focusStep, setFocusStep] = useState(0);
 
   const saveGeneralSection = (value: any) => {
     console.log('Do saveGeneralSection', value);
-    // call api
-    setFocusStep(1);
-    setCreated(true);
+
+    createEventType(value).then((r) => {
+      // call api
+      setFocusStep(1);
+      setCreated(true);
+      console.log('r');
+    });
   };
 
   const generalSection = () => {
@@ -176,6 +183,16 @@ export default function NewEventType() {
   return (
     <div>
       <Header eventType={{}} />
+
+      <div
+        onClick={() => {
+          API.fetchEventTypes().then((r) => {
+            console.log('Fetch all', r);
+          });
+        }}
+      >
+        Fetch
+      </div>
 
       <section className="text-gray-700 body-font">
         <div className="container inner-container px-5 py-4 mx-auto flex flex-wrap flex-col">
