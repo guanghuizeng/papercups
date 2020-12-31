@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import * as API from '../../api';
 import {EventGeneralEdit} from './EventGeneralSection';
-import {GeneralSection} from './edit/GeneralSection';
-import AvailabilitySection from './edit/AvailabilitySection';
+import {GeneralSectionExpand} from './sections/GeneralSectionExpand';
+import AvailabilitySectionExpand from './sections/AvailabilitySectionExpand';
 import {
   PERIOD_TYPE_AVAILABLE_MOVING,
   PERIOD_TYPE_FIXED,
@@ -11,6 +11,7 @@ import {
   PERIOD_TYPE_UNLIMITED,
 } from '../constants';
 import {useEvents} from '../EventsProvider';
+import AvailabilitySectionCollapsed from './sections/AvailabilitySectionCollapsed';
 
 function Header({eventType}: any) {
   return (
@@ -35,49 +36,6 @@ function Header({eventType}: any) {
   );
 }
 
-function DateRangeDescription({periodType, maxBookingTime}: any) {
-  switch (periodType) {
-    case PERIOD_TYPE_MOVING:
-    case PERIOD_TYPE_AVAILABLE_MOVING:
-      if (maxBookingTime) {
-        return <span>{maxBookingTime / 60 / 24} rolling days</span>;
-      } else {
-        return <span></span>;
-      }
-    case PERIOD_TYPE_FIXED:
-    case PERIOD_TYPE_UNLIMITED:
-      return <span>in construction</span>;
-  }
-  return <span />;
-}
-
-function XX({editing, setEditing, eventType}: any) {
-  return (
-    <div
-      className="flex flex-row justify-between cursor-pointer"
-      onClick={() => {
-        setEditing(!editing);
-      }}
-    >
-      <div className="flex flex-row p-2 ">
-        <div className="px-3">
-          <i className="far fa-calendar-check" />
-        </div>
-        <div>
-          <div className="text-lg">When can people book this event?</div>
-          <div className="text-gray-700">
-            {eventType.duration} min,{' '}
-            <DateRangeDescription
-              periodType={eventType.period_type}
-              maxBookingTime={eventType.max_booking_time}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function NewEventType() {
   const {createEventType} = useEvents();
   const [created, setCreated] = useState(false);
@@ -97,20 +55,16 @@ export default function NewEventType() {
   const generalSection = () => {
     if (focusStep === 0) {
       return (
-        <div
-          className={`mt-2 lg:border  hover:border-black border-gray-500 lg:rounded `}
-        >
-          <GeneralSection
-            eventType={{}}
-            onClose={() => {
-              console.log('close');
-            }}
-            onSave={(value: any) => {
-              saveGeneralSection(value);
-            }}
-            saveButtonLabel="Next"
-          />
-        </div>
+        <GeneralSectionExpand
+          eventType={{}}
+          onClose={() => {
+            console.log('close');
+          }}
+          onSave={(value: any) => {
+            saveGeneralSection(value);
+          }}
+          saveButtonLabel="Next"
+        />
       );
     } else {
       return (
@@ -145,7 +99,7 @@ export default function NewEventType() {
           <div
             className={`mt-2 lg:border  hover:border-black border-gray-500 lg:rounded `}
           >
-            <AvailabilitySection
+            <AvailabilitySectionExpand
               user={{
                 active_availability_rule: 1,
                 own_availability_rule: 1,
@@ -166,7 +120,7 @@ export default function NewEventType() {
           <div
             className={`mt-2 border-b lg:border  hover:border-blue-500 border-black lg:rounded `}
           >
-            <XX
+            <AvailabilitySectionCollapsed
               eventType={{}}
               editing={false}
               setEditing={() => {

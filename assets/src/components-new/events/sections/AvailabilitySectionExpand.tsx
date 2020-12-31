@@ -47,7 +47,7 @@ function DateRangeDescription({periodType, maxBookingTime}: any) {
   return <span />;
 }
 
-export default function AvailabilitySection({
+export default function AvailabilitySectionExpand({
   user,
   eventType,
   onClose,
@@ -271,7 +271,10 @@ export default function AvailabilitySection({
         markChanged,
       }}
     >
-      <>
+      <div
+        data-section="availability"
+        className="mt-2 border-b lg:border  hover:border-blue-500 border-black lg:rounded"
+      >
         <div
           className="flex flex-row justify-between cursor-pointer"
           onClick={(e) => {
@@ -337,7 +340,7 @@ export default function AvailabilitySection({
             </div>
           </div>
         </div>
-      </>
+      </div>
     </EditingContext.Provider>
   );
 }

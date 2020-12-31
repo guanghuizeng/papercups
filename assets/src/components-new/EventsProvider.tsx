@@ -79,7 +79,6 @@ export class EventsProvider extends React.Component<Props, State> {
       eventTypes,
     });
 
-    console.log('Fetch', eventTypes);
     return eventTypes;
   };
 

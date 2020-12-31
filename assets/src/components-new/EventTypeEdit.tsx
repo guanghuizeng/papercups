@@ -6,6 +6,7 @@ import EventNotifyPolicy from './events/EventNotifyPolicy';
 import {useQueryOne} from '../store';
 import dayjs from 'dayjs';
 import {Link} from 'react-router-dom';
+import {useEvents} from './EventsProvider';
 
 function Header({eventType}: any) {
   return (
@@ -30,22 +31,13 @@ function Header({eventType}: any) {
   );
 }
 
-function EventTypeEdit(props: any) {
-  const {eventTypeId: id} = props;
+function EventTypeEdit({id}: any) {
+  const {eventTypes} = useEvents();
 
-  const eventType = useQueryOne(
-    '[:find ?n ?d ?last_edited ?t ?tn :in $ ?i :where [?e ":eventType/uid" ?i] [?e ":eventType/name" ?n] [?e ":eventType/description" ?d] [?e ] [?e ":eventType/last_edited" ?last_edited] [?e ":eventType/kind" ?t] [?te ":eventKind/uid" ?t] [?te ":eventKind/name" ?tn]]',
-    id,
-    ([name, description, editAt, type, typeName]: any) => ({
-      name,
-      description,
-      editAt,
-      type,
-      typeName,
-    })
-  );
+  console.log('Edit', eventTypes);
+  const eventType = eventTypes.find((t) => t.id === id);
 
-  console.log('Event', id, eventType);
+  // const eventType =
 
   return (
     <div>

@@ -6,23 +6,7 @@ import {useEvents} from './EventsProvider';
 import {fetchUserProfile} from '../api';
 import CreateEventTypeDialog from './events/CreateEventTypeModal';
 
-function EventTypeCard({eventTypeId}: any) {
-  console.log('Card', eventTypeId);
-
-  const eventType = useQueryOne(
-    '[:find ?u ?n ?d ?url ?en :in $ ?u :where [?e ":eventType/uid" ?u] [?e ":eventType/name" ?n] [?e ":eventType/description" ?d] [?e ":eventType/url" ?url] [?e ":eventType/enabled" ?en]]',
-    eventTypeId,
-    ([id, name, description, url, enabled]: any) => ({
-      id,
-      name,
-      description,
-      url,
-      enabled,
-    })
-  );
-
-  console.log('Card type', eventType);
-
+function EventTypeCard({eventType}: any) {
   const {id, name, description, url, enabled} = eventType;
 
   return (
@@ -60,14 +44,7 @@ function EventTypeCard({eventTypeId}: any) {
 }
 
 export function Home() {
-  const {
-    currentUser,
-    account,
-    profile,
-    eventTypes,
-    createEventType,
-    fetchAllEventTypes,
-  } = useEvents();
+  const {profile, eventTypes, fetchAllEventTypes} = useEvents();
 
   // const user = useQueryOne(
   //   '[:find ?u ?l ?n ?em :in $ ?l :where [?e ":user/uid" ?u] [?e ":user/login" ?l]  [?e ":user/name" ?n]  [?e ":user/email" ?em]]',
@@ -83,6 +60,10 @@ export function Home() {
   //
   // console.log('user', user);
   // console.log('event types', eventTypes);
+
+  useEffect(() => {
+    fetchAllEventTypes();
+  }, []);
 
   return (
     <div>
@@ -156,17 +137,13 @@ export function Home() {
             </div>
           </div>
           <div className="grid lg:grid-cols-3 grid-cols-1">
-            {eventTypes.map((eventType) => {
-              console.log('Type', eventType);
-              return <div key={eventType.id}>{eventType.name}</div>;
+            {eventTypes.map((eventType: any) => {
+              return (
+                <div key={eventType.id}>
+                  <EventTypeCard eventType={eventType} />
+                </div>
+              );
             })}
-            {/*{eventTypes.map(({id}: any) => {*/}
-            {/*  return (*/}
-            {/*    <div key={id}>*/}
-            {/*      <EventTypeCard eventTypeId={id} />*/}
-            {/*    </div>*/}
-            {/*  );*/}
-            {/*})}*/}
           </div>
         </div>
       </section>
