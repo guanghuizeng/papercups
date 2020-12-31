@@ -1,14 +1,15 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import * as Dialog from '@radix-ui/react-dialog';
+import React, {useState} from 'react';
+import {useTransact} from '../../../store';
+import CancelButton from '../CancelButton';
+import SingleSelect from '../EventLocationSelect';
+import Editor from '../../common/Editor';
 
-import SingleSelect from './EventLocationSelect';
-import Editor from '../common/Editor';
-import {useDebouncedTransact, useQueryOne, useTransact} from '../../store';
-import CancelButton from './CancelButton';
-import {EditingContext} from '../../hooks/EditingContext';
-
-export function EventGeneralEdit({eventType, open, close}: any) {
-  const transact = useTransact();
+export function GeneralSection({
+  eventType,
+  onClose,
+  onSave,
+  saveButtonLabel,
+}: any) {
   const [eventTypeValue, setEventTypeValue] = useState(eventType);
   const [changed, setChanged] = useState(false);
 
@@ -19,12 +20,8 @@ export function EventGeneralEdit({eventType, open, close}: any) {
   };
 
   const save = (eventTypeValue: any) => {
-    const tx: any = {};
-    Object.keys(eventTypeValue).forEach((key) => {
-      tx[`:eventType/${key}`] = eventTypeValue[key];
-    });
-    console.log('Tx', tx);
-    transact([tx]);
+    onSave(eventTypeValue);
+    // console.log('Save', eventTypeValue)
   };
 
   return (
@@ -35,7 +32,7 @@ export function EventGeneralEdit({eventType, open, close}: any) {
         }`}
         onClick={(e) => {
           if (!changed) {
-            close();
+            onClose();
             e.stopPropagation();
           }
         }}
@@ -50,16 +47,20 @@ export function EventGeneralEdit({eventType, open, close}: any) {
           </div>
         </div>
         <div className="flex flex-row">
-          <CancelButton changed={changed} close={close} />
-          <div
-            className="gentle-flex mx-2 cursor-pointer"
-            onClick={() => {
-              console.log('Value', eventTypeValue, changed);
-              save(eventTypeValue);
-              close();
-            }}
-          >
-            Save & Close
+          <div className="gentle-flex mr-2">
+            <CancelButton changed={changed} close={onClose} />
+          </div>
+          <div className="gentle-flex mx-2 ">
+            <div
+              className="cursor-pointer border-gray-500 hover:border-black border px-2 bg-blue-400 text-white"
+              onClick={() => {
+                console.log('Value', eventTypeValue, changed);
+                save(eventTypeValue);
+                onClose();
+              }}
+            >
+              {saveButtonLabel}
+            </div>
           </div>
         </div>
       </div>
@@ -165,64 +166,9 @@ export function EventGeneralEdit({eventType, open, close}: any) {
         </div>
         <div className="flex flex-row justify-end border-t border-gray-300 py-4">
           <div className="mx-2 cursor-pointer">Cancel</div>
-          <div className="mx-2 cursor-pointer">Save & Close</div>
+          <div className="mx-2 cursor-pointer"> {saveButtonLabel}</div>
         </div>
       </div>
     </>
-  );
-}
-
-export default function EventGeneralSection(props: any) {
-  const {eventTypeId: id} = props;
-
-  const eventType = useQueryOne(
-    '[:find ?i ?n ?d ?loc ?url ?c ?last_edited :in $ ?i :where [?e ":eventType/uid" ?i] [?e ":eventType/name" ?n] [?e ":eventType/description" ?d] [?e ":eventType/location" ?loc] [?e ":eventType/url" ?url] [?e ":eventType/color" ?c] [?e ":eventType/last_edited" ?last_edited] ]',
-    id,
-    ([uid, name, description, location, url, color, editAt]: any) => ({
-      uid,
-      name,
-      description,
-      location,
-      url,
-      color,
-      editAt,
-    })
-  );
-
-  const [editing, setEditing] = useState(false);
-  const close = () => {
-    setEditing(false);
-  };
-  const open = () => {
-    setEditing(true);
-  };
-
-  return (
-    <div data-section="general">
-      <div
-        className={`mt-2 border-b lg:border  hover:border-blue-500 border-black lg:rounded `}
-      >
-        {editing ? (
-          <EventGeneralEdit eventType={eventType} open={open} close={close} />
-        ) : (
-          <div
-            className="flex flex-row justify-between cursor-pointer"
-            onClick={() => {
-              setEditing(!editing);
-            }}
-          >
-            <div className="flex flex-row p-2 ">
-              <div className="px-3">
-                <i className="fas fa-circle text-red-500" />
-              </div>
-              <div>
-                <div className="text-lg">What event is this?</div>
-                <div className="text-gray-700">{eventType.name}</div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
   );
 }

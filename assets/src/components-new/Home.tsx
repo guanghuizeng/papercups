@@ -4,6 +4,7 @@ import React, {useEffect} from 'react';
 import {conn, db} from '../store/init';
 import {useEvents} from './EventsProvider';
 import {fetchUserProfile} from '../api';
+import CreateEventTypeDialog from './events/CreateEventTypeModal';
 
 function EventTypeCard({eventTypeId}: any) {
   console.log('Card', eventTypeId);
@@ -133,7 +134,7 @@ export function Home() {
                 Avatar
               </div>
               <div>
-                <div>{profile.display_name}</div>
+                <div>{profile && profile.display_name}</div>
                 <a
                   href="#"
                   className="block text-sm text-green-500"
@@ -145,9 +146,11 @@ export function Home() {
             </div>
             <div className="flex flex-row">
               <div>
-                <div className="text-green-500 border-2 border-green-500 rounded px-2 cursor-pointer">
-                  + New Event Type
-                </div>
+                <Link to="/event_type/add">
+                  <div className="text-green-500 border-2 border-green-500 rounded px-2 cursor-pointer">
+                    + New Event Type
+                  </div>
+                </Link>
               </div>
               <div className="mx-2 px-2">Settings</div>
             </div>
