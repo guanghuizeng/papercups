@@ -5,10 +5,11 @@ defmodule ChatApi.EventTypes.EventType do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "event_types" do
-    field :color, :string
-    field :description, :string
     field :name, :string
+    field :description, :string
+    field :location, :string
     field :url, :string
+    field :color, :string
 
     timestamps()
   end
@@ -16,7 +17,7 @@ defmodule ChatApi.EventTypes.EventType do
   @doc false
   def changeset(event_type, attrs) do
     event_type
-    |> cast(attrs, [:name, :description, :url, :color])
-    |> validate_required([:name, :description, :url, :color])
+    |> cast(attrs, [:name, :location, :description, :url, :color])
+    |> validate_required([:name, :location, :url, :color])
   end
 end
