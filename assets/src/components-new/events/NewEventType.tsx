@@ -12,6 +12,7 @@ import {
 } from '../constants';
 import {useEvents} from '../EventsProvider';
 import AvailabilitySectionCollapsed from './sections/AvailabilitySectionCollapsed';
+import GeneralSectionCollapsed from './sections/GeneralSectionCollapsed';
 
 function Header({eventType}: any) {
   return (
@@ -58,7 +59,7 @@ export default function NewEventType() {
         <GeneralSectionExpand
           eventType={{}}
           onClose={() => {
-            console.log('close');
+            setFocusStep(-1);
           }}
           onSave={(value: any) => {
             saveGeneralSection(value);
@@ -68,26 +69,12 @@ export default function NewEventType() {
       );
     } else {
       return (
-        <div
-          className={`mt-2 lg:border  hover:border-black border-gray-500 lg:rounded `}
-        >
-          <div
-            className="flex flex-row justify-between cursor-pointer"
-            onClick={() => {
-              setFocusStep(0);
-            }}
-          >
-            <div className="flex flex-row p-2 ">
-              <div className="px-3">
-                <i className="fas fa-circle text-red-500" />
-              </div>
-              <div>
-                <div className="text-lg">What event is this?</div>
-                <div className="text-gray-700">{'xx'}</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <GeneralSectionCollapsed
+          eventType={{}}
+          onOpen={() => {
+            setFocusStep(0);
+          }}
+        />
       );
     }
   };
@@ -96,38 +83,30 @@ export default function NewEventType() {
     if (created) {
       if (focusStep === 1) {
         return (
-          <div
-            className={`mt-2 lg:border  hover:border-black border-gray-500 lg:rounded `}
-          >
-            <AvailabilitySectionExpand
-              user={{
-                active_availability_rule: 1,
-                own_availability_rule: 1,
-              }}
-              eventType={{}}
-              onClose={() => {
-                console.log('close');
-              }}
-              onSave={(value: any) => {
-                console.log('On Save', value);
-              }}
-              saveButtonLabel="Next"
-            />
-          </div>
+          <AvailabilitySectionExpand
+            user={{
+              active_availability_rule: 1,
+              own_availability_rule: 1,
+            }}
+            eventType={{}}
+            onClose={() => {
+              setFocusStep(-1);
+            }}
+            onSave={(value: any) => {
+              console.log('On Save', value);
+            }}
+            saveButtonLabel="Next"
+          />
         );
       } else {
         return (
-          <div
-            className={`mt-2 border-b lg:border  hover:border-blue-500 border-black lg:rounded `}
-          >
-            <AvailabilitySectionCollapsed
-              eventType={{}}
-              editing={false}
-              setEditing={() => {
-                setFocusStep(1);
-              }}
-            />
-          </div>
+          <AvailabilitySectionCollapsed
+            eventType={{}}
+            editing={false}
+            setEditing={() => {
+              setFocusStep(1);
+            }}
+          />
         );
       }
     }
