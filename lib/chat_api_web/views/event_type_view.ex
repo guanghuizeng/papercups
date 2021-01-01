@@ -19,6 +19,12 @@ defmodule ChatApiWeb.EventTypeView do
       description: event_type.description,
       url: event_type.url,
       color: event_type.color,
+      period_type: event_type.period_type,
+      min_booking_time: event_type.min_booking_time,
+      max_booking_time: event_type.max_booking_time,
+      start_date: event_type.start_date,
+      end_date: event_type.end_date,
+      duration: event_type.duration,
     }
   end
 end

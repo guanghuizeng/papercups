@@ -16,6 +16,14 @@ const EventType = () => {
   const eventType = eventTypesById[id];
   const [focusStep, setFocusStep] = useState(-1);
 
+  const onSave = (value: any) => {
+    onUpdateEventType(value.id, value).then((r) => {
+      if (r) {
+        console.log('On update event type', r);
+      }
+    });
+  };
+
   const generalSection = () => {
     if (focusStep === 0) {
       return (
@@ -24,13 +32,7 @@ const EventType = () => {
           onClose={() => {
             setFocusStep(-1);
           }}
-          onSave={(value: any) => {
-            onUpdateEventType(value.id, value).then((r) => {
-              if (r) {
-                console.log('On update event type', r);
-              }
-            });
-          }}
+          onSave={onSave}
           saveButtonLabel="Save & Close"
         />
       );
@@ -58,9 +60,7 @@ const EventType = () => {
           onClose={() => {
             setFocusStep(-1);
           }}
-          onSave={() => {
-            console.log('On save AvailabilitySectionExpand');
-          }}
+          onSave={onSave}
           saveButtonLabel="Save & Close"
         />
       );

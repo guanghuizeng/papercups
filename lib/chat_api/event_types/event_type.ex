@@ -11,6 +11,13 @@ defmodule ChatApi.EventTypes.EventType do
     field :url, :string
     field :color, :string
 
+    field :period_type, :string
+    field :min_booking_time, :integer
+    field :max_booking_time, :integer
+    field :start_date, :string
+    field :end_date, :string
+    field :duration, :integer
+
     timestamps()
   end
 

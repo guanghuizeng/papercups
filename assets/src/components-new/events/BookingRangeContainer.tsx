@@ -9,20 +9,15 @@ import {
 import DatePicker from './DatePicker';
 import {EditingContext} from '../../hooks/EditingContext';
 
-export default function BookingRangeContainer({}: any) {
+export default function BookingRangeContainer(props: any) {
   const context = useContext(EditingContext);
   const {value, setPeriodType, setMaxBookingTime, setStartEndDate} = context;
-  const {
-    period_type: periodType,
-    max_booking_time: maxBookingTime,
-    start_date: startDate,
-    end_date: endDate,
-  } = value;
+  const {period_type, max_booking_time, start_date, end_date} = value;
 
   const setMoving = () => {
     if (
-      periodType !== PERIOD_TYPE_MOVING &&
-      periodType !== PERIOD_TYPE_AVAILABLE_MOVING
+      period_type !== PERIOD_TYPE_MOVING &&
+      period_type !== PERIOD_TYPE_AVAILABLE_MOVING
     ) {
       setPeriodType(PERIOD_TYPE_MOVING);
     }
@@ -36,14 +31,13 @@ export default function BookingRangeContainer({}: any) {
           <div className="text-light text-sm">Invitees can schedule...</div>
         </div>
         <div className="flex flex-col">
-          {/* moving*/}
           <div className="flex flex-row">
             <div
               className="gentle-flex pr-4 cursor-pointer"
               onClick={setMoving}
             >
-              {periodType === PERIOD_TYPE_MOVING ||
-              periodType === PERIOD_TYPE_AVAILABLE_MOVING ? (
+              {period_type === PERIOD_TYPE_MOVING ||
+              period_type === PERIOD_TYPE_AVAILABLE_MOVING ? (
                 <i className="far fa-check-square" />
               ) : (
                 <i className="far fa-square" />
@@ -58,7 +52,7 @@ export default function BookingRangeContainer({}: any) {
                   <input
                     type="number"
                     className="border border-gray-400 cursor-text h-full w-16 px-2 focus:outline-none focus:shadow-outline focus:border-blue-300"
-                    defaultValue={maxBookingTime / 24 / 60}
+                    defaultValue={max_booking_time / 24 / 60}
                     onChange={(e) => {
                       setMaxBookingTime(parseInt(e.target.value));
                     }}
@@ -92,7 +86,7 @@ export default function BookingRangeContainer({}: any) {
                         },
                       }}
                       defaultValue={
-                        periodType === PERIOD_TYPE_MOVING
+                        period_type === PERIOD_TYPE_MOVING
                           ? {
                               value: PERIOD_TYPE_MOVING,
                               label: 'Calendar days',
@@ -126,13 +120,12 @@ export default function BookingRangeContainer({}: any) {
               </div>
             </div>
           </div>
-          {/* fixed*/}
           <div className="mt-6 flex flex-row">
             <div
               className="gentle-flex pr-4 cursor-pointer"
               onClick={() => setPeriodType(PERIOD_TYPE_FIXED)}
             >
-              {periodType === PERIOD_TYPE_FIXED ? (
+              {period_type === PERIOD_TYPE_FIXED ? (
                 <i className="far fa-check-square" />
               ) : (
                 <i className="far fa-square" />
@@ -143,11 +136,11 @@ export default function BookingRangeContainer({}: any) {
               onClick={() => setPeriodType(PERIOD_TYPE_FIXED)}
             >
               <div className="gentle-flex pr-4">With a date range</div>
-              {periodType === PERIOD_TYPE_FIXED && (
+              {period_type === PERIOD_TYPE_FIXED && (
                 <DatePicker
                   setStartEndDate={setStartEndDate}
-                  defaultStartDate={startDate}
-                  defaultEndDate={endDate}
+                  defaultStartDate={start_date}
+                  defaultEndDate={end_date}
                 />
               )}
             </div>
@@ -158,7 +151,7 @@ export default function BookingRangeContainer({}: any) {
               className="gentle-flex pr-4 cursor-pointer"
               onClick={() => setPeriodType(PERIOD_TYPE_UNLIMITED)}
             >
-              {periodType === PERIOD_TYPE_UNLIMITED ? (
+              {period_type === PERIOD_TYPE_UNLIMITED ? (
                 <i className="far fa-check-square" />
               ) : (
                 <i className="far fa-square" />

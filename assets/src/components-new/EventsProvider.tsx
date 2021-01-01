@@ -65,7 +65,6 @@ export class EventsProvider extends React.Component<Props, State> {
     ]);
 
     const eventTypesById = _.keyBy(eventTypes, 'id');
-    console.log('mopunt', eventTypes, eventTypesById);
 
     this.setState({
       currentUser,

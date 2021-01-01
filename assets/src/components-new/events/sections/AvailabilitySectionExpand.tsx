@@ -109,22 +109,23 @@ export default function AvailabilitySectionExpand({
 
   const save = (eventTypeValue: any) => {
     if (changed) {
-      const txs = [];
-
-      const tx: any = {};
-      Object.keys(eventTypeValue).forEach((key) => {
-        tx[`:eventType/${key}`] = eventTypeValue[key];
-      });
-      txs.push(tx);
-
-      txs.push({
-        // @ts-ignore
-        ':schedule/uid': currentSchedule.id,
-        // @ts-ignore
-        ':schedule/rules': currentSchedule.rules,
-      });
-
-      transact(txs);
+      onSave(eventTypeValue);
+      // const txs = [];
+      //
+      // const tx: any = {};
+      // Object.keys(eventTypeValue).forEach((key) => {
+      //   tx[`:eventType/${key}`] = eventTypeValue[key];
+      // });
+      // txs.push(tx);
+      //
+      // txs.push({
+      //   // @ts-ignore
+      //   ':schedule/uid': currentSchedule.id,
+      //   // @ts-ignore
+      //   ':schedule/rules': currentSchedule.rules,
+      // });
+      //
+      // transact(txs);
     }
   };
 
