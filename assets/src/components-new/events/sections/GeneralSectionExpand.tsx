@@ -169,8 +169,21 @@ export function GeneralSectionExpand({
             </div>
           </div>
           <div className="flex flex-row justify-end border-t border-gray-300 py-4">
-            <div className="mx-2 cursor-pointer">Cancel</div>
-            <div className="mx-2 cursor-pointer"> {saveButtonLabel}</div>
+            <div className="gentle-flex mr-2">
+              <CancelButton changed={changed} close={onClose} />
+            </div>
+            <div className="gentle-flex mx-2 ">
+              <div
+                className="cursor-pointer border-gray-500 hover:border-black border px-2 bg-blue-400 text-white"
+                onClick={(e) => {
+                  save(eventTypeValue);
+                  onClose();
+                  e.stopPropagation();
+                }}
+              >
+                {saveButtonLabel}
+              </div>
+            </div>
           </div>
         </div>
       </div>
