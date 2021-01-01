@@ -17,13 +17,16 @@ defmodule ChatApiWeb.EventTypeController do
     %{"name" => name, "location" => location, "description" => description, "url" => url, "color" => color} = event_type_params
 
     with %{account_id: account_id, id: author_id} <- conn.assigns.current_user,
+#         {:ok, %Schedule{} = schedule} <-
+#           Schedules.create_default_schedule(),
          {:ok, %EventType{} = event_type} <-
            EventTypes.create_event_type(%{
              name: name,
              location: location,
              description: description,
              url: url,
-             color: color
+             color: color,
+#             schedule: schedule,
            }) do
       conn
       |> put_status(:created)

@@ -3,6 +3,9 @@ defmodule ChatApiWeb.RegistrationController do
 
   require Logger
 
+  alias ChatApi.Users
+  alias ChatApi.Schedules
+  alias ChatApi.Schedules.Schedule
   alias Ecto.Changeset
   alias Plug.Conn
   alias ChatApiWeb.ErrorHelpers
@@ -97,6 +100,17 @@ defmodule ChatApiWeb.RegistrationController do
     end
   end
 
+  def create_default_user_setting(conn, user_id) do
+    with %{id: id} <- Users.get_user_settings(user_id),
+         {:ok, %Schedule{} = schedule} <- Schedules.create_schedule(%{
+           name: "sch1",
+           rules: "rules1",
+           timezone: "tz"
+         }) do
+      Users.update_user_settings(user_id, %{user_id: user_id, schedule_id: schedule.id})
+    end
+  end
+
   @spec user_with_account_transaction(Conn.t(), map()) :: Ecto.Multi.t()
   def user_with_account_transaction(conn, params) do
     Ecto.Multi.new()
@@ -108,7 +122,8 @@ defmodule ChatApiWeb.RegistrationController do
       user = Enum.into(params, %{"account_id" => account.id, "role" => "admin"})
 
       case Pow.Plug.create_user(conn, user) do
-        {:ok, _user, conn} ->
+        {:ok, new_user, conn} ->
+          create_default_user_setting(conn, new_user.id)
           {:ok, conn}
 
         {:error, reason, _conn} ->
