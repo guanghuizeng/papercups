@@ -24,7 +24,10 @@ defmodule ChatApi.EventTypes.EventType do
   @doc false
   def changeset(event_type, attrs) do
     event_type
-    |> cast(attrs, [:name, :location, :description, :url, :color])
+    |> cast(attrs,
+         [:name, :location, :description, :url, :color, :period_type, :min_booking_time, :max_booking_time,
+           :start_date, :end_date, :duration]
+       )
     |> validate_required([:name, :location, :url, :color])
   end
 end

@@ -109,6 +109,7 @@ export default function AvailabilitySectionExpand({
 
   const save = (eventTypeValue: any) => {
     if (changed) {
+      console.log('Save time', eventTypeValue);
       onSave(eventTypeValue);
       // const txs = [];
       //
