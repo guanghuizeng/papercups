@@ -1,13 +1,26 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import DotCheckStateless from './CircleCheckboxStateless';
 import Select from 'react-select';
+import {EditingContext} from '../../hooks/EditingContext';
 
-const keys = ['15', '30', '45', '60'];
+const keys = [15, 30, 45, 60];
 
 const customKey = 'custom';
 
 export default function DurationSelector() {
-  const [value, setValue] = useState('15');
+  const {
+    value,
+    setPeriodType,
+    setMaxBookingTime,
+    setStartEndDate,
+    setDuration,
+  } = useContext(EditingContext);
+  const {duration} = value;
+
+  const [durationValue, setDurationValue] = useState(duration);
+  const [custom, setCustom] = useState(
+    keys.findIndex((k) => k === durationValue) < 0
+  );
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -25,11 +38,15 @@ export default function DurationSelector() {
                   key={key}
                   className="flex flex-row mr-3 cursor-pointer"
                   onClick={() => {
-                    setValue(key);
+                    setCustom(false);
+                    setDurationValue(key);
+                    setDuration(key);
                   }}
                 >
                   <div className="center-v mr-1">
-                    <DotCheckStateless value={value === key} />
+                    <DotCheckStateless
+                      value={!custom && durationValue === key}
+                    />
                   </div>
                   <div>{key} min</div>
                 </div>
@@ -44,17 +61,27 @@ export default function DurationSelector() {
               <div
                 className="flex flex-row mr-3 cursor-pointer"
                 onClick={() => {
-                  setValue(customKey);
+                  setCustom(true);
                 }}
               >
                 <div className="center-v mr-2">
-                  <DotCheckStateless value={value === customKey} />
+                  <DotCheckStateless value={custom} />
                 </div>
                 <div className="center-v mr-2">
                   <input
-                    type="text"
+                    type="number"
                     className="border border-gray-400 cursor-text p-3  w-16 focus:outline-none focus:shadow-outline focus:border-blue-300"
-                    value=""
+                    defaultValue={custom ? durationValue : undefined}
+                    onChange={(e) => {
+                      console.log('on change', e.target.value);
+                      if (e.target.value) {
+                        setDurationValue(parseInt(e.target.value));
+                        setDuration(parseInt(e.target.value));
+                      } else {
+                        setDuration(null);
+                        setDurationValue(null);
+                      }
+                    }}
                   />
                 </div>
                 <div className="center-v">

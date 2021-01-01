@@ -155,6 +155,14 @@ export default function AvailabilitySectionExpand({
     });
   };
 
+  const setDuration = (duration: number) => {
+    markChanged();
+    setEventTypeValue({
+      ...eventTypeValue,
+      duration,
+    });
+  };
+
   const setActiveAvailabilityRule = () => {};
   const setScheduleRuleEnabled = (
     type: string,
@@ -270,6 +278,7 @@ export default function AvailabilitySectionExpand({
         setPeriodType,
         setMaxBookingTime,
         setStartEndDate,
+        setDuration,
         markChanged,
       }}
     >
