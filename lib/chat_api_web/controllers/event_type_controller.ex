@@ -31,5 +31,13 @@ defmodule ChatApiWeb.EventTypeController do
     end
   end
 
+  @spec update(Plug.Conn.t(), map()) :: Plug.Conn.t()
+  def update(conn, %{"id" => id, "event_type" => event_type_params}) do
+    event_type = EventTypes.get_event_type!(id)
+
+    with {:ok, %EventType{} = event_type} <- EventTypes.update_event_type(event_type, event_type_params) do
+      render(conn, "show.json", event_type: event_type)
+    end
+  end
 
 end

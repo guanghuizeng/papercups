@@ -20,7 +20,6 @@ export function GeneralSectionExpand({
   };
 
   const save = (eventTypeValue: any) => {
-    console.log('Save', eventTypeValue);
     if (changed) {
       onSave(eventTypeValue);
     }
@@ -59,7 +58,6 @@ export function GeneralSectionExpand({
               <div
                 className="cursor-pointer border-gray-500 hover:border-black border px-2 bg-blue-400 text-white"
                 onClick={(e) => {
-                  console.log('Value', eventTypeValue, changed);
                   save(eventTypeValue);
                   onClose();
                   e.stopPropagation();

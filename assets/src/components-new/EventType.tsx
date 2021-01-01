@@ -11,15 +11,10 @@ import AvailabilitySectionExpand from './events/sections/AvailabilitySectionExpa
 import AvailabilitySectionCollapsed from './events/sections/AvailabilitySectionCollapsed';
 
 const EventType = () => {
-  // const {pathname} = useRouter()
   let {id} = useParams();
-
-  const {eventTypes} = useEvents();
-  const eventType = eventTypes.find((t) => t.id === id);
-
+  const {eventTypesById, onUpdateEventType} = useEvents();
+  const eventType = eventTypesById[id];
   const [focusStep, setFocusStep] = useState(-1);
-  console.log('type', id, eventTypes, eventType);
-  // return <EventTypeEdit eventTypeId={id} />;
 
   const generalSection = () => {
     if (focusStep === 0) {
@@ -29,8 +24,12 @@ const EventType = () => {
           onClose={() => {
             setFocusStep(-1);
           }}
-          onSave={() => {
-            console.log('On save GeneralSectionExpand');
+          onSave={(value: any) => {
+            onUpdateEventType(value.id, value).then((r) => {
+              if (r) {
+                console.log('On update event type', r);
+              }
+            });
           }}
           saveButtonLabel="Save & Close"
         />
@@ -85,11 +84,9 @@ const EventType = () => {
             <div className="text-sm">
               Last edited {dayjs(eventType.editAt).toString()}.
             </div>
-            <Link to="/live">
-              <a className="text-green-600">
-                <i className="fas fa-external-link-alt mr-2" />
-                view live page
-              </a>
+            <Link to="/live" className="text-green-600">
+              <i className="fas fa-external-link-alt mr-2" />
+              view live page
             </Link>
           </div>
         </section>

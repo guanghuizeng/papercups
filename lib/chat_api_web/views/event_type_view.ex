@@ -15,6 +15,7 @@ defmodule ChatApiWeb.EventTypeView do
       id: event_type.id,
       object: "event_type",
       name: event_type.name,
+      location: event_type.location,
       description: event_type.description,
       url: event_type.url,
       color: event_type.color,

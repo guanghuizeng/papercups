@@ -1,12 +1,13 @@
+import React, {useEffect} from 'react';
 import {useQuery, useQueryOne, useStore} from '../store';
 import {Link} from 'react-router-dom';
-import React, {useEffect} from 'react';
-import {conn, db} from '../store/init';
 import {useEvents} from './EventsProvider';
 import {fetchUserProfile} from '../api';
 import CreateEventTypeDialog from './events/CreateEventTypeModal';
 
-function EventTypeCard({eventType}: any) {
+function EventTypeCard({eventTypeId}: any) {
+  const {eventTypesById} = useEvents();
+  const eventType = eventTypesById[eventTypeId];
   const {id, name, description, url, enabled} = eventType;
 
   return (
@@ -137,10 +138,10 @@ export function Home() {
             </div>
           </div>
           <div className="grid lg:grid-cols-3 grid-cols-1">
-            {eventTypes.map((eventType: any) => {
+            {eventTypes.map((eventTypeId: any) => {
               return (
-                <div key={eventType.id}>
-                  <EventTypeCard eventType={eventType} />
+                <div key={eventTypeId}>
+                  <EventTypeCard eventTypeId={eventTypeId} />
                 </div>
               );
             })}

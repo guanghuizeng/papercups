@@ -9,6 +9,7 @@ export default function EditorCore({defaultValue, onChange}: any) {
       onChange={(value) => {
         onChange(value);
       }}
+      defaultValue={defaultValue}
     />
   );
 }
