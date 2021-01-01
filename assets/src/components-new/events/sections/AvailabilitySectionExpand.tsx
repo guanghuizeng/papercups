@@ -259,7 +259,21 @@ export default function AvailabilitySectionExpand({
   };
   const duplicateRule = () => {};
 
-  console.log('sec', currentSchedule);
+  const setBeforeBufferTime = (before_buffer_time: number) => {
+    markChanged();
+    setEventTypeValue({
+      ...eventTypeValue,
+      before_buffer_time,
+    });
+  };
+
+  const setAfterBufferTime = (after_buffer_time: number) => {
+    markChanged();
+    setEventTypeValue({
+      ...eventTypeValue,
+      after_buffer_time,
+    });
+  };
 
   return (
     <EditingContext.Provider
@@ -279,6 +293,8 @@ export default function AvailabilitySectionExpand({
         setMaxBookingTime,
         setStartEndDate,
         setDuration,
+        setBeforeBufferTime,
+        setAfterBufferTime,
         markChanged,
       }}
     >

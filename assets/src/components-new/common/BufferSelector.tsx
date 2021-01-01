@@ -1,15 +1,29 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Select from 'react-select';
+import {EditingContext} from '../../hooks/EditingContext';
 
-const keys = ['15', '30', '45', '60'];
+const keys = [15, 30, 45, 60];
 
-const DurationOptions = keys.map((key: string) => ({
+const DurationOptions = keys.map((key: number) => ({
   value: key,
   label: key + ' min',
   color: '#00B8D9',
 }));
 
 export default function BufferSelector() {
+  const {
+    value,
+    setPeriodType,
+    setMaxBookingTime,
+    setStartEndDate,
+    setDuration,
+    setBeforeBufferTime,
+    setAfterBufferTime,
+  } = useContext(EditingContext);
+  const {before_buffer_time, after_buffer_time} = value;
+
+  console.log('Buffer', before_buffer_time, after_buffer_time);
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div className="text-lg font-bold">Buffers</div>
@@ -31,10 +45,23 @@ export default function BufferSelector() {
                 return null;
               },
             }}
-            defaultValue={null}
+            defaultValue={
+              before_buffer_time
+                ? DurationOptions.find(
+                    ({value}) => value === before_buffer_time
+                  )
+                : null
+            }
             placeholder={null}
             name="color"
             options={DurationOptions}
+            onChange={(option) => {
+              if (option) {
+                const {value} = option;
+                setBeforeBufferTime(value);
+                console.log('Before', value);
+              }
+            }}
           />
         </div>
         <div>
@@ -50,10 +77,21 @@ export default function BufferSelector() {
                 return null;
               },
             }}
-            defaultValue={null}
+            defaultValue={
+              after_buffer_time
+                ? DurationOptions.find(({value}) => value === after_buffer_time)
+                : null
+            }
             placeholder={null}
             name="color"
             options={DurationOptions}
+            onChange={(option) => {
+              if (option) {
+                const {value} = option;
+                setAfterBufferTime(value);
+                console.log('After', value);
+              }
+            }}
           />
         </div>
       </div>
