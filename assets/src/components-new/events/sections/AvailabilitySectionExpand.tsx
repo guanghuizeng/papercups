@@ -343,11 +343,19 @@ export default function AvailabilitySectionExpand({
             </div>
           </div>
           <div className="flex flex-row justify-end  border-t border-gray-400 py-4">
-            <div className="mx-2 cursor-pointer" onClick={onClose}>
-              Cancel
+            <div className="gentle-flex mr-2">
+              <CancelButton changed={changed} close={onClose} />
             </div>
-            <div className="mx-2 cursor-pointer" onClick={onSave}>
-              {saveButtonLabel}
+            <div className="gentle-flex mx-2 ">
+              <div
+                className="cursor-pointer border-gray-500 hover:border-black border px-2 bg-blue-400 text-white"
+                onClick={() => {
+                  save(eventTypeValue);
+                  onClose();
+                }}
+              >
+                {saveButtonLabel}
+              </div>
             </div>
           </div>
         </div>
