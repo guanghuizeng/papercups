@@ -9,9 +9,14 @@ import {useEffect, useState} from 'react';
 import GeneralSectionCollapsed from './events/sections/GeneralSectionCollapsed';
 import AvailabilitySectionExpand from './events/sections/AvailabilitySectionExpand';
 import AvailabilitySectionCollapsed from './events/sections/AvailabilitySectionCollapsed';
+import {useAuth} from '../components/auth/AuthProvider';
 
 const EventType = () => {
   let {id} = useParams();
+  const {currentUser, profile, settings} = useEvents();
+
+  console.log('Event type', currentUser, profile, settings);
+
   const {eventTypesById, onUpdateEventType, fetchAllSchedules} = useEvents();
   const eventType = eventTypesById[id];
   const [focusStep, setFocusStep] = useState(-1);

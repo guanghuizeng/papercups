@@ -8,6 +8,7 @@ export const EventsContext = React.createContext<{
   account: any;
   currentUser: any;
   profile: any;
+  settings: any;
   isNewUser: boolean;
 
   eventTypesById: {[key: string]: any};
@@ -24,6 +25,7 @@ export const EventsContext = React.createContext<{
   account: null,
   currentUser: null,
   profile: null,
+  settings: null,
   isNewUser: false,
 
   eventTypesById: {},
@@ -45,6 +47,7 @@ type State = {
   account: any | null;
   currentUser: any | null;
   profile: any | null;
+  settings: any | null;
   isNewUser: boolean;
 
   eventTypesById: {[key: string]: any};
@@ -58,6 +61,7 @@ export class EventsProvider extends React.Component<Props, State> {
     account: null,
     currentUser: null,
     profile: null,
+    settings: null,
     isNewUser: false,
 
     eventTypesById: {},
@@ -67,10 +71,17 @@ export class EventsProvider extends React.Component<Props, State> {
   };
 
   async componentDidMount() {
-    const [currentUser, account, profile, eventTypes] = await Promise.all([
+    const [
+      currentUser,
+      account,
+      profile,
+      settings,
+      eventTypes,
+    ] = await Promise.all([
       API.me(),
       API.fetchAccountInfo(),
       API.fetchUserProfile(),
+      API.fetchUserSettings(),
       API.fetchEventTypes(),
     ]);
 
@@ -79,6 +90,7 @@ export class EventsProvider extends React.Component<Props, State> {
     this.setState({
       currentUser,
       profile,
+      settings,
       account,
       eventTypes: eventTypes.map((t: any) => t.id),
       eventTypesById,
@@ -144,7 +156,9 @@ export class EventsProvider extends React.Component<Props, State> {
       account,
       currentUser,
       profile,
+      settings,
       isNewUser,
+
       eventTypesById,
       eventTypes,
       schedules,
@@ -157,6 +171,7 @@ export class EventsProvider extends React.Component<Props, State> {
           account,
           currentUser,
           profile,
+          settings,
           isNewUser,
 
           eventTypesById,

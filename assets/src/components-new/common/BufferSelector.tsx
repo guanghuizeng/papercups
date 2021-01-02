@@ -11,18 +11,10 @@ const DurationOptions = keys.map((key: number) => ({
 }));
 
 export default function BufferSelector() {
-  const {
-    value,
-    setPeriodType,
-    setMaxBookingTime,
-    setStartEndDate,
-    setDuration,
-    setBeforeBufferTime,
-    setAfterBufferTime,
-  } = useContext(EditingContext);
+  const {value, setBeforeBufferTime, setAfterBufferTime} = useContext(
+    EditingContext
+  );
   const {before_buffer_time, after_buffer_time} = value;
-
-  console.log('Buffer', before_buffer_time, after_buffer_time);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

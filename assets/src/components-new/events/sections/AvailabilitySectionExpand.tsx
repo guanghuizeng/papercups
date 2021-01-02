@@ -76,27 +76,10 @@ export default function AvailabilitySectionExpand({
 
   const schedules = sch2.map((id: string) => schedulesById[id]);
 
-  console.log(
-    'expand',
-    sch2,
-    schedules,
-    activeAvailabilityRule,
-    ownAvailabilityRule
-  );
-
   const [currentSchedule, setCurrentSchedule] = useState({
     ...schedules[0],
     rules: JSON.parse(schedules[0].rules),
   });
-
-  // useEffect(() => {
-  // setCurrentSchedule({
-  //     ...schedules[0],
-  //   rules: JSON.parse(schedules[0].rules)
-  // }
-  // schedules.find((sch: any) => sch.id === activeAvailabilityRule)
-  // );
-  // }, [schedules]);
 
   const rules = currentSchedule
     ? WEEKDAYS.map((day) => {
