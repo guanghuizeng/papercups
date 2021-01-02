@@ -16,12 +16,13 @@ defmodule ChatApiWeb.ScheduleController do
   def create(conn, %{"schedule" => schedule_params}) do
     %{"name" => name, "rules" => rules, "timezone" => timezone} = schedule_params
 
-    with %{account_id: account_id, id: author_id} <- conn.assigns.current_user,
+    with %{account_id: account_id, id: user_id} <- conn.assigns.current_user,
          {:ok, %Schedule{} = schedule} <-
            Schedules.create_schedule(%{
              name: name,
              rules: rules,
-             timezone: timezone
+             timezone: timezone,
+             user_id: user_id
            }) do
       conn
       |> put_status(:created)

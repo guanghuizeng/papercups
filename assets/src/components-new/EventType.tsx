@@ -5,16 +5,22 @@ import {useEvents} from './EventsProvider';
 import Header from './events/Header';
 import {GeneralSectionExpand} from './events/sections/GeneralSectionExpand';
 import dayjs from 'dayjs';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import GeneralSectionCollapsed from './events/sections/GeneralSectionCollapsed';
 import AvailabilitySectionExpand from './events/sections/AvailabilitySectionExpand';
 import AvailabilitySectionCollapsed from './events/sections/AvailabilitySectionCollapsed';
 
 const EventType = () => {
   let {id} = useParams();
-  const {eventTypesById, onUpdateEventType} = useEvents();
+  const {eventTypesById, onUpdateEventType, fetchAllSchedules} = useEvents();
   const eventType = eventTypesById[id];
   const [focusStep, setFocusStep] = useState(-1);
+
+  useEffect(() => {
+    fetchAllSchedules().then((r) => {
+      console.log('fetch schedules done', r);
+    });
+  }, []);
 
   const onSave = (value: any) => {
     onUpdateEventType(value.id, value).then((r) => {

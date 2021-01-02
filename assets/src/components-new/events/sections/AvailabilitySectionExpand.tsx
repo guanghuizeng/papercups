@@ -14,6 +14,7 @@ import BookingRangeContainer from '../BookingRangeContainer';
 import ScheduleContainer from '../ScheduleContainer';
 import DurationSelector from '../../common/DurationSelector';
 import BufferSelector from '../../common/BufferSelector';
+import {useEvents} from '../../EventsProvider';
 
 function DurationContainer() {
   return (
@@ -71,19 +72,31 @@ export default function AvailabilitySectionExpand({
     own_availability_rule: ownAvailabilityRule,
   } = userInfo;
 
-  const schedules = useQuery(
-    '[:find ?s ?n ?r :in $ ?u :where [?e ":user/uid" ?u] [?e ":user/schedules" ?s] [?se ":schedule/uid" ?s] [(get-else $ ?se ":schedule/name" "") ?n] [?se ":schedule/rules" ?r]]',
-    'u1',
-    ([id, name, rules]: any) => ({id, name, rules})
+  const {schedules: sch2, schedulesById} = useEvents();
+
+  const schedules = sch2.map((id: string) => schedulesById[id]);
+
+  console.log(
+    'expand',
+    sch2,
+    schedules,
+    activeAvailabilityRule,
+    ownAvailabilityRule
   );
 
-  const [currentSchedule, setCurrentSchedule] = useState();
+  const [currentSchedule, setCurrentSchedule] = useState({
+    ...schedules[0],
+    rules: JSON.parse(schedules[0].rules),
+  });
 
-  useEffect(() => {
-    setCurrentSchedule(
-      schedules.find((sch: any) => sch.id === activeAvailabilityRule)
-    );
-  }, [schedules]);
+  // useEffect(() => {
+  // setCurrentSchedule({
+  //     ...schedules[0],
+  //   rules: JSON.parse(schedules[0].rules)
+  // }
+  // schedules.find((sch: any) => sch.id === activeAvailabilityRule)
+  // );
+  // }, [schedules]);
 
   const rules = currentSchedule
     ? WEEKDAYS.map((day) => {

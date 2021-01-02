@@ -12,10 +12,13 @@ export const EventsContext = React.createContext<{
 
   eventTypesById: {[key: string]: any};
   eventTypes: Array<any>;
+  schedules: Array<any>;
+  schedulesById: {[key: string]: any};
 
   createEventType: (any: any) => Promise<any>;
   onUpdateEventType: (eventTypeId: string, any: any) => Promise<any>;
   fetchAllEventTypes: () => Promise<any>;
+  fetchAllSchedules: () => Promise<any>;
 }>({
   loading: true,
   account: null,
@@ -25,10 +28,13 @@ export const EventsContext = React.createContext<{
 
   eventTypesById: {},
   eventTypes: [],
+  schedules: [],
+  schedulesById: {},
 
   createEventType: (any: any) => Promise.resolve({}),
   onUpdateEventType: (eventTypeId: string, any: any) => Promise.resolve({}),
   fetchAllEventTypes: () => Promise.resolve([]),
+  fetchAllSchedules: () => Promise.resolve([]),
 });
 
 export const useEvents = () => useContext(EventsContext);
@@ -43,6 +49,8 @@ type State = {
 
   eventTypesById: {[key: string]: any};
   eventTypes: Array<any>;
+  schedules: Array<any>;
+  schedulesById: {[key: string]: any};
 };
 export class EventsProvider extends React.Component<Props, State> {
   state: State = {
@@ -54,6 +62,8 @@ export class EventsProvider extends React.Component<Props, State> {
 
     eventTypesById: {},
     eventTypes: [],
+    schedules: [],
+    schedulesById: {},
   };
 
   async componentDidMount() {
@@ -116,6 +126,18 @@ export class EventsProvider extends React.Component<Props, State> {
     return eventTypes;
   };
 
+  fetchAllSchedules = async (): Promise<Array<any>> => {
+    const schedules = await API.fetchSchedules();
+    const schedulesById = _.keyBy(schedules, 'id');
+
+    this.setState({
+      schedules: schedules.map((t: any) => t.id),
+      schedulesById,
+    });
+
+    return schedules;
+  };
+
   render() {
     const {
       loading,
@@ -125,6 +147,8 @@ export class EventsProvider extends React.Component<Props, State> {
       isNewUser,
       eventTypesById,
       eventTypes,
+      schedules,
+      schedulesById,
     } = this.state;
     return (
       <EventsContext.Provider
@@ -137,10 +161,13 @@ export class EventsProvider extends React.Component<Props, State> {
 
           eventTypesById,
           eventTypes,
+          schedules,
+          schedulesById,
 
           createEventType: this.createEventType,
           onUpdateEventType: this.handleUpdateEventType,
           fetchAllEventTypes: this.fetchAllEventTypes,
+          fetchAllSchedules: this.fetchAllSchedules,
         }}
       >
         {this.props.children}
