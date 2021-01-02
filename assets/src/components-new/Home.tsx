@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useQuery, useQueryOne, useStore} from '../store';
 import {Link} from 'react-router-dom';
 import {useEvents} from './EventsProvider';
-import {fetchUserProfile} from '../api';
+import {fetchSchedules, fetchUserProfile} from '../api';
 import CreateEventTypeDialog from './events/CreateEventTypeModal';
 
 function EventTypeCard({eventTypeId}: any) {
@@ -68,6 +68,16 @@ export function Home() {
 
   return (
     <div>
+      <div
+        onClick={() => {
+          fetchSchedules().then((r) => {
+            console.log('Schedules', r);
+          });
+        }}
+      >
+        Fetch schedules
+      </div>
+
       <section className="text-gray-700 body-font">
         <div className="shadow-lg">
           <div className="container mx-auto inner-container flex px-5 pt-4 flex-col ">

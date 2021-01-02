@@ -68,7 +68,7 @@ defmodule ChatApiWeb.Router do
 
     resources("/demos", DemoController, except: [:new, :edit])
     resources("/event_types", EventTypeController, except: [:new, :edit])
-#    resources("/schedules", EventTypeController, except: [:new, :edit])
+    resources("/schedules", ScheduleController, except: [:new, :edit])
 
   end
 

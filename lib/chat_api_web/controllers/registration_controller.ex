@@ -103,11 +103,21 @@ defmodule ChatApiWeb.RegistrationController do
   def create_default_user_setting(conn, user_id) do
     with %{id: id} <- Users.get_user_settings(user_id),
          {:ok, %Schedule{} = schedule} <- Schedules.create_schedule(%{
-           name: "sch1",
-           rules: "rules1",
-           timezone: "tz"
+           name: "custom",
+           rules: """
+             [{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"monday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"tuesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"wednesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"thursday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"friday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"saturday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"sunday"}]
+           """,
+           timezone: "Asia / Shanghai"
+         }),
+         {:ok, %Schedule{} = schedule2} <- Schedules.create_schedule(%{
+           name: "Default Hours",
+           rules: """
+             [{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"monday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"tuesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"wednesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"thursday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"friday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"saturday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"sunday"}]
+           """,
+           timezone: "Asia / Shanghai"
          }) do
       Users.update_user_settings(user_id, %{user_id: user_id, schedule_id: schedule.id})
+      Users.update_user_settings(user_id, %{user_id: user_id, default_schedule_id: schedule.id})
     end
   end
 

@@ -1019,3 +1019,14 @@ export const fetchEventTypes = async (token = getAccessToken()) => {
     .set('Authorization', token)
     .then((res) => res.body.data);
 };
+
+export const fetchSchedules = async (token = getAccessToken()) => {
+  if (!token) {
+    throw new Error('Invalid token!');
+  }
+
+  return request
+    .get(`/api/schedules/`)
+    .set('Authorization', token)
+    .then((res) => res.body.data);
+};
