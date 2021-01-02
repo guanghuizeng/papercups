@@ -68,35 +68,6 @@ export function Home() {
 
   return (
     <div>
-      <div
-        onClick={() => {
-          fetchSchedules().then((r) => {
-            console.log('Schedules', r);
-          });
-        }}
-      >
-        Fetch schedules
-      </div>
-
-      <section className="text-gray-700 body-font">
-        <div className="shadow-lg">
-          <div className="container mx-auto inner-container flex px-5 pt-4 flex-col ">
-            <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 ">
-              <h1 className="my-3 text-3xl font-bold leading-tight text-gray-900">
-                My time
-              </h1>
-              <div className="flex flex-row">
-                <div className="pt-2 pr-4 cursor-pointer">
-                  <div className="border-b-4 border-green-600">Event Types</div>
-                </div>
-                <div className="pt-2 pr-4 cursor-pointer">Scheduled Events</div>
-                <div className="pt-2 pr-4 cursor-pointer">Workflows</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="text-gray-700 body-font">
         <div className="container inner-container px-5 py-4 mx-auto flex flex-wrap flex-col">
           <div className="py-2 flex flex-row">

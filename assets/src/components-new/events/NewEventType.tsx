@@ -117,16 +117,6 @@ export default function NewEventType() {
     <div>
       <Header eventType={{}} />
 
-      <div
-        onClick={() => {
-          API.fetchEventTypes().then((r) => {
-            console.log('Fetch all', r);
-          });
-        }}
-      >
-        Fetch
-      </div>
-
       <section className="text-gray-700 body-font">
         <div className="container inner-container px-5 py-4 mx-auto flex flex-wrap flex-col">
           {generalSection()}
