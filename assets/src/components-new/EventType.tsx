@@ -103,8 +103,8 @@ const EventType = () => {
             </Link>
           </div>
         </section>
-        <div className="mb-5">{generalSection()}</div>
-        <div className="mb-5">{availabilitySection()}</div>
+        {generalSection()}
+        {availabilitySection()}
         <div className="mt-4">
           <div className="mb-2">
             <strong>Additional Options</strong>
