@@ -83,6 +83,12 @@ const EventType = () => {
     }
   };
 
+  const inviteeQuestionsSection = () => {
+    if (focusStep === 2) {
+    } else {
+    }
+  };
+
   if (!eventType) {
     return <div>Loading...</div>;
   }
