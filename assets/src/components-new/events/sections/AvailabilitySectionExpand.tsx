@@ -67,15 +67,12 @@ export default function AvailabilitySectionExpand({
     }
   };
 
-  const {
-    active_availability_rule: activeAvailabilityRule,
-    own_availability_rule: ownAvailabilityRule,
-  } = userInfo;
+  const {settings} = useEvents();
+  const {schedule_id, default_schedule_id} = settings;
+  console.log('sch', schedule_id, default_schedule_id);
 
   const {schedules: sch2, schedulesById} = useEvents();
-
   const schedules = sch2.map((id: string) => schedulesById[id]);
-
   const [currentSchedule, setCurrentSchedule] = useState({
     ...schedules[0],
     rules: JSON.parse(schedules[0].rules),
@@ -275,9 +272,9 @@ export default function AvailabilitySectionExpand({
     <EditingContext.Provider
       value={{
         value: eventTypeValue,
-        activeAvailabilityRule,
+        activeAvailabilityRule: schedule_id,
         setActiveAvailabilityRule,
-        ownAvailabilityRule,
+        ownAvailabilityRule: default_schedule_id,
         currentSchedule,
         rules,
         setScheduleRuleEnabled,

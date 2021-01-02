@@ -13,10 +13,6 @@ import {useAuth} from '../components/auth/AuthProvider';
 
 const EventType = () => {
   let {id} = useParams();
-  const {currentUser, profile, settings} = useEvents();
-
-  console.log('Event type', currentUser, profile, settings);
-
   const {eventTypesById, onUpdateEventType, fetchAllSchedules} = useEvents();
   const eventType = eventTypesById[id];
   const [focusStep, setFocusStep] = useState(-1);
@@ -84,6 +80,10 @@ const EventType = () => {
       );
     }
   };
+
+  if (!eventType) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
