@@ -61,12 +61,6 @@ export default function AvailabilitySectionExpand({
   const [changed, setChanged] = useState(false);
   const [forceCancel, setForceCancel] = useState(false);
 
-  const markChanged = () => {
-    if (!changed) {
-      setChanged(true);
-    }
-  };
-
   const {settings} = useEvents();
   const {schedule_id, default_schedule_id} = settings;
   console.log('sch', schedule_id, default_schedule_id);
@@ -266,6 +260,12 @@ export default function AvailabilitySectionExpand({
       ...eventTypeValue,
       after_buffer_time,
     });
+  };
+
+  const markChanged = () => {
+    if (!changed) {
+      setChanged(true);
+    }
   };
 
   return (

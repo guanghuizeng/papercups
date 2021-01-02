@@ -10,6 +10,8 @@ import GeneralSectionCollapsed from './events/sections/GeneralSectionCollapsed';
 import AvailabilitySectionExpand from './events/sections/AvailabilitySectionExpand';
 import AvailabilitySectionCollapsed from './events/sections/AvailabilitySectionCollapsed';
 import {useAuth} from '../components/auth/AuthProvider';
+import InviteeQuestionsSection from './events/sections/InviteeQuestionsSection';
+import NotifyPolicySection from './events/sections/NotifyPolicySection';
 
 const EventType = () => {
   let {id} = useParams();
@@ -103,6 +105,13 @@ const EventType = () => {
         </section>
         <div className="mb-5">{generalSection()}</div>
         <div className="mb-5">{availabilitySection()}</div>
+        <div className="mt-4">
+          <div className="mb-2">
+            <strong>Additional Options</strong>
+          </div>
+          <InviteeQuestionsSection />
+          <NotifyPolicySection />
+        </div>
       </div>
     </div>
   );
