@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 import EventType from './EventType';
 import {useAuth} from '../components/auth/AuthProvider';
-import {Home} from './Home';
+import {EventTypes} from './EventTypes';
 import {ConversationsProvider} from '../components/conversations/ConversationsProvider';
 import {EventsProvider, useEvents} from './EventsProvider';
 import NewEventType from './events/NewEventType';
@@ -37,8 +37,12 @@ function Dashboard(props: RouteComponentProps) {
             <div className="text-sm text-blue-500">calendly.com/ycy</div>
           </div>
           <div className="pl-4">
-            <div>Events</div>
-            <div>Event Types</div>
+            <div>
+              <Link to="/events">Events</Link>
+            </div>
+            <div>
+              <Link to="/event_types">Event Types</Link>
+            </div>
             <div>Availability</div>
             <div>Workflows</div>
           </div>
@@ -47,10 +51,10 @@ function Dashboard(props: RouteComponentProps) {
 
       <div className="pt-5" style={{width: 'calc(100% - 200px)'}}>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/event_type/add" component={NewEventType} />
-          <Route path="/event_type/:id" component={EventType} />
-          <Route path="/scheduled_events" component={ScheduledEvents} />
+          <Route exact path="/event_types" component={EventTypes} />
+          <Route exact path="/event_types/add" component={NewEventType} />
+          <Route path="/event_types/:id" component={EventType} />
+          <Route path="/events" component={ScheduledEvents} />
           <Route path="/workflows" component={() => <div>workflows</div>} />
         </Switch>
       </div>

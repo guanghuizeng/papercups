@@ -13,7 +13,7 @@ function EventTypeCard({eventTypeId}: any) {
   return (
     <div className="m-3 h-48 shadow-lg ">
       <div className="border-t-4 border-red-500 ">
-        <Link to={{pathname: `/event_type/${id}`}}>
+        <Link to={{pathname: `/event_types/${id}`}}>
           <div className="cursor-pointer">
             <div className="flex flex-row justify-between px-4 pt-4">
               <div className="border-2 border-gray-500 w-4 h-4"></div>
@@ -44,7 +44,7 @@ function EventTypeCard({eventTypeId}: any) {
   );
 }
 
-export function Home() {
+export function EventTypes() {
   const {profile, eventTypes, fetchAllEventTypes} = useEvents();
 
   // const user = useQueryOne(
@@ -68,7 +68,7 @@ export function Home() {
 
   return (
     <div className="container inner-container px-5 py-4 mx-auto flex flex-wrap flex-col">
-      <div className="py-4 text-3xl font-medium">Events</div>
+      <div className="py-4 text-3xl font-medium">Event Types</div>
       <section className="text-gray-700 body-font">
         <div className="py-2 flex flex-row">
           <div className="mr-2">
