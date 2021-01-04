@@ -69,53 +69,42 @@ export function EventTypes() {
   return (
     <div className="container inner-container px-5 py-4 mx-auto flex flex-wrap flex-col">
       <div className="py-4 text-3xl font-medium">Event Types</div>
+
       <section className="text-gray-700 body-font">
-        <div className="py-2 flex flex-row">
-          <div className="mr-2">
-            <svg
-              width="22"
-              height="24"
-              viewBox="0 0 22 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="14" cy="8" r="7.5" fill="white" stroke="#4D5055" />
-              <line
-                x1="9.37165"
-                y1="13.3345"
-                x2="0.371647"
-                y2="23.3345"
-                stroke="black"
-              />
-            </svg>
-          </div>
-          <div className="text-gray-500">Filter</div>
-        </div>
-        <div className="mt-4 pb-4 border-b border-gray-500 flex flex-row justify-between">
-          <div className="flex flex-row">
-            <div className="mr-4 border-gray-500 border rounded-full">
-              Avatar
-            </div>
-            <div>
-              <div>{profile && profile.display_name}</div>
-              <a
-                href="#"
-                className="block text-sm text-green-500"
-                role="menuitem"
+        <div className="mt-4 border-b border-gray-500 flex flex-row justify-between">
+          <div className="py-2 flex flex-row">
+            <div className="gentle-flex mr-1">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 22 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                {/*mytime.com/{user.login}*/}
-              </a>
+                <circle cx="14" cy="8" r="7.5" fill="white" stroke="#4D5055" />
+                <line
+                  x1="9.37165"
+                  y1="13.3345"
+                  x2="0.371647"
+                  y2="23.3345"
+                  stroke="black"
+                />
+              </svg>
             </div>
+            <div className="text-gray-500">Filter</div>
           </div>
           <div className="flex flex-row">
-            <div>
-              <Link to="/event_type/add">
-                <div className="text-green-500 border-2 border-green-500 rounded px-2 cursor-pointer">
-                  + New Event Type
-                </div>
-              </Link>
+            <Link to="/event_types/add">
+              <div className="text-green-500 border-2 border-green-500 rounded px-2 cursor-pointer mr-2">
+                Add Event Type
+              </div>
+            </Link>
+            <div className="text-green-500 border-2 border-green-500 rounded px-2 cursor-pointer mr-2">
+              Copy Link
             </div>
-            <div className="mx-2 px-2">Settings</div>
+            <div className="text-green-500 border-2 border-green-500 rounded px-2 cursor-pointer">
+              Add to Website
+            </div>
           </div>
         </div>
         <div className="grid lg:grid-cols-3 grid-cols-1">

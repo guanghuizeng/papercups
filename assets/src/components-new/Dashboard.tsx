@@ -65,7 +65,7 @@ function Dashboard(props: RouteComponentProps) {
         </div>
       </div>
 
-      <div className="pt-5" style={{width: 'calc(100% - 200px)'}}>
+      <div className="" style={{width: 'calc(100% - 200px)'}}>
         <Switch>
           <Route exact path="/event_types" component={EventTypes} />
           <Route exact path="/event_types/add" component={NewEventType} />
