@@ -40,8 +40,8 @@ export function EventTypes() {
   }, []);
 
   return (
-    <div className="container inner-container px-5 py-4 mx-auto flex flex-wrap flex-col">
-      <div className="py-4 text-3xl font-medium">日程类型</div>
+    <div className="container lg:px-10 inner-container mx-auto lg:px-8 py-4 flex flex-col">
+      <div className="mt-6 py-4 text-3xl font-medium">日程类型</div>
 
       <section className="pt-10 text-gray-700 body-font">
         <div className="border-b border-gray-500 flex flex-row justify-between">

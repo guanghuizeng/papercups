@@ -37,8 +37,8 @@ function Dashboard(props: RouteComponentProps) {
       {/*<NavSection />*/}
 
       <div
-        className="border-r-4 border-solid border-primary pt-5 bg-gray-200"
-        style={{width: '200px'}}
+        className="border-r-4 border-solid border-gray-100 pt-5"
+        style={{width: '200px', backgroundColor: '#f8fafa'}}
       >
         <div className="flex flex-col">
           <div className="pt-4 pb-4 pl-4">
@@ -56,7 +56,9 @@ function Dashboard(props: RouteComponentProps) {
                 <Link to={url}>
                   <div
                     className={`${
-                      pathname === url ? 'bg-white' : ''
+                      pathname === url || pathname.startsWith(url)
+                        ? 'bg-white'
+                        : ''
                     } pl-4 py-2`}
                   >
                     {name}
