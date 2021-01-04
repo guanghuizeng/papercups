@@ -8,6 +8,7 @@ import {
   Link,
   RouteComponentProps,
 } from 'react-router-dom';
+import _ from 'lodash';
 import EventType from './EventType';
 import {useAuth} from '../components/auth/AuthProvider';
 import {EventTypes} from './EventTypes';
@@ -22,13 +23,18 @@ function Dashboard(props: RouteComponentProps) {
   const {pathname} = useLocation();
 
   return (
-    <div className="flex flex-row h-screen w-screen" style={{}}>
+    <div
+      className="flex flex-row h-full w-screen"
+      style={{
+        minHeight: '100vh',
+      }}
+    >
       {/*<Header />*/}
 
       {/*<NavSection />*/}
 
       <div
-        className="border-r border-solid border-primary pt-5"
+        className="border-r-4 border-solid border-primary pt-5 bg-gray-200"
         style={{width: '200px'}}
       >
         <div className="flex flex-col">
@@ -36,15 +42,25 @@ function Dashboard(props: RouteComponentProps) {
             <div>Yuanyuan Zhang</div>
             <div className="text-sm text-blue-500">calendly.com/ycy</div>
           </div>
-          <div className="pl-4">
-            <div>
-              <Link to="/events">Events</Link>
-            </div>
-            <div>
-              <Link to="/event_types">Event Types</Link>
-            </div>
-            <div>Availability</div>
-            <div>Workflows</div>
+          <div>
+            {[
+              {url: '/events', name: 'Events'},
+              {url: '/event_types', name: 'Event Types'},
+              {url: '/availability', name: 'Availability'},
+              {url: '/workflows', name: 'Workflows'},
+            ].map(({url, name}) => {
+              return (
+                <Link to={url}>
+                  <div
+                    className={`${
+                      pathname === url ? 'bg-white' : ''
+                    } pl-4 py-2`}
+                  >
+                    {name}
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
