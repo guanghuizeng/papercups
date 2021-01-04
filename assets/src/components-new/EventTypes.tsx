@@ -4,113 +4,66 @@ import {Link} from 'react-router-dom';
 import {useEvents} from './EventsProvider';
 import {fetchSchedules, fetchUserProfile} from '../api';
 import CreateEventTypeDialog from './events/CreateEventTypeModal';
+import {
+  SearchBox,
+  ISearchBoxStyles,
+  DefaultButton,
+  PrimaryButton,
+} from '@fluentui/react';
+import EventTypeCard from './EventTypeCard';
 
-function EventTypeCard({eventTypeId}: any) {
-  const {eventTypesById} = useEvents();
-  const eventType = eventTypesById[eventTypeId];
-  const {id, name, description, url, enabled} = eventType;
+const searchBoxStyles: Partial<ISearchBoxStyles> = {root: {width: 200}};
 
-  return (
-    <div className="m-3 h-48 shadow-lg ">
-      <div className="border-t-4 border-red-500 ">
-        <Link to={{pathname: `/event_types/${id}`}}>
-          <div className="cursor-pointer">
-            <div className="flex flex-row justify-between px-4 pt-4">
-              <div className="border-2 border-gray-500 w-4 h-4"></div>
-              <div className="w-4 h-4">#</div>
-            </div>
-            <div className="px-4 py-4 border-b border-gray-300">
-              <div className="text-xl">{name}</div>
-              <div className="text-gray-500">{description}</div>
-            </div>
-          </div>
-        </Link>
-        <div className="py-4 px-4 flex flex-row justify-between">
-          <div>
-            <a
-              href="#"
-              className="block text-sm text-green-500 hover:underline"
-              role="menuitem"
-            >
-              /{url}
-            </a>
-          </div>
-          <div className="cursor-pointer hover:bg-green-200 text-green-500 border border-green-500 rounded-md px-1">
-            Copy link
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+export const SearchBoxSmallExample = () => (
+  <SearchBox
+    styles={searchBoxStyles}
+    placeholder="Search"
+    onEscape={(ev) => {
+      console.log('Custom onEscape Called');
+    }}
+    onClear={(ev) => {
+      console.log('Custom onClear Called');
+    }}
+    onChange={(_, newValue) =>
+      console.log('SearchBox onChange fired: ' + newValue)
+    }
+    onSearch={(newValue) =>
+      console.log('SearchBox onSearch fired: ' + newValue)
+    }
+  />
+);
 
 export function EventTypes() {
   const {profile, eventTypes, fetchAllEventTypes} = useEvents();
-
-  // const user = useQueryOne(
-  //   '[:find ?u ?l ?n ?em :in $ ?l :where [?e ":user/uid" ?u] [?e ":user/login" ?l]  [?e ":user/name" ?n]  [?e ":user/email" ?em]]',
-  //   'yyz',
-  //   ([id, login, name, email]: any) => ({id, login, name, email})
-  // );
-
-  // const eventTypes = useQuery(
-  //   '[:find ?evt :in $ ?l :where [?ue ":user/login" ?l] [?ue ":user/eventTypes" ?evt] [?ee ":eventType/uid" ?evt]]',
-  //   'yyz',
-  //   ([id]: any) => ({id})
-  // );
-  //
-  // console.log('user', user);
-  // console.log('event types', eventTypes);
-
   useEffect(() => {
     fetchAllEventTypes();
   }, []);
 
   return (
     <div className="container inner-container px-5 py-4 mx-auto flex flex-wrap flex-col">
-      <div className="py-4 text-3xl font-medium">Event Types</div>
+      <div className="py-4 text-3xl font-medium">日程类型</div>
 
-      <section className="text-gray-700 body-font">
-        <div className="mt-4 border-b border-gray-500 flex flex-row justify-between">
-          <div className="py-2 flex flex-row">
-            <div className="gentle-flex mr-1">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 22 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="14" cy="8" r="7.5" fill="white" stroke="#4D5055" />
-                <line
-                  x1="9.37165"
-                  y1="13.3345"
-                  x2="0.371647"
-                  y2="23.3345"
-                  stroke="black"
-                />
-              </svg>
-            </div>
-            <div className="text-gray-500">Filter</div>
+      <section className="pt-5 text-gray-700 body-font">
+        <div className="mt-5 border-b border-gray-500 flex flex-row justify-between">
+          <div className="gentle-flex mb-2">
+            <SearchBoxSmallExample />
           </div>
-          <div className="flex flex-row">
-            <Link to="/event_types/add">
-              <div className="text-green-500 border-2 border-green-500 rounded px-2 cursor-pointer mr-2">
-                Add Event Type
-              </div>
+          <div className="flex flex-row mb-2">
+            <Link to="/event_types/add" className="cursor-pointer mr-2 py-1 ">
+              <DefaultButton text="Add Event Type" />
             </Link>
-            <div className="text-green-500 border-2 border-green-500 rounded px-2 cursor-pointer mr-2">
-              Copy Link
+            <div className="cursor-pointer mr-2 py-1 ">
+              <DefaultButton text="Copy Link" />
             </div>
-            <div className="text-green-500 border-2 border-green-500 rounded px-2 cursor-pointer">
-              Add to Website
+            <div className="cursor-pointer  py-1 ">
+              <DefaultButton text="Add to Website" />
             </div>
           </div>
         </div>
         <div className="grid lg:grid-cols-3 grid-cols-1">
           {eventTypes.map((eventTypeId: any) => {
             return (
-              <div key={eventTypeId}>
+              <div key={eventTypeId} className="pt-4 pl-4">
                 <EventTypeCard eventTypeId={eventTypeId} />
               </div>
             );

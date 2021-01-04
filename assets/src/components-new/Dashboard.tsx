@@ -9,6 +9,7 @@ import {
   RouteComponentProps,
 } from 'react-router-dom';
 import _ from 'lodash';
+import {initializeIcons} from '@fluentui/react';
 import EventType from './EventType';
 import {useAuth} from '../components/auth/AuthProvider';
 import {EventTypes} from './EventTypes';
@@ -17,6 +18,8 @@ import {EventsProvider, useEvents} from './EventsProvider';
 import NewEventType from './events/NewEventType';
 import NavSection from './NavSection';
 import ScheduledEvents from './events/ScheduledEvents';
+
+initializeIcons();
 
 function Dashboard(props: RouteComponentProps) {
   const auth = useAuth();
@@ -39,15 +42,15 @@ function Dashboard(props: RouteComponentProps) {
       >
         <div className="flex flex-col">
           <div className="pt-4 pb-4 pl-4">
-            <div>Yuanyuan Zhang</div>
-            <div className="text-sm text-blue-500">calendly.com/ycy</div>
+            <div>张圆圆</div>
+            <div className="text-sm text-blue-500">letsmeet.com/ycy</div>
           </div>
           <div>
             {[
-              {url: '/events', name: 'Events'},
-              {url: '/event_types', name: 'Event Types'},
-              {url: '/availability', name: 'Availability'},
-              {url: '/workflows', name: 'Workflows'},
+              {url: '/events', name: '日程'},
+              {url: '/event_types', name: '日程类型'},
+              {url: '/availability', name: '时间管理'},
+              {url: '/workflows', name: '工作流'},
             ].map(({url, name}) => {
               return (
                 <Link to={url}>

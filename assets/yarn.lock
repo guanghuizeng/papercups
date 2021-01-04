@@ -1315,6 +1315,14 @@
     "@uifabric/set-version" "^7.0.23"
     tslib "^1.10.0"
 
+"@fluentui/date-time-utilities@^8.0.0-beta.1":
+  version "8.0.0-beta.1"
+  resolved "https://registry.npm.taobao.org/@fluentui/date-time-utilities/download/@fluentui/date-time-utilities-8.0.0-beta.1.tgz#ad6bba2d7862e4cfc8ea91f8cb653ac7513b9448"
+  integrity sha1-rWu6LXhi5M/I6pH4y2U6x1E7lEg=
+  dependencies:
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    tslib "^1.10.0"
+
 "@fluentui/dom-utilities@^1.1.1":
   version "1.1.1"
   resolved "https://registry.npm.taobao.org/@fluentui/dom-utilities/download/@fluentui/dom-utilities-1.1.1.tgz#b0bbab665fe726f245800bb9e7883b1ceb54248b"
@@ -1323,11 +1331,133 @@
     "@uifabric/set-version" "^7.0.23"
     tslib "^1.10.0"
 
+"@fluentui/dom-utilities@^2.0.0-beta.0":
+  version "2.0.0-beta.0"
+  resolved "https://registry.npm.taobao.org/@fluentui/dom-utilities/download/@fluentui/dom-utilities-2.0.0-beta.0.tgz#d019cb3bb2314cff386986a4dd4cbc7323272a5f"
+  integrity sha1-0BnLO7IxTP84aYak3Uy8cyMnKl8=
+  dependencies:
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    tslib "^1.10.0"
+
+"@fluentui/font-icons-mdl2@^8.0.0-beta.10":
+  version "8.0.0-beta.10"
+  resolved "https://registry.npm.taobao.org/@fluentui/font-icons-mdl2/download/@fluentui/font-icons-mdl2-8.0.0-beta.10.tgz#f1438b318975a804b0f238d6039cd93e6c3872c4"
+  integrity sha1-8UOLMYl1qASw8jjWA5zZPmw4csQ=
+  dependencies:
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/style-utilities" "^8.0.0-beta.10"
+    tslib "^1.10.0"
+
+"@fluentui/foundation-legacy@^8.0.0-beta.0":
+  version "8.0.0-beta.0"
+  resolved "https://registry.npm.taobao.org/@fluentui/foundation-legacy/download/@fluentui/foundation-legacy-8.0.0-beta.0.tgz#c333e01e982ff9c461ede1d0400ba829cf7dab5d"
+  integrity sha1-wzPgHpgv+cRh7eHQQAuoKc99q10=
+  dependencies:
+    "@fluentui/merge-styles" "^8.0.0-beta.0"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/style-utilities" "^8.0.0-beta.0"
+    "@fluentui/utilities" "^8.0.0-beta.0"
+    tslib "^1.10.0"
+
+"@fluentui/foundation-legacy@^8.0.0-beta.10":
+  version "8.0.0-beta.10"
+  resolved "https://registry.npm.taobao.org/@fluentui/foundation-legacy/download/@fluentui/foundation-legacy-8.0.0-beta.10.tgz#9db7a9e4711a05fad366fd6a1501f08cb0857537"
+  integrity sha1-nbep5HEaBfrTZv1qFQHwjLCFdTc=
+  dependencies:
+    "@fluentui/merge-styles" "^8.0.0-beta.3"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/style-utilities" "^8.0.0-beta.10"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    tslib "^1.10.0"
+
 "@fluentui/keyboard-key@^0.2.12":
   version "0.2.12"
   resolved "https://registry.npm.taobao.org/@fluentui/keyboard-key/download/@fluentui/keyboard-key-0.2.12.tgz#74eddf4657c164193b6c8855746e691af466441a"
   integrity sha1-dO3fRlfBZBk7bIhVdG5pGvRmRBo=
   dependencies:
+    tslib "^1.10.0"
+
+"@fluentui/merge-styles@^8.0.0-beta.0":
+  version "8.0.0-beta.0"
+  resolved "https://registry.npm.taobao.org/@fluentui/merge-styles/download/@fluentui/merge-styles-8.0.0-beta.0.tgz#510fc14ceacc66d7952ba0d2b57c59e6183986c8"
+  integrity sha1-UQ/BTOrMZteVK6DStXxZ5hg5hsg=
+  dependencies:
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    tslib "^1.10.0"
+
+"@fluentui/merge-styles@^8.0.0-beta.3":
+  version "8.0.0-beta.3"
+  resolved "https://registry.npm.taobao.org/@fluentui/merge-styles/download/@fluentui/merge-styles-8.0.0-beta.3.tgz#ae1bb633a6a62aeab22c2702120c459e53a4f80e"
+  integrity sha1-rhu2M6amKuqyLCcCEgxFnlOk+A4=
+  dependencies:
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    tslib "^1.10.0"
+
+"@fluentui/react-cards@^1.0.0-beta.0":
+  version "1.0.0-beta.0"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-cards/download/@fluentui/react-cards-1.0.0-beta.0.tgz#c636bba5067fb78b51703c45eefe7e05840cc0cf"
+  integrity sha1-xja7pQZ/t4tRcDxF7v5+BYQMwM8=
+  dependencies:
+    "@fluentui/foundation-legacy" "^8.0.0-beta.0"
+    "@fluentui/keyboard-key" "^0.2.12"
+    "@fluentui/react" "^8.0.0-beta.0"
+    "@fluentui/react-compose" "^0.19.7"
+    "@fluentui/react-hooks" "^8.0.0-beta.0"
+    "@fluentui/react-theme-provider" "^1.0.0-beta.0"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/theme" "^2.0.0-beta.0"
+    "@fluentui/utilities" "^8.0.0-beta.0"
+    "@microsoft/load-themed-styles" "^1.10.26"
+    tslib "^1.10.0"
+
+"@fluentui/react-checkbox@^1.0.0-beta.26":
+  version "1.0.0-beta.26"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-checkbox/download/@fluentui/react-checkbox-1.0.0-beta.26.tgz#7846eb9ffc29362e90bf665bbb46c6334a60d594"
+  integrity sha1-eEbrn/wpNi6Qv2Zbu0bGM0pg1ZQ=
+  dependencies:
+    "@fluentui/react-compose" "^1.0.0-beta.9"
+    "@fluentui/react-hooks" "^8.0.0-beta.8"
+    "@fluentui/react-icons-mdl2" "^1.0.0-beta.8"
+    "@fluentui/react-internal" "^8.0.0-beta.28"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/style-utilities" "^8.0.0-beta.10"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    tslib "^1.10.0"
+
+"@fluentui/react-compose@^0.19.7":
+  version "0.19.12"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-compose/download/@fluentui/react-compose-0.19.12.tgz#405dfc19b4ae2b5f1c86bf7091ac15a205978206"
+  integrity sha1-QF38GbSuK18chr9wkawVogWXggY=
+  dependencies:
+    "@types/classnames" "^2.2.9"
+    "@uifabric/set-version" "^7.0.23"
+    "@uifabric/utilities" "^7.33.2"
+    classnames "^2.2.6"
+    tslib "^1.10.0"
+
+"@fluentui/react-compose@^1.0.0-beta.9":
+  version "1.0.0-beta.9"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-compose/download/@fluentui/react-compose-1.0.0-beta.9.tgz#cc11232961138b05bc9bdb9e7a85622a600784a7"
+  integrity sha1-zBEjKWETiwW8m9ueeoViKmAHhKc=
+  dependencies:
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    "@types/classnames" "^2.2.9"
+    classnames "^2.2.6"
+    tslib "^1.10.0"
+
+"@fluentui/react-date-time@^8.0.0-beta.26":
+  version "8.0.0-beta.26"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-date-time/download/@fluentui/react-date-time-8.0.0-beta.26.tgz#28e1c38c109829dfaabe54b5a5e552a67bd36e20"
+  integrity sha1-KOHDjBCYKd+qvlS1peVSpnvTbiA=
+  dependencies:
+    "@fluentui/date-time-utilities" "^8.0.0-beta.1"
+    "@fluentui/react-hooks" "^8.0.0-beta.8"
+    "@fluentui/react-internal" "^8.0.0-beta.28"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/style-utilities" "^8.0.0-beta.10"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    "@microsoft/load-themed-styles" "^1.10.26"
     tslib "^1.10.0"
 
 "@fluentui/react-focus@^7.17.0":
@@ -1342,12 +1472,167 @@
     "@uifabric/utilities" "^7.33.2"
     tslib "^1.10.0"
 
+"@fluentui/react-focus@^8.0.0-beta.12":
+  version "8.0.0-beta.12"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-focus/download/@fluentui/react-focus-8.0.0-beta.12.tgz#5cd4e9dea554d4b4d2455c0dbce930bbc08e93a1"
+  integrity sha1-XNTp3qVU1LTSRVwNvOkwu8COk6E=
+  dependencies:
+    "@fluentui/keyboard-key" "^0.2.12"
+    "@fluentui/merge-styles" "^8.0.0-beta.3"
+    "@fluentui/react-theme-provider" "^1.0.0-beta.13"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/style-utilities" "^8.0.0-beta.10"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    tslib "^1.10.0"
+
+"@fluentui/react-hooks@^8.0.0-beta.0":
+  version "8.0.0-beta.0"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-hooks/download/@fluentui/react-hooks-8.0.0-beta.0.tgz#b20c992928b8991a3d4aac06f9bb1c14b8f824b6"
+  integrity sha1-sgyZKSi4mRo9SqwG+bscFLj4JLY=
+  dependencies:
+    "@fluentui/react-window-provider" "^2.0.0-beta.0"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/utilities" "^8.0.0-beta.0"
+    tslib "^1.10.0"
+
+"@fluentui/react-hooks@^8.0.0-beta.8":
+  version "8.0.0-beta.8"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-hooks/download/@fluentui/react-hooks-8.0.0-beta.8.tgz#6109f4bafb4df7e4ddc33399e8657d92a3af658b"
+  integrity sha1-YQn0uvtN9+TdwzOZ6GV9kqOvZYs=
+  dependencies:
+    "@fluentui/react-window-provider" "^2.0.0-beta.3"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    tslib "^1.10.0"
+
+"@fluentui/react-icons-mdl2@^1.0.0-beta.8":
+  version "1.0.0-beta.8"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-icons-mdl2/download/@fluentui/react-icons-mdl2-1.0.0-beta.8.tgz#55d88a726c8d48907308c027f034d55f302cc549"
+  integrity sha1-VdiKcmyNSJBzCMAn8DTVXzAsxUk=
+  dependencies:
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    "@microsoft/load-themed-styles" "^1.10.26"
+    tslib "^1.10.0"
+
+"@fluentui/react-internal@^8.0.0-beta.28":
+  version "8.0.0-beta.28"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-internal/download/@fluentui/react-internal-8.0.0-beta.28.tgz#861afb387a8302b0e7db6651102dc5e30cbfa0c4"
+  integrity sha1-hhr7OHqDArDn22ZREC3F4wy/oMQ=
+  dependencies:
+    "@fluentui/date-time-utilities" "^8.0.0-beta.1"
+    "@fluentui/font-icons-mdl2" "^8.0.0-beta.10"
+    "@fluentui/foundation-legacy" "^8.0.0-beta.10"
+    "@fluentui/merge-styles" "^8.0.0-beta.3"
+    "@fluentui/react-focus" "^8.0.0-beta.12"
+    "@fluentui/react-hooks" "^8.0.0-beta.8"
+    "@fluentui/react-shared-contexts" "^1.0.0-beta.3"
+    "@fluentui/react-theme-provider" "^1.0.0-beta.13"
+    "@fluentui/react-window-provider" "^2.0.0-beta.3"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/style-utilities" "^8.0.0-beta.10"
+    "@fluentui/theme" "^2.0.0-beta.10"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    "@microsoft/load-themed-styles" "^1.10.26"
+    tslib "^1.10.0"
+
+"@fluentui/react-link@^1.0.0-beta.26":
+  version "1.0.0-beta.26"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-link/download/@fluentui/react-link-1.0.0-beta.26.tgz#7a61dd06b4d3e480a0ec04e0a1c9c61f46d52ab5"
+  integrity sha1-emHdBrTT5ICg7ATgocnGH0bVKrU=
+  dependencies:
+    "@fluentui/react-compose" "^1.0.0-beta.9"
+    "@fluentui/react-hooks" "^8.0.0-beta.8"
+    "@fluentui/react-internal" "^8.0.0-beta.28"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/style-utilities" "^8.0.0-beta.10"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    tslib "^1.10.0"
+
+"@fluentui/react-shared-contexts@^1.0.0-beta.3":
+  version "1.0.0-beta.3"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-shared-contexts/download/@fluentui/react-shared-contexts-1.0.0-beta.3.tgz#6f53be44f289156890cc1f755a225d4fb2b84bd0"
+  integrity sha1-b1O+RPKJFWiQzB91WiJdT7K4S9A=
+  dependencies:
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    tslib "^1.10.0"
+
+"@fluentui/react-slider@^1.0.0-beta.26":
+  version "1.0.0-beta.26"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-slider/download/@fluentui/react-slider-1.0.0-beta.26.tgz#5f5812e92a44f06742c21181d131df86a89b9da5"
+  integrity sha1-X1gS6SpE8GdCwhGB0THfhqibnaU=
+  dependencies:
+    "@fluentui/react-hooks" "^8.0.0-beta.8"
+    "@fluentui/react-internal" "^8.0.0-beta.28"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/style-utilities" "^8.0.0-beta.10"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    tslib "^1.10.0"
+
+"@fluentui/react-stylesheets@^1.0.0-beta.3":
+  version "1.0.0-beta.3"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-stylesheets/download/@fluentui/react-stylesheets-1.0.0-beta.3.tgz#35bf47d8a1f2ee18a974ae37f41934e531b5723d"
+  integrity sha1-Nb9H2KHy7hipdK439Bk05TG1cj0=
+  dependencies:
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    tslib "^1.10.0"
+
+"@fluentui/react-tabs@^1.0.0-beta.26":
+  version "1.0.0-beta.26"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-tabs/download/@fluentui/react-tabs-1.0.0-beta.26.tgz#0c3ea4c2fdcde955bcfff5cf51236c67bf0dde98"
+  integrity sha1-DD6kwv3N6VW8//XPUSNsZ78N3pg=
+  dependencies:
+    "@fluentui/react-hooks" "^8.0.0-beta.8"
+    "@fluentui/react-internal" "^8.0.0-beta.28"
+    "@fluentui/react-theme-provider" "^1.0.0-beta.13"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/style-utilities" "^8.0.0-beta.10"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    tslib "^1.10.0"
+
+"@fluentui/react-theme-provider@^1.0.0-beta.0", "@fluentui/react-theme-provider@^1.0.0-beta.13":
+  version "1.0.0-beta.13"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-theme-provider/download/@fluentui/react-theme-provider-1.0.0-beta.13.tgz#53a02d0891f425cb17db1f272f34765cc7d1cd0b"
+  integrity sha1-U6AtCJH0JcsX2x8nLzR2XMfRzQs=
+  dependencies:
+    "@fluentui/merge-styles" "^8.0.0-beta.3"
+    "@fluentui/react-compose" "^1.0.0-beta.9"
+    "@fluentui/react-hooks" "^8.0.0-beta.8"
+    "@fluentui/react-stylesheets" "^1.0.0-beta.3"
+    "@fluentui/react-window-provider" "^2.0.0-beta.3"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/theme" "^2.0.0-beta.10"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    classnames "^2.2.6"
+    tslib "^1.10.0"
+
+"@fluentui/react-toggle@^1.0.0-beta.26":
+  version "1.0.0-beta.26"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-toggle/download/@fluentui/react-toggle-1.0.0-beta.26.tgz#ab5c7c08bf3593cca5cc0fd0fa255af6b007ce39"
+  integrity sha1-q1x8CL81k8ylzA/Q+iVa9rAHzjk=
+  dependencies:
+    "@fluentui/react-compose" "^1.0.0-beta.9"
+    "@fluentui/react-hooks" "^8.0.0-beta.8"
+    "@fluentui/react-internal" "^8.0.0-beta.28"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/style-utilities" "^8.0.0-beta.10"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    tslib "^1.10.0"
+
 "@fluentui/react-window-provider@^1.0.1":
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/@fluentui/react-window-provider/download/@fluentui/react-window-provider-1.0.1.tgz#8ec71db8cfd57e11f00ed42c5c1377ef4dfe5f6b"
   integrity sha1-jscduM/VfhHwDtQsXBN3703+X2s=
   dependencies:
     "@uifabric/set-version" "^7.0.23"
+    tslib "^1.10.0"
+
+"@fluentui/react-window-provider@^2.0.0-beta.0", "@fluentui/react-window-provider@^2.0.0-beta.3":
+  version "2.0.0-beta.3"
+  resolved "https://registry.npm.taobao.org/@fluentui/react-window-provider/download/@fluentui/react-window-provider-2.0.0-beta.3.tgz#2e316fafef57e161acd0a9840a689640e1f28ce0"
+  integrity sha1-LjFvr+9X4WGs0KmECmiWQOHyjOA=
+  dependencies:
+    "@fluentui/set-version" "^8.0.0-beta.0"
     tslib "^1.10.0"
 
 "@fluentui/react@^7.155.3":
@@ -1359,6 +1644,56 @@
     office-ui-fabric-react "^7.155.3"
     tslib "^1.10.0"
 
+"@fluentui/react@^8.0.0-beta.0":
+  version "8.0.0-beta.32"
+  resolved "https://registry.npm.taobao.org/@fluentui/react/download/@fluentui/react-8.0.0-beta.32.tgz#41a04b74b27dbc97d14a622a4f9b73d336351ae5"
+  integrity sha1-QaBLdLJ9vJfRSmIqT5tz0zY1GuU=
+  dependencies:
+    "@fluentui/font-icons-mdl2" "^8.0.0-beta.10"
+    "@fluentui/react-checkbox" "^1.0.0-beta.26"
+    "@fluentui/react-date-time" "^8.0.0-beta.26"
+    "@fluentui/react-hooks" "^8.0.0-beta.8"
+    "@fluentui/react-internal" "^8.0.0-beta.28"
+    "@fluentui/react-link" "^1.0.0-beta.26"
+    "@fluentui/react-slider" "^1.0.0-beta.26"
+    "@fluentui/react-tabs" "^1.0.0-beta.26"
+    "@fluentui/react-toggle" "^1.0.0-beta.26"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    "@microsoft/load-themed-styles" "^1.10.26"
+    tslib "^1.10.0"
+
+"@fluentui/set-version@^8.0.0-beta.0":
+  version "8.0.0-beta.0"
+  resolved "https://registry.npm.taobao.org/@fluentui/set-version/download/@fluentui/set-version-8.0.0-beta.0.tgz#6e58a5c081b217aee526424a7d7a1561cb8fa5e9"
+  integrity sha1-blilwIGyF67lJkJKfXoVYcuPpek=
+  dependencies:
+    tslib "^1.10.0"
+
+"@fluentui/style-utilities@^8.0.0-beta.0":
+  version "8.0.0-beta.0"
+  resolved "https://registry.npm.taobao.org/@fluentui/style-utilities/download/@fluentui/style-utilities-8.0.0-beta.0.tgz#7ba01fca5021e958506decdd2495792bb4f6464d"
+  integrity sha1-e6AfylAh6VhQbezdJJV5K7T2Rk0=
+  dependencies:
+    "@fluentui/merge-styles" "^8.0.0-beta.0"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/theme" "^2.0.0-beta.0"
+    "@fluentui/utilities" "^8.0.0-beta.0"
+    "@microsoft/load-themed-styles" "^1.10.26"
+    tslib "^1.10.0"
+
+"@fluentui/style-utilities@^8.0.0-beta.10":
+  version "8.0.0-beta.10"
+  resolved "https://registry.npm.taobao.org/@fluentui/style-utilities/download/@fluentui/style-utilities-8.0.0-beta.10.tgz#c49ab1b72ff7b833e0b79dc41993c2357e2f0981"
+  integrity sha1-xJqxty/3uDPgt53EGZPCNX4vCYE=
+  dependencies:
+    "@fluentui/merge-styles" "^8.0.0-beta.3"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/theme" "^2.0.0-beta.10"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    "@microsoft/load-themed-styles" "^1.10.26"
+    tslib "^1.10.0"
+
 "@fluentui/theme@^1.7.0":
   version "1.7.0"
   resolved "https://registry.npm.taobao.org/@fluentui/theme/download/@fluentui/theme-1.7.0.tgz#822adcc4b0c9cc057984b4ada21c30856907a8e6"
@@ -1367,6 +1702,38 @@
     "@uifabric/merge-styles" "^7.19.1"
     "@uifabric/set-version" "^7.0.23"
     "@uifabric/utilities" "^7.33.2"
+    tslib "^1.10.0"
+
+"@fluentui/theme@^2.0.0-beta.0", "@fluentui/theme@^2.0.0-beta.10":
+  version "2.0.0-beta.10"
+  resolved "https://registry.npm.taobao.org/@fluentui/theme/download/@fluentui/theme-2.0.0-beta.10.tgz#b85a949094aff6f86db96c34160f32a706d71c7a"
+  integrity sha1-uFqUkJSv9vhtuWw0Fg8ypwbXHHo=
+  dependencies:
+    "@fluentui/merge-styles" "^8.0.0-beta.3"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    "@fluentui/utilities" "^8.0.0-beta.8"
+    tslib "^1.10.0"
+
+"@fluentui/utilities@^8.0.0-beta.0":
+  version "8.0.0-beta.0"
+  resolved "https://registry.npm.taobao.org/@fluentui/utilities/download/@fluentui/utilities-8.0.0-beta.0.tgz#6db1976d6529c37b104b2272877052c5c70cb461"
+  integrity sha1-bbGXbWUpw3sQSyJyh3BSxccMtGE=
+  dependencies:
+    "@fluentui/dom-utilities" "^2.0.0-beta.0"
+    "@fluentui/merge-styles" "^8.0.0-beta.0"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    prop-types "^15.7.2"
+    tslib "^1.10.0"
+
+"@fluentui/utilities@^8.0.0-beta.8":
+  version "8.0.0-beta.8"
+  resolved "https://registry.npm.taobao.org/@fluentui/utilities/download/@fluentui/utilities-8.0.0-beta.8.tgz#54592527aa19a5b4e6b0c37b8978c288a4a5f6e0"
+  integrity sha1-VFklJ6oZpbTmsMN7iXjCiKSl9uA=
+  dependencies:
+    "@fluentui/dom-utilities" "^2.0.0-beta.0"
+    "@fluentui/merge-styles" "^8.0.0-beta.3"
+    "@fluentui/set-version" "^8.0.0-beta.0"
+    prop-types "^15.7.2"
     tslib "^1.10.0"
 
 "@fortawesome/fontawesome-common-types@^0.2.32":
@@ -2412,6 +2779,11 @@
   integrity sha1-uaHvpjUgG6m8hQMjqHk+4tNsBKA=
   dependencies:
     "@babel/types" "^7.3.0"
+
+"@types/classnames@^2.2.9":
+  version "2.2.11"
+  resolved "https://registry.npm.taobao.org/@types/classnames/download/@types/classnames-2.2.11.tgz?cache=0&sync_timestamp=1605053119706&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fclassnames%2Fdownload%2F%40types%2Fclassnames-2.2.11.tgz#2521cc86f69d15c5b90664e4829d84566052c1cf"
+  integrity sha1-JSHMhvadFcW5BmTkgp2EVmBSwc8=
 
 "@types/cookiejar@*":
   version "2.1.2"
