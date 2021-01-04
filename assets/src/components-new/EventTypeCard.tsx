@@ -21,17 +21,13 @@ import {
   DefaultButton,
 } from '@fluentui/react';
 import {useEvents} from './EventsProvider';
-
-const alertClicked = (): void => {
-  console.log('Clicked');
-};
+import {Link} from 'react-router-dom';
 
 export default function EventTypeCard({eventTypeId}: any) {
   const {eventTypesById} = useEvents();
   const eventType = eventTypesById[eventTypeId];
   const {id, name, description, duration, url, kind, enabled} = eventType;
 
-  // const cardTokens: ICardTokens = {childrenMargin: 12};
   const footerCardSectionTokens: ICardSectionTokens = {
     padding: '12px 0px 0px',
   };
@@ -39,9 +35,7 @@ export default function EventTypeCard({eventTypeId}: any) {
     <div>
       <Card
         aria-label="Clickable vertical card with image bleeding at the center of the card"
-        onClick={alertClicked}
-        // tokens={cardTokens}
-        // className="border-t-8 border-red-300 border-solid"
+        // className="cursor-pointer"
       >
         <Card.Item>
           <div className="h-2 bg-red-300 rounded-t" />
@@ -55,7 +49,7 @@ export default function EventTypeCard({eventTypeId}: any) {
             </div>
           </div>
         </Card.Item>
-        <Card.Item fill>
+        <Card.Item fill className="cursor-pointer hover:bg-var-gray-200">
           <div className="px-4 py-4 border-b border-gray-300">
             <div className="text-xl">{name}</div>
             <div className="text-gray-500 text-sm opacity-75">
