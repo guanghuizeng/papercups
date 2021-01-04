@@ -43,8 +43,8 @@ export function EventTypes() {
     <div className="container inner-container px-5 py-4 mx-auto flex flex-wrap flex-col">
       <div className="py-4 text-3xl font-medium">日程类型</div>
 
-      <section className="pt-5 text-gray-700 body-font">
-        <div className="mt-5 border-b border-gray-500 flex flex-row justify-between">
+      <section className="pt-10 text-gray-700 body-font">
+        <div className="border-b border-gray-500 flex flex-row justify-between">
           <div className="gentle-flex mb-2">
             <SearchBoxSmallExample />
           </div>

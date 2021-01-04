@@ -33,10 +33,7 @@ export default function EventTypeCard({eventTypeId}: any) {
   };
   return (
     <div>
-      <Card
-        aria-label="Clickable vertical card with image bleeding at the center of the card"
-        // className="cursor-pointer"
-      >
+      <Card aria-label="Clickable vertical card with image bleeding at the center of the card">
         <Card.Item>
           <div className="h-2 bg-red-300 rounded-t" />
         </Card.Item>
@@ -50,12 +47,14 @@ export default function EventTypeCard({eventTypeId}: any) {
           </div>
         </Card.Item>
         <Card.Item fill className="cursor-pointer hover:bg-var-gray-200">
-          <div className="px-4 py-4 border-b border-gray-300">
-            <div className="text-xl">{name}</div>
-            <div className="text-gray-500 text-sm opacity-75">
-              {duration} mins, One-on-One
+          <Link to={`/event_types/${id}`}>
+            <div className="px-4 py-4 border-b border-gray-300">
+              <div className="text-xl">{name}</div>
+              <div className="text-gray-500 text-sm opacity-75">
+                {duration} mins, One-on-One
+              </div>
             </div>
-          </div>
+          </Link>
         </Card.Item>
 
         <Card.Section
@@ -64,7 +63,7 @@ export default function EventTypeCard({eventTypeId}: any) {
           className="px-4 pb-2"
         >
           <a
-            href="#"
+            href={'/ycy/' + url}
             className="block text-sm text-blue-500 hover:underline"
             role="menuitem"
           >

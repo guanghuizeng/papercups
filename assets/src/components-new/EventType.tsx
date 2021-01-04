@@ -95,15 +95,24 @@ const EventType = () => {
 
   return (
     <div>
-      <Header eventType={eventType} />
-
       <div className="container lg:px-10 inner-container mx-auto lg:px-8 py-4 flex flex-col">
-        <section>
+        <div className="flex flex-row cursor-pointer">
+          <div className="gentle-flex mr-2">
+            <i className="fas fa-chevron-left"></i>
+          </div>
+          <Link to="/event_types">
+            <span className="hover:underline">返回所有日程类型</span>
+          </Link>
+        </div>
+        <div className="py-4 text-3xl font-medium">日程类型</div>
+
+        <section className="pt-10">
           <div className="flex flex-row justify-between">
-            <div className="text-sm">
+            <div className="">Your type is ON</div>
+            <div className="text-sm opacity-50">
               Last edited {dayjs(eventType.editAt).toString()}.
             </div>
-            <Link to="/live" className="text-green-600">
+            <Link to="/live" className="text-blue-400">
               <i className="fas fa-external-link-alt mr-2" />
               view live page
             </Link>
