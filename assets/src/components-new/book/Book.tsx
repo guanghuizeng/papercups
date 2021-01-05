@@ -3,8 +3,8 @@ import BookCalendar from '../common/BookCalendar';
 import ReactList from 'react-list';
 // import dayjs from "dayjs";
 import {listOfTime} from '../constants';
-import {useLocation} from 'react-router-dom';
-import BookProvider from './BookProvider';
+import {useLocation, Switch, Route, Link} from 'react-router-dom';
+import BookProvider, {useBook} from './BookProvider';
 
 const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
 
@@ -39,11 +39,7 @@ function TimeOption({value, checked, onCheck}: any) {
 function BookRecord() {}
 
 export function Book() {
-  const {pathname} = useLocation();
-
-  const [_blank, user, eventType] = pathname.split('/');
-  console.log('path', pathname, pathname.split('/'), user, eventType);
-
+  const {userProfile, eventType} = useBook();
   const [checkedValue, setCheckedValue] = useState();
 
   return (
@@ -53,9 +49,9 @@ export function Book() {
           <div className="grid grid-cols-1 lg:grid-cols-book-2">
             <div className="lg:px-8 lg:py-25px border-r border-gray-300">
               <div className="lg:h-700">
-                <div>Yuanyuan Zhang</div>
+                <div>{userProfile}</div>
                 <div className="text-28 font-bold">15 Minute Meeting</div>
-                <div>15 min</div>
+                <div>{eventType}</div>
                 <div>9:30am - 9:45am, Friday, November 27, 2020</div>
               </div>
             </div>
@@ -97,12 +93,77 @@ export function Book() {
   );
 }
 
+const BookUserPage = () => {
+  const {pathname} = useLocation();
+  return (
+    <div className="mx-auto p-8">
+      <div className="h-56">
+        <div className="h-24 gentle-flex text-xl font-normal opacity-75">
+          张圆圆
+        </div>
+        <div className="text-center">
+          欢迎来到我的预约页面。
+          <br />
+          请按照指导添加预约时间到我的日历。
+        </div>
+      </div>
+      <div className="flex flex-row flex-wrap border-t-2 border-primary border-solid pt-5">
+        {['15min', '30min', '45min', '50min'].map((type) => {
+          return (
+            <Link to={`${pathname}${type}`}>
+              <div
+                key={type}
+                className="mt-2 ml-2 h-32 w-64 bg-gray-200 cursor-pointer gentle-flex hover:bg-gray-300 rounded"
+              >
+                {type}
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+const BookTypePage = () => {
+  return <div>Type 1</div>;
+};
+
+const Book2 = () => {
+  const {userProfile, eventTypes} = useBook();
+
+  return (
+    <div className="w-screen h-screen bg-gray-100">
+      <div
+        className="w-full flex flex-row justify-center"
+        style={{
+          paddingTop: '66px',
+          paddingBottom: '30px',
+        }}
+      >
+        <div
+          className="bg-white border-primary border-2 border-solid rounded shadow"
+          style={{
+            width: '1024px',
+            height: '768px',
+          }}
+        >
+          <Switch>
+            <Route exact path="/@:user" component={BookUserPage} />
+            <Route exact path="/@:user/:type" component={BookTypePage} />
+          </Switch>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const BookWrapper = (props: any) => {
   return (
     <BookProvider>
-      <Book {...props} />
+      <Book2 {...props} />
     </BookProvider>
   );
 };
 
-export default Book;
+export default BookWrapper;
