@@ -70,6 +70,8 @@ defmodule ChatApiWeb.Router do
     resources("/event_types", EventTypeController, except: [:new, :edit])
     resources("/schedules", ScheduleController, except: [:new, :edit])
 
+    get("/user_settings", UserSettingsController, :show)
+
   end
 
   # Protected routes

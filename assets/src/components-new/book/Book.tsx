@@ -3,7 +3,7 @@ import BookCalendar from '../common/BookCalendar';
 import ReactList from 'react-list';
 // import dayjs from "dayjs";
 import {listOfTime} from '../constants';
-import {useLocation, Switch, Route, Link} from 'react-router-dom';
+import {useLocation, Switch, Route, Link, useParams} from 'react-router-dom';
 import BookProvider, {useBook} from './BookProvider';
 
 const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
@@ -95,11 +95,12 @@ export function Book() {
 
 const BookUserPage = () => {
   const {pathname} = useLocation();
+  const {user} = useParams();
   return (
     <div className="mx-auto p-8">
       <div className="h-56">
         <div className="h-24 gentle-flex text-xl font-normal opacity-75">
-          张圆圆
+          {user}
         </div>
         <div className="text-center">
           欢迎来到我的预约页面。
@@ -126,7 +127,12 @@ const BookUserPage = () => {
 };
 
 const BookTypePage = () => {
-  return <div>Type 1</div>;
+  const {user, type} = useParams();
+  return (
+    <div>
+      {user}, {type}
+    </div>
+  );
 };
 
 const Book2 = () => {

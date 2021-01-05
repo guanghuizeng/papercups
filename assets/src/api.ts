@@ -1030,3 +1030,31 @@ export const fetchSchedules = async (token = getAccessToken()) => {
     .set('Authorization', token)
     .then((res) => res.body.data);
 };
+
+export const fetchUserSettingsBySlug = async (
+  slug: string,
+  token = getAccessToken()
+) => {
+  if (!token) {
+    throw new Error('Invalid token!');
+  }
+
+  return request
+    .get(`/api/user_settings`)
+    .query({slug})
+    .then((res) => res.body.data);
+};
+
+export const fetchEventTypeByUrl = async (
+  url: string,
+  token = getAccessToken()
+) => {
+  if (!token) {
+    throw new Error('Invalid token!');
+  }
+
+  return request
+    .get(`/api/event_types`)
+    .query({url})
+    .then((res) => res.body.data);
+};
