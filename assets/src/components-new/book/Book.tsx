@@ -3,6 +3,8 @@ import BookCalendar from '../common/BookCalendar';
 import ReactList from 'react-list';
 // import dayjs from "dayjs";
 import {listOfTime} from '../constants';
+import {useLocation} from 'react-router-dom';
+import BookProvider from './BookProvider';
 
 const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
 
@@ -36,12 +38,17 @@ function TimeOption({value, checked, onCheck}: any) {
 
 function BookRecord() {}
 
-export default function Book() {
+export function Book() {
+  const {pathname} = useLocation();
+
+  const [_blank, user, eventType] = pathname.split('/');
+  console.log('path', pathname, pathname.split('/'), user, eventType);
+
   const [checkedValue, setCheckedValue] = useState();
 
   return (
-    <div className="lg:pt-32">
-      <section className="container lg:w-1060 mx-auto my-auto text-gray-700 body-font rounded-lg bg-white overflow-y-hidden">
+    <div className="lg:pt-32 ">
+      <section className="container lg:w-1060 mx-auto my-auto text-gray-700 body-font rounded-lg bg-white overflow-y-hidden border-primary border-2 border-solid">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-book-2">
             <div className="lg:px-8 lg:py-25px border-r border-gray-300">
@@ -89,3 +96,13 @@ export default function Book() {
     </div>
   );
 }
+
+export const BookWrapper = (props: any) => {
+  return (
+    <BookProvider>
+      <Book {...props} />
+    </BookProvider>
+  );
+};
+
+export default Book;

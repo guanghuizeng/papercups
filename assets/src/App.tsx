@@ -24,6 +24,7 @@ import './tailwind.css';
 import LadingPage from './components/landing/LadingPage';
 import Live from './components-new/book/Live';
 import {initializeIcons} from '@fluentui/react';
+import Book from './components-new/book/Book';
 
 initializeIcons();
 
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="/sandbox" component={Sandbox} />
           <Route path="/share" component={SharedConversation} />
           <Route path="/live" component={Live} />
+          <Route path="/@:user" component={Book} />
           <Route
             path="*"
             render={(props: RouteComponentProps<{}>) => (
@@ -87,8 +89,8 @@ const App = () => {
         <Route path="/sandbox" component={Sandbox} />
         <Route path="/share" component={SharedConversation} />
         <Route path="/live" component={Live} />
+        <Route path="/@:user" component={Book} />
         <Route path="/" component={Dashboard} />
-        <Route path="*" render={() => <Redirect to="/conversations" />} />
       </Switch>
     </Router>
   );
