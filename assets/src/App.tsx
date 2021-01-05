@@ -23,6 +23,9 @@ import './App.css';
 import './tailwind.css';
 import LadingPage from './components/landing/LadingPage';
 import Live from './components-new/book/Live';
+import {initializeIcons} from '@fluentui/react';
+
+initializeIcons();
 
 const App = () => {
   const auth = useAuth();

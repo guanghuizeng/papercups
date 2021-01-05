@@ -9,7 +9,6 @@ import {
   RouteComponentProps,
 } from 'react-router-dom';
 import _ from 'lodash';
-import {initializeIcons} from '@fluentui/react';
 import EventType from './EventType';
 import {useAuth} from '../components/auth/AuthProvider';
 import {EventTypes} from './EventTypes';
@@ -18,8 +17,6 @@ import {EventsProvider, useEvents} from './EventsProvider';
 import NewEventType from './events/NewEventType';
 import NavSection from './NavSection';
 import ScheduledEvents from './events/ScheduledEvents';
-
-initializeIcons();
 
 function Dashboard(props: RouteComponentProps) {
   const auth = useAuth();
