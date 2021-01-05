@@ -9,6 +9,7 @@ import {
   PrimaryButton,
   MessageBar,
   MessageBarType,
+  DefaultButton,
 } from '@fluentui/react';
 import {Button, Input, Text, Title} from '../common';
 import {useAuth} from './AuthProvider';
@@ -188,16 +189,16 @@ const Login2 = (props: any) => {
   };
 
   return (
-    <div className="m-24">
+    <div className="h-screen gentle-flex">
       <div
-        className="border-primary border-2 border-solid flex flex-row"
+        className="border-true-gray-200 border-2 border-solid flex flex-col rounded"
         style={{
-          width: '928px',
-          height: '554px',
+          width: '464px',
+          // height: '554px',
         }}
       >
         <div
-          className="w-1/2"
+          className="w-full"
           style={{
             padding: '64px',
           }}
@@ -248,26 +249,29 @@ const Login2 = (props: any) => {
               </MessageBar>
             )}
           </form>
-        </div>
 
+          {/*<DefaultButton text="使用微信登录"/>*/}
+          {/*<DefaultButton text="使用飞书登录"/>*/}
+        </div>
         <div
-          className="w-1/2"
+          className=""
           style={{
-            padding: '64px',
-            backgroundColor: '#f0f0f0',
+            paddingRight: '64px',
+            paddingLeft: '64px',
+            paddingBottom: '64px',
           }}
         >
-          <div
-            className="font-medium"
-            style={{
-              fontSize: '36px',
-              marginBottom: '24px',
-            }}
-          >
-            Create a profile
-          </div>
-
-          <PrimaryButton className="login-button" text="Sign up" />
+          <Link to="/register">
+            <span
+              className="border-b-2 border-solid"
+              style={{
+                color: '#2251ff',
+                borderColor: '#2251ff',
+              }}
+            >
+              注册账号
+            </span>
+          </Link>
         </div>
       </div>
     </div>

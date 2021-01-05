@@ -50,7 +50,7 @@ function Dashboard(props: RouteComponentProps) {
               {url: '/workflows', name: '工作流'},
             ].map(({url, name}) => {
               return (
-                <Link to={url}>
+                <Link to={url} key={url}>
                   <div
                     className={`${
                       pathname === url || pathname.startsWith(url)
