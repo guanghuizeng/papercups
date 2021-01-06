@@ -149,10 +149,11 @@ const BookTypePage = () => {
   }, []);
 
   const profile = userProfileBySlug[user];
+  const eventType = eventTypes[user] && eventTypes[user][type];
 
   return (
     <div>
-      {profile?.full_name}, {eventTypes[user] && eventTypes[user][type].name}
+      {profile?.full_name}, {eventType?.name}
     </div>
   );
 };
