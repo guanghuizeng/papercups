@@ -7,7 +7,12 @@ import {useLocation, Switch, Route, Link, useParams} from 'react-router-dom';
 import BookProvider, {useBook} from './BookProvider';
 import * as API from '../../api';
 import {colourOptions} from '../events/data';
-import {DayPickerSingleDateController} from 'react-dates';
+import {
+  DayPickerSingleDateController,
+  isInclusivelyAfterDay,
+  isInclusivelyBeforeDay,
+  isSameDay,
+} from 'react-dates';
 import moment from 'moment';
 
 const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
@@ -137,6 +142,23 @@ const BookUserPage = () => {
   );
 };
 
+function isBeforeDay(a: any, b: any) {
+  if (!moment.isMoment(a) || !moment.isMoment(b)) return false;
+
+  const aYear = a.year();
+  const aMonth = a.month();
+
+  const bYear = b.year();
+  const bMonth = b.month();
+
+  const isSameYear = aYear === bYear;
+  const isSameMonth = aMonth === bMonth;
+
+  if (isSameYear && isSameMonth) return a.date() < b.date();
+  if (isSameYear) return aMonth < bMonth;
+  return aYear < bYear;
+}
+
 const BookTypePage = () => {
   const {user, type} = useParams();
   const {
@@ -159,6 +181,14 @@ const BookTypePage = () => {
   moment.locale('zh-cn');
 
   console.log('Date', moment().date());
+
+  const isDayBlocked = (date: any) => {
+    return date.weekday() === 0 || date.weekday() === 6;
+  };
+
+  const isDayHighlighted = (date: any) => {
+    return date.isAfter(moment());
+  };
 
   return (
     <div className="h-full grid grid-cols-2 gap-1 bg-gray-200">
@@ -187,12 +217,10 @@ const BookTypePage = () => {
               initialVisibleMonth={() => moment()}
               monthFormat="YYYY [年] M [月]"
               isOutsideRange={(date) => {
-                return date.isBefore(moment());
+                return isBeforeDay(date, moment());
               }}
-              isDayBlocked={(date) =>
-                date.weekday() === 0 || date.weekday() === 6
-              }
-              isDayHighlighted={(date) => date.isAfter(moment())}
+              isDayBlocked={isDayBlocked}
+              isDayHighlighted={isDayHighlighted}
             />
           </div>
           {/*<div className="h-full flex flex-col">*/}
