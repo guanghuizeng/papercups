@@ -168,6 +168,30 @@ function minsToDays(mins: number) {
   return mins / 60 / 24;
 }
 
+const TimeOptionList = ({sliceOfTime}: any) => {
+  const [checkedValue, setCheckedValue] = useState();
+
+  console.log('time list');
+
+  return (
+    <ReactList
+      itemRenderer={(index: number, key: any) => {
+        return (
+          <div key={key}>
+            <TimeOption
+              value={sliceOfTime[index]}
+              checked={sliceOfTime[index] === checkedValue}
+              onCheck={setCheckedValue}
+            />
+          </div>
+        );
+      }}
+      length={sliceOfTime.length}
+      type="uniform"
+    />
+  );
+};
+
 const BookTypePage = () => {
   const {user, type} = useParams();
   const {
@@ -194,7 +218,6 @@ const BookTypePage = () => {
   const eventType = eventTypes[user] && eventTypes[user][type];
   const nextDays = minsToDays(eventType?.max_booking_time);
   const today = moment();
-  const [checkedValue, setCheckedValue] = useState();
 
   const isDayBlocked = (date: any) => {
     return date.weekday() === 5 || date.weekday() === 6;
@@ -218,7 +241,8 @@ const BookTypePage = () => {
   const rule =
     rules &&
     rules.find(
-      (rule: any) => rule.wday === dayjs().format('dddd').toLowerCase()
+      (rule: any) =>
+        rule.wday === dayjs(date.toISOString()).format('dddd').toLowerCase()
     );
   const interval: any = rule && rule.intervals[0];
 
@@ -233,7 +257,13 @@ const BookTypePage = () => {
   }
 
   // date
-  console.log(rule, interval, listOfTime, sliceOfTime);
+  console.log(
+    dayjs(date.toISOString()).format('dddd').toLowerCase(),
+    rule,
+    interval,
+    listOfTime,
+    sliceOfTime
+  );
 
   // console.log(
   //   'Event type',
@@ -291,21 +321,7 @@ const BookTypePage = () => {
               className="p-1 h-full"
               style={{overflow: 'auto', maxHeight: '650px'}}
             >
-              <ReactList
-                itemRenderer={(index: number, key: any) => {
-                  return (
-                    <div key={key}>
-                      <TimeOption
-                        value={sliceOfTime[index]}
-                        checked={sliceOfTime[index] === checkedValue}
-                        onCheck={setCheckedValue}
-                      />
-                    </div>
-                  );
-                }}
-                length={sliceOfTime.length}
-                type="uniform"
-              />
+              <TimeOptionList sliceOfTime={sliceOfTime} />
             </div>
           </div>
         </div>
