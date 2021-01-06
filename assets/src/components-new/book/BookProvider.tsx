@@ -3,6 +3,7 @@ import {useLocation} from 'react-router-dom';
 import {
   fetchUserProfileBySlug,
   fetchEventTypeByUrl as _fetchEventTypeByUrl,
+  fetchScheduleById,
 } from '../../api';
 
 export const BookContext = React.createContext<{
@@ -11,12 +12,18 @@ export const BookContext = React.createContext<{
 
   userProfileBySlug: {[key: string]: any};
   fetchUserProfile: (slug: string) => Promise<any>;
+
+  schedules: {[key: string]: any};
+  fetchSchedule: (user: string, schedule_id: string) => Promise<any>;
 }>({
   eventTypes: {},
   fetchEventTypeByUrl: (user: string, url: string) => Promise.resolve({}),
 
   userProfileBySlug: {},
   fetchUserProfile: (slug: string) => Promise.resolve([]),
+
+  schedules: {},
+  fetchSchedule: (user: string, schedule_id: string) => Promise.resolve({}),
 });
 
 export const useBook = () => useContext(BookContext);
@@ -32,6 +39,10 @@ const BookProvider = (props: Props) => {
     [key: string]: any;
   }>({});
 
+  const [schedules, setSchedules] = useState<{
+    [key: string]: any;
+  }>({});
+
   useEffect(() => {}, []);
 
   const fetchUserProfile = (slug: string) => {
@@ -40,6 +51,7 @@ const BookProvider = (props: Props) => {
         ...userProfileBySlug,
         [slug]: r,
       });
+      return r;
     });
   };
 
@@ -52,6 +64,18 @@ const BookProvider = (props: Props) => {
           [url]: r,
         },
       });
+      return r;
+    });
+  };
+
+  const fetchSchedule = (user: string, schedule_id: string) => {
+    return fetchScheduleById(user, schedule_id).then((r) => {
+      setSchedules({
+        ...schedules,
+        [schedule_id]: r,
+      });
+
+      return r;
     });
   };
 
@@ -63,6 +87,9 @@ const BookProvider = (props: Props) => {
 
         userProfileBySlug,
         fetchUserProfile,
+
+        schedules,
+        fetchSchedule,
       }}
     >
       {props.children}

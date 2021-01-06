@@ -26,7 +26,6 @@ defmodule ChatApiWeb.UserProfileController do
         }
       )
     else
-      Logger.debug "else"
       with %{id: user_id} <- conn.assigns.current_user do
         user_profile = Users.get_user_info(user_id)
         render(conn, "show.json", user_profile: user_profile)

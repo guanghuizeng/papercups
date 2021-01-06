@@ -37,6 +37,7 @@ defmodule ChatApiWeb.EventTypeController do
             duration: event_type.duration,
             before_buffer_time: event_type.before_buffer_time,
             after_buffer_time: event_type.after_buffer_time,
+            schedule_id: event_type.schedule_id,
           }
         }
       )

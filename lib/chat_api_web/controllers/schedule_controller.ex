@@ -1,4 +1,5 @@
 defmodule ChatApiWeb.ScheduleController do
+  require Logger
   use ChatApiWeb, :controller
 
   alias ChatApi.Schedules
@@ -12,18 +13,49 @@ defmodule ChatApiWeb.ScheduleController do
     end
   end
 
+  @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
+  def show(conn, params) do
+    if Map.has_key?(params, "schedule_id") do
+      schedule_id = Map.get(params, "schedule_id", nil)
+      schedule = Schedules.get_schedule!(schedule_id)
+      json(
+        conn,
+        %{
+          data: %{
+
+            id: schedule.id,
+            name: schedule.name,
+            rules: schedule.rules,
+          }
+        }
+      )
+    else
+      Logger.info('API show 2')
+
+      json(
+        conn,
+        %{
+          ok: false
+        }
+      )
+    end
+
+  end
+
   @spec create(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def create(conn, %{"schedule" => schedule_params}) do
     %{"name" => name, "rules" => rules, "timezone" => timezone} = schedule_params
 
     with %{account_id: account_id, id: user_id} <- conn.assigns.current_user,
          {:ok, %Schedule{} = schedule} <-
-           Schedules.create_schedule(%{
-             name: name,
-             rules: rules,
-             timezone: timezone,
-             user_id: user_id
-           }) do
+           Schedules.create_schedule(
+             %{
+               name: name,
+               rules: rules,
+               timezone: timezone,
+               user_id: user_id
+             }
+           ) do
       conn
       |> put_status(:created)
       |> render("show.json", schedule: schedule)

@@ -1031,6 +1031,13 @@ export const fetchSchedules = async (token = getAccessToken()) => {
     .then((res) => res.body.data);
 };
 
+export const fetchScheduleById = async (user: string, schedule_id: string) => {
+  return request
+    .get(`/api/schedule`)
+    .query({schedule_id})
+    .then((res) => res.body.data);
+};
+
 export const fetchUserProfileBySlug = async (slug: string) => {
   return request
     .get(`/api/profile`)

@@ -67,10 +67,11 @@ defmodule ChatApiWeb.Router do
     get("/hubspot/oauth", HubspotController, :oauth)
 
     resources("/demos", DemoController, except: [:new, :edit])
-    resources("/schedules", ScheduleController, except: [:new, :edit])
 
     get("/profile", UserProfileController, :show)
+    get("/user_settings", UserSettingsController, :show)
     get("/event_type", EventTypeController, :show)
+    get("/schedule", ScheduleController, :show)
 
   end
 

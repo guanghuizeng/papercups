@@ -15,6 +15,7 @@ import {
 } from 'react-dates';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
+import {fetchScheduleById} from '../../api';
 
 moment.locale('zh-cn');
 
@@ -173,13 +174,19 @@ const BookTypePage = () => {
     fetchUserProfile,
     eventTypes,
     fetchEventTypeByUrl,
+    fetchSchedule,
+    schedules,
   } = useBook();
 
   const [date, setDate] = useState<moment.Moment>(moment());
 
   useEffect(() => {
     fetchUserProfile(user).then((r) => {});
-    fetchEventTypeByUrl(user, type).then((r) => {});
+    fetchEventTypeByUrl(user, type).then((r) => {
+      if (r) {
+        fetchSchedule(user, r['schedule_id']).then((r) => {});
+      }
+    });
   }, []);
 
   const profile = userProfileBySlug[user];
@@ -201,6 +208,15 @@ const BookTypePage = () => {
       isInclusivelyAfterDay(date, moment().add(nextDays, 'day'))
     );
   };
+
+  const schedule_id = eventType && eventType['schedule_id'];
+
+  console.log(
+    'Event type',
+    userProfileBySlug,
+    eventType,
+    schedules[schedule_id]
+  );
 
   return (
     <div className="h-full grid grid-cols-2 gap-1 bg-gray-200">
