@@ -1038,7 +1038,7 @@ export const fetchUserProfileBySlug = async (slug: string) => {
     .then((res) => res.body.data);
 };
 
-export const fetchEventTypeByUrl = async (url: string) => {
+export const fetchEventTypeByUrl = async (user: string, url: string) => {
   return request
     .get(`/api/event_type`)
     .query({url})

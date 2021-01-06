@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import BookCalendar from '../common/BookCalendar';
 import ReactList from 'react-list';
 // import dayjs from "dayjs";
@@ -40,7 +40,6 @@ function TimeOption({value, checked, onCheck}: any) {
 function BookRecord() {}
 
 export function Book() {
-  const {userProfile, eventType} = useBook();
   const [checkedValue, setCheckedValue] = useState();
 
   return (
@@ -50,9 +49,9 @@ export function Book() {
           <div className="grid grid-cols-1 lg:grid-cols-book-2">
             <div className="lg:px-8 lg:py-25px border-r border-gray-300">
               <div className="lg:h-700">
-                <div>{userProfile}</div>
+                <div>{''}</div>
                 <div className="text-28 font-bold">15 Minute Meeting</div>
-                <div>{eventType}</div>
+                <div>{''}</div>
                 <div>9:30am - 9:45am, Friday, November 27, 2020</div>
               </div>
             </div>
@@ -129,22 +128,40 @@ const BookUserPage = () => {
 
 const BookTypePage = () => {
   const {user, type} = useParams();
+  const {
+    userProfileBySlug,
+    fetchUserProfile,
+    eventTypes,
+    fetchEventTypeByUrl,
+  } = useBook();
+
+  useEffect(() => {
+    fetchUserProfile(user).then((r) => {});
+    fetchEventTypeByUrl(user, type).then((r) => {});
+  }, []);
+
+  const profile = userProfileBySlug[user];
+
+  if (!profile || !eventTypes[user]) {
+    return <div>Loading</div>;
+  }
+
+  console.log('type page', profile, eventTypes);
+
   return (
     <div>
-      {user}, {type}
+      {profile.full_name}, {eventTypes[user][type].name}
     </div>
   );
 };
 
 const Book2 = () => {
-  const {userProfile, eventTypes} = useBook();
-
   return (
     <div className="w-screen h-screen bg-gray-100">
       <div
         className="text-2xl bg-pink-400 cursor-pointer"
         onClick={() => {
-          API.fetchUserProfileBySlug('slug').then((r) => {
+          API.fetchUserProfileBySlug('ycy').then((r) => {
             console.log('Profile', r);
           });
         }}
@@ -154,13 +171,14 @@ const Book2 = () => {
       <div
         className="text-2xl bg-pink-400 cursor-pointer"
         onClick={() => {
-          API.fetchEventTypeByUrl('2').then((r) => {
+          API.fetchEventTypeByUrl('ycy', '2').then((r) => {
             console.log('Event type', r);
           });
         }}
       >
         Get event type
       </div>
+
       <div
         className="w-full flex flex-row justify-center"
         style={{
