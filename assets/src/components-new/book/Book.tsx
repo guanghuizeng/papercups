@@ -5,6 +5,7 @@ import ReactList from 'react-list';
 import {listOfTime} from '../constants';
 import {useLocation, Switch, Route, Link, useParams} from 'react-router-dom';
 import BookProvider, {useBook} from './BookProvider';
+import * as API from '../../api';
 
 const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
 
@@ -140,6 +141,16 @@ const Book2 = () => {
 
   return (
     <div className="w-screen h-screen bg-gray-100">
+      <div
+        className="text-2xl bg-pink-400 cursor-pointer"
+        onClick={() => {
+          API.fetchUserProfileBySlug('slug').then((r) => {
+            console.log('Profile', r);
+          });
+        }}
+      >
+        Get profile
+      </div>
       <div
         className="w-full flex flex-row justify-center"
         style={{

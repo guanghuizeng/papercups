@@ -206,6 +206,13 @@ defmodule ChatApi.Users do
     |> Repo.preload([:profile, :settings])
   end
 
+  @spec get_user_info_by_slug(binary()) :: UserProfile.t() | nil
+  def get_user_info_by_slug(slug) do
+    UserProfile
+    |> where(slug: ^slug)
+    |> Repo.one()
+  end
+
   @spec update_user_profile(integer(), map()) ::
           {:ok, UserProfile.t()} | {:error, Ecto.Changeset.t()}
   @doc """

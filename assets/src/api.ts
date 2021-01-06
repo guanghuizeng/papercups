@@ -1031,16 +1031,9 @@ export const fetchSchedules = async (token = getAccessToken()) => {
     .then((res) => res.body.data);
 };
 
-export const fetchUserSettingsBySlug = async (
-  slug: string,
-  token = getAccessToken()
-) => {
-  if (!token) {
-    throw new Error('Invalid token!');
-  }
-
+export const fetchUserProfileBySlug = async (slug: string) => {
   return request
-    .get(`/api/user_settings`)
+    .get(`/api/profile`)
     .query({slug})
     .then((res) => res.body.data);
 };
