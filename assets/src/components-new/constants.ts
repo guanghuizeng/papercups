@@ -9,7 +9,7 @@ export const listOfTime = (function () {
   const start = dayjs().startOf('day');
   const seq = [];
   for (let i = 0; i <= 95; i++) {
-    seq.push(start.add(i * 15, 'minute').format('hh:mm a'));
+    seq.push(start.add(i * 15, 'minute').format('HH:mm'));
   }
   return seq;
 })();

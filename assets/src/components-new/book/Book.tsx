@@ -16,6 +16,7 @@ import {
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import {fetchScheduleById} from '../../api';
+import dayjs from 'dayjs';
 
 moment.locale('zh-cn');
 
@@ -193,6 +194,7 @@ const BookTypePage = () => {
   const eventType = eventTypes[user] && eventTypes[user][type];
   const nextDays = minsToDays(eventType?.max_booking_time);
   const today = moment();
+  const [checkedValue, setCheckedValue] = useState();
 
   const isDayBlocked = (date: any) => {
     return date.weekday() === 5 || date.weekday() === 6;
@@ -210,16 +212,46 @@ const BookTypePage = () => {
   };
 
   const schedule_id = eventType && eventType['schedule_id'];
+  const schedule = schedules && schedules[schedule_id];
+  const rules = schedule && JSON.parse(schedule.rules);
 
-  console.log(
-    'Event type',
-    userProfileBySlug,
-    eventType,
-    schedules[schedule_id]
-  );
+  const rule =
+    rules &&
+    rules.find(
+      (rule: any) => rule.wday === dayjs().format('dddd').toLowerCase()
+    );
+  const interval: any = rule && rule.intervals[0];
+
+  let sliceOfTime: any[] = [];
+
+  if (interval) {
+    const startIndex = listOfTime.findIndex((t) => t === interval.from);
+    const endIndex = listOfTime.findIndex((t) => t === interval.to);
+
+    // const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
+    sliceOfTime = listOfTime.slice(startIndex, endIndex + 1);
+  }
+
+  // date
+  console.log(rule, interval, listOfTime, sliceOfTime);
+
+  // console.log(
+  //   'Event type',
+  //   userProfileBySlug,
+  //   eventType,
+  //   schedules[schedule_id],
+  //     rules
+  // );
+
+  // console
+
+  // const rule = rules.find((r) => )
+
+  // const start = listOfTime.findIndex(time => time === )
+  //   const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
 
   return (
-    <div className="h-full grid grid-cols-2 gap-1 bg-gray-200">
+    <div className="h-full grid grid-cols-1/2 gap-1 bg-gray-200">
       <div className="p-8 bg-white">
         <div className="flex flex-col">
           <div>{profile?.full_name}</div>
@@ -253,29 +285,29 @@ const BookTypePage = () => {
               hideKeyboardShortcutsPanel
             />
           </div>
-          {/*<div className="h-full flex flex-col">*/}
-          {/*    <div className="pb-3">Thursday, November 26</div>*/}
-          {/*    <div*/}
-          {/*        className="p-1 h-full"*/}
-          {/*        style={{overflow: 'auto', maxHeight: '650px'}}*/}
-          {/*    >*/}
-          {/*        <ReactList*/}
-          {/*            itemRenderer={(index: number, key: any) => {*/}
-          {/*                return (*/}
-          {/*                    <div key={key}>*/}
-          {/*                        <TimeOption*/}
-          {/*                            value={sliceOfTime[index]}*/}
-          {/*                            checked={sliceOfTime[index] === checkedValue}*/}
-          {/*                            onCheck={setCheckedValue}*/}
-          {/*                        />*/}
-          {/*                    </div>*/}
-          {/*                );*/}
-          {/*            }}*/}
-          {/*            length={sliceOfTime.length}*/}
-          {/*            type="uniform"*/}
-          {/*        />*/}
-          {/*    </div>*/}
-          {/*</div>*/}
+          <div className="h-full flex flex-col">
+            <div className="pb-3">Thursday, November 26</div>
+            <div
+              className="p-1 h-full"
+              style={{overflow: 'auto', maxHeight: '650px'}}
+            >
+              <ReactList
+                itemRenderer={(index: number, key: any) => {
+                  return (
+                    <div key={key}>
+                      <TimeOption
+                        value={sliceOfTime[index]}
+                        checked={sliceOfTime[index] === checkedValue}
+                        onCheck={setCheckedValue}
+                      />
+                    </div>
+                  );
+                }}
+                length={sliceOfTime.length}
+                type="uniform"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

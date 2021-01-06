@@ -348,6 +348,7 @@ module.exports = {
       '3x': '120px auto 20px',
       'book-2': '370px auto',
       '6-4': '60% auto',
+      '1/2': '33% 65%',
     },
     gridTemplateRows: {
       none: 'none',
