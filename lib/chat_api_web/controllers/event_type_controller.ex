@@ -26,7 +26,8 @@ defmodule ChatApiWeb.EventTypeController do
           data: %{
             id: event_type.id,
             name: event_type.name,
-            description: event_type.description
+            description: event_type.description,
+            schedule_id: event_type.schedule_id,
           }
         }
       )

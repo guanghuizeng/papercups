@@ -21,6 +21,8 @@ defmodule ChatApi.EventTypes.EventType do
     field :before_buffer_time, :integer
     field :after_buffer_time, :integer
 
+    belongs_to(:schedule, Schedule, type: :binary_id)
+
     timestamps()
   end
 
@@ -29,7 +31,7 @@ defmodule ChatApi.EventTypes.EventType do
     event_type
     |> cast(attrs,
          [:name, :location, :description, :url, :color, :period_type, :min_booking_time, :max_booking_time,
-           :start_date, :end_date, :duration, :before_buffer_time, :after_buffer_time]
+           :start_date, :end_date, :duration, :before_buffer_time, :after_buffer_time, :schedule_id]
        )
     |> validate_required([:name, :location, :url, :color])
   end
