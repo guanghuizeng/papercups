@@ -20,8 +20,12 @@ defmodule ChatApi.EventTypes do
     |> Repo.all()
   end
 
-  @spec get_event_type!(binary()) :: EventType.t()
-  def get_event_type!(id), do: Repo.get!(EventType, id)
+  @spec get_event_type_by_url(binary()) :: [EventType.t()]
+  def get_event_type_by_url(url) do
+    EventType
+    |> where(url: ^url)
+    |> Repo.one()
+  end
 
   @spec update_event_type(EventType.t(), map()) :: {:ok, EventType.t()} | {:error, Ecto.Changeset.t()}
   def update_event_type(%EventType{} = event_type, attrs) do

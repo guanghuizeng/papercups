@@ -1038,16 +1038,9 @@ export const fetchUserProfileBySlug = async (slug: string) => {
     .then((res) => res.body.data);
 };
 
-export const fetchEventTypeByUrl = async (
-  url: string,
-  token = getAccessToken()
-) => {
-  if (!token) {
-    throw new Error('Invalid token!');
-  }
-
+export const fetchEventTypeByUrl = async (url: string) => {
   return request
-    .get(`/api/event_types`)
+    .get(`/api/event_type`)
     .query({url})
     .then((res) => res.body.data);
 };

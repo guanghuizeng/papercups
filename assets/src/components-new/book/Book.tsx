@@ -152,6 +152,16 @@ const Book2 = () => {
         Get profile
       </div>
       <div
+        className="text-2xl bg-pink-400 cursor-pointer"
+        onClick={() => {
+          API.fetchEventTypeByUrl('2').then((r) => {
+            console.log('Event type', r);
+          });
+        }}
+      >
+        Get event type
+      </div>
+      <div
         className="w-full flex flex-row justify-center"
         style={{
           paddingTop: '66px',

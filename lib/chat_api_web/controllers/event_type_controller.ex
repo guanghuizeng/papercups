@@ -1,4 +1,5 @@
 defmodule ChatApiWeb.EventTypeController do
+  require Logger
   use ChatApiWeb, :controller
 
   alias ChatApi.EventTypes
@@ -12,22 +13,59 @@ defmodule ChatApiWeb.EventTypeController do
     end
   end
 
+  @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
+  def show(conn, params) do
+    Logger.info('Show 0-00001')
+    if Map.has_key?(params, "url") do
+      url = Map.get(params, "url", nil)
+      Logger.info('Show 0-0000')
+      event_type = EventTypes.get_event_type_by_url(url)
+      json(
+        conn,
+        %{
+          data: %{
+            id: event_type.id,
+            name: event_type.name,
+            description: event_type.description
+          }
+        }
+      )
+    else
+      json(
+        conn,
+        %{
+          ok: false,
+          data: %{}
+        }
+      )
+    end
+  end
+
+
   @spec create(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def create(conn, %{"event_type" => event_type_params}) do
-    %{"name" => name, "location" => location, "description" => description, "url" => url, "color" => color} = event_type_params
+    %{
+      "name" => name,
+      "location" => location,
+      "description" => description,
+      "url" => url,
+      "color" => color
+    } = event_type_params
 
     with %{account_id: account_id, id: author_id} <- conn.assigns.current_user,
-#         {:ok, %Schedule{} = schedule} <-
-#           Schedules.create_default_schedule(),
+         #         {:ok, %Schedule{} = schedule} <-
+         #           Schedules.create_default_schedule(),
          {:ok, %EventType{} = event_type} <-
-           EventTypes.create_event_type(%{
-             name: name,
-             location: location,
-             description: description,
-             url: url,
-             color: color,
-#             schedule: schedule,
-           }) do
+           EventTypes.create_event_type(
+             %{
+               name: name,
+               location: location,
+               description: description,
+               url: url,
+               color: color,
+               #             schedule: schedule,
+             }
+           ) do
       conn
       |> put_status(:created)
       |> render("show.json", event_type: event_type)
