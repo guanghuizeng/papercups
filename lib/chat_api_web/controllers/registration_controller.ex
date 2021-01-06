@@ -4,6 +4,7 @@ defmodule ChatApiWeb.RegistrationController do
   require Logger
 
   alias ChatApi.Users
+  alias ChatApi.Users.UserProfile
   alias ChatApi.Schedules
   alias ChatApi.Schedules.Schedule
   alias Ecto.Changeset
@@ -100,6 +101,10 @@ defmodule ChatApiWeb.RegistrationController do
     end
   end
 
+  def create_default_user_profile(conn, user_id) do
+    Users.update_user_profile(user_id, %{user_id: user_id, slug: "slug"})
+  end
+
   def create_default_user_setting(conn, user_id) do
     with %{id: id} <- Users.get_user_settings(user_id),
          {:ok, %Schedule{} = schedule} <- Schedules.create_schedule(%{
@@ -135,6 +140,7 @@ defmodule ChatApiWeb.RegistrationController do
 
       case Pow.Plug.create_user(conn, user) do
         {:ok, new_user, conn} ->
+          create_default_user_profile(conn, new_user.id)
           create_default_user_setting(conn, new_user.id)
           {:ok, conn}
 
