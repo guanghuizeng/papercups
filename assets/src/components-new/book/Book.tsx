@@ -175,6 +175,8 @@ const BookTypePage = () => {
     fetchEventTypeByUrl,
   } = useBook();
 
+  const [date, setDate] = useState<moment.Moment>(moment());
+
   useEffect(() => {
     fetchUserProfile(user).then((r) => {});
     fetchEventTypeByUrl(user, type).then((r) => {});
@@ -182,26 +184,23 @@ const BookTypePage = () => {
 
   const profile = userProfileBySlug[user];
   const eventType = eventTypes[user] && eventTypes[user][type];
+  const nextDays = minsToDays(eventType?.max_booking_time);
+  const today = moment();
 
   const isDayBlocked = (date: any) => {
     return date.weekday() === 5 || date.weekday() === 6;
   };
 
-  const isDayHighlighted = (date: any) => {
-    return date.isAfter(moment());
+  const isDayHighlighted = (date: moment.Moment) => {
+    return isSameDay(date, today) || isInclusivelyAfterDay(date, today);
   };
 
   const isOutsideRange = (date: any) => {
     return (
-      isBeforeDay(date, moment()) ||
-      isInclusivelyAfterDay(
-        date,
-        moment().add(eventType.max_booking_time, 'day')
-      )
+      isBeforeDay(date, today) ||
+      isInclusivelyAfterDay(date, moment().add(nextDays, 'day'))
     );
   };
-
-  console.log('Eventtype', eventType);
 
   return (
     <div className="h-full grid grid-cols-2 gap-1 bg-gray-200">
@@ -223,10 +222,12 @@ const BookTypePage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4 h-full">
           <div>
             <DayPickerSingleDateController
-              date={moment()}
+              date={date}
               focused={false}
               onFocusChange={() => {}}
-              onDateChange={() => {}}
+              onDateChange={(date) => {
+                date && setDate(date);
+              }}
               initialVisibleMonth={() => moment()}
               monthFormat="YYYY [年] M [月]"
               weekDayFormat="dd"
