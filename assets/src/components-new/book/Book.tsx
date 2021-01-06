@@ -162,6 +162,10 @@ function isBeforeDay(a: any, b: any) {
   return aYear < bYear;
 }
 
+function minsToDays(mins: number) {
+  return mins / 60 / 24;
+}
+
 const BookTypePage = () => {
   const {user, type} = useParams();
   const {
@@ -186,6 +190,18 @@ const BookTypePage = () => {
   const isDayHighlighted = (date: any) => {
     return date.isAfter(moment());
   };
+
+  const isOutsideRange = (date: any) => {
+    return (
+      isBeforeDay(date, moment()) ||
+      isInclusivelyAfterDay(
+        date,
+        moment().add(eventType.max_booking_time, 'day')
+      )
+    );
+  };
+
+  console.log('Eventtype', eventType);
 
   return (
     <div className="h-full grid grid-cols-2 gap-1 bg-gray-200">
@@ -214,9 +230,7 @@ const BookTypePage = () => {
               initialVisibleMonth={() => moment()}
               monthFormat="YYYY [年] M [月]"
               weekDayFormat="dd"
-              isOutsideRange={(date) => {
-                return isBeforeDay(date, moment());
-              }}
+              isOutsideRange={isOutsideRange}
               isDayBlocked={isDayBlocked}
               isDayHighlighted={isDayHighlighted}
               hideKeyboardShortcutsPanel
