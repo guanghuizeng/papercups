@@ -14,6 +14,9 @@ import {
   isSameDay,
 } from 'react-dates';
 import moment from 'moment';
+import 'moment/locale/zh-cn';
+
+moment.locale('zh-cn');
 
 const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
 
@@ -168,8 +171,6 @@ const BookTypePage = () => {
     fetchEventTypeByUrl,
   } = useBook();
 
-  const [checkedValue, setCheckedValue] = useState();
-
   useEffect(() => {
     fetchUserProfile(user).then((r) => {});
     fetchEventTypeByUrl(user, type).then((r) => {});
@@ -178,12 +179,8 @@ const BookTypePage = () => {
   const profile = userProfileBySlug[user];
   const eventType = eventTypes[user] && eventTypes[user][type];
 
-  moment.locale('zh-cn');
-
-  console.log('Date', moment().date());
-
   const isDayBlocked = (date: any) => {
-    return date.weekday() === 0 || date.weekday() === 6;
+    return date.weekday() === 5 || date.weekday() === 6;
   };
 
   const isDayHighlighted = (date: any) => {
@@ -216,11 +213,13 @@ const BookTypePage = () => {
               onDateChange={() => {}}
               initialVisibleMonth={() => moment()}
               monthFormat="YYYY [年] M [月]"
+              weekDayFormat="dd"
               isOutsideRange={(date) => {
                 return isBeforeDay(date, moment());
               }}
               isDayBlocked={isDayBlocked}
               isDayHighlighted={isDayHighlighted}
+              hideKeyboardShortcutsPanel
             />
           </div>
           {/*<div className="h-full flex flex-col">*/}
