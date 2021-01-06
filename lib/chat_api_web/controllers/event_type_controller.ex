@@ -15,19 +15,28 @@ defmodule ChatApiWeb.EventTypeController do
 
   @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def show(conn, params) do
-    Logger.info('Show 0-00001')
     if Map.has_key?(params, "url") do
       url = Map.get(params, "url", nil)
-      Logger.info('Show 0-0000')
       event_type = EventTypes.get_event_type_by_url(url)
       json(
         conn,
         %{
           data: %{
             id: event_type.id,
+            object: "event_type",
             name: event_type.name,
+            location: event_type.location,
             description: event_type.description,
-            schedule_id: event_type.schedule_id,
+            url: event_type.url,
+            color: event_type.color,
+            period_type: event_type.period_type,
+            min_booking_time: event_type.min_booking_time,
+            max_booking_time: event_type.max_booking_time,
+            start_date: event_type.start_date,
+            end_date: event_type.end_date,
+            duration: event_type.duration,
+            before_buffer_time: event_type.before_buffer_time,
+            after_buffer_time: event_type.after_buffer_time,
           }
         }
       )

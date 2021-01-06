@@ -6,6 +6,9 @@ import {listOfTime} from '../constants';
 import {useLocation, Switch, Route, Link, useParams} from 'react-router-dom';
 import BookProvider, {useBook} from './BookProvider';
 import * as API from '../../api';
+import {colourOptions} from '../events/data';
+import {DayPickerSingleDateController} from 'react-dates';
+import moment from 'moment';
 
 const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
 
@@ -143,6 +146,8 @@ const BookTypePage = () => {
     fetchEventTypeByUrl,
   } = useBook();
 
+  const [checkedValue, setCheckedValue] = useState();
+
   useEffect(() => {
     fetchUserProfile(user).then((r) => {});
     fetchEventTypeByUrl(user, type).then((r) => {});
@@ -151,9 +156,70 @@ const BookTypePage = () => {
   const profile = userProfileBySlug[user];
   const eventType = eventTypes[user] && eventTypes[user][type];
 
+  moment.locale('zh-cn');
+
+  console.log('Date', moment().date());
+
   return (
-    <div>
-      {profile?.full_name}, {eventType?.name}
+    <div className="h-full grid grid-cols-2 gap-1 bg-gray-200">
+      <div className="p-8 bg-white">
+        <div className="flex flex-col">
+          <div>{profile?.full_name}</div>
+          <div>{eventType?.name}</div>
+          <div>{eventType?.duration} min</div>
+          <div>
+            {
+              colourOptions.find((opt) => opt.value === eventType?.location)
+                ?.label
+            }
+          </div>
+        </div>
+      </div>
+      <div className="p-8 bg-white">
+        <div className="text-20px mb-20px">Select a Date & Time</div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4 h-full">
+          <div>
+            <DayPickerSingleDateController
+              date={moment()}
+              focused={false}
+              onFocusChange={() => {}}
+              onDateChange={() => {}}
+              initialVisibleMonth={() => moment()}
+              monthFormat="YYYY [年] M [月]"
+              isOutsideRange={(date) => {
+                return date.isBefore(moment());
+              }}
+              isDayBlocked={(date) =>
+                date.weekday() === 0 || date.weekday() === 6
+              }
+              isDayHighlighted={(date) => date.isAfter(moment())}
+            />
+          </div>
+          {/*<div className="h-full flex flex-col">*/}
+          {/*    <div className="pb-3">Thursday, November 26</div>*/}
+          {/*    <div*/}
+          {/*        className="p-1 h-full"*/}
+          {/*        style={{overflow: 'auto', maxHeight: '650px'}}*/}
+          {/*    >*/}
+          {/*        <ReactList*/}
+          {/*            itemRenderer={(index: number, key: any) => {*/}
+          {/*                return (*/}
+          {/*                    <div key={key}>*/}
+          {/*                        <TimeOption*/}
+          {/*                            value={sliceOfTime[index]}*/}
+          {/*                            checked={sliceOfTime[index] === checkedValue}*/}
+          {/*                            onCheck={setCheckedValue}*/}
+          {/*                        />*/}
+          {/*                    </div>*/}
+          {/*                );*/}
+          {/*            }}*/}
+          {/*            length={sliceOfTime.length}*/}
+          {/*            type="uniform"*/}
+          {/*        />*/}
+          {/*    </div>*/}
+          {/*</div>*/}
+        </div>
+      </div>
     </div>
   );
 };
@@ -174,7 +240,7 @@ const Book2 = () => {
       <div
         className="text-2xl bg-pink-400 cursor-pointer"
         onClick={() => {
-          API.fetchEventTypeByUrl('ycy', '2').then((r) => {
+          API.fetchEventTypeByUrl('ycy', '15min').then((r) => {
             console.log('Event type', r);
           });
         }}
