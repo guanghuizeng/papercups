@@ -425,8 +425,6 @@ const QuestionForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState<boolean | null>(null);
 
-  useEffect(() => {}, []);
-
   const handleChangeEmail = (e: any) => {
     setEmail(e.target.value);
     setError(null);
@@ -471,8 +469,15 @@ const QuestionForm = () => {
   );
 };
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 const BookContactsPage = () => {
-  const {user, type} = useParams();
+  const {user, type, date} = useParams();
+  const query = useQuery();
+  console.log('BookContactsPage', user, type, date, query.get('name'));
+
   const {
     selectedDate,
     updateSelectedDate,
@@ -488,6 +493,15 @@ const BookContactsPage = () => {
   } = useBook();
   const profile = userProfileBySlug[user];
   const eventType = eventTypes[user] && eventTypes[user][type];
+
+  useEffect(() => {
+    fetchUserProfile(user).then((r) => {});
+    fetchEventTypeByUrl(user, type).then((r) => {
+      if (r) {
+        fetchSchedule(user, r['schedule_id']).then((r) => {});
+      }
+    });
+  }, []);
 
   return (
     <div className="h-full flex flex-row bg-gray-200">
