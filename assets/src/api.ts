@@ -1051,3 +1051,15 @@ export const fetchEventTypeByUrl = async (user: string, url: string) => {
     .query({url})
     .then((res) => res.body.data);
 };
+
+export const createEvent = async () => {
+  return request
+    .post(`/api/events`)
+    .send({
+      event: {
+        guest_name: 'guest_1',
+        event_type_id: '92eecd65-aed1-4677-bae2-09b21bfbb8c3',
+      },
+    })
+    .then((res) => res.body.data);
+};

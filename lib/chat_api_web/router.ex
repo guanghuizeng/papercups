@@ -72,6 +72,7 @@ defmodule ChatApiWeb.Router do
     get("/user_settings", UserSettingsController, :show)
     get("/event_type", EventTypeController, :show)
     get("/schedule", ScheduleController, :show)
+    post("/events", EventController, :create)
 
   end
 

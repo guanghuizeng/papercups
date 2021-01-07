@@ -4,6 +4,7 @@ import {
   fetchUserProfileBySlug,
   fetchEventTypeByUrl as _fetchEventTypeByUrl,
   fetchScheduleById,
+  createEvent as _createEvent,
 } from '../../api';
 import moment from 'moment';
 
@@ -23,6 +24,8 @@ export const BookContext = React.createContext<{
 
   schedules: {[key: string]: any};
   fetchSchedule: (user: string, schedule_id: string) => Promise<any>;
+
+  createEvent: () => Promise<any>;
 }>({
   selectedMonth: null,
   selectedDate: null,
@@ -39,6 +42,8 @@ export const BookContext = React.createContext<{
 
   schedules: {},
   fetchSchedule: (user: string, schedule_id: string) => Promise.resolve({}),
+
+  createEvent: () => Promise.resolve({}),
 });
 
 export const useBook = () => useContext(BookContext);
@@ -112,6 +117,10 @@ const BookProvider = (props: Props) => {
     });
   };
 
+  const createEvent = () => {
+    return _createEvent();
+  };
+
   return (
     <BookContext.Provider
       value={{
@@ -130,6 +139,8 @@ const BookProvider = (props: Props) => {
 
         schedules,
         fetchSchedule,
+
+        createEvent,
       }}
     >
       {props.children}

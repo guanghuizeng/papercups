@@ -548,6 +548,7 @@ const BookContactsPage = () => {
     fetchEventTypeByUrl,
     fetchSchedule,
     schedules,
+    createEvent,
   } = useBook();
   const profile = userProfileBySlug[user];
   const eventType = eventTypes[user] && eventTypes[user][type];
@@ -575,6 +576,15 @@ const BookContactsPage = () => {
 
   return (
     <div className="h-full flex flex-row bg-gray-200">
+      <div
+        onClick={() => {
+          createEvent().then((r) => {
+            console.log('Create event resp', r);
+          });
+        }}
+      >
+        Create event
+      </div>
       <div
         className="w-96 bg-white border-primary border-r border-solid"
         style={{
