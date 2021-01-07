@@ -203,7 +203,7 @@ const BookTypePage = () => {
     schedules,
   } = useBook();
 
-  const [date, setDate] = useState<moment.Moment>(moment());
+  const [date, setDate] = useState<moment.Moment | null>(null);
 
   useEffect(() => {
     fetchUserProfile(user).then((r) => {});
@@ -242,7 +242,7 @@ const BookTypePage = () => {
     rules &&
     rules.find(
       (rule: any) =>
-        rule.wday === dayjs(date.toISOString()).format('dddd').toLowerCase()
+        rule.wday === dayjs(date?.toISOString()).format('dddd').toLowerCase()
     );
   const interval: any = rule && rule.intervals[0];
 
@@ -258,7 +258,7 @@ const BookTypePage = () => {
 
   // date
   console.log(
-    dayjs(date.toISOString()).format('dddd').toLowerCase(),
+    dayjs(date?.toISOString()).format('dddd').toLowerCase(),
     rule,
     interval,
     listOfTime,
@@ -281,8 +281,8 @@ const BookTypePage = () => {
   //   const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
 
   return (
-    <div className="h-full grid grid-cols-1/2 gap-1 bg-gray-200">
-      <div className="p-8 bg-white">
+    <div className="h-full flex flex-row bg-gray-200">
+      <div className="w-96 p-8 bg-white border-primary border-r border-solid">
         <div className="flex flex-col">
           <div>{profile?.full_name}</div>
           <div>{eventType?.name}</div>
@@ -295,9 +295,9 @@ const BookTypePage = () => {
           </div>
         </div>
       </div>
-      <div className="p-8 bg-white">
+      <div className="w-96 p-8 bg-white">
         <div className="text-20px mb-20px">Select a Date & Time</div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4 h-full">
+        <div className="flex flex-row justify-between h-full">
           <div>
             <DayPickerSingleDateController
               date={date}
@@ -315,17 +315,19 @@ const BookTypePage = () => {
               hideKeyboardShortcutsPanel
             />
           </div>
-          <div className="h-full flex flex-col">
-            <div className="pb-3">Thursday, November 26</div>
-            <div
-              className="p-1 h-full"
-              style={{overflow: 'auto', maxHeight: '650px'}}
-            >
-              <TimeOptionList sliceOfTime={sliceOfTime} />
-            </div>
-          </div>
         </div>
       </div>
+      {date && (
+        <div className="w-64 h-full flex flex-col bg-white">
+          <div className="pb-3">Thursday, November 26</div>
+          <div
+            className="p-1 h-full"
+            style={{overflow: 'auto', maxHeight: '650px'}}
+          >
+            <TimeOptionList sliceOfTime={sliceOfTime} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -353,7 +355,6 @@ const Book2 = () => {
       >
         Get event type
       </div>
-
       <div
         className="w-full flex flex-row justify-center"
         style={{
@@ -364,8 +365,8 @@ const Book2 = () => {
         <div
           className="bg-white border-primary border-2 border-solid rounded shadow"
           style={{
-            width: '1024px',
-            height: '768px',
+            // width: '1024px',
+            height: '540px',
           }}
         >
           <Switch>
