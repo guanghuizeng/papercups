@@ -282,12 +282,63 @@ const BookTypePage = () => {
 
   return (
     <div className="h-full flex flex-row bg-gray-200">
-      <div className="w-96 p-8 bg-white border-primary border-r border-solid">
+      <div
+        className="w-96 bg-white border-primary border-r border-solid"
+        style={{
+          paddingTop: '25px',
+          paddingBottom: '25px',
+        }}
+      >
         <div className="flex flex-col">
-          <div>{profile?.full_name}</div>
-          <div>{eventType?.name}</div>
-          <div>{eventType?.duration} min</div>
-          <div>
+          <h4
+            className=""
+            style={{
+              fontSize: '16px',
+              paddingLeft: '30px',
+              paddingRight: '10px',
+              color: 'rgba(77, 80, 85, 0.6)',
+              marginBottom: '0 0 3px',
+            }}
+          >
+            {profile?.full_name}
+          </h4>
+          <h1
+            className="font-bold"
+            style={{
+              marginBottom: '24px',
+              fontSize: '28px',
+              lineHeight: '32px',
+              paddingLeft: '30px',
+              paddingRight: '10px',
+              color: '#4d5055',
+            }}
+          >
+            {eventType?.name}
+          </h1>
+          <div
+            style={{
+              fontSize: '16px',
+              lineHeight: '1.5',
+              paddingLeft: '30px',
+              paddingRight: '10px',
+              marginBottom: '20px',
+              color: '#4d5055',
+            }}
+          >
+            <i className="far fa-clock mr-2" />
+            {eventType?.duration} min
+          </div>
+          <div
+            style={{
+              fontSize: '16px',
+              lineHeight: '1.5',
+              paddingLeft: '30px',
+              paddingRight: '10px',
+              marginBottom: '20px',
+              color: '#4d5055',
+            }}
+          >
+            <i className="far fa-handshake mr-2" />
             {
               colourOptions.find((opt) => opt.value === eventType?.location)
                 ?.label
@@ -318,7 +369,7 @@ const BookTypePage = () => {
         </div>
       </div>
       {date && (
-        <div className="w-64 h-full flex flex-col bg-white">
+        <div className="w-64 h-full flex flex-col bg-white py-8">
           <div className="pb-3">Thursday, November 26</div>
           <div
             className="p-1 h-full"
