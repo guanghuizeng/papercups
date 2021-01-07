@@ -265,21 +265,6 @@ const BookTypePage = () => {
     sliceOfTime
   );
 
-  // console.log(
-  //   'Event type',
-  //   userProfileBySlug,
-  //   eventType,
-  //   schedules[schedule_id],
-  //     rules
-  // );
-
-  // console
-
-  // const rule = rules.find((r) => )
-
-  // const start = listOfTime.findIndex(time => time === )
-  //   const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
-
   return (
     <div className="h-full flex flex-row bg-gray-200">
       <div
@@ -380,11 +365,22 @@ const BookTypePage = () => {
             />
           </div>
           {date && (
-            <div className="w-64 flex flex-col ">
-              <div className="pb-3">{date?.format('MMM D[日] dddd')}</div>
+            <div className="w-64 flex flex-col h-full">
               <div
-                className="p-1"
-                style={{overflow: 'scroll', height: '400px'}}
+                className=""
+                style={{
+                  height: '38px',
+                  marginBottom: '10px',
+                  fontSize: '16px',
+                  lineHeight: '38px',
+                  color: '#4d5055',
+                }}
+              >
+                {date?.format('MMM D[日] dddd')}
+              </div>
+              <div
+                className="p-1 h-full"
+                style={{overflow: 'scroll', height: '500px'}}
               >
                 <TimeOptionList sliceOfTime={sliceOfTime} />
               </div>
@@ -400,26 +396,6 @@ const Book2 = () => {
   return (
     <div className="w-screen h-screen bg-gray-100">
       <div
-        className="text-2xl bg-pink-400 cursor-pointer"
-        onClick={() => {
-          API.fetchUserProfileBySlug('ycy').then((r) => {
-            console.log('Profile', r);
-          });
-        }}
-      >
-        Get profile
-      </div>
-      <div
-        className="text-2xl bg-pink-400 cursor-pointer"
-        onClick={() => {
-          API.fetchEventTypeByUrl('ycy', '15min').then((r) => {
-            console.log('Event type', r);
-          });
-        }}
-      >
-        Get event type
-      </div>
-      <div
         className="w-full flex flex-row justify-center"
         style={{
           paddingTop: '66px',
@@ -430,7 +406,7 @@ const Book2 = () => {
           className="bg-white border-primary border-2 border-solid rounded shadow"
           style={{
             // width: '1024px',
-            height: '540px',
+            minHeight: '700px',
           }}
         >
           <Switch>
