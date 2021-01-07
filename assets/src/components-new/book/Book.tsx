@@ -325,8 +325,8 @@ const BookTypePage = () => {
               color: '#4d5055',
             }}
           >
-            <i className="far fa-clock mr-2" />
-            {eventType?.duration} min
+            <i className="fas fa-clock mr-2 w-5 text-center" />
+            {eventType?.duration} 分钟
           </div>
           <div
             style={{
@@ -338,7 +338,7 @@ const BookTypePage = () => {
               color: '#4d5055',
             }}
           >
-            <i className="far fa-handshake mr-2" />
+            <i className="fas fa-handshake mr-2 w-5 text-center" />
             {
               colourOptions.find((opt) => opt.value === eventType?.location)
                 ?.label
@@ -346,10 +346,23 @@ const BookTypePage = () => {
           </div>
         </div>
       </div>
-      <div className="w-96 p-8 bg-white">
-        <div className="text-20px mb-20px">Select a Date & Time</div>
-        <div className="flex flex-row justify-between h-full">
-          <div>
+      <div className="bg-white" style={{paddingTop: '28px'}}>
+        <div
+          className="text-20px"
+          style={{
+            color: '#4d5055',
+            fontSize: '20px',
+            marginBottom: '20px',
+            textAlign: 'left',
+            paddingLeft: '32px',
+            paddingRight: '32px',
+          }}
+        >
+          选择日期和时间
+        </div>
+
+        <div className="flex flex-row justify-between bg-white">
+          <div className="w-96">
             <DayPickerSingleDateController
               date={date}
               focused={false}
@@ -366,19 +379,19 @@ const BookTypePage = () => {
               hideKeyboardShortcutsPanel
             />
           </div>
+          {date && (
+            <div className="w-64 flex flex-col ">
+              <div className="pb-3">{date?.format('MMM D[日] dddd')}</div>
+              <div
+                className="p-1"
+                style={{overflow: 'scroll', height: '400px'}}
+              >
+                <TimeOptionList sliceOfTime={sliceOfTime} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
-      {date && (
-        <div className="w-64 h-full flex flex-col bg-white py-8">
-          <div className="pb-3">Thursday, November 26</div>
-          <div
-            className="p-1 h-full"
-            style={{overflow: 'auto', maxHeight: '650px'}}
-          >
-            <TimeOptionList sliceOfTime={sliceOfTime} />
-          </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -1,8 +1,8 @@
 export const colourOptions = [
-  {value: 'loc1', label: 'In-person meeting', color: '#00B8D9'},
-  {value: 'loc2', label: 'Phone call', color: '#0052CC'},
-  {value: 'loc3', label: 'WeChat', color: '#5243AA'},
-  {value: 'loc4', label: 'DingTalk', color: '#FF5630'},
+  {value: 'loc1', label: '面谈', color: '#00B8D9'},
+  {value: 'loc2', label: '电话', color: '#0052CC'},
+  {value: 'loc3', label: '微信', color: '#5243AA'},
+  {value: 'loc4', label: '钉钉', color: '#FF5630'},
   {value: 'loc5', label: 'Zoom', color: '#FF8B00'},
   // { value: 'yellow', label: 'Yellow', color: '#FFC400' },
   // { value: 'green', label: 'Green', color: '#36B37E' },
