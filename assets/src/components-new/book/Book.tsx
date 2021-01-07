@@ -440,26 +440,31 @@ const QuestionForm = () => {
   };
 
   return (
-    <form onSubmit={() => console.log('submit')}>
-      <div style={{paddingBottom: '24px'}}>
-        <Label>姓名</Label>
-        <TextField
-          type="text"
-          styles={textFieldStyles}
-          onChange={handleChangeEmail}
-          value={email}
-          id={'name'}
-        />
-      </div>
-      <div style={{paddingBottom: '24px'}}>
-        <Label>Email</Label>
-        <TextField
-          type="email"
-          styles={textFieldStyles}
-          onChange={handleChangeEmail}
-          value={email}
-          id={'email'}
-        />
+    <form
+      className="flex flex-col justify-between h-full"
+      onSubmit={() => console.log('submit')}
+    >
+      <div className="flex flex-col">
+        <div style={{paddingBottom: '24px'}}>
+          <Label required>姓名</Label>
+          <TextField
+            type="text"
+            styles={textFieldStyles}
+            onChange={handleChangeEmail}
+            value={email}
+            id={'name'}
+          />
+        </div>
+        <div style={{paddingBottom: '24px'}}>
+          <Label required>Email</Label>
+          <TextField
+            type="email"
+            styles={textFieldStyles}
+            onChange={handleChangeEmail}
+            value={email}
+            id={'email'}
+          />
+        </div>
       </div>
       <PrimaryButton className="submit-button" text="提交" type="submit" />
     </form>
@@ -564,7 +569,7 @@ const BookContactsPage = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white" style={{paddingTop: '28px'}}>
+      <div className="bg-white h-full" style={{paddingTop: '28px'}}>
         <div
           className="text-20px"
           style={{
@@ -580,7 +585,12 @@ const BookContactsPage = () => {
         </div>
         <div
           className=""
-          style={{width: '600px', paddingLeft: '32px', paddingRight: '32px'}}
+          style={{
+            width: '600px',
+            paddingLeft: '32px',
+            paddingRight: '32px',
+            height: 'calc(100% - 60px)',
+          }}
         >
           <QuestionForm />
         </div>
