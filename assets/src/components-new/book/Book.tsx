@@ -23,7 +23,6 @@ import {
 } from 'react-dates';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
-import {fetchScheduleById} from '../../api';
 import dayjs from 'dayjs';
 import {
   ITextFieldStyles,
@@ -481,12 +480,25 @@ const BookTypePage = () => {
 };
 
 const QuestionForm = () => {
+  const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState<boolean | null>(null);
 
+  const history = useHistory();
+  const {pathname} = useLocation();
+  const {user, type} = useParams();
+
+  const {createEvent} = useBook();
+
   const handleChangeEmail = (e: any) => {
     setEmail(e.target.value);
+    setError(null);
+    setLoading(null);
+  };
+
+  const handleChangeName = (e: any) => {
+    setName(e.target.value);
     setError(null);
     setLoading(null);
   };
@@ -500,7 +512,15 @@ const QuestionForm = () => {
   return (
     <form
       className="flex flex-col justify-between h-full"
-      onSubmit={() => console.log('submit')}
+      onSubmit={(e) => {
+        e.preventDefault();
+
+        const res = `invitees/HAX776ZFSRHFOTIA`;
+        console.log('submit', res);
+        createEvent().then((r) => {
+          history.push(res);
+        });
+      }}
     >
       <div className="flex flex-col">
         <div style={{paddingBottom: '24px'}}>
@@ -508,8 +528,8 @@ const QuestionForm = () => {
           <TextField
             type="text"
             styles={textFieldStyles}
-            onChange={handleChangeEmail}
-            value={email}
+            onChange={handleChangeName}
+            value={name}
             id={'name'}
           />
         </div>
@@ -703,6 +723,13 @@ const BookTypePageWrapper = () => {
   }
 };
 
+const InviteePage = () => {
+  const {pathname} = useLocation();
+  console.log('invitee page', pathname);
+
+  return <div>{pathname}</div>;
+};
+
 const Book2 = () => {
   return (
     <div className="w-screen h-screen bg-gray-100">
@@ -723,6 +750,11 @@ const Book2 = () => {
           <Switch>
             <Route exact path="/@:user" component={BookUserPage} />
             <Route exact path="/@:user/:type" component={BookTypePageWrapper} />
+            <Route
+              exact
+              path="/@:user/:type/invitees/:invitee"
+              component={InviteePage}
+            />
             <Route
               exact
               path="/@:user/:type/:datetime"
