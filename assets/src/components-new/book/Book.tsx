@@ -36,6 +36,10 @@ moment.locale('zh-cn');
 
 const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 function TimeOption({value, checked, onCheck, onConfirm}: any) {
   return (
     <>
@@ -221,8 +225,19 @@ const TimeOptionList = ({sliceOfTime, handleSelectDateAndTime}: any) => {
 
 const BookTypePage = () => {
   const {user, type} = useParams();
+  const query = useQuery();
+  const month = query.get('month');
+  const date = query.get('date');
+
+  console.log('book type', user, type, month, date);
+
+  const {pathname} = useLocation();
+  const history = useHistory();
+
   const {
+    selectedMonth,
     selectedDate,
+    updateSelectedMonth,
     updateSelectedDate,
 
     userProfileBySlug,
@@ -240,6 +255,13 @@ const BookTypePage = () => {
         fetchSchedule(user, r['schedule_id']).then((r) => {});
       }
     });
+
+    if (month) {
+      updateSelectedMonth(moment(month, 'YYYY-MM'));
+    }
+    if (date) {
+      updateSelectedDate(moment(date, 'YYYY-MM-DD'));
+    }
   }, []);
 
   const profile = userProfileBySlug[user];
@@ -288,6 +310,17 @@ const BookTypePage = () => {
 
   const handleSelectDateAndTime = (time: string) => {
     console.log('handleSelectDateAndTime', selectedDate, time);
+  };
+
+  const handleMonthNavigate = (newCurrentMonth: moment.Moment) => {
+    if (newCurrentMonth) {
+      updateSelectedMonth(newCurrentMonth);
+      history.push(
+        `${pathname}?month=${newCurrentMonth.format('YYYY-MM')}${
+          selectedDate ? `&date=${selectedDate.format('YYYY-MM-DD')}` : ''
+        }`
+      );
+    }
   };
 
   return (
@@ -375,12 +408,26 @@ const BookTypePage = () => {
           <div className="w-96">
             <DayPickerSingleDateController
               date={selectedDate}
-              focused={false}
-              onFocusChange={() => {}}
-              onDateChange={(date) => {
-                date && updateSelectedDate(date);
+              focused={true}
+              onFocusChange={(date) => {
+                console.log('onFocusChange', date);
               }}
-              initialVisibleMonth={() => moment()}
+              onPrevMonthClick={handleMonthNavigate}
+              onNextMonthClick={handleMonthNavigate}
+              onDateChange={(date) => {
+                if (date) {
+                  updateSelectedDate(date);
+                  history.push(
+                    `${pathname}?month=${(selectedMonth
+                      ? selectedMonth
+                      : date
+                    ).format('YYYY-MM')}&date=${date.format('YYYY-MM-DD')}`
+                  );
+                }
+              }}
+              initialVisibleMonth={() => {
+                return month ? moment(month, 'YYYY-MM') : moment();
+              }}
               monthFormat="YYYY [年] M [月]"
               weekDayFormat="dd"
               isOutsideRange={isOutsideRange}
@@ -469,14 +516,13 @@ const QuestionForm = () => {
   );
 };
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
 const BookContactsPage = () => {
-  const {user, type, date} = useParams();
+  const {user, type, datetime} = useParams();
   const query = useQuery();
-  console.log('BookContactsPage', user, type, date, query.get('name'));
+  const month = query.get('month');
+  const date = query.get('date');
+
+  console.log('BookContactsPage', user, type, datetime, month, date);
 
   const {
     selectedDate,
@@ -613,6 +659,16 @@ const BookContactsPage = () => {
   );
 };
 
+const BookTypePageWrapper = () => {
+  const query = useQuery();
+  const {pathname} = useLocation();
+  if (query.get('month')) {
+    return <BookTypePage />;
+  } else {
+    return <Redirect to={`${pathname}?month=${moment().format('YYYY-MM')}`} />;
+  }
+};
+
 const Book2 = () => {
   return (
     <div className="w-screen h-screen bg-gray-100">
@@ -632,10 +688,10 @@ const Book2 = () => {
         >
           <Switch>
             <Route exact path="/@:user" component={BookUserPage} />
-            <Route exact path="/@:user/:type" component={BookTypePage} />
+            <Route exact path="/@:user/:type" component={BookTypePageWrapper} />
             <Route
               exact
-              path="/@:user/:type/:date"
+              path="/@:user/:type/:datetime"
               component={BookContactsPage}
             />
           </Switch>

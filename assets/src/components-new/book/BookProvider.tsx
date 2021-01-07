@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {useLocation} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import {
   fetchUserProfileBySlug,
   fetchEventTypeByUrl as _fetchEventTypeByUrl,
@@ -8,8 +8,10 @@ import {
 import moment from 'moment';
 
 export const BookContext = React.createContext<{
+  selectedMonth: moment.Moment | null;
   selectedDate: moment.Moment | null;
   selectedTime: string | null;
+  updateSelectedMonth: (month: moment.Moment) => void;
   updateSelectedDate: (date: moment.Moment) => void;
   updateSelectedTime: (time: string) => void;
 
@@ -22,8 +24,10 @@ export const BookContext = React.createContext<{
   schedules: {[key: string]: any};
   fetchSchedule: (user: string, schedule_id: string) => Promise<any>;
 }>({
+  selectedMonth: null,
   selectedDate: null,
   selectedTime: null,
+  updateSelectedMonth: (month: moment.Moment) => {},
   updateSelectedDate: (date: moment.Moment) => {},
   updateSelectedTime: (time: string) => {},
 
@@ -42,8 +46,15 @@ export const useBook = () => useContext(BookContext);
 type Props = React.PropsWithChildren<{}>;
 
 const BookProvider = (props: Props) => {
+  const [selectedMonth, setSelectedMonth] = useState<moment.Moment | null>(
+    null
+  );
   const [selectedDate, setSelectedDate] = useState<moment.Moment | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+
+  const updateSelectedMonth = (date: moment.Moment) => {
+    setSelectedMonth(date);
+  };
 
   const updateSelectedDate = (date: moment.Moment) => {
     setSelectedDate(date);
@@ -104,8 +115,10 @@ const BookProvider = (props: Props) => {
   return (
     <BookContext.Provider
       value={{
+        selectedMonth,
         selectedDate,
         selectedTime,
+        updateSelectedMonth,
         updateSelectedDate,
         updateSelectedTime,
 
