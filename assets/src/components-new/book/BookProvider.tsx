@@ -5,8 +5,14 @@ import {
   fetchEventTypeByUrl as _fetchEventTypeByUrl,
   fetchScheduleById,
 } from '../../api';
+import moment from 'moment';
 
 export const BookContext = React.createContext<{
+  selectedDate: moment.Moment | null;
+  selectedTime: string | null;
+  updateSelectedDate: (date: moment.Moment) => void;
+  updateSelectedTime: (time: string) => void;
+
   eventTypes: {[key: string]: any};
   fetchEventTypeByUrl: (user: string, url: string) => Promise<any>;
 
@@ -16,6 +22,11 @@ export const BookContext = React.createContext<{
   schedules: {[key: string]: any};
   fetchSchedule: (user: string, schedule_id: string) => Promise<any>;
 }>({
+  selectedDate: null,
+  selectedTime: null,
+  updateSelectedDate: (date: moment.Moment) => {},
+  updateSelectedTime: (time: string) => {},
+
   eventTypes: {},
   fetchEventTypeByUrl: (user: string, url: string) => Promise.resolve({}),
 
@@ -31,6 +42,17 @@ export const useBook = () => useContext(BookContext);
 type Props = React.PropsWithChildren<{}>;
 
 const BookProvider = (props: Props) => {
+  const [selectedDate, setSelectedDate] = useState<moment.Moment | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+
+  const updateSelectedDate = (date: moment.Moment) => {
+    setSelectedDate(date);
+  };
+
+  const updateSelectedTime = (time: string) => {
+    setSelectedTime(time);
+  };
+
   const [eventTypes, setEventTypes] = useState<{
     [key: string]: any;
   }>({});
@@ -82,6 +104,11 @@ const BookProvider = (props: Props) => {
   return (
     <BookContext.Provider
       value={{
+        selectedDate,
+        selectedTime,
+        updateSelectedDate,
+        updateSelectedTime,
+
         eventTypes,
         fetchEventTypeByUrl,
 

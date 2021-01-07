@@ -3,7 +3,15 @@ import BookCalendar from '../common/BookCalendar';
 import ReactList from 'react-list';
 // import dayjs from "dayjs";
 import {listOfTime} from '../constants';
-import {useLocation, Switch, Route, Link, useParams} from 'react-router-dom';
+import {
+  useLocation,
+  Switch,
+  Route,
+  Link,
+  useParams,
+  Redirect,
+  useHistory,
+} from 'react-router-dom';
 import BookProvider, {useBook} from './BookProvider';
 import * as API from '../../api';
 import {colourOptions} from '../events/data';
@@ -22,7 +30,7 @@ moment.locale('zh-cn');
 
 const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
 
-function TimeOption({value, checked, onCheck}: any) {
+function TimeOption({value, checked, onCheck, onConfirm}: any) {
   return (
     <>
       {!checked ? (
@@ -41,8 +49,13 @@ function TimeOption({value, checked, onCheck}: any) {
           <div className="cursor-pointer mb-3 px-2 py-2 bg-gray-600 text-white font-bold  rounded text-center">
             {value}
           </div>
-          <div className="cursor-pointer mb-3 px-2 py-2 bg-lightblue-500 text-white font-bold border border-lightblue-500 rounded text-center">
+          <div
+            className="cursor-pointer mb-3 px-2 py-2 bg-lightblue-500 text-white font-bold border border-lightblue-500 rounded text-center"
+            onClick={onConfirm}
+          >
+            {/*<Redirect to="/@ycy">*/}
             Confirm
+            {/*</Redirect>*/}
           </div>
         </div>
       )}
@@ -168,10 +181,16 @@ function minsToDays(mins: number) {
   return mins / 60 / 24;
 }
 
-const TimeOptionList = ({sliceOfTime}: any) => {
-  const [checkedValue, setCheckedValue] = useState();
+const TimeOptionList = ({sliceOfTime, handleSelectDateAndTime}: any) => {
+  const {pathname} = useLocation();
+  const {selectedDate, updateSelectedTime} = useBook();
 
-  console.log('time list');
+  const [checkedValue, setCheckedValue] = useState();
+  let history = useHistory();
+
+  const handleConfirm = () => {
+    history.push(`${pathname}/${selectedDate?.format()}`);
+  };
 
   return (
     <ReactList
@@ -182,6 +201,7 @@ const TimeOptionList = ({sliceOfTime}: any) => {
               value={sliceOfTime[index]}
               checked={sliceOfTime[index] === checkedValue}
               onCheck={setCheckedValue}
+              onConfirm={handleConfirm}
             />
           </div>
         );
@@ -195,6 +215,9 @@ const TimeOptionList = ({sliceOfTime}: any) => {
 const BookTypePage = () => {
   const {user, type} = useParams();
   const {
+    selectedDate,
+    updateSelectedDate,
+
     userProfileBySlug,
     fetchUserProfile,
     eventTypes,
@@ -202,8 +225,6 @@ const BookTypePage = () => {
     fetchSchedule,
     schedules,
   } = useBook();
-
-  const [date, setDate] = useState<moment.Moment | null>(null);
 
   useEffect(() => {
     fetchUserProfile(user).then((r) => {});
@@ -219,6 +240,30 @@ const BookTypePage = () => {
   const nextDays = minsToDays(eventType?.max_booking_time);
   const today = moment();
 
+  const schedule_id = eventType && eventType['schedule_id'];
+  const schedule = schedules && schedules[schedule_id];
+  const rules = schedule && JSON.parse(schedule.rules);
+
+  const rule =
+    rules &&
+    rules.find(
+      (rule: any) =>
+        rule.wday ===
+        dayjs(selectedDate?.toISOString()).format('dddd').toLowerCase()
+    );
+  const interval: any = rule && rule.intervals[0];
+
+  let sliceOfTime: any[] = [];
+
+  if (interval) {
+    const startIndex = listOfTime.findIndex((t) => t === interval.from);
+    const endIndex = listOfTime.findIndex((t) => t === interval.to);
+
+    // const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
+    sliceOfTime = listOfTime.slice(startIndex, endIndex + 1);
+  }
+
+  // console.log('Rule', rules);
   const isDayBlocked = (date: any) => {
     return date.weekday() === 5 || date.weekday() === 6;
   };
@@ -234,36 +279,9 @@ const BookTypePage = () => {
     );
   };
 
-  const schedule_id = eventType && eventType['schedule_id'];
-  const schedule = schedules && schedules[schedule_id];
-  const rules = schedule && JSON.parse(schedule.rules);
-
-  const rule =
-    rules &&
-    rules.find(
-      (rule: any) =>
-        rule.wday === dayjs(date?.toISOString()).format('dddd').toLowerCase()
-    );
-  const interval: any = rule && rule.intervals[0];
-
-  let sliceOfTime: any[] = [];
-
-  if (interval) {
-    const startIndex = listOfTime.findIndex((t) => t === interval.from);
-    const endIndex = listOfTime.findIndex((t) => t === interval.to);
-
-    // const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
-    sliceOfTime = listOfTime.slice(startIndex, endIndex + 1);
-  }
-
-  // date
-  console.log(
-    dayjs(date?.toISOString()).format('dddd').toLowerCase(),
-    rule,
-    interval,
-    listOfTime,
-    sliceOfTime
-  );
+  const handleSelectDateAndTime = (time: string) => {
+    console.log('handleSelectDateAndTime', selectedDate, time);
+  };
 
   return (
     <div className="h-full flex flex-row bg-gray-200">
@@ -349,11 +367,11 @@ const BookTypePage = () => {
         <div className="flex flex-row justify-between bg-white">
           <div className="w-96">
             <DayPickerSingleDateController
-              date={date}
+              date={selectedDate}
               focused={false}
               onFocusChange={() => {}}
               onDateChange={(date) => {
-                date && setDate(date);
+                date && updateSelectedDate(date);
               }}
               initialVisibleMonth={() => moment()}
               monthFormat="YYYY [年] M [月]"
@@ -364,7 +382,7 @@ const BookTypePage = () => {
               hideKeyboardShortcutsPanel
             />
           </div>
-          {date && (
+          {selectedDate && (
             <div className="w-64 flex flex-col h-full">
               <div
                 className=""
@@ -376,20 +394,28 @@ const BookTypePage = () => {
                   color: '#4d5055',
                 }}
               >
-                {date?.format('MMM D[日] dddd')}
+                {selectedDate?.format('MMM D[日] dddd')}
               </div>
               <div
                 className="p-1 h-full"
                 style={{overflow: 'scroll', height: '500px'}}
               >
-                <TimeOptionList sliceOfTime={sliceOfTime} />
+                <TimeOptionList
+                  sliceOfTime={sliceOfTime}
+                  handleSelectDateAndTime={handleSelectDateAndTime}
+                />
               </div>
             </div>
           )}
         </div>
       </div>
+      )
     </div>
   );
+};
+
+const BookContactsPage = () => {
+  return <div>contacts</div>;
 };
 
 const Book2 = () => {
@@ -412,6 +438,11 @@ const Book2 = () => {
           <Switch>
             <Route exact path="/@:user" component={BookUserPage} />
             <Route exact path="/@:user/:type" component={BookTypePage} />
+            <Route
+              exact
+              path="/@:user/:type/:date"
+              component={BookContactsPage}
+            />
           </Switch>
         </div>
       </div>
