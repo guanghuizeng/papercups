@@ -224,3 +224,22 @@ input[type='number'] {
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
 }
+
+.submit-button {
+  border: 1px solid #2251ff;
+  background-color: #2251ff;
+  color: white;
+  width: 200px;
+  height: 48px;
+  font-size: 1.125rem;
+  transition: all 120ms linear;
+}
+
+.submit-button:hover {
+  border: 1px solid #2251ff;
+  background-color: white;
+  color: #2251ff;
+  box-shadow: 0 7px 14px 0 rgba(0, 0, 0, 0.2);
+  -webkit-transform: translateY(-2px);
+  transform: translateY(-2px);
+}

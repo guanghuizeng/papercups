@@ -25,6 +25,12 @@ import moment from 'moment';
 import 'moment/locale/zh-cn';
 import {fetchScheduleById} from '../../api';
 import dayjs from 'dayjs';
+import {
+  ITextFieldStyles,
+  Label,
+  PrimaryButton,
+  TextField,
+} from '@fluentui/react';
 
 moment.locale('zh-cn');
 
@@ -414,6 +420,52 @@ const BookTypePage = () => {
   );
 };
 
+const QuestionForm = () => {
+  const [email, setEmail] = useState();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState<boolean | null>(null);
+
+  useEffect(() => {}, []);
+
+  const handleChangeEmail = (e: any) => {
+    setEmail(e.target.value);
+    setError(null);
+    setLoading(null);
+  };
+
+  const textFieldStyles: Partial<ITextFieldStyles> = {
+    field: {height: 50, fontSize: '1rem', color: 'black', padding: '12px 16px'},
+    fieldGroup: {height: 52, border: '1px black solid'},
+    revealButton: {height: 50},
+  };
+
+  return (
+    <form onSubmit={() => console.log('submit')}>
+      <div style={{paddingBottom: '24px'}}>
+        <Label>姓名</Label>
+        <TextField
+          type="text"
+          styles={textFieldStyles}
+          onChange={handleChangeEmail}
+          value={email}
+          id={'name'}
+        />
+      </div>
+      <div style={{paddingBottom: '24px'}}>
+        <Label>Email</Label>
+        <TextField
+          type="email"
+          styles={textFieldStyles}
+          onChange={handleChangeEmail}
+          value={email}
+          id={'email'}
+        />
+      </div>
+      <PrimaryButton className="submit-button" text="提交" type="submit" />
+    </form>
+  );
+};
+
 const BookContactsPage = () => {
   const {user, type} = useParams();
   const {
@@ -498,7 +550,6 @@ const BookContactsPage = () => {
           </div>
 
           <div
-            className="flex flex-row"
             style={{
               fontSize: '16px',
               lineHeight: '1.5',
@@ -508,11 +559,30 @@ const BookContactsPage = () => {
               color: '#4d5055',
             }}
           >
-            <i className="fas fa-handshake mr-2 w-5 text-center" />
-            <div className="mr-2">{selectedTime},</div>
-
-            {selectedDate?.format('YYYY-MM-DD')}
+            <i className="fas fa-calendar-day mr-2 w-5 text-center" />
+            {selectedTime}, {selectedDate?.format('YYYY-MM-DD')}
           </div>
+        </div>
+      </div>
+      <div className="bg-white" style={{paddingTop: '28px'}}>
+        <div
+          className="text-20px"
+          style={{
+            color: '#4d5055',
+            fontSize: '20px',
+            marginBottom: '20px',
+            textAlign: 'left',
+            paddingLeft: '32px',
+            paddingRight: '32px',
+          }}
+        >
+          联系信息
+        </div>
+        <div
+          className=""
+          style={{width: '600px', paddingLeft: '32px', paddingRight: '32px'}}
+        >
+          <QuestionForm />
         </div>
       </div>
     </div>
