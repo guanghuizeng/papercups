@@ -193,14 +193,27 @@ function minsToDays(mins: number) {
 
 const TimeOptionList = ({sliceOfTime, handleSelectDateAndTime}: any) => {
   const {pathname} = useLocation();
-  const {selectedDate, updateSelectedTime} = useBook();
+  const {selectedMonth, selectedDate, updateSelectedTime} = useBook();
 
   const [checkedValue, setCheckedValue] = useState<string>('');
   let history = useHistory();
 
   const handleConfirm = () => {
     updateSelectedTime(checkedValue);
-    history.push(`${pathname}/${selectedDate?.format()}`);
+    console.log(
+      'confirm1',
+      checkedValue,
+      selectedDate,
+      moment.duration(checkedValue)
+    );
+    history.push(
+      `${pathname}/${selectedDate
+        ?.clone()
+        .add(moment.duration(checkedValue))
+        ?.format()}?month=${selectedMonth?.format(
+        'YYYY-MM'
+      )}&date=${selectedDate?.format('YYYY-MM-DD')}`
+    );
   };
 
   return (
