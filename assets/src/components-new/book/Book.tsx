@@ -535,11 +535,12 @@ const BookContactsPage = () => {
   const month = query.get('month');
   const date = query.get('date');
 
-  console.log('BookContactsPage', user, type, datetime, month, date);
-
   const {
     selectedDate,
     updateSelectedDate,
+    updateSelectedMonth,
+    selectedTime,
+    updateSelectedTime,
 
     userProfileBySlug,
     fetchUserProfile,
@@ -547,8 +548,6 @@ const BookContactsPage = () => {
     fetchEventTypeByUrl,
     fetchSchedule,
     schedules,
-
-    selectedTime,
   } = useBook();
   const profile = userProfileBySlug[user];
   const eventType = eventTypes[user] && eventTypes[user][type];
@@ -560,6 +559,18 @@ const BookContactsPage = () => {
         fetchSchedule(user, r['schedule_id']).then((r) => {});
       }
     });
+
+    if (month) {
+      updateSelectedMonth(moment(month, 'YYYY-MM'));
+    }
+    if (date) {
+      updateSelectedDate(moment(date, 'YYYY-MM-DD'));
+    }
+    if (datetime) {
+      updateSelectedMonth(moment(datetime, 'YYYY-MM'));
+      updateSelectedDate(moment(datetime, 'YYYY-MM-DD'));
+      updateSelectedTime(moment(datetime, 'YYYY-MM-DDTHH:mm').format('HH:mm'));
+    }
   }, []);
 
   return (
