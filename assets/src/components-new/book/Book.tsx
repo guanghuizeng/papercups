@@ -199,14 +199,8 @@ const TimeOptionList = ({sliceOfTime, handleSelectDateAndTime}: any) => {
 
   const handleConfirm = () => {
     updateSelectedTime(checkedValue);
-    console.log(
-      'confirm1',
-      checkedValue,
-      selectedDate,
-      moment.duration(checkedValue)
-    );
     history.push(
-      `${pathname}${selectedDate
+      `${pathname}/${selectedDate
         ?.clone()
         .add(moment.duration(checkedValue))
         ?.format()}?month=${selectedMonth?.format(
@@ -240,8 +234,6 @@ const BookTypePage = () => {
   const query = useQuery();
   const month = query.get('month');
   const date = query.get('date');
-
-  console.log('book type', user, type, month, date);
 
   const {pathname} = useLocation();
   const history = useHistory();
