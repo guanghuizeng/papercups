@@ -206,7 +206,7 @@ const TimeOptionList = ({sliceOfTime, handleSelectDateAndTime}: any) => {
       moment.duration(checkedValue)
     );
     history.push(
-      `${pathname}/${selectedDate
+      `${pathname}${selectedDate
         ?.clone()
         .add(moment.duration(checkedValue))
         ?.format()}?month=${selectedMonth?.format(
@@ -555,6 +555,8 @@ const BookContactsPage = () => {
   const month = query.get('month');
   const date = query.get('date');
 
+  console.log('contacts page');
+
   const {
     selectedDate,
     updateSelectedDate,
@@ -596,15 +598,6 @@ const BookContactsPage = () => {
 
   return (
     <div className="h-full flex flex-row bg-gray-200">
-      <div
-        onClick={() => {
-          createEvent().then((r) => {
-            console.log('Create event resp', r);
-          });
-        }}
-      >
-        Create event
-      </div>
       <div
         className="w-96 bg-white border-primary border-r border-solid"
         style={{
@@ -723,7 +716,7 @@ const BookTypePageWrapper = () => {
   }
 };
 
-const InviteePage = () => {
+const BookInviteePage = () => {
   const {pathname} = useLocation();
   console.log('invitee page', pathname);
 
@@ -753,7 +746,7 @@ const Book2 = () => {
             <Route
               exact
               path="/@:user/:type/invitees/:invitee"
-              component={InviteePage}
+              component={BookInviteePage}
             />
             <Route
               exact
