@@ -142,11 +142,9 @@ const BookTypePage = () => {
     const startIndex = listOfTime.findIndex((t) => t === interval.from);
     const endIndex = listOfTime.findIndex((t) => t === interval.to);
 
-    // const sliceOfTime = listOfTime.slice(4 * 9 + 2, 4 * 17 + 3);
     sliceOfTime = listOfTime.slice(startIndex, endIndex + 1);
   }
 
-  // console.log('Rule', rules);
   const isDayBlocked = (date: any) => {
     return date.weekday() === 5 || date.weekday() === 6;
   };

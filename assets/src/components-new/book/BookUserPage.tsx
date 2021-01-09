@@ -5,9 +5,11 @@ import React, {useEffect} from 'react';
 const BookUserPage = () => {
   const {user} = useParams();
 
-  const {userProfileBySlug, fetchUserProfile} = useBook();
+  const {userProfileBySlug, fetchUserProfile, eventTypes} = useBook();
 
   useEffect(() => {
+    if (!eventTypes) {
+    }
     if (!userProfileBySlug[user]) {
       fetchUserProfile(user).then((r) => {});
     }

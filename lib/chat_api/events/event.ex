@@ -6,6 +6,10 @@ defmodule ChatApi.Events.Event do
   @foreign_key_type :binary_id
   schema "events" do
     field :guest_name, :string
+    field :invitee_full_name, :string
+    field :invitee_email, :string
+    field :start_time, :string
+    field :fielditional_info, :string
 
     belongs_to(:event_type, EventType, type: :binary_id)
 

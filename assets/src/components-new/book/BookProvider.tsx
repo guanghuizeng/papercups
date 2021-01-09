@@ -5,6 +5,7 @@ import {
   fetchEventTypeByUrl as _fetchEventTypeByUrl,
   fetchScheduleById,
   createEvent as _createEvent,
+  fetchEventTypesBrief,
 } from '../../api';
 import moment from 'moment';
 
@@ -17,6 +18,7 @@ export const BookContext = React.createContext<{
   updateSelectedTime: (time: string) => void;
 
   eventTypes: {[key: string]: any};
+  fetchEventTypes: (user: string) => Promise<any>;
   fetchEventTypeByUrl: (user: string, url: string) => Promise<any>;
 
   userProfileBySlug: {[key: string]: any};
@@ -35,6 +37,7 @@ export const BookContext = React.createContext<{
   updateSelectedTime: (time: string) => {},
 
   eventTypes: {},
+  fetchEventTypes: (user: string) => Promise.resolve([]),
   fetchEventTypeByUrl: (user: string, url: string) => Promise.resolve({}),
 
   userProfileBySlug: {},
@@ -93,6 +96,12 @@ const BookProvider = (props: Props) => {
     });
   };
 
+  const fetchEventTypes = (user: string) => {
+    return fetchEventTypesBrief(user).then((r) => {
+      return r;
+    });
+  };
+
   const fetchEventTypeByUrl = (user: string, url: string) => {
     return _fetchEventTypeByUrl(user, url).then((r) => {
       setEventTypes({
@@ -132,6 +141,7 @@ const BookProvider = (props: Props) => {
         updateSelectedTime,
 
         eventTypes,
+        fetchEventTypes,
         fetchEventTypeByUrl,
 
         userProfileBySlug,

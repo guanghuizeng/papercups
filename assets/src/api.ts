@@ -1020,6 +1020,10 @@ export const fetchEventTypes = async (token = getAccessToken()) => {
     .then((res) => res.body.data);
 };
 
+export const fetchEventTypesBrief = async (user: string) => {
+  return request.get(`/api/event_types_brief/`).then((res) => res.body.data);
+};
+
 export const fetchSchedules = async (token = getAccessToken()) => {
   if (!token) {
     throw new Error('Invalid token!');

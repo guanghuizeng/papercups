@@ -22,6 +22,7 @@ defmodule ChatApi.EventTypes.EventType do
     field :after_buffer_time, :integer
 
     belongs_to(:schedule, Schedule, type: :binary_id)
+    belongs_to(:user, User, type: :integer)
 
     timestamps()
   end
