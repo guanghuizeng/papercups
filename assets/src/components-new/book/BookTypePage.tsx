@@ -12,6 +12,8 @@ import {
 import {colourOptions} from '../events/data';
 import ReactList from 'react-list';
 import TimeOption from './TimeOption';
+import 'react-dates/lib/css/_datepicker.css';
+import './day-picker.css';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
