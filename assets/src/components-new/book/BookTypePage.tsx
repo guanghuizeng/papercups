@@ -134,23 +134,23 @@ const BookTypePage = () => {
   const schedule = schedules && schedules[schedule_id];
   const rules = schedule && JSON.parse(schedule.rules);
 
-  const rule =
-    rules &&
-    rules.find(
-      (rule: any) =>
-        rule.wday ===
-        dayjs(selectedDate?.toISOString()).format('dddd').toLowerCase()
-    );
-  const interval: any = rule && rule.intervals[0];
-
-  let sliceOfTime: any[] = [];
-
-  if (interval) {
-    const startIndex = listOfTime.findIndex((t) => t === interval.from);
-    const endIndex = listOfTime.findIndex((t) => t === interval.to);
-
-    sliceOfTime = listOfTime.slice(startIndex, endIndex + 1);
-  }
+  // const rule =
+  //   rules &&
+  //   rules.find(
+  //     (rule: any) =>
+  //       rule.wday ===
+  //       dayjs(selectedDate?.toISOString()).format('dddd').toLowerCase()
+  //   );
+  // const interval: any = rule && rule.intervals[0];
+  //
+  // let sliceOfTime: any[] = [];
+  //
+  // if (interval) {
+  //   const startIndex = listOfTime.findIndex((t) => t === interval.from);
+  //   const endIndex = listOfTime.findIndex((t) => t === interval.to);
+  //
+  //   sliceOfTime = listOfTime.slice(startIndex, endIndex + 1);
+  // }
 
   const sliceOfTime2 = days
     .find((day) => day.date === selectedDate?.format('YYYY-MM-DD'))
@@ -167,8 +167,16 @@ const BookTypePage = () => {
     const {max_booking_time} = eventType;
     switch (eventType.period_type) {
       case PERIOD_TYPE_MOVING:
+        const rule =
+          rules &&
+          rules.find(
+            (rule: any) =>
+              rule.wday ===
+              dayjs(date.toISOString()).format('dddd').toLowerCase()
+          );
         return (
           (isSameDay(date, today) || isInclusivelyAfterDay(date, today)) &&
+          rule &&
           date.diff(today) < max_booking_time * 60000
         );
       case PERIOD_TYPE_AVAILABLE_MOVING:
