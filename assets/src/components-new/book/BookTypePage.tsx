@@ -132,6 +132,15 @@ const BookTypePage = () => {
   const nextDays = minsToDays(eventType?.max_booking_time);
   const today = moment();
 
+  useEffect(() => {
+    console.log('try handleDatetimeSpotsFetch', eventType, selectedMonth);
+    if (eventType && selectedMonth) {
+      handleDatetimeSpotsFetch(eventType.id).then((r) => {
+        console.log('handleDatetimeSpotsFetch', r);
+      });
+    }
+  }, [eventType, selectedMonth]);
+
   const schedule_id = eventType && eventType['schedule_id'];
   const schedule = schedules && schedules[schedule_id];
   const rules = schedule && JSON.parse(schedule.rules);
@@ -194,6 +203,15 @@ const BookTypePage = () => {
 
   const isOutsideRange = (date: any) => {
     return !isDayAvailable(date);
+  };
+
+  const handleDatetimeSpotsFetch = (event_type_id: string) => {
+    return fetchDatetimeSpotsByMonth(event_type_id, 'start', 'end').then(
+      (r) => {
+        console.log('fetchDatetimeSpotsByMonth', r);
+        return r;
+      }
+    );
   };
 
   const handleSelectDateAndTime = (time: string) => {
