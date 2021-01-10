@@ -111,6 +111,7 @@ const BookTypePage = () => {
     datetimeSpotsByMonth,
     fetchDatetimeSpotsByMonth,
   } = useBook();
+  const [datetimeSpots, setDatetimeSpots] = useState<any>([]);
 
   useEffect(() => {
     fetchUserProfile(user).then((r) => {});
@@ -142,33 +143,17 @@ const BookTypePage = () => {
     }
   }, [eventType, selectedMonth]);
 
+  useEffect(() => {
+    if (selectedMonth && datetimeSpotsByMonth) {
+      setDatetimeSpots(datetimeSpotsByMonth[selectedMonth.format('YYYY-MM')]);
+    }
+  }, [selectedMonth, datetimeSpotsByMonth]);
+
+  console.log('spots', datetimeSpotsByMonth, datetimeSpots);
+
   const schedule_id = eventType && eventType['schedule_id'];
   const schedule = schedules && schedules[schedule_id];
   const rules = schedule && JSON.parse(schedule.rules);
-
-  // const rule =
-  //   rules &&
-  //   rules.find(
-  //     (rule: any) =>
-  //       rule.wday ===
-  //       dayjs(selectedDate?.toISOString()).format('dddd').toLowerCase()
-  //   );
-  // const interval: any = rule && rule.intervals[0];
-  //
-  // let sliceOfTime: any[] = [];
-  //
-  // if (interval) {
-  //   const startIndex = listOfTime.findIndex((t) => t === interval.from);
-  //   const endIndex = listOfTime.findIndex((t) => t === interval.to);
-  //
-  //   sliceOfTime = listOfTime.slice(startIndex, endIndex + 1);
-  // }
-
-  let datetimeSpots = [];
-  if (selectedMonth) {
-    datetimeSpots = datetimeSpotsByMonth[selectedMonth.format('YYYY-MM')];
-    console.log('datetimeSpots', datetimeSpots);
-  }
 
   const sliceOfTime2 = days
     .find((day) => day.date === selectedDate?.format('YYYY-MM-DD'))
