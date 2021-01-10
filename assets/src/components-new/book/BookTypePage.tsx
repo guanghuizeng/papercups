@@ -4,7 +4,6 @@ import React, {useEffect, useState} from 'react';
 import moment from 'moment';
 import dayjs from 'dayjs';
 import {
-  listOfTime,
   PERIOD_TYPE_AVAILABLE_MOVING,
   PERIOD_TYPE_FIXED,
   PERIOD_TYPE_MOVING,
@@ -20,7 +19,6 @@ import ReactList from 'react-list';
 import TimeOption from './TimeOption';
 import 'react-dates/lib/css/_datepicker.css';
 import './day-picker.css';
-import {days} from './data';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -135,20 +133,13 @@ const BookTypePage = () => {
   const today = moment();
 
   useEffect(() => {
-    console.log('try handleDatetimeSpotsFetch', eventType, selectedMonth);
     if (eventType && selectedMonth) {
-      handleDatetimeSpotsFetch(eventType.id).then((r) => {
-        console.log('handleDatetimeSpotsFetch', r);
-      });
+      handleDatetimeSpotsFetch(eventType.id).then((r) => {});
     }
   }, [eventType, selectedMonth]);
 
   useEffect(() => {
     if (selectedMonth && datetimeSpotsByMonth) {
-      console.log(
-        'set spots',
-        datetimeSpotsByMonth[selectedMonth.format('YYYY-MM')]
-      );
       setDatetimeSpots(datetimeSpotsByMonth[selectedMonth.format('YYYY-MM')]);
     }
   }, [selectedMonth, datetimeSpotsByMonth]);
@@ -164,8 +155,6 @@ const BookTypePage = () => {
         .find((day: any) => day.date === selectedDate?.format('YYYY-MM-DD'))
         ?.spots?.map((s: any) => s.start_time)
     : [];
-
-  console.log('slice', sliceOfTime2);
 
   const isDayBlocked = (date: any) => {
     return false;
