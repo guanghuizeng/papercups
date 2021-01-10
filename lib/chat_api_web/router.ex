@@ -73,6 +73,7 @@ defmodule ChatApiWeb.Router do
     get("/event_type", EventTypeController, :show)
     get("/schedules", ScheduleController, :show)
     post("/events", EventController, :create)
+    get("/booking/event_types/:event_type_id/calendar/range", BookingController, :show)
 
   end
 

@@ -107,6 +107,8 @@ const BookTypePage = () => {
     fetchEventTypeByUrl,
     fetchSchedule,
     schedules,
+
+    fetchDatetimeSpotsByMonth,
   } = useBook();
 
   useEffect(() => {
@@ -211,6 +213,16 @@ const BookTypePage = () => {
 
   return (
     <div className="h-full flex flex-row bg-gray-200">
+      <div
+        onClick={() => {
+          fetchDatetimeSpotsByMonth('abc', 'a', 'b').then((r) => {
+            console.log('fetchDatetimeSpotsByMonth', r);
+          });
+        }}
+      >
+        Fetch DatetimeSpotsByMonth
+      </div>
+
       <div
         className="w-96 bg-white border-primary border-r border-solid"
         style={{

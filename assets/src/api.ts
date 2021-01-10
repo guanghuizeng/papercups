@@ -1067,3 +1067,17 @@ export const createEvent = async () => {
     })
     .then((res) => res.body.data);
 };
+
+export const fetchDatetimeSpotsByMonth = (
+  event_type_id: string,
+  start_time: string,
+  end_time: string
+) => {
+  return request
+    .get(`/api/booking/event_types/${event_type_id}/calendar/range`)
+    .query({
+      start_time,
+      end_time,
+    })
+    .then((res) => res.body.data);
+};

@@ -6,6 +6,7 @@ import {
   fetchScheduleById,
   createEvent as _createEvent,
   fetchEventTypesBrief,
+  fetchDatetimeSpotsByMonth as _fetchDatetimeSpotsByMonth,
 } from '../../api';
 import moment from 'moment';
 
@@ -27,6 +28,13 @@ export const BookContext = React.createContext<{
   schedules: {[key: string]: any};
   fetchSchedule: (user: string, schedule_id: string) => Promise<any>;
 
+  datetimeSpotsByMonth: {[key: string]: any};
+  fetchDatetimeSpotsByMonth: (
+    event_type_id: string,
+    start_time: string,
+    end_time: string
+  ) => Promise<any>;
+
   createEvent: () => Promise<any>;
 }>({
   selectedMonth: null,
@@ -46,6 +54,13 @@ export const BookContext = React.createContext<{
   schedules: {},
   fetchSchedule: (user: string, schedule_id: string) => Promise.resolve({}),
 
+  datetimeSpotsByMonth: {},
+  fetchDatetimeSpotsByMonth: (
+    event_type_id: string,
+    start_time: string,
+    end_time: string
+  ) => Promise.resolve({}),
+
   createEvent: () => Promise.resolve({}),
 });
 
@@ -59,6 +74,9 @@ const BookProvider = (props: Props) => {
   );
   const [selectedDate, setSelectedDate] = useState<moment.Moment | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [datetimeSpotsByMonth, setDatetimeSpotsByMonth] = useState<any | null>(
+    null
+  );
 
   const updateSelectedMonth = (date: moment.Moment) => {
     setSelectedMonth(date);
@@ -126,6 +144,18 @@ const BookProvider = (props: Props) => {
     });
   };
 
+  const fetchDatetimeSpotsByMonth = (
+    event_type_id: string,
+    start_time: string,
+    end_time: string
+  ) => {
+    return _fetchDatetimeSpotsByMonth(event_type_id, start_time, end_time).then(
+      (r) => {
+        return r;
+      }
+    );
+  };
+
   const createEvent = () => {
     return _createEvent();
   };
@@ -149,6 +179,9 @@ const BookProvider = (props: Props) => {
 
         schedules,
         fetchSchedule,
+
+        datetimeSpotsByMonth,
+        fetchDatetimeSpotsByMonth,
 
         createEvent,
       }}
