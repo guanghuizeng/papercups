@@ -234,16 +234,6 @@ const BookTypePage = () => {
   return (
     <div className="h-full flex flex-row bg-gray-200">
       <div
-        onClick={() => {
-          fetchDatetimeSpotsByMonth('abc', '2021-01').then((r) => {
-            console.log('fetchDatetimeSpotsByMonth', r);
-          });
-        }}
-      >
-        Fetch DatetimeSpotsByMonth
-      </div>
-
-      <div
         className="w-96 bg-white border-primary border-r border-solid"
         style={{
           paddingTop: '25px',
