@@ -108,6 +108,7 @@ const BookTypePage = () => {
     fetchSchedule,
     schedules,
 
+    datetimeSpotsByMonth,
     fetchDatetimeSpotsByMonth,
   } = useBook();
 
@@ -163,6 +164,12 @@ const BookTypePage = () => {
   //   sliceOfTime = listOfTime.slice(startIndex, endIndex + 1);
   // }
 
+  let datetimeSpots = [];
+  if (selectedMonth) {
+    datetimeSpots = datetimeSpotsByMonth[selectedMonth.format('YYYY-MM')];
+    console.log('datetimeSpots', datetimeSpots);
+  }
+
   const sliceOfTime2 = days
     .find((day) => day.date === selectedDate?.format('YYYY-MM-DD'))
     ?.spots?.map((s) => s.start_time);
@@ -206,12 +213,7 @@ const BookTypePage = () => {
   };
 
   const handleDatetimeSpotsFetch = (event_type_id: string) => {
-    return fetchDatetimeSpotsByMonth(event_type_id, 'start', 'end').then(
-      (r) => {
-        console.log('fetchDatetimeSpotsByMonth', r);
-        return r;
-      }
-    );
+    return fetchDatetimeSpotsByMonth(event_type_id, '2021-01').then((r) => {});
   };
 
   const handleSelectDateAndTime = (time: string) => {
@@ -233,7 +235,7 @@ const BookTypePage = () => {
     <div className="h-full flex flex-row bg-gray-200">
       <div
         onClick={() => {
-          fetchDatetimeSpotsByMonth('abc', 'a', 'b').then((r) => {
+          fetchDatetimeSpotsByMonth('abc', '2021-01').then((r) => {
             console.log('fetchDatetimeSpotsByMonth', r);
           });
         }}

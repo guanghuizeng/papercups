@@ -1068,7 +1068,7 @@ export const createEvent = async () => {
     .then((res) => res.body.data);
 };
 
-export const fetchDatetimeSpotsByMonth = (
+export const fetchDatetimeSpotsByRange = (
   event_type_id: string,
   start_time: string,
   end_time: string

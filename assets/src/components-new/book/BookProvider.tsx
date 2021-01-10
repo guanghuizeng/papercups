@@ -6,7 +6,7 @@ import {
   fetchScheduleById,
   createEvent as _createEvent,
   fetchEventTypesBrief,
-  fetchDatetimeSpotsByMonth as _fetchDatetimeSpotsByMonth,
+  fetchDatetimeSpotsByRange as fetchDatetimeSpotsByRange,
 } from '../../api';
 import moment from 'moment';
 
@@ -31,8 +31,7 @@ export const BookContext = React.createContext<{
   datetimeSpotsByMonth: {[key: string]: any};
   fetchDatetimeSpotsByMonth: (
     event_type_id: string,
-    start_time: string,
-    end_time: string
+    month: string
   ) => Promise<any>;
 
   createEvent: () => Promise<any>;
@@ -55,11 +54,8 @@ export const BookContext = React.createContext<{
   fetchSchedule: (user: string, schedule_id: string) => Promise.resolve({}),
 
   datetimeSpotsByMonth: {},
-  fetchDatetimeSpotsByMonth: (
-    event_type_id: string,
-    start_time: string,
-    end_time: string
-  ) => Promise.resolve({}),
+  fetchDatetimeSpotsByMonth: (event_type_id: string, month: string) =>
+    Promise.resolve({}),
 
   createEvent: () => Promise.resolve({}),
 });
@@ -74,9 +70,7 @@ const BookProvider = (props: Props) => {
   );
   const [selectedDate, setSelectedDate] = useState<moment.Moment | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [datetimeSpotsByMonth, setDatetimeSpotsByMonth] = useState<any | null>(
-    null
-  );
+  const [datetimeSpotsByMonth, setDatetimeSpotsByMonth] = useState<any>({});
 
   const updateSelectedMonth = (date: moment.Moment) => {
     setSelectedMonth(date);
@@ -144,16 +138,14 @@ const BookProvider = (props: Props) => {
     });
   };
 
-  const fetchDatetimeSpotsByMonth = (
-    event_type_id: string,
-    start_time: string,
-    end_time: string
-  ) => {
-    return _fetchDatetimeSpotsByMonth(event_type_id, start_time, end_time).then(
-      (r) => {
-        return r;
-      }
-    );
+  const fetchDatetimeSpotsByMonth = (event_type_id: string, month: string) => {
+    return fetchDatetimeSpotsByRange(event_type_id, month, month).then((r) => {
+      setDatetimeSpotsByMonth({
+        ...datetimeSpotsByMonth,
+        [month]: r,
+      });
+      return r;
+    });
   };
 
   const createEvent = () => {
