@@ -1037,7 +1037,7 @@ export const fetchSchedules = async (token = getAccessToken()) => {
 
 export const fetchScheduleById = async (user: string, schedule_id: string) => {
   return request
-    .get(`/api/schedule`)
+    .get(`/api/schedules`)
     .query({schedule_id})
     .then((res) => res.body.data);
 };

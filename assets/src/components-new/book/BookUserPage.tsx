@@ -1,14 +1,19 @@
+import React, {useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {useBook} from './BookProvider';
-import React, {useEffect} from 'react';
 
 const BookUserPage = () => {
   const {user} = useParams();
-
-  const {userProfileBySlug, fetchUserProfile, eventTypes} = useBook();
+  const {
+    userProfileBySlug,
+    fetchUserProfile,
+    eventTypes,
+    fetchEventTypes,
+  } = useBook();
 
   useEffect(() => {
     if (!eventTypes) {
+      fetchEventTypes(user).then((r) => {});
     }
     if (!userProfileBySlug[user]) {
       fetchUserProfile(user).then((r) => {});

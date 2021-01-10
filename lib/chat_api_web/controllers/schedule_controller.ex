@@ -30,14 +30,10 @@ defmodule ChatApiWeb.ScheduleController do
         }
       )
     else
-      Logger.info('API show 2')
-
-      json(
-        conn,
-        %{
-          ok: false
-        }
-      )
+      with %{id: user_id} <- conn.assigns.current_user do
+        schedules = Schedules.list_schedules_by_user(user_id, params)
+        render(conn, "show.json", schedules: schedules)
+      end
     end
 
   end
@@ -58,7 +54,7 @@ defmodule ChatApiWeb.ScheduleController do
            ) do
       conn
       |> put_status(:created)
-      |> render("show.json", schedule: schedule)
+      |> render("show_one.json", schedule: schedule)
     end
   end
 

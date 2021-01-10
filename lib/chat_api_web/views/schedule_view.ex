@@ -6,7 +6,11 @@ defmodule ChatApiWeb.ScheduleView do
     %{data: render_many(schedules, ScheduleView, "schedule.json")}
   end
 
-  def render("show.json", %{schedule: schedule}) do
+  def render("show.json", %{schedules: schedules}) do
+    %{data: render_many(schedules, ScheduleView, "schedule.json")}
+  end
+
+  def render("show_one.json", %{schedule: schedule}) do
     %{data: render_one(schedule, ScheduleView, "schedule.json")}
   end
 

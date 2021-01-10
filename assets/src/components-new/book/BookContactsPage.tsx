@@ -21,8 +21,6 @@ const QuestionForm = () => {
   const [loading, setLoading] = useState<boolean | null>(null);
 
   const history = useHistory();
-  const {pathname} = useLocation();
-  const {user, type} = useParams();
 
   const {createEvent} = useBook();
 
@@ -104,8 +102,6 @@ const BookContactsPage = () => {
     eventTypes,
     fetchEventTypeByUrl,
     fetchSchedule,
-    schedules,
-    createEvent,
   } = useBook();
   const profile = userProfileBySlug[user];
   const eventType = eventTypes[user] && eventTypes[user][type];
