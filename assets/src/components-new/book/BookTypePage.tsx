@@ -145,6 +145,10 @@ const BookTypePage = () => {
 
   useEffect(() => {
     if (selectedMonth && datetimeSpotsByMonth) {
+      console.log(
+        'set spots',
+        datetimeSpotsByMonth[selectedMonth.format('YYYY-MM')]
+      );
       setDatetimeSpots(datetimeSpotsByMonth[selectedMonth.format('YYYY-MM')]);
     }
   }, [selectedMonth, datetimeSpotsByMonth]);
@@ -155,9 +159,13 @@ const BookTypePage = () => {
   const schedule = schedules && schedules[schedule_id];
   const rules = schedule && JSON.parse(schedule.rules);
 
-  const sliceOfTime2 = days
-    .find((day) => day.date === selectedDate?.format('YYYY-MM-DD'))
-    ?.spots?.map((s) => s.start_time);
+  const sliceOfTime2 = datetimeSpots
+    ? datetimeSpots
+        .find((day: any) => day.date === selectedDate?.format('YYYY-MM-DD'))
+        ?.spots?.map((s: any) => s.start_time)
+    : [];
+
+  console.log('slice', sliceOfTime2);
 
   const isDayBlocked = (date: any) => {
     return false;
