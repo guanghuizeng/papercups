@@ -19,6 +19,7 @@ defmodule ChatApiWeb.BookingController do
     # date => day of week => rule => spots
     # query events by time
     # remove occupied time from spots
+    # return spots
 
     json(
       conn,
