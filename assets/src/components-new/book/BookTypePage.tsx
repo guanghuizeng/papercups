@@ -63,6 +63,75 @@ const TimeOptionList = ({sliceOfTime}: any) => {
   );
 };
 
+const BookingInfo = ({profile, eventType}: any) => {
+  return (
+    <div
+      className="w-96 bg-white border-primary border-r border-solid"
+      style={{
+        paddingTop: '25px',
+        paddingBottom: '25px',
+      }}
+    >
+      <div className="flex flex-col">
+        <h4
+          className=""
+          style={{
+            fontSize: '16px',
+            paddingLeft: '30px',
+            paddingRight: '10px',
+            color: 'rgba(77, 80, 85, 0.6)',
+            marginBottom: '0 0 3px',
+          }}
+        >
+          {profile?.full_name}
+        </h4>
+        <h1
+          className="font-bold"
+          style={{
+            marginBottom: '24px',
+            fontSize: '28px',
+            lineHeight: '32px',
+            paddingLeft: '30px',
+            paddingRight: '10px',
+            color: '#4d5055',
+          }}
+        >
+          {eventType?.name}
+        </h1>
+        <div
+          style={{
+            fontSize: '16px',
+            lineHeight: '1.5',
+            paddingLeft: '30px',
+            paddingRight: '10px',
+            marginBottom: '20px',
+            color: '#4d5055',
+          }}
+        >
+          <i className="fas fa-clock mr-2 w-5 text-center" />
+          {eventType?.duration} 分钟
+        </div>
+        <div
+          style={{
+            fontSize: '16px',
+            lineHeight: '1.5',
+            paddingLeft: '30px',
+            paddingRight: '10px',
+            marginBottom: '20px',
+            color: '#4d5055',
+          }}
+        >
+          <i className="fas fa-handshake mr-2 w-5 text-center" />
+          {
+            colourOptions.find((opt) => opt.value === eventType?.location)
+              ?.label
+          }
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const BookTypePage = () => {
   const {user, type} = useParams();
   const query = useQuery();
@@ -186,70 +255,7 @@ const BookTypePage = () => {
 
   return (
     <div className="h-full flex flex-row bg-gray-200">
-      <div
-        className="w-96 bg-white border-primary border-r border-solid"
-        style={{
-          paddingTop: '25px',
-          paddingBottom: '25px',
-        }}
-      >
-        <div className="flex flex-col">
-          <h4
-            className=""
-            style={{
-              fontSize: '16px',
-              paddingLeft: '30px',
-              paddingRight: '10px',
-              color: 'rgba(77, 80, 85, 0.6)',
-              marginBottom: '0 0 3px',
-            }}
-          >
-            {profile?.full_name}
-          </h4>
-          <h1
-            className="font-bold"
-            style={{
-              marginBottom: '24px',
-              fontSize: '28px',
-              lineHeight: '32px',
-              paddingLeft: '30px',
-              paddingRight: '10px',
-              color: '#4d5055',
-            }}
-          >
-            {eventType?.name}
-          </h1>
-          <div
-            style={{
-              fontSize: '16px',
-              lineHeight: '1.5',
-              paddingLeft: '30px',
-              paddingRight: '10px',
-              marginBottom: '20px',
-              color: '#4d5055',
-            }}
-          >
-            <i className="fas fa-clock mr-2 w-5 text-center" />
-            {eventType?.duration} 分钟
-          </div>
-          <div
-            style={{
-              fontSize: '16px',
-              lineHeight: '1.5',
-              paddingLeft: '30px',
-              paddingRight: '10px',
-              marginBottom: '20px',
-              color: '#4d5055',
-            }}
-          >
-            <i className="fas fa-handshake mr-2 w-5 text-center" />
-            {
-              colourOptions.find((opt) => opt.value === eventType?.location)
-                ?.label
-            }
-          </div>
-        </div>
-      </div>
+      <BookingInfo profile={profile} eventType={eventType} />
       <div className="bg-white" style={{paddingTop: '28px'}}>
         <div
           className="text-20px"
