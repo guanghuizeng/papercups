@@ -33,14 +33,6 @@ const TimeOptionList = ({sliceOfTime}: any) => {
 
   const handleConfirm = () => {
     updateSelectedTime(checkedValue);
-    console.log(
-      checkedValue,
-      `${pathname}/${moment(
-        checkedValue
-      ).format()}?month=${selectedMonth?.format(
-        'YYYY-MM'
-      )}&date=${selectedDate?.format('YYYY-MM-DD')}`
-    );
     history.push(
       `${pathname}/${moment(
         checkedValue

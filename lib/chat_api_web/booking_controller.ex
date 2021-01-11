@@ -13,6 +13,13 @@ defmodule ChatApiWeb.BookingController do
   """
   @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def show(conn, params) do
+    %{"event_type_id" => event_type_id, "start_time" => start_time, "end_time" => end_time } = params
+    # event_type_id => schedule
+    # start_time & end_time => list of days
+    # date => day of week => rule => spots
+    # query events by time
+    # remove occupied time from spots
+
     json(
       conn,
       %{
