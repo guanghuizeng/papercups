@@ -137,10 +137,8 @@ const BookTypePage = () => {
   const query = useQuery();
   const month = query.get('month');
   const date = query.get('date');
-
   const {pathname} = useLocation();
   const history = useHistory();
-
   const {
     selectedMonth,
     selectedDate,
@@ -157,17 +155,17 @@ const BookTypePage = () => {
     datetimeSpotsByMonth,
     fetchDatetimeSpotsByMonth,
   } = useBook();
+
   const [datetimeSpots, setDatetimeSpots] = useState<any>([]);
 
   const profile = userProfileBySlug[user];
   const eventType = eventTypes[user] && eventTypes[user][type];
   const today = moment();
-
   const schedule_id = eventType && eventType['schedule_id'];
   const schedule = schedules && schedules[schedule_id];
   const rules = schedule && JSON.parse(schedule.rules);
 
-  const sliceOfTime2 = datetimeSpots
+  const sliceOfTime = datetimeSpots
     ? datetimeSpots
         .find((day: any) => day.date === selectedDate?.format('YYYY-MM-DD'))
         ?.spots?.map((s: any) => s.start_time)
@@ -321,9 +319,7 @@ const BookTypePage = () => {
                 className="p-1 h-full"
                 style={{overflow: 'scroll', height: '500px'}}
               >
-                <TimeOptionList
-                  sliceOfTime={sliceOfTime2 ? sliceOfTime2 : []}
-                />
+                <TimeOptionList sliceOfTime={sliceOfTime ? sliceOfTime : []} />
               </div>
             </div>
           )}
