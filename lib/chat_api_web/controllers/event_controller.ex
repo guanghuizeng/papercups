@@ -36,7 +36,7 @@ defmodule ChatApiWeb.EventController do
       "start_time" => start_time,
     } = event_params
 
-    with {:ok, %Event{} = event} <-
+    with {:ok, start_time, _offset} <- DateTime.from_iso8601(start_time), {:ok, %Event{} = event} <-
            Events.create_event(
              %{
                guest_name: guest_name,
