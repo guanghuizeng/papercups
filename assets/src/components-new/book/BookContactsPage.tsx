@@ -22,7 +22,7 @@ const QuestionForm = ({eventType}: any) => {
 
   const history = useHistory();
 
-  const {createEvent, selectedTime} = useBook();
+  const {createEvent, selectedDate, selectedTime} = useBook();
 
   const handleChangeEmail = (e: any) => {
     setEmail(e.target.value);
@@ -124,7 +124,7 @@ const BookContactsPage = () => {
     if (datetime) {
       updateSelectedMonth(moment(datetime, 'YYYY-MM'));
       updateSelectedDate(moment(datetime, 'YYYY-MM-DD'));
-      updateSelectedTime(moment(datetime, 'YYYY-MM-DDTHH:mm').format('HH:mm'));
+      updateSelectedTime(datetime);
     }
   }, []);
 
@@ -204,7 +204,8 @@ const BookContactsPage = () => {
             }}
           >
             <i className="fas fa-calendar-day mr-2 w-5 text-center" />
-            {selectedTime}, {selectedDate?.format('YYYY-MM-DD')}
+            {moment(selectedTime).format('HH:mm')},{' '}
+            {selectedDate?.format('YYYY-MM-DD')}
           </div>
         </div>
       </div>
