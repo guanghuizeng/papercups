@@ -18,13 +18,13 @@ defmodule ChatApiWeb.EventController do
 
   @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def show(conn, params) do
-      json(
-        conn,
-        %{
-          ok: false,
-          data: %{}
-        }
-      )
+    json(
+      conn,
+      %{
+        ok: false,
+        data: %{}
+      }
+    )
   end
 
 
@@ -36,14 +36,14 @@ defmodule ChatApiWeb.EventController do
       "start_time" => start_time,
     } = event_params
 
-    with {:ok, start_time, _offset} <- DateTime.from_iso8601(start_time), {:ok, %Event{} = event} <-
-           Events.create_event(
-             %{
-               guest_name: guest_name,
-               event_type_id: event_type_id,
-               start_time: start_time
-             }
-           ) do
+    with {:ok, start_time, _offset} <- DateTime.from_iso8601(start_time),
+         {:ok, %Event{} = event} <- Events.create_event(
+           %{
+             guest_name: guest_name,
+             event_type_id: event_type_id,
+             start_time: start_time
+           }
+         ) do
       conn
       |> put_status(:created)
       |> render("show.json", event: event)
