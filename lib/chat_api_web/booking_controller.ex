@@ -18,7 +18,13 @@ defmodule ChatApiWeb.BookingController do
     if NaiveDateTime.diff(from_time, to_time) > 0 do
       []
     else
-      [NaiveDateTime.to_iso8601(from_time) | get_spots_per_duration(NaiveDateTime.add(from_time, duration), to_time, duration)]
+      [
+        NaiveDateTime.to_iso8601(from_time) | get_spots_per_duration(
+          NaiveDateTime.add(from_time, duration),
+          to_time,
+          duration
+        )
+      ]
     end
   end
 
@@ -48,12 +54,16 @@ defmodule ChatApiWeb.BookingController do
             date: Date.to_iso8601(date),
             status: "available",
             spots: list_of_spots
-          }
-          |
-          get_spots_per_day(Date.add(date, 1), final, rules)
+          } | get_spots_per_day(Date.add(date, 1), final, rules)
         ]
       else
-        get_spots_per_day(Date.add(date, 1), final, rules)
+        [
+          %{
+            date: Date.to_iso8601(date),
+            status: "unavailable",
+            spots: []
+          } | get_spots_per_day(Date.add(date, 1), final, rules)
+        ]
       end
     end
   end
@@ -74,21 +84,21 @@ defmodule ChatApiWeb.BookingController do
     # remove occupied time from spots
     # return spots
 
-#    with {:ok, %EventType{} = event_type} <- Events.get_event!(event_type_id) do
-#      with {:ok, %Schedule{} = schedule} <- Schedules.get_schedule!(event_type.schedule_id) do
-#        {:ok, date} = Date.from_iso8601(start_time)
-#        {:ok, end_date} = Date.from_iso8601(end_time)
-#        rules = JSON.decode(schedule.rules)
-#        spots = get_spots_per_day(date, end_time, rules)
-#        json(
-#          conn,
-#          %{
-#            ok: true,
-#            data: spots
-#          }
-#        )
-#      end
-#    end
+    #    with {:ok, %EventType{} = event_type} <- Events.get_event!(event_type_id) do
+    #      with {:ok, %Schedule{} = schedule} <- Schedules.get_schedule!(event_type.schedule_id) do
+    #        {:ok, date} = Date.from_iso8601(start_time)
+    #        {:ok, end_date} = Date.from_iso8601(end_time)
+    #        rules = JSON.decode(schedule.rules)
+    #        spots = get_spots_per_day(date, end_time, rules)
+    #        json(
+    #          conn,
+    #          %{
+    #            ok: true,
+    #            data: spots
+    #          }
+    #        )
+    #      end
+    #    end
 
     json(
       conn,
