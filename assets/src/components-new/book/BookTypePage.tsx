@@ -105,7 +105,7 @@ const BookTypePage = () => {
     : [];
 
   useEffect(() => {
-    fetchUserProfile(user).then((r) => {});
+    fetchUserProfile(user);
     fetchEventTypeByUrl(user, type).then((r) => {
       if (r) {
         fetchSchedule(user, r['schedule_id']).then((r) => {});
@@ -122,7 +122,7 @@ const BookTypePage = () => {
 
   useEffect(() => {
     if (eventType && selectedMonth) {
-      handleDatetimeSpotsFetch(eventType.id).then((r) => {});
+      handleDatetimeSpotsFetch(eventType.id, selectedMonth);
     }
   }, [eventType, selectedMonth]);
 
@@ -166,8 +166,11 @@ const BookTypePage = () => {
     return !isDayAvailable(date);
   };
 
-  const handleDatetimeSpotsFetch = (event_type_id: string) => {
-    return fetchDatetimeSpotsByMonth(event_type_id, '2021-01').then((r) => {});
+  const handleDatetimeSpotsFetch = (
+    event_type_id: string,
+    month: moment.Moment
+  ) => {
+    return fetchDatetimeSpotsByMonth(event_type_id, month.format('YYYY-MM'));
   };
 
   const handleMonthNavigate = (newCurrentMonth: moment.Moment) => {
