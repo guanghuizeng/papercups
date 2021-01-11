@@ -18,7 +18,7 @@ defmodule ChatApiWeb.BookingController do
     if NaiveDateTime.diff(from_time, to_time) > 0 do
       []
     else
-      [from_time | get_spots_per_duration(NaiveDateTime.add(from_time, duration), to_time, duration)]
+      [NaiveDateTime.to_iso8601(from_time) | get_spots_per_duration(NaiveDateTime.add(from_time, duration), to_time, duration)]
     end
   end
 
