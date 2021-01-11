@@ -14,7 +14,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-const QuestionForm = () => {
+const QuestionForm = ({eventType}: any) => {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [error, setError] = useState(null);
@@ -22,7 +22,7 @@ const QuestionForm = () => {
 
   const history = useHistory();
 
-  const {createEvent} = useBook();
+  const {createEvent, selectedTime} = useBook();
 
   const handleChangeEmail = (e: any) => {
     setEmail(e.target.value);
@@ -49,9 +49,13 @@ const QuestionForm = () => {
         e.preventDefault();
 
         const res = `invitees/HAX776ZFSRHFOTIA`;
-        createEvent().then((r) => {
-          history.push(res);
-        });
+        if (selectedTime) {
+          createEvent(eventType.id, selectedTime).then((r) => {
+            history.push(res);
+          });
+        } else {
+          console.log('Error time is null');
+        }
       }}
     >
       <div className="flex flex-col">
@@ -227,7 +231,7 @@ const BookContactsPage = () => {
             height: 'calc(100% - 60px)',
           }}
         >
-          <QuestionForm />
+          <QuestionForm eventType={eventType} />
         </div>
       </div>
     </div>

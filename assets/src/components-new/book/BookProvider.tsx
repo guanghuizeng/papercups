@@ -34,7 +34,7 @@ export const BookContext = React.createContext<{
     month: string
   ) => Promise<any>;
 
-  createEvent: () => Promise<any>;
+  createEvent: (event_type_id: string, start_time: string) => Promise<any>;
 }>({
   selectedMonth: null,
   selectedDate: null,
@@ -57,7 +57,8 @@ export const BookContext = React.createContext<{
   fetchDatetimeSpotsByMonth: (event_type_id: string, month: string) =>
     Promise.resolve({}),
 
-  createEvent: () => Promise.resolve({}),
+  createEvent: (event_type_id: string, start_time: string) =>
+    Promise.resolve({}),
 });
 
 export const useBook = () => useContext(BookContext);
@@ -148,8 +149,8 @@ const BookProvider = (props: Props) => {
     });
   };
 
-  const createEvent = () => {
-    return _createEvent();
+  const createEvent = (event_type_id: string, start_time: string) => {
+    return _createEvent(event_type_id, start_time);
   };
 
   return (

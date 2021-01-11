@@ -32,14 +32,16 @@ defmodule ChatApiWeb.EventController do
   def create(conn, %{"event" => event_params}) do
     %{
       "guest_name" => guest_name,
-      "event_type_id" => event_type_id
+      "event_type_id" => event_type_id,
+      "start_time" => start_time,
     } = event_params
 
     with {:ok, %Event{} = event} <-
            Events.create_event(
              %{
                guest_name: guest_name,
-               event_type_id: event_type_id
+               event_type_id: event_type_id,
+               start_time: start_time
              }
            ) do
       conn

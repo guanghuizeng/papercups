@@ -19,7 +19,7 @@ defmodule ChatApiWeb.BookingController do
       []
     else
       [
-        NaiveDateTime.to_iso8601(from_time) | get_spots_per_duration(
+        %{start_time: NaiveDateTime.to_iso8601(from_time)} | get_spots_per_duration(
           NaiveDateTime.add(from_time, duration),
           to_time,
           duration
@@ -28,7 +28,7 @@ defmodule ChatApiWeb.BookingController do
     end
   end
 
-  def get_spots_per_day(date, final, rules) do
+  def get_spots_by_day(date, final, rules) do
     if Date.diff(date, final) == 0 do
       # stop
       []
@@ -54,7 +54,7 @@ defmodule ChatApiWeb.BookingController do
             date: Date.to_iso8601(date),
             status: "available",
             spots: list_of_spots
-          } | get_spots_per_day(Date.add(date, 1), final, rules)
+          } | get_spots_by_day(Date.add(date, 1), final, rules)
         ]
       else
         [
@@ -62,10 +62,16 @@ defmodule ChatApiWeb.BookingController do
             date: Date.to_iso8601(date),
             status: "unavailable",
             spots: []
-          } | get_spots_per_day(Date.add(date, 1), final, rules)
+          } | get_spots_by_day(Date.add(date, 1), final, rules)
         ]
       end
     end
+  end
+
+  def filter_out_unavailable_time(start_date, to_date, spots_by_day) do
+    # get events by start_time, filter by date range, start & to
+    # find time spot, remove
+    # get new spots
   end
 
   @doc """
