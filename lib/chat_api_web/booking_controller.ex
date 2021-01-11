@@ -5,6 +5,12 @@ defmodule ChatApiWeb.BookingController do
   alias ChatApi.Events
   alias ChatApi.Events.Event
 
+  @doc """
+  Get available spots.
+
+
+
+  """
   @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def show(conn, params) do
     json(

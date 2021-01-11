@@ -49,7 +49,6 @@ const QuestionForm = () => {
         e.preventDefault();
 
         const res = `invitees/HAX776ZFSRHFOTIA`;
-        console.log('submit', res);
         createEvent().then((r) => {
           history.push(res);
         });
@@ -87,8 +86,6 @@ const BookContactsPage = () => {
   const query = useQuery();
   const month = query.get('month');
   const date = query.get('date');
-
-  console.log('contacts page');
 
   const {
     selectedDate,
