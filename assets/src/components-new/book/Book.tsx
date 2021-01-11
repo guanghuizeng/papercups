@@ -10,8 +10,6 @@ import BookInviteePage from './BookInviteePage';
 
 moment.locale('zh-cn');
 
-function BookRecord() {}
-
 const Book = () => {
   return (
     <div className="w-screen h-screen bg-gray-100">

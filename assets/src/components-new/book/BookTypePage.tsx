@@ -24,28 +24,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-function isBeforeDay(a: any, b: any) {
-  if (!moment.isMoment(a) || !moment.isMoment(b)) return false;
-
-  const aYear = a.year();
-  const aMonth = a.month();
-
-  const bYear = b.year();
-  const bMonth = b.month();
-
-  const isSameYear = aYear === bYear;
-  const isSameMonth = aMonth === bMonth;
-
-  if (isSameYear && isSameMonth) return a.date() < b.date();
-  if (isSameYear) return aMonth < bMonth;
-  return aYear < bYear;
-}
-
-function minsToDays(mins: number) {
-  return mins / 60 / 24;
-}
-
-const TimeOptionList = ({sliceOfTime, handleSelectDateAndTime}: any) => {
+const TimeOptionList = ({sliceOfTime}: any) => {
   const {pathname} = useLocation();
   const {selectedMonth, selectedDate, updateSelectedTime} = useBook();
 
@@ -111,6 +90,20 @@ const BookTypePage = () => {
   } = useBook();
   const [datetimeSpots, setDatetimeSpots] = useState<any>([]);
 
+  const profile = userProfileBySlug[user];
+  const eventType = eventTypes[user] && eventTypes[user][type];
+  const today = moment();
+
+  const schedule_id = eventType && eventType['schedule_id'];
+  const schedule = schedules && schedules[schedule_id];
+  const rules = schedule && JSON.parse(schedule.rules);
+
+  const sliceOfTime2 = datetimeSpots
+    ? datetimeSpots
+        .find((day: any) => day.date === selectedDate?.format('YYYY-MM-DD'))
+        ?.spots?.map((s: any) => s.start_time)
+    : [];
+
   useEffect(() => {
     fetchUserProfile(user).then((r) => {});
     fetchEventTypeByUrl(user, type).then((r) => {
@@ -127,11 +120,6 @@ const BookTypePage = () => {
     }
   }, []);
 
-  const profile = userProfileBySlug[user];
-  const eventType = eventTypes[user] && eventTypes[user][type];
-  const nextDays = minsToDays(eventType?.max_booking_time);
-  const today = moment();
-
   useEffect(() => {
     if (eventType && selectedMonth) {
       handleDatetimeSpotsFetch(eventType.id).then((r) => {});
@@ -143,22 +131,6 @@ const BookTypePage = () => {
       setDatetimeSpots(datetimeSpotsByMonth[selectedMonth.format('YYYY-MM')]);
     }
   }, [selectedMonth, datetimeSpotsByMonth]);
-
-  console.log('spots', datetimeSpotsByMonth, datetimeSpots);
-
-  const schedule_id = eventType && eventType['schedule_id'];
-  const schedule = schedules && schedules[schedule_id];
-  const rules = schedule && JSON.parse(schedule.rules);
-
-  const sliceOfTime2 = datetimeSpots
-    ? datetimeSpots
-        .find((day: any) => day.date === selectedDate?.format('YYYY-MM-DD'))
-        ?.spots?.map((s: any) => s.start_time)
-    : [];
-
-  const isDayBlocked = (date: any) => {
-    return false;
-  };
 
   const isDayAvailable = (date: moment.Moment) => {
     if (!eventType) {
@@ -190,16 +162,12 @@ const BookTypePage = () => {
     return isDayAvailable(date);
   };
 
-  const isOutsideRange = (date: any) => {
+  const isOutsideRange = (date: moment.Moment) => {
     return !isDayAvailable(date);
   };
 
   const handleDatetimeSpotsFetch = (event_type_id: string) => {
     return fetchDatetimeSpotsByMonth(event_type_id, '2021-01').then((r) => {});
-  };
-
-  const handleSelectDateAndTime = (time: string) => {
-    console.log('handleSelectDateAndTime', selectedDate, time);
   };
 
   const handleMonthNavigate = (newCurrentMonth: moment.Moment) => {
@@ -321,7 +289,7 @@ const BookTypePage = () => {
               monthFormat="YYYY [年] M [月]"
               weekDayFormat="dd"
               isOutsideRange={isOutsideRange}
-              isDayBlocked={isDayBlocked}
+              isDayBlocked={() => false}
               isDayHighlighted={isDayHighlighted}
               hideKeyboardShortcutsPanel
             />
@@ -346,7 +314,6 @@ const BookTypePage = () => {
               >
                 <TimeOptionList
                   sliceOfTime={sliceOfTime2 ? sliceOfTime2 : []}
-                  handleSelectDateAndTime={handleSelectDateAndTime}
                 />
               </div>
             </div>
