@@ -12,7 +12,6 @@ defmodule ChatApiWeb.BookingController do
   alias ChatApi.Schedules.Schedule
 
 
-  # ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
   def weekday_to_name(weekday) do
     Enum.at(["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"], weekday - 1)
   end
@@ -79,9 +78,6 @@ defmodule ChatApiWeb.BookingController do
     with {:ok, from_time, _offset} = DateTime.from_iso8601(start_date <> "T00:00:00+08:00"),
          {:ok, to_time, _offset} = DateTime.from_iso8601(to_date <> "T23:59:59+08:00") do
       events = Events.list_by_start_time(from_time, to_time)
-#      Logger.info("==")
-#      Enum.each(events, fn x -> Logger.info(inspect(x))  end)
-#      Logger.info(inspect(events))
       Enum.map(
         spots_by_day,
         fn (spots) ->
@@ -117,42 +113,6 @@ defmodule ChatApiWeb.BookingController do
               )
             }
           end
-
-#          event = Enum.find(events, fn (e) -> spots.date == Date.to_iso8601(DateTime.to_date(e.start_time)) end)
-#          if event do
-#          Logger.info("==")
-#          Logger.info(inspect(event))
-#          Logger.info("xx")
-#
-#          %{
-#              date: spots.date,
-#              status: spots.status,
-#              spots: Enum.at(
-#                Enum.map(
-#                  spots.spots,
-#                  fn s ->
-#                    Enum.filter(
-#                      s,
-#                      fn spot ->
-#                        {:ok, start_time, _offset} = DateTime.from_iso8601(spot.start_time)
-#                        DateTime.compare(start_time, event.start_time) != :eq
-#                      end
-#                    )
-#                  end
-#                ),
-#                0
-#              )
-#            }
-#          else
-#            %{
-#              date: spots.date,
-#              status: spots.status,
-#              spots: Enum.at(
-#                spots.spots,
-#                0
-#              )
-#            }
-#          end
         end
       )
     end
@@ -187,7 +147,6 @@ defmodule ChatApiWeb.BookingController do
   @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def show(conn, params) do
     %{"event_type_id" => event_type_id, "start_time" => start_time, "end_time" => end_time} = params
-
 
     event_type = EventTypes.get_event_type!(event_type_id)
     schedule = Schedules.get_schedule!(event_type.schedule_id)
