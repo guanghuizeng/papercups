@@ -72,6 +72,11 @@ defmodule ChatApiWeb.BookingController do
     # get events by start_time, filter by date range, start & to
     # find time spot, remove
     # get new spots
+    # Events.list_by_start_time()
+    with {:ok, from_time, _offset} = DateTime.from_iso8601(start_date <> "T00:00:00+08:00"),
+         {:ok, to_time, _offset} = DateTime.from_iso8601(to_date <> "T23:59:59+08:00") do
+      Events.list_by_start_time(from_time, to_time)
+    end
   end
 
   @doc """
