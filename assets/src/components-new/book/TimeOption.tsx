@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 
 function TimeOption({value, checked, onCheck, onConfirm}: any) {
+  console.log('Time option', value);
   return (
     <>
       {!checked ? (

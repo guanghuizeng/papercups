@@ -9,6 +9,8 @@ import {
   fetchDatetimeSpotsByRange as fetchDatetimeSpotsByRange,
 } from '../../api';
 import moment from 'moment';
+import {days} from './data';
+import dayjs from 'dayjs';
 
 export const BookContext = React.createContext<{
   selectedMonth: moment.Moment | null;
@@ -140,7 +142,9 @@ const BookProvider = (props: Props) => {
   };
 
   const fetchDatetimeSpotsByMonth = (event_type_id: string, month: string) => {
-    return fetchDatetimeSpotsByRange(event_type_id, month, month).then((r) => {
+    const start = dayjs(month).startOf('month').format('YYYY-MM-DD');
+    const end = dayjs(month).endOf('month').format('YYYY-MM-DD');
+    return fetchDatetimeSpotsByRange(event_type_id, start, end).then((r) => {
       setDatetimeSpotsByMonth({
         ...datetimeSpotsByMonth,
         [month]: r,
