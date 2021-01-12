@@ -95,11 +95,6 @@ defmodule ChatApiWeb.BookingController do
                       s,
                       fn spot ->
                         {:ok, start_time, _offset} = DateTime.from_iso8601(spot.start_time)
-#                        Logger.info("==")
-#                        Logger.info(inspect(start_time))
-#                        Logger.info(inspect(event.start_time))
-#                        Logger.info(inspect(DateTime.compare(start_time, event.start_time)))
-#                        Logger.info(inspect(DateTime.compare(start_time, event.start_time) != :eq))
                         DateTime.compare(start_time, event.start_time) != :eq
                       end
                     )
@@ -124,7 +119,7 @@ defmodule ChatApiWeb.BookingController do
   end
 
   def test_spots() do
-#    raw_rules = ~s([{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"monday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"tuesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"wednesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"thursday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"friday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"saturday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"sunday"}])
+    #    raw_rules = ~s([{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"monday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"tuesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"wednesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"thursday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"friday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"saturday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"sunday"}])
     raw_rules = ~s([{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"monday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"tuesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"wednesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"thursday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"friday"}])
     {:ok, rules} = Jason.decode(raw_rules)
 
@@ -142,18 +137,17 @@ defmodule ChatApiWeb.BookingController do
   @doc """
   Get available spots.
 
-
-
+  event_type_id => schedule
+  start_time & end_time => list of days
+  date => day of week => rule => spots
+  query events by time
+  remove occupied time from spots
+  return spots
   """
   @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def show(conn, params) do
     %{"event_type_id" => event_type_id, "start_time" => start_time, "end_time" => end_time} = params
-    # event_type_id => schedule
-    # start_time & end_time => list of days
-    # date => day of week => rule => spots
-    # query events by time
-    # remove occupied time from spots
-    # return spots
+
 
     event_type = EventTypes.get_event_type!(event_type_id)
     schedule = Schedules.get_schedule!(event_type.schedule_id)
