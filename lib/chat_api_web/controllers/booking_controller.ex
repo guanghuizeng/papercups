@@ -29,7 +29,7 @@ defmodule ChatApiWeb.BookingController do
   end
 
   def get_spots_by_day(date, final, rules) do
-    if Date.diff(date, final) == 0 do
+    if Date.diff(date, final) > 0 do
       # stop
       []
     else
@@ -75,8 +75,27 @@ defmodule ChatApiWeb.BookingController do
     # Events.list_by_start_time()
     with {:ok, from_time, _offset} = DateTime.from_iso8601(start_date <> "T00:00:00+08:00"),
          {:ok, to_time, _offset} = DateTime.from_iso8601(to_date <> "T23:59:59+08:00") do
-      Events.list_by_start_time(from_time, to_time)
+      events = Events.list_by_start_time(from_time, to_time)
+      Enum.map(events, fn (e) ->
+        Logger.info(inspect(e.start_time))
+        Enum.find(spots_by_day, fn (spots) -> spots.date == Date.to_iso8601(DateTime.to_date(e.start_time)) end)
+      end)
     end
+  end
+
+  def test_spots() do
+    raw_rules = ~s([{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"monday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"tuesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"wednesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"thursday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"friday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"saturday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"sunday"}])
+    {:ok, rules} = Jason.decode(raw_rules)
+
+    start = "2021-01-11"
+    end_date = "2021-01-14"
+
+    {:ok, start_date} = Date.from_iso8601(start)
+    {:ok, final_date} = Date.from_iso8601(end_date)
+
+    spots_by_day = get_spots_by_day(start_date, final_date, rules)
+    Logger.info(inspect(spots_by_day))
+    filter_out_unavailable_time(start, end_date, spots_by_day)
   end
 
   @doc """
