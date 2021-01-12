@@ -15,12 +15,12 @@ defmodule ChatApiWeb.BookingController do
   end
 
   def get_spots_per_duration(from_time, to_time, duration) do
-    if NaiveDateTime.diff(from_time, to_time) > 0 do
+    if DateTime.diff(from_time, to_time) > 0 do
       []
     else
       [
-        %{start_time: NaiveDateTime.to_iso8601(from_time)} | get_spots_per_duration(
-          NaiveDateTime.add(from_time, duration),
+        %{start_time: DateTime.to_iso8601(from_time)} | get_spots_per_duration(
+          DateTime.add(from_time, duration),
           to_time,
           duration
         )
@@ -43,8 +43,8 @@ defmodule ChatApiWeb.BookingController do
           rule["intervals"],
           fn (x) ->
             %{"from" => from, "to" => to} = x
-            {:ok, from_time} = NaiveDateTime.from_iso8601(Date.to_iso8601(date) <> " " <> from <> ":00")
-            {:ok, to_time} = NaiveDateTime.from_iso8601(Date.to_iso8601(date) <> " " <> to <> ":00")
+            {:ok, from_time, _offset} = DateTime.from_iso8601(Date.to_iso8601(date) <> " " <> from <> ":00+08:00")
+            {:ok, to_time, _offset} = DateTime.from_iso8601(Date.to_iso8601(date) <> " " <> to <> ":00+08:00")
             spots = get_spots_per_duration(from_time, to_time, 15 * 60)
             spots
           end
@@ -76,9 +76,24 @@ defmodule ChatApiWeb.BookingController do
     with {:ok, from_time, _offset} = DateTime.from_iso8601(start_date <> "T00:00:00+08:00"),
          {:ok, to_time, _offset} = DateTime.from_iso8601(to_date <> "T23:59:59+08:00") do
       events = Events.list_by_start_time(from_time, to_time)
-      Enum.map(events, fn (e) ->
-        Logger.info(inspect(e.start_time))
-        Enum.find(spots_by_day, fn (spots) -> spots.date == Date.to_iso8601(DateTime.to_date(e.start_time)) end)
+      Enum.map(spots_by_day, fn (spots) ->
+        event = Enum.find(events, fn (e) -> spots.date == Date.to_iso8601(DateTime.to_date(e.start_time)) end)
+        if event do
+          %{
+            date: spots.date,
+            status: spots.status,
+            spots: Enum.map(spots.spots, fn s -> Enum.filter(s, fn spot ->
+              {:ok, start_time, _offset} = DateTime.from_iso8601(spot.start_time)
+              Logger.info("==")
+              Logger.info(inspect(start_time))
+              Logger.info(inspect(event.start_time))
+              Logger.info(inspect(DateTime.compare(start_time, event.start_time)))
+              Logger.info(inspect(DateTime.compare(start_time, event.start_time) != :eq))
+              DateTime.compare(start_time, event.start_time) != :eq end)  end)
+          }
+        else
+          spots
+        end
       end)
     end
   end
