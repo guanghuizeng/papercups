@@ -9,7 +9,7 @@ defmodule ChatApi.Events.Event do
     field :invitee_full_name, :string
     field :invitee_email, :string
     field :start_time, :utc_datetime
-    field :fielditional_info, :string
+    field :additional_info, :string
 
     belongs_to(:event_type, EventType, type: :binary_id)
 
