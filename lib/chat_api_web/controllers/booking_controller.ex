@@ -79,11 +79,14 @@ defmodule ChatApiWeb.BookingController do
     with {:ok, from_time, _offset} = DateTime.from_iso8601(start_date <> "T00:00:00+08:00"),
          {:ok, to_time, _offset} = DateTime.from_iso8601(to_date <> "T23:59:59+08:00") do
       events = Events.list_by_start_time(from_time, to_time)
+#      Logger.info("==")
+#      Enum.each(events, fn x -> Logger.info(inspect(x))  end)
+#      Logger.info(inspect(events))
       Enum.map(
         spots_by_day,
         fn (spots) ->
-          event = Enum.find(events, fn (e) -> spots.date == Date.to_iso8601(DateTime.to_date(e.start_time)) end)
-          if event do
+          events2 = Enum.filter(events, fn (e) -> spots.date == Date.to_iso8601(DateTime.to_date(e.start_time)) end)
+          if events2 do
             %{
               date: spots.date,
               status: spots.status,
@@ -95,7 +98,7 @@ defmodule ChatApiWeb.BookingController do
                       s,
                       fn spot ->
                         {:ok, start_time, _offset} = DateTime.from_iso8601(spot.start_time)
-                        DateTime.compare(start_time, event.start_time) != :eq
+                        Enum.find(events2, fn e -> DateTime.compare(start_time, e.start_time) == :eq end) == nil
                       end
                     )
                   end
@@ -103,6 +106,7 @@ defmodule ChatApiWeb.BookingController do
                 0
               )
             }
+
           else
             %{
               date: spots.date,
@@ -113,6 +117,42 @@ defmodule ChatApiWeb.BookingController do
               )
             }
           end
+
+#          event = Enum.find(events, fn (e) -> spots.date == Date.to_iso8601(DateTime.to_date(e.start_time)) end)
+#          if event do
+#          Logger.info("==")
+#          Logger.info(inspect(event))
+#          Logger.info("xx")
+#
+#          %{
+#              date: spots.date,
+#              status: spots.status,
+#              spots: Enum.at(
+#                Enum.map(
+#                  spots.spots,
+#                  fn s ->
+#                    Enum.filter(
+#                      s,
+#                      fn spot ->
+#                        {:ok, start_time, _offset} = DateTime.from_iso8601(spot.start_time)
+#                        DateTime.compare(start_time, event.start_time) != :eq
+#                      end
+#                    )
+#                  end
+#                ),
+#                0
+#              )
+#            }
+#          else
+#            %{
+#              date: spots.date,
+#              status: spots.status,
+#              spots: Enum.at(
+#                spots.spots,
+#                0
+#              )
+#            }
+#          end
         end
       )
     end
@@ -123,8 +163,8 @@ defmodule ChatApiWeb.BookingController do
     raw_rules = ~s([{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"monday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"tuesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"wednesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"thursday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"friday"}])
     {:ok, rules} = Jason.decode(raw_rules)
 
-    start = "2021-01-01"
-    end_date = "2021-01-31"
+    start = "2021-01-12"
+    end_date = "2021-01-12"
 
     {:ok, start_date} = Date.from_iso8601(start)
     {:ok, final_date} = Date.from_iso8601(end_date)
