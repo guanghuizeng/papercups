@@ -63,7 +63,7 @@ export default function EventTypeCard({eventTypeId}: any) {
           className="px-4 pb-2"
         >
           <a
-            href={'/ycy/' + url}
+            href={'/@ycy/' + url}
             className="block text-sm text-blue-500 hover:underline"
             role="menuitem"
           >
