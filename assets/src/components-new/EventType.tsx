@@ -108,7 +108,7 @@ const EventType = () => {
         </Link>
       </div>
       <div className="container lg:px-10 inner-container mx-auto lg:px-8 py-4 flex flex-col">
-        <div className="header py-4 text-3xl font-medium">编辑日程类型</div>
+        <div className="header py-4 text-3xl font-medium">编辑预约类型</div>
 
         <section className="pt-10">
           <div className="flex flex-row justify-between">
@@ -116,13 +116,15 @@ const EventType = () => {
             <div className="text-sm opacity-50">
               Last edited {dayjs(eventType.editAt).toString()}.
             </div>
-            <Link
-              to={`/@${settings.slug}/${eventType.url}`}
+            <a
+              href={`/@${settings.slug}/${eventType.url}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-blue-400"
             >
               <i className="fas fa-external-link-alt mr-2" />
               view live page
-            </Link>
+            </a>
           </div>
         </section>
         {generalSection()}
