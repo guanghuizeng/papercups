@@ -42,7 +42,7 @@ export function EventTypes() {
   }, []);
 
   return (
-    <div className=" mx-auto flex flex-col">
+    <div className="w-full flex flex-col">
       <div className="Header">
         <div className="flex flex-row mb-2">
           <Link to="/event_types/add" className="cursor-pointer mr-2 py-1 ">

@@ -152,7 +152,7 @@ export default function ScheduledEvents() {
   }, []);
 
   return (
-    <div className="h-full mx-auto flex flex-col">
+    <div className="h-full w-full flex flex-col">
       <div className="Header">
         <div className="flex flex-row">
           {[

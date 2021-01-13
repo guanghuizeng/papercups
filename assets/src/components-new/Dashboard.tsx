@@ -67,13 +67,30 @@ function Dashboard(props: RouteComponentProps) {
         </div>
       </div>
 
-      <div className="" style={{width: 'calc(100% - 200px)'}}>
+      <div className="flex flex-row" style={{width: 'calc(100% - 200px)'}}>
         <Switch>
           <Route exact path="/event_types" component={EventTypes} />
           <Route exact path="/event_types/add" component={NewEventType} />
-          <Route path="/event_types/:id" component={EventType} />
+          <Route
+            path="/event_types/:id"
+            component={() => (
+              <div className="w-1/2">
+                <EventTypes />
+              </div>
+            )}
+          />
           <Route path="/events" component={ScheduledEvents} />
           <Route path="/workflows" component={() => <div>workflows</div>} />
+        </Switch>
+        <Switch>
+          <Route
+            path="/event_types/:id"
+            component={() => (
+              <div className="w-1/2 border-l border-gray-200 border-solid">
+                <EventType />
+              </div>
+            )}
+          />
         </Switch>
       </div>
     </div>
