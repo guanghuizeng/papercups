@@ -23,10 +23,10 @@ function EventCard() {
 
 function UpcomingScheduledEvents() {
   return (
-    <div className="grid grid-cols-4 gap-1 bg-gray-100">
-      <div className="bg-white pt-10 px-3" style={{}}>
+    <div className="h-full grid grid-cols-4 gap-1 bg-gray-100">
+      <div className="h-full bg-white pt-10 px-3" style={{}}>
         <div className="flex flex-row justify-between">
-          <div className="gentle-flex text-3xl font-medium">今天</div>
+          <div className="gentle-flex text-4xl font-medium">今天</div>
           <div className="gentle-flex text-sm">
             {moment().format('dddd, M[月]DD[日] HH:mm ')}
           </div>
@@ -94,8 +94,8 @@ export default function ScheduledEvents() {
   }, []);
 
   return (
-    <div className="mx-auto  py-4 flex flex-col">
-      <div className="pt-5">
+    <div className="h-full mx-auto  py-4 flex flex-col">
+      <div className="h-full pt-5">
         <div className="flex flex-row justify-between border-b border-primary border-solid">
           <div className="flex flex-row">
             {[
@@ -123,7 +123,7 @@ export default function ScheduledEvents() {
           <DefaultButton text="Filters" />
         </div>
 
-        <div className="">
+        <div className="h-full">
           <Switch>
             <Route
               path="/events/upcoming"
