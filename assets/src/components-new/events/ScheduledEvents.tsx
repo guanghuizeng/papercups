@@ -18,7 +18,9 @@ function EventCard() {
           <div>张三</div>
           <div className="text-gray-500">30 分钟约见</div>
         </div>
-        <div className="text-gray-500">详情</div>
+        <div className="text-gray-500">
+          <i className="fas fa-expand-alt"></i>
+        </div>
       </div>
     </div>
   );
