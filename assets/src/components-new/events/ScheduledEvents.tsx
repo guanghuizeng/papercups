@@ -5,10 +5,11 @@ import {useEvents} from '../EventsProvider';
 import {days} from '../book/data';
 import dayjs from 'dayjs';
 import moment from 'moment';
+import {SearchBoxSmallExample} from '../EventTypes';
 
 function EventCard() {
   return (
-    <div className="my-2 py-2 border-primary border-solid border">
+    <div className="my-2 p-4 border-primary border-solid border">
       <div className="flex flex-row justify-between">
         <div>09:30 - 09:45</div>
         <div>
@@ -23,7 +24,7 @@ function EventCard() {
 
 function UpcomingScheduledEvents() {
   return (
-    <div className="h-full grid grid-cols-4 gap-1 bg-gray-100">
+    <div className="h-full grid grid-cols-4 gap-px bg-gray-100">
       <div className="h-full bg-white pt-10 px-3" style={{}}>
         <div className="flex flex-row justify-between">
           <div className="gentle-flex text-4xl font-medium">今天</div>
@@ -36,12 +37,12 @@ function UpcomingScheduledEvents() {
         </div>
       </div>
       <div className="bg-white pt-5 px-3" style={{}}>
-        <div>
-          <div className="text-xl font-medium">本周</div>
+        <div className="">
+          <div className="text-xl pb-2 font-medium">本周</div>
           <div className="text-sm">11 - 17，1 月</div>
         </div>
         <div className="flex flex-col">
-          <div className="my-2 border-red-300 border-solid border">
+          <div className="my-2">
             <div>星期四，1 月 14</div>
             <EventCard />
             <EventCard />
@@ -57,7 +58,7 @@ function UpcomingScheduledEvents() {
           <div className="text-xl font-medium">1 月</div>
         </div>
         <div className="flex flex-col">
-          <div className="my-2 border-red-300 border-solid border">
+          <div className="my-2">
             <div>1 月 17，星期日</div>
             <EventCard />
             <EventCard />
@@ -71,7 +72,7 @@ function UpcomingScheduledEvents() {
       <div className="bg-white pt-5 p-2" style={{}}>
         <div className="text-xl font-medium">2021 年</div>
         <div className="flex flex-col">
-          <div className="my-2 border-red-300 border-solid border">
+          <div className="my-2">
             <div>2 月</div>
             <div>
               <div>2 月 1，星期日</div>
@@ -119,7 +120,9 @@ export default function ScheduledEvents() {
             );
           })}
         </div>
-        <DefaultButton text="Filters" />
+        <div className="gentle-flex mb-2">
+          <SearchBoxSmallExample />
+        </div>
       </div>
       <div className="h-full">
         <Switch>

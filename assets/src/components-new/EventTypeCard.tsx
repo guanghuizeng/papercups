@@ -39,8 +39,8 @@ export default function EventTypeCard({eventTypeId}: any) {
         </Card.Item>
         <Card.Item>
           <div className="flex flex-row justify-between px-4 pt-4">
-            <i className="far fa-square  opacity-75 hover:opacity-100" />
-            <div className="opacity-75 hover:opacity-100">
+            <i className="far fa-square  opacity-75 hover:opacity-100 cursor-pointer" />
+            <div className="opacity-75 hover:opacity-100 cursor-pointer">
               <i className="fas fa-cog mr-1" />
               <i className="fas fa-caret-down" />
             </div>

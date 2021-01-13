@@ -44,9 +44,6 @@ export function EventTypes() {
   return (
     <div className=" mx-auto flex flex-col">
       <div className="Header">
-        <div className="gentle-flex mb-2">
-          <SearchBoxSmallExample />
-        </div>
         <div className="flex flex-row mb-2">
           <Link to="/event_types/add" className="cursor-pointer mr-2 py-1 ">
             <DefaultButton text="Add Event Type" />
@@ -57,6 +54,9 @@ export function EventTypes() {
           <div className="cursor-pointer  py-1 ">
             <DefaultButton text="Add to Website" />
           </div>
+        </div>
+        <div className="gentle-flex mb-2">
+          <SearchBoxSmallExample />
         </div>
       </div>
       <div className="flex flex-row flex-wrap">
