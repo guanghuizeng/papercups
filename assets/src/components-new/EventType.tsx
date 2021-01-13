@@ -15,20 +15,25 @@ import NotifyPolicySection from './events/sections/NotifyPolicySection';
 
 const EventType = () => {
   let {id} = useParams();
-  const {eventTypesById, onUpdateEventType, fetchAllSchedules} = useEvents();
+  const {
+    settings,
+    eventTypesById,
+    onUpdateEventType,
+    fetchAllSchedules,
+  } = useEvents();
   const eventType = eventTypesById[id];
   const [focusStep, setFocusStep] = useState(-1);
 
   useEffect(() => {
     fetchAllSchedules().then((r) => {
-      console.log('fetch schedules done', r);
+      // console.log('fetch schedules done', r);
     });
   }, []);
 
   const onSave = (value: any) => {
     onUpdateEventType(value.id, value).then((r) => {
       if (r) {
-        console.log('On update event type', r);
+        // console.log('On update event type', r);
       }
     });
   };
@@ -112,7 +117,10 @@ const EventType = () => {
           <div className="text-sm opacity-50">
             Last edited {dayjs(eventType.editAt).toString()}.
           </div>
-          <Link to="/live" className="text-blue-400">
+          <Link
+            to={`/@${settings.slug}/${eventType.url}`}
+            className="text-blue-400"
+          >
             <i className="fas fa-external-link-alt mr-2" />
             view live page
           </Link>

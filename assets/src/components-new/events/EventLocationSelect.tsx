@@ -19,10 +19,7 @@ export default function SingleSelect(props: any) {
         name="color"
         placeholder={'Add a location'}
         options={colourOptions}
-        onChange={(value) => {
-          onChange(value);
-          console.log('Select', value);
-        }}
+        onChange={onChange}
       />
     </Fragment>
   );

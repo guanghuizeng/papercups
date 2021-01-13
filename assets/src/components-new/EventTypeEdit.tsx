@@ -33,12 +33,8 @@ function Header({eventType}: any) {
 
 function EventTypeEdit({id}: any) {
   const {eventTypes} = useEvents();
-
-  console.log('Edit', eventTypes);
   const eventType = eventTypes.find((t) => t.id === id);
-
-  // const eventType =
-
+  console.log(eventType);
   return (
     <div>
       <Header eventType={eventType} />

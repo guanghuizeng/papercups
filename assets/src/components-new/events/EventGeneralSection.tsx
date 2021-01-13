@@ -1,5 +1,13 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
+import {
+  ITextFieldStyles,
+  Label,
+  MessageBar,
+  MessageBarType,
+  PrimaryButton,
+  TextField,
+} from '@fluentui/react';
 
 import SingleSelect from './EventLocationSelect';
 import Editor from '../common/Editor';
@@ -67,7 +75,9 @@ export function EventGeneralEdit({eventType, open, close}: any) {
         <div className="px-2 py-1 lg:px-10 lg:py-8">
           <div className="flex flex-col">
             <div className="mb-4">
-              <div className="my-3">Event name *</div>
+              <Label className="my-3" required>
+                名称
+              </Label>
               <div className="border border-gray-400 cursor-text w-64">
                 <input
                   type="text"
