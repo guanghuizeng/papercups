@@ -35,7 +35,7 @@ function Dashboard(props: RouteComponentProps) {
 
       <div
         className="border-r-4 border-solid border-gray-100 pt-5"
-        style={{width: '200px', backgroundColor: '#f8fafa'}}
+        style={{width: '200px', backgroundColor: '#f2f2f2'}}
       >
         <div className="flex flex-col">
           <div className="pt-4 pb-4 pl-4">
@@ -54,8 +54,8 @@ function Dashboard(props: RouteComponentProps) {
                   <div
                     className={`${
                       pathname === url || pathname.startsWith(url)
-                        ? 'bg-gray-200'
-                        : ''
+                        ? 'bg-gray-200 text-black'
+                        : 'opacity-75'
                     } pl-4 py-2`}
                   >
                     {name}

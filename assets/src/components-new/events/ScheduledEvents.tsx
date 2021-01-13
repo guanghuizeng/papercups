@@ -94,48 +94,42 @@ export default function ScheduledEvents() {
   }, []);
 
   return (
-    <div className="h-full mx-auto  py-4 flex flex-col">
-      <div className="h-full pt-5">
-        <div className="flex flex-row justify-between border-b border-primary border-solid">
-          <div className="flex flex-row">
-            {[
-              {url: '/events/upcoming', name: '待完成'},
-              {url: '/events/past', name: '已完成'},
-              {url: '/events/all', name: '全部'},
-            ].map(({url, name}) => {
-              return (
-                <div className=" px-2 cursor-pointer" key={url}>
-                  {pathname === url ? (
-                    <div className="gentle-flex py-1 w-24">
-                      <span>{name}</span>
-                    </div>
-                  ) : (
-                    <Link to={url}>
-                      <span className="gentle-flex w-24 py-1 opacity-25 ">
-                        {name}
-                      </span>
-                    </Link>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          <DefaultButton text="Filters" />
+    <div className="h-full mx-auto flex flex-col">
+      <div className="Header">
+        <div className="flex flex-row">
+          {[
+            {url: '/events/upcoming', name: '待完成'},
+            {url: '/events/past', name: '已完成'},
+            {url: '/events/all', name: '全部'},
+          ].map(({url, name}) => {
+            return (
+              <div className="px-2 cursor-pointer" key={url}>
+                {pathname === url ? (
+                  <div className="gentle-flex py-1 w-24">
+                    <span>{name}</span>
+                  </div>
+                ) : (
+                  <Link to={url}>
+                    <span className="gentle-flex w-24 py-1 opacity-25 ">
+                      {name}
+                    </span>
+                  </Link>
+                )}
+              </div>
+            );
+          })}
         </div>
-
-        <div className="h-full">
-          <Switch>
-            <Route
-              path="/events/upcoming"
-              component={UpcomingScheduledEvents}
-            />
-            <Route path="/events/past" component={() => <div>past</div>} />
-            <Route path="/events/all" component={() => <div>all</div>} />
-            <Route path="/events">
-              <Redirect to="/events/upcoming" />
-            </Route>
-          </Switch>
-        </div>
+        <DefaultButton text="Filters" />
+      </div>
+      <div className="h-full">
+        <Switch>
+          <Route path="/events/upcoming" component={UpcomingScheduledEvents} />
+          <Route path="/events/past" component={() => <div>past</div>} />
+          <Route path="/events/all" component={() => <div>all</div>} />
+          <Route path="/events">
+            <Redirect to="/events/upcoming" />
+          </Route>
+        </Switch>
       </div>
     </div>
   );
