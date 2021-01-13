@@ -6,6 +6,8 @@ import {days} from '../book/data';
 import dayjs from 'dayjs';
 import moment from 'moment';
 import {SearchBoxSmallExample} from '../EventTypes';
+var weekOfYear = require('dayjs/plugin/weekOfYear');
+dayjs.extend(weekOfYear);
 
 function EventCard() {
   return (
@@ -27,7 +29,7 @@ function UpcomingScheduledEvents() {
     <div className="h-full grid grid-cols-4 gap-px bg-gray-100">
       <div className="h-full bg-white pt-10 px-3" style={{}}>
         <div className="flex flex-row justify-between">
-          <div className="gentle-flex text-4xl font-medium">今天</div>
+          <div className="gentle-flex text-5xl font-medium">今天</div>
           <div className="gentle-flex text-base">
             {moment().format('dddd, M[月]DD[日] HH:mm ')}
           </div>
@@ -38,8 +40,24 @@ function UpcomingScheduledEvents() {
       </div>
       <div className="bg-white pt-5 px-3" style={{}}>
         <div className="">
-          <div className="text-xl pb-2 font-medium">本周</div>
-          <div className="text-base">11 - 17，1 月</div>
+          <div className="text-2xl pb-2 font-medium">本周</div>
+          <div className="flex flex-row justify-between">
+            <div className="text-base">
+              {/*11 - 17，1 月*/}
+              {dayjs().startOf('week').format('D')}-
+              {dayjs().endOf('week').format('D')}, {dayjs().format('M 月')},{' '}
+              {moment().week()} / 52 周{/*{moment().format('M[月]')}*/}
+            </div>
+            <div className="flex flex-row">
+              {['一', '二', '三', '四', '五', '六', '日'].map((d) => {
+                return (
+                  <div key={d} className="mr-2 opacity-75 cursor-pointer">
+                    {d}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
         <div className="flex flex-col pt-5">
           <div className="my-2">
@@ -55,7 +73,7 @@ function UpcomingScheduledEvents() {
       </div>
       <div className="bg-white pt-5 p-3" style={{}}>
         <div>
-          <div className="text-xl font-medium">1 月</div>
+          <div className="text-2xl font-medium">1 月</div>
         </div>
         <div className="flex flex-col pt-5">
           <div className="my-2">
@@ -70,7 +88,7 @@ function UpcomingScheduledEvents() {
         </div>
       </div>
       <div className="bg-white pt-5 p-2" style={{}}>
-        <div className="text-xl font-medium">2021 年</div>
+        <div className="text-2xl font-medium">2021 年</div>
         <div className="flex flex-col pt-5">
           <div className="my-2">
             <div>2 月</div>
