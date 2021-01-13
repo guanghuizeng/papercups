@@ -10,9 +10,9 @@ function EventCard() {
         <div>09:30 - 09:45</div>
         <div>
           <div>张三</div>
-          <div>30 分钟约见</div>
+          <div className="text-gray-500">30 分钟约见</div>
         </div>
-        <div>详情</div>
+        <div className="text-gray-500">详情</div>
       </div>
     </div>
   );
@@ -21,9 +21,9 @@ function EventCard() {
 function UpcomingScheduledEvents() {
   return (
     <div className="grid grid-cols-4 gap-1 bg-gray-100">
-      <div className="bg-white pt-5 px-3" style={{}}>
+      <div className="bg-white pt-10 px-3" style={{}}>
         <div>
-          <div className="text-xl font-medium">今天</div>
+          <div className="text-3xl font-medium">今天</div>
           <div className="text-sm">星期三，1月13日</div>
         </div>
         <div className="flex flex-col">
@@ -89,10 +89,8 @@ export default function ScheduledEvents() {
   }, []);
 
   return (
-    <div className=" lg:px-10  mx-auto lg:px-8 py-4 flex flex-col">
-      <div className="header mt-6 py-4 text-3xl font-medium">预约</div>
-
-      <div className="pt-10">
+    <div className="mx-auto  py-4 flex flex-col">
+      <div className="pt-5">
         <div className="flex flex-row justify-between border-b border-primary border-solid">
           <div className="flex flex-row">
             {[
@@ -103,12 +101,14 @@ export default function ScheduledEvents() {
               return (
                 <div className=" px-2 cursor-pointer" key={url}>
                   {pathname === url ? (
-                    <div className="gentle-flex border-b-4 border-blue-300 border-solid py-1 w-24">
+                    <div className="gentle-flex py-1 w-24">
                       <span>{name}</span>
                     </div>
                   ) : (
                     <Link to={url}>
-                      <span className="gentle-flex w-24 py-1 ">{name}</span>
+                      <span className="gentle-flex w-24 py-1 opacity-25 ">
+                        {name}
+                      </span>
                     </Link>
                   )}
                 </div>

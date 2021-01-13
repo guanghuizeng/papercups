@@ -54,7 +54,7 @@ function Dashboard(props: RouteComponentProps) {
                   <div
                     className={`${
                       pathname === url || pathname.startsWith(url)
-                        ? 'bg-white'
+                        ? 'bg-gray-200'
                         : ''
                     } pl-4 py-2`}
                   >
