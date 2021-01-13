@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Switch, Route, Link, useLocation, Redirect} from 'react-router-dom';
 import {DefaultButton} from '@fluentui/react';
 import {useEvents} from '../EventsProvider';
@@ -10,17 +10,29 @@ var weekOfYear = require('dayjs/plugin/weekOfYear');
 dayjs.extend(weekOfYear);
 
 function EventCard() {
+  const [hovered, setHovered] = useState(false);
   return (
-    <div className="my-2 p-4 border-primary border-solid border">
-      <div className="flex flex-row justify-between">
-        <div>09:30 - 09:45</div>
-        <div>
+    <div
+      className="border-primary border-solid border flex flex-row justify-between w-full h-24"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div
+        className="my-2 p-4 flex flex-row justify-between"
+        style={{width: 'calc(100% - 10px)'}}
+      >
+        <div className="w-1/2">09:30 - 09:45</div>
+        <div className="w-1/2">
           <div>张三</div>
           <div className="text-gray-500">30 分钟约见</div>
         </div>
-        <div className="text-gray-500">
-          <i className="fas fa-expand-alt"></i>
-        </div>
+      </div>
+      <div className="h-full w-8">
+        {hovered && (
+          <div className="cursor-pointer opacity-25 hover:opacity-100 h-full bg-red-300 gentle-flex">
+            <i className="fas fa-expand-alt fa-sm" />
+          </div>
+        )}
       </div>
     </div>
   );
