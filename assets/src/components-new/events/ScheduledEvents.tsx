@@ -45,13 +45,23 @@ function UpcomingScheduledEvents() {
             <div className="text-base">
               {dayjs().format('M 月')} {dayjs().startOf('week').format('D')} -{' '}
               {dayjs().endOf('week').format('D')} 日, 第 {moment().week()} / 52
-              周{/*{moment().format('M[月]')}*/}
+              周
             </div>
             <div className="flex flex-row">
               {['一', '二', '三', '四', '五', '六', '日'].map((d) => {
                 return (
-                  <div key={d} className="mr-2 opacity-75 cursor-pointer">
-                    {d}
+                  <div key={d} className="mr-2 opacity-75">
+                    {d === '四' || d === '五' ? (
+                      <div className="cursor-pointer">
+                        <span className="">{d}</span>
+                        <div
+                          className="w-full gentle-flex rounded-full bg-red-400"
+                          style={{height: '2px'}}
+                        />
+                      </div>
+                    ) : (
+                      <span className="opacity-50">{d}</span>
+                    )}
                   </div>
                 );
               })}
@@ -60,12 +70,18 @@ function UpcomingScheduledEvents() {
         </div>
         <div className="flex flex-col pt-5">
           <div className="my-2">
-            <div>星期四，1 月 14</div>
+            <div className="flex flex-row justify-between opacity-50">
+              <div>星期四，1 月 14</div>
+              <div className="mr-4">2</div>
+            </div>
             <EventCard />
             <EventCard />
           </div>
           <div>
-            <div>星期五，1 月 15</div>
+            <div className="flex flex-row justify-between opacity-50">
+              <div>星期五，1 月 15</div>
+              <div className="mr-4">1</div>
+            </div>
             <EventCard />
           </div>
         </div>
@@ -73,15 +89,25 @@ function UpcomingScheduledEvents() {
       <div className="bg-white pt-5 p-3" style={{}}>
         <div>
           <div className="text-2xl font-medium">1 月</div>
+          <div className="flex flex-row justify-between">
+            <span />
+            <div className="opacity-75 cursor-pointer">日期</div>
+          </div>
         </div>
         <div className="flex flex-col pt-5">
           <div className="my-2">
-            <div>1 月 17，星期日</div>
+            <div className="flex flex-row justify-between opacity-50">
+              <div>1 月 17，星期日</div>
+              <div className="mr-4">2</div>
+            </div>
             <EventCard />
             <EventCard />
           </div>
           <div>
-            <div>1 月 18，星期五</div>
+            <div className="flex flex-row justify-between opacity-50">
+              <div>1 月 18，星期五</div>
+              <div className="mr-4">1</div>
+            </div>
             <EventCard />
           </div>
         </div>
