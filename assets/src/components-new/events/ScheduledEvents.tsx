@@ -2,6 +2,9 @@ import React, {useEffect} from 'react';
 import {Switch, Route, Link, useLocation} from 'react-router-dom';
 import {DefaultButton} from '@fluentui/react';
 import {useEvents} from '../EventsProvider';
+import {days} from '../book/data';
+import dayjs from 'dayjs';
+import moment from 'moment';
 
 function EventCard() {
   return (
@@ -22,9 +25,11 @@ function UpcomingScheduledEvents() {
   return (
     <div className="grid grid-cols-4 gap-1 bg-gray-100">
       <div className="bg-white pt-10 px-3" style={{}}>
-        <div>
-          <div className="text-3xl font-medium">今天</div>
-          <div className="text-sm">星期三，1月13日</div>
+        <div className="flex flex-row justify-between">
+          <div className="gentle-flex text-3xl font-medium">今天</div>
+          <div className="gentle-flex text-sm">
+            {moment().format('dddd, M[月]DD[日] HH:mm ')}
+          </div>
         </div>
         <div className="flex flex-col">
           <EventCard />
