@@ -43,10 +43,9 @@ function UpcomingScheduledEvents() {
           <div className="text-2xl pb-2 font-medium">本周</div>
           <div className="flex flex-row justify-between">
             <div className="text-base">
-              {/*11 - 17，1 月*/}
-              {dayjs().startOf('week').format('D')}-
-              {dayjs().endOf('week').format('D')}, {dayjs().format('M 月')},{' '}
-              {moment().week()} / 52 周{/*{moment().format('M[月]')}*/}
+              {dayjs().format('M 月')} {dayjs().startOf('week').format('D')} -{' '}
+              {dayjs().endOf('week').format('D')} 日, 第 {moment().week()} / 52
+              周{/*{moment().format('M[月]')}*/}
             </div>
             <div className="flex flex-row">
               {['一', '二', '三', '四', '五', '六', '日'].map((d) => {
