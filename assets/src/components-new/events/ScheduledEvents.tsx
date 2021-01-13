@@ -168,7 +168,7 @@ export default function ScheduledEvents() {
                   </div>
                 ) : (
                   <Link to={url}>
-                    <span className="gentle-flex w-24 py-1 opacity-25 ">
+                    <span className="gentle-flex w-24 py-1 opacity-25 hover:opacity-100">
                       {name}
                     </span>
                   </Link>
