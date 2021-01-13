@@ -28,20 +28,20 @@ function UpcomingScheduledEvents() {
       <div className="h-full bg-white pt-10 px-3" style={{}}>
         <div className="flex flex-row justify-between">
           <div className="gentle-flex text-4xl font-medium">今天</div>
-          <div className="gentle-flex text-sm">
+          <div className="gentle-flex text-base">
             {moment().format('dddd, M[月]DD[日] HH:mm ')}
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col  pt-5">
           <EventCard />
         </div>
       </div>
       <div className="bg-white pt-5 px-3" style={{}}>
         <div className="">
           <div className="text-xl pb-2 font-medium">本周</div>
-          <div className="text-sm">11 - 17，1 月</div>
+          <div className="text-base">11 - 17，1 月</div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col pt-5">
           <div className="my-2">
             <div>星期四，1 月 14</div>
             <EventCard />
@@ -57,7 +57,7 @@ function UpcomingScheduledEvents() {
         <div>
           <div className="text-xl font-medium">1 月</div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col pt-5">
           <div className="my-2">
             <div>1 月 17，星期日</div>
             <EventCard />
@@ -71,7 +71,7 @@ function UpcomingScheduledEvents() {
       </div>
       <div className="bg-white pt-5 p-2" style={{}}>
         <div className="text-xl font-medium">2021 年</div>
-        <div className="flex flex-col">
+        <div className="flex flex-col pt-5">
           <div className="my-2">
             <div>2 月</div>
             <div>
