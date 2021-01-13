@@ -3,24 +3,34 @@ import {Switch, Route, Link, useLocation} from 'react-router-dom';
 import {DefaultButton} from '@fluentui/react';
 import {useEvents} from '../EventsProvider';
 
+function EventCard() {
+  return (
+    <div className="my-2 py-2 border-primary border-solid border">
+      <div className="flex flex-row justify-between">
+        <div>09:30 - 09:45</div>
+        <div>
+          <div>张三</div>
+          <div>30 分钟约见</div>
+        </div>
+        <div>详情</div>
+      </div>
+    </div>
+  );
+}
+
 function UpcomingScheduledEvents() {
   return (
-    <div className="grid grid-cols-4 gap-2 bg-red-300">
-      <div className="bg-white" style={{}}>
+    <div className="grid grid-cols-4 gap-1 bg-gray-100">
+      <div className="bg-white pt-5 px-3" style={{}}>
         <div>
           <div className="text-xl font-medium">今天</div>
           <div className="text-sm">星期三，1月13日</div>
         </div>
         <div className="flex flex-col">
-          <div className="my-2 py-2 border-primary border-solid border">
-            <div>09:30 - 09:45</div>
-            <div>张三</div>
-            <div>30 分钟约见</div>
-            <div>详情</div>
-          </div>
+          <EventCard />
         </div>
       </div>
-      <div className="bg-white" style={{}}>
+      <div className="bg-white pt-5 px-3" style={{}}>
         <div>
           <div className="text-xl font-medium">本周</div>
           <div className="text-sm">11 - 17，1 月</div>
@@ -28,80 +38,40 @@ function UpcomingScheduledEvents() {
         <div className="flex flex-col">
           <div className="my-2 border-red-300 border-solid border">
             <div>星期四，1 月 14</div>
-            <div className="my-2 py-2 border-primary border-solid border">
-              <div>09:30 - 09:45</div>
-              <div>张三</div>
-              <div>30 分钟约见</div>
-              <div>详情</div>
-            </div>
-            <div className="my-2 py-2 border-primary border-solid border">
-              <div>09:30 - 09:45</div>
-              <div>张三</div>
-              <div>30 分钟约见</div>
-              <div>详情</div>
-            </div>
+            <EventCard />
+            <EventCard />
           </div>
           <div>
             <div>星期五，1 月 15</div>
-            <div className="my-2 py-2 border-primary border-solid border">
-              <div>09:30 - 09:45</div>
-              <div>张三</div>
-              <div>30 分钟约见</div>
-              <div>详情</div>
-            </div>
+            <EventCard />
           </div>
         </div>
       </div>
-      <div className="bg-white" style={{}}>
+      <div className="bg-white pt-5 p-3" style={{}}>
         <div>
           <div className="text-xl font-medium">1 月</div>
         </div>
         <div className="flex flex-col">
           <div className="my-2 border-red-300 border-solid border">
             <div>1 月 17，星期日</div>
-            <div className="my-2 py-2 border-primary border-solid border">
-              <div>09:30 - 09:45</div>
-              <div>张三</div>
-              <div>30 分钟约见</div>
-              <div>详情</div>
-            </div>
-            <div className="my-2 py-2 border-primary border-solid border">
-              <div>09:30 - 09:45</div>
-              <div>张三</div>
-              <div>30 分钟约见</div>
-              <div>详情</div>
-            </div>
+            <EventCard />
+            <EventCard />
           </div>
           <div>
             <div>1 月 18，星期五</div>
-            <div className="my-2 py-2 border-primary border-solid border">
-              <div>09:30 - 09:45</div>
-              <div>张三</div>
-              <div>30 分钟约见</div>
-              <div>详情</div>
-            </div>
+            <EventCard />
           </div>
         </div>
       </div>
-      <div className="bg-white" style={{}}>
+      <div className="bg-white pt-5 p-2" style={{}}>
         <div className="text-xl font-medium">2021 年</div>
         <div className="flex flex-col">
           <div className="my-2 border-red-300 border-solid border">
             <div>2 月</div>
             <div>
               <div>2 月 1，星期日</div>
-              <div className="my-2 py-2 border-primary border-solid border">
-                <div>09:30 - 09:45</div>
-                <div>张三</div>
-                <div>30 分钟约见</div>
-                <div>详情</div>
-              </div>
-              <div className="my-2 py-2 border-primary border-solid border">
-                <div>09:30 - 09:45</div>
-                <div>张三</div>
-                <div>30 分钟约见</div>
-                <div>详情</div>
-              </div>
+              <EventCard />
+              <EventCard />
             </div>
           </div>
         </div>
@@ -148,7 +118,7 @@ export default function ScheduledEvents() {
           <DefaultButton text="Filters" />
         </div>
 
-        <div className="pt-5">
+        <div className="">
           <Switch>
             <Route
               path="/events/upcoming"
