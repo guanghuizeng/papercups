@@ -20,7 +20,7 @@ defmodule ChatApi.Events.Event do
   @doc false
   def changeset(schedule, attrs) do
     schedule
-    |> cast(attrs, [:guest_name, :event_type_id, :start_time])
+    |> cast(attrs, [:guest_name, :event_type_id, :start_time, :user_id])
     |> validate_required([:guest_name, :event_type_id, :start_time])
   end
 end

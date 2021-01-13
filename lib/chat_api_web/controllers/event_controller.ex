@@ -5,6 +5,9 @@ defmodule ChatApiWeb.EventController do
   alias ChatApi.Events
   alias ChatApi.Events.Event
 
+  alias ChatApi.EventTypes
+  alias ChatApi.EventTypes.EventType
+
   @spec index(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def index(conn, filters) do
     with %{id: user_id} <- conn.assigns.current_user do
@@ -31,12 +34,15 @@ defmodule ChatApiWeb.EventController do
       "event_type_id" => event_type_id,
       "start_time" => start_time,
     } = event_params
+    event_type = EventTypes.get_event_type!(event_type_id)
 
     with {:ok, start_time, _offset} <- DateTime.from_iso8601(start_time),
+#         {:ok, %EventType{} = event_type} <- EventTypes.get_event_type!(event_type_id),
          {:ok, %Event{} = event} <- Events.create_event(
            %{
              guest_name: guest_name,
              event_type_id: event_type_id,
+             user_id: event_type.user_id,
              start_time: start_time
            }
          ) do
