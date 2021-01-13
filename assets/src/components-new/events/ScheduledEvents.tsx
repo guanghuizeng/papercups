@@ -13,7 +13,7 @@ export default function ScheduledEvents() {
 
   return (
     <div className="container lg:px-10 inner-container mx-auto lg:px-8 py-4 flex flex-col">
-      <div className="mt-6 py-4 text-3xl font-medium">预约</div>
+      <div className="header mt-6 py-4 text-3xl font-medium">预约</div>
 
       <div className="pt-10">
         <div className="flex flex-row justify-between border-b border-primary border-solid">

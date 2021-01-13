@@ -109,7 +109,7 @@ const EventType = () => {
           </span>
         </Link>
       </div>
-      <div className="py-4 text-3xl font-medium">编辑日程类型</div>
+      <div className="header py-4 text-3xl font-medium">编辑日程类型</div>
 
       <section className="pt-10">
         <div className="flex flex-row justify-between">

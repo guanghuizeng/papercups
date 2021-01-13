@@ -3,6 +3,14 @@ import {useTransact} from '../../../store';
 import CancelButton from '../CancelButton';
 import SingleSelect from '../EventLocationSelect';
 import Editor from '../../common/Editor';
+import {
+  ITextFieldStyles,
+  Label,
+  MessageBar,
+  MessageBarType,
+  PrimaryButton,
+  TextField,
+} from '@fluentui/react';
 
 export function GeneralSectionExpand({
   eventType,
@@ -72,7 +80,9 @@ export function GeneralSectionExpand({
           <div className="px-2 py-1 lg:px-10 lg:py-8">
             <div className="flex flex-col">
               <div className="mb-4">
-                <div className="my-3">Event name *</div>
+                <Label className="label text-base" required>
+                  名称
+                </Label>
                 <div className="border border-gray-400 cursor-text w-64">
                   <input
                     type="text"
@@ -90,7 +100,9 @@ export function GeneralSectionExpand({
               </div>
 
               <div className="mb-4">
-                <div className="my-3">Location</div>
+                <Label className="label text-base" required>
+                  方式
+                </Label>
                 <SingleSelect
                   defaultValue={eventTypeValue.location}
                   onChange={(option: any) => {
@@ -104,7 +116,7 @@ export function GeneralSectionExpand({
               </div>
 
               <div className="mb-4">
-                <div className="my-3">Description/Instructions</div>
+                <Label className="label text-base">描述/建议</Label>
                 <Editor
                   defaultValue={eventTypeValue.description}
                   onChange={(value: any) => {
@@ -118,7 +130,9 @@ export function GeneralSectionExpand({
               </div>
 
               <div className="mb-4">
-                <div className="my-3">Event link *</div>
+                <Label className="label text-base" required>
+                  链接
+                </Label>
                 <div className="flex flex-row">
                   <div className="mr-3">mytime.com/ycy/</div>
                   <div className="border border-gray-400 cursor-text ">
@@ -139,7 +153,7 @@ export function GeneralSectionExpand({
               </div>
 
               <div className="mb-4">
-                <div className="my-3">Event color</div>
+                <Label className="label text-base">标签</Label>
                 <div className="flex flex-row">
                   {['red', 'green', 'blue'].map((color) => {
                     return (
