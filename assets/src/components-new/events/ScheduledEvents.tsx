@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Switch, Route, Link, useLocation} from 'react-router-dom';
+import {Switch, Route, Link, useLocation, Redirect} from 'react-router-dom';
 import {DefaultButton} from '@fluentui/react';
 import {useEvents} from '../EventsProvider';
 import {days} from '../book/data';
@@ -130,6 +130,10 @@ export default function ScheduledEvents() {
               component={UpcomingScheduledEvents}
             />
             <Route path="/events/past" component={() => <div>past</div>} />
+            <Route path="/events/all" component={() => <div>all</div>} />
+            <Route path="/events">
+              <Redirect to="/events/upcoming" />
+            </Route>
           </Switch>
         </div>
       </div>
