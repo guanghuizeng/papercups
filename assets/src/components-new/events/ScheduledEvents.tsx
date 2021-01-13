@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Switch, Route, Link, useLocation} from 'react-router-dom';
 import {DefaultButton} from '@fluentui/react';
+import {useEvents} from '../EventsProvider';
 
 export default function ScheduledEvents() {
   const {pathname} = useLocation();
+  const {scheduledEvents, fetchScheduledEvents} = useEvents();
+
+  useEffect(() => {
+    fetchScheduledEvents().then((r) => {});
+  }, []);
 
   return (
     <div className="container lg:px-10 inner-container mx-auto lg:px-8 py-4 flex flex-col">

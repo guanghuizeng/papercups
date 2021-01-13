@@ -7,24 +7,20 @@ defmodule ChatApiWeb.EventController do
 
   @spec index(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def index(conn, filters) do
-    json(
-      conn,
-      %{
-        ok: false,
-        data: %{}
-      }
-    )
+    with %{id: user_id} <- conn.assigns.current_user do
+      Logger.info(inspect(user_id))
+      events = Events.list_by_user(user_id)
+      Logger.info(inspect(events))
+      render(conn, "index.json", events: events)
+    end
   end
 
   @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def show(conn, params) do
-    json(
-      conn,
-      %{
-        ok: false,
-        data: %{}
-      }
-    )
+    with %{id: user_id} <- conn.assigns.current_user do
+      scheduled_events = Events.list_by_user(user_id)
+      render(conn, "show.json", events: scheduled_events)
+    end
   end
 
 

@@ -117,7 +117,10 @@ defmodule ChatApiWeb.Router do
     resources("/tags", TagController, except: [:new, :edit])
     resources("/browser_sessions", BrowserSessionController, except: [:create, :new, :edit])
     resources("/personal_api_keys", PersonalApiKeyController, except: [:new, :edit, :update])
+
     resources("/event_types", EventTypeController, except: [:new, :edit])
+    resources("/scheduled_events", EventController, except: [:new, :edit])
+
 
     post("/conversations/:conversation_id/share", ConversationController, :share)
     post("/conversations/:conversation_id/tags", ConversationController, :add_tag)

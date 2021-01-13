@@ -12,6 +12,7 @@ defmodule ChatApi.Events.Event do
     field :additional_info, :string
 
     belongs_to(:event_type, EventType, type: :binary_id)
+    belongs_to(:user, User, type: :integer)
 
     timestamps()
   end

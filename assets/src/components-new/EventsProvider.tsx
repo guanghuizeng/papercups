@@ -20,6 +20,9 @@ export const EventsContext = React.createContext<{
   onUpdateEventType: (eventTypeId: string, any: any) => Promise<any>;
   fetchAllEventTypes: () => Promise<any>;
   fetchAllSchedules: () => Promise<any>;
+
+  scheduledEvents: Array<any>;
+  fetchScheduledEvents: () => Promise<any>;
 }>({
   loading: true,
   account: null,
@@ -37,6 +40,9 @@ export const EventsContext = React.createContext<{
   onUpdateEventType: (eventTypeId: string, any: any) => Promise.resolve({}),
   fetchAllEventTypes: () => Promise.resolve([]),
   fetchAllSchedules: () => Promise.resolve([]),
+
+  scheduledEvents: [],
+  fetchScheduledEvents: () => Promise.resolve([]),
 });
 
 export const useEvents = () => useContext(EventsContext);
@@ -54,6 +60,8 @@ type State = {
   eventTypes: Array<any>;
   schedules: Array<any>;
   schedulesById: {[key: string]: any};
+
+  scheduledEvents: Array<any>;
 };
 export class EventsProvider extends React.Component<Props, State> {
   state: State = {
@@ -68,6 +76,8 @@ export class EventsProvider extends React.Component<Props, State> {
     eventTypes: [],
     schedules: [],
     schedulesById: {},
+
+    scheduledEvents: [],
   };
 
   async componentDidMount() {
@@ -152,6 +162,15 @@ export class EventsProvider extends React.Component<Props, State> {
     return schedules;
   };
 
+  fetchScheduledEvents = async (): Promise<Array<any>> => {
+    const scheduledEvents = await API.fetchScheduledEvents();
+    this.setState({
+      scheduledEvents,
+    });
+
+    return scheduledEvents;
+  };
+
   render() {
     const {
       loading,
@@ -165,6 +184,7 @@ export class EventsProvider extends React.Component<Props, State> {
       eventTypes,
       schedules,
       schedulesById,
+      scheduledEvents,
     } = this.state;
     return (
       <EventsContext.Provider
@@ -185,6 +205,9 @@ export class EventsProvider extends React.Component<Props, State> {
           onUpdateEventType: this.handleUpdateEventType,
           fetchAllEventTypes: this.fetchAllEventTypes,
           fetchAllSchedules: this.fetchAllSchedules,
+
+          scheduledEvents,
+          fetchScheduledEvents: this.fetchScheduledEvents,
         }}
       >
         {this.props.children}

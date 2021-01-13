@@ -21,4 +21,12 @@ defmodule ChatApi.Events do
                  select: e
     Repo.all(query)
   end
+
+  @spec list_by_user(binary()) :: [Event.t()]
+  def list_by_user(user_id) do
+    Event
+    |> where(user_id: ^user_id)
+    |> order_by(asc: :start_time)
+    |> Repo.all()
+  end
 end

@@ -1072,7 +1072,7 @@ export const createEvent = async (
     .then((res) => res.body.data);
 };
 
-export const fetchDatetimeSpotsByRange = (
+export const fetchDatetimeSpotsByRange = async (
   event_type_id: string,
   start_time: string,
   end_time: string
@@ -1083,5 +1083,16 @@ export const fetchDatetimeSpotsByRange = (
       start_time,
       end_time,
     })
+    .then((res) => res.body.data);
+};
+
+export const fetchScheduledEvents = async (token = getAccessToken()) => {
+  if (!token) {
+    throw new Error('Invalid token!');
+  }
+
+  return request
+    .get(`/api/scheduled_events/`)
+    .set('Authorization', token)
     .then((res) => res.body.data);
 };

@@ -15,6 +15,7 @@ defmodule ChatApiWeb.EventView do
       id: event.id,
       object: "event",
       guest_name: event.guest_name,
+      start_time: event.start_time
     }
   end
 end
