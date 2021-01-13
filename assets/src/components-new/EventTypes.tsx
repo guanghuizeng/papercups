@@ -12,7 +12,9 @@ import {
 } from '@fluentui/react';
 import EventTypeCard from './EventTypeCard';
 
-const searchBoxStyles: Partial<ISearchBoxStyles> = {root: {width: 200}};
+const searchBoxStyles: Partial<ISearchBoxStyles> = {
+  root: {width: 200, border: '0'},
+};
 
 export const SearchBoxSmallExample = () => (
   <SearchBox
@@ -41,33 +43,31 @@ export function EventTypes() {
 
   return (
     <div className=" mx-auto flex flex-col">
-      <section className="pt-10 text-gray-700 body-font">
-        <div className="border-b border-gray-500 flex flex-row justify-between">
-          <div className="gentle-flex mb-2">
-            <SearchBoxSmallExample />
+      <div className="Header">
+        <div className="gentle-flex mb-2">
+          <SearchBoxSmallExample />
+        </div>
+        <div className="flex flex-row mb-2">
+          <Link to="/event_types/add" className="cursor-pointer mr-2 py-1 ">
+            <DefaultButton text="Add Event Type" />
+          </Link>
+          <div className="cursor-pointer mr-2 py-1 ">
+            <DefaultButton text="Copy Link" />
           </div>
-          <div className="flex flex-row mb-2">
-            <Link to="/event_types/add" className="cursor-pointer mr-2 py-1 ">
-              <DefaultButton text="Add Event Type" />
-            </Link>
-            <div className="cursor-pointer mr-2 py-1 ">
-              <DefaultButton text="Copy Link" />
-            </div>
-            <div className="cursor-pointer  py-1 ">
-              <DefaultButton text="Add to Website" />
-            </div>
+          <div className="cursor-pointer  py-1 ">
+            <DefaultButton text="Add to Website" />
           </div>
         </div>
-        <div className="grid lg:grid-cols-3 grid-cols-1">
-          {eventTypes.map((eventTypeId: any) => {
-            return (
-              <div key={eventTypeId} className="pt-4 pl-4">
-                <EventTypeCard eventTypeId={eventTypeId} />
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      </div>
+      <div className="flex flex-row flex-wrap">
+        {eventTypes.map((eventTypeId: any) => {
+          return (
+            <div key={eventTypeId} className="pt-4 pl-4">
+              <EventTypeCard eventTypeId={eventTypeId} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -274,3 +274,8 @@ input[type='number'] {
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   height: 70px;
 }
+
+.ms-SearchBox:focus {
+  outline: none;
+  border: 0;
+}
