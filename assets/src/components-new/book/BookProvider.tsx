@@ -154,7 +154,7 @@ const BookProvider = (props: Props) => {
   };
 
   const createEvent = (event_type_id: string, start_time: string) => {
-    return _createEvent(event_type_id, start_time);
+    return _createEvent(event_type_id, start_time, '');
   };
 
   return (

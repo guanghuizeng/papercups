@@ -1058,7 +1058,8 @@ export const fetchEventTypeByUrl = async (user: string, url: string) => {
 
 export const createEvent = async (
   event_type_id: string,
-  start_time: string
+  start_time: string,
+  guest_name: string
 ) => {
   return request
     .post(`/api/events`)

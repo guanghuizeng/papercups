@@ -39,7 +39,7 @@ function Dashboard(props: RouteComponentProps) {
       >
         <div className="flex flex-col">
           <div className="pt-4 pb-4 pl-4">
-            <div>张圆圆</div>
+            <div>杨超越</div>
             <div className="text-sm text-blue-500">letsmeet.com/ycy</div>
           </div>
           <div>

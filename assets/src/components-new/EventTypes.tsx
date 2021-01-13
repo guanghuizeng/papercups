@@ -40,7 +40,7 @@ export function EventTypes() {
   }, []);
 
   return (
-    <div className="container lg:px-10 inner-container mx-auto lg:px-8 py-4 flex flex-col">
+    <div className=" lg:px-10  mx-auto lg:px-8 py-4 flex flex-col">
       <div className="header mt-6 py-4 text-3xl font-medium">预约类型</div>
 
       <section className="pt-10 text-gray-700 body-font">
