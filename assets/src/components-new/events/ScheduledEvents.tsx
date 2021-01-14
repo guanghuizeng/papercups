@@ -83,7 +83,7 @@ function UpcomingScheduledEvents() {
           </div>
         </div>
         <div className="flex flex-col pt-5">
-          <div className="my-2">
+          <div className="pb-8">
             <div className="flex flex-row justify-between">
               <div>星期四，1 月 14</div>
               <div className="mr-4  opacity-50">2</div>
@@ -91,7 +91,7 @@ function UpcomingScheduledEvents() {
             <EventCard />
             <EventCard />
           </div>
-          <div>
+          <div className="pb-8">
             <div className="flex flex-row justify-between ">
               <div>星期五，1 月 15</div>
               <div className="mr-4 opacity-50">1</div>
@@ -102,14 +102,14 @@ function UpcomingScheduledEvents() {
       </div>
       <div className="bg-white pt-5 p-3" style={{}}>
         <div>
-          <div className="text-2xl font-medium">1 月</div>
+          <div className="text-2xl pb-2 font-medium">1 月</div>
           <div className="flex flex-row justify-between">
             <span />
             <div className="opacity-75 cursor-pointer">日期</div>
           </div>
         </div>
         <div className="flex flex-col pt-5">
-          <div className="my-2">
+          <div className="pb-8">
             <div className="flex flex-row justify-between ">
               <div>1 月 17，星期日</div>
               <div className="mr-4 opacity-50">2</div>
@@ -117,7 +117,7 @@ function UpcomingScheduledEvents() {
             <EventCard />
             <EventCard />
           </div>
-          <div>
+          <div className="pb-8">
             <div className="flex flex-row justify-between ">
               <div>1 月 18，星期五</div>
               <div className="mr-4 opacity-50">1</div>
@@ -127,7 +127,7 @@ function UpcomingScheduledEvents() {
         </div>
       </div>
       <div className="bg-white pt-5 p-2" style={{}}>
-        <div className="text-2xl font-medium">2021 年</div>
+        <div className="text-2xl pb-2 font-medium">2021 年</div>
         <div className="flex flex-col pt-5">
           <div className="my-2">
             <div>2 月</div>
