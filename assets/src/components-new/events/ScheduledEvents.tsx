@@ -11,6 +11,7 @@ dayjs.extend(weekOfYear);
 
 function EventCard() {
   const [hovered, setHovered] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   return (
     <div
       className="border-primary border-solid border flex flex-row justify-between w-full h-24"
