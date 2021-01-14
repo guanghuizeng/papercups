@@ -74,7 +74,7 @@ function Dashboard(props: RouteComponentProps) {
           <Route
             path="/event_types/:id"
             component={() => (
-              <div className="w-1/2">
+              <div className="w-1/5">
                 <EventTypes />
               </div>
             )}
@@ -86,7 +86,7 @@ function Dashboard(props: RouteComponentProps) {
           <Route
             path="/event_types/:id"
             component={() => (
-              <div className="w-1/2 border-l border-gray-200 border-solid">
+              <div className="w-4/5 border-l border-gray-200 border-solid">
                 <EventType />
               </div>
             )}

@@ -38,6 +38,35 @@ function EventCard() {
   );
 }
 
+function NextEventCard() {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      className="border-red-300 border-solid border flex flex-row justify-between w-full h-24"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div
+        className="my-2 p-4 flex flex-row justify-between"
+        style={{width: 'calc(100% - 10px)'}}
+      >
+        <div className="w-1/2">09:30 - 09:45</div>
+        <div className="w-1/2">
+          <div>张三</div>
+          <div className="text-gray-500">30 分钟约见</div>
+        </div>
+      </div>
+      <div className="h-full w-8">
+        {hovered && (
+          <div className="cursor-pointer opacity-25 hover:opacity-100 h-full bg-red-300 gentle-flex">
+            <i className="fas fa-expand-alt fa-sm" />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function UpcomingScheduledEvents() {
   return (
     <div className="h-full grid grid-cols-4 gap-px bg-gray-100">
@@ -49,7 +78,15 @@ function UpcomingScheduledEvents() {
           </div>
         </div>
         <div className="flex flex-col  pt-5">
-          <EventCard />
+          <div className="pb-8">
+            <div className="flex flex-row justify-between ">
+              <span />
+              <div className="mr-4 opacity-50">3</div>
+            </div>
+            <NextEventCard />
+            <EventCard />
+            <EventCard />
+          </div>
         </div>
       </div>
       <div className="bg-white pt-5 px-3" style={{}}>
