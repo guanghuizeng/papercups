@@ -84,17 +84,17 @@ function UpcomingScheduledEvents() {
         </div>
         <div className="flex flex-col pt-5">
           <div className="my-2">
-            <div className="flex flex-row justify-between opacity-50">
+            <div className="flex flex-row justify-between">
               <div>星期四，1 月 14</div>
-              <div className="mr-4">2</div>
+              <div className="mr-4  opacity-50">2</div>
             </div>
             <EventCard />
             <EventCard />
           </div>
           <div>
-            <div className="flex flex-row justify-between opacity-50">
+            <div className="flex flex-row justify-between ">
               <div>星期五，1 月 15</div>
-              <div className="mr-4">1</div>
+              <div className="mr-4 opacity-50">1</div>
             </div>
             <EventCard />
           </div>
@@ -110,17 +110,17 @@ function UpcomingScheduledEvents() {
         </div>
         <div className="flex flex-col pt-5">
           <div className="my-2">
-            <div className="flex flex-row justify-between opacity-50">
+            <div className="flex flex-row justify-between ">
               <div>1 月 17，星期日</div>
-              <div className="mr-4">2</div>
+              <div className="mr-4 opacity-50">2</div>
             </div>
             <EventCard />
             <EventCard />
           </div>
           <div>
-            <div className="flex flex-row justify-between opacity-50">
+            <div className="flex flex-row justify-between ">
               <div>1 月 18，星期五</div>
-              <div className="mr-4">1</div>
+              <div className="mr-4 opacity-50">1</div>
             </div>
             <EventCard />
           </div>
