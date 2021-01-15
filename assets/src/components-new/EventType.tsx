@@ -296,14 +296,15 @@ const EventType = () => {
                 嵌入
               </div>
               <div
-                className="text-red-500 hover:bg-gray-200 cursor-pointer rounded"
+                className="text-gray-700 hover:text-red-500 hover:bg-gray-200 cursor-pointer rounded"
                 style={{
                   fontSize: '16px',
                   lineHeight: '1.5',
                   marginBottom: '20px',
+                  // color: '#4d5055',
                 }}
               >
-                <i className="fas fa-code mr-2 w-5 text-center" />
+                <i className="far fa-trash-alt mr-2 w-5 text-center" />
                 删除
               </div>
             </div>
