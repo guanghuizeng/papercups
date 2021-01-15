@@ -87,6 +87,10 @@ defmodule ChatApi.Messages.Notification do
     message
   end
 
+  def notify(%Message{} = message, :event_notify_email) do
+    Logger.info("Send event notify email #{inspect(message)}")
+  end
+
   def notify(message, type) do
     Logger.error(
       "Unrecognized notification type #{inspect(type)} for message #{inspect(message)}"
