@@ -44,11 +44,19 @@ function Dashboard(props: RouteComponentProps) {
           </div>
           <div>
             {[
-              {url: '/links', name: '预约链接'},
-              {url: '/events', name: '预约'},
-              {url: '/availability', name: '时间管理'},
-              {url: '/workflows', name: '工作流'},
-            ].map(({url, name}) => {
+              {
+                icon: () => <i className="fas fa-link mr-2" />,
+                url: '/links',
+                name: '预约链接',
+              },
+              {
+                icon: () => <i className="fas fa-calendar-check mr-2" />,
+                url: '/events',
+                name: '预约',
+              },
+              // {url: '/availability', name: '时间管理'},
+              // {url: '/workflows', name: '工作流'},
+            ].map(({icon, url, name}) => {
               return (
                 <Link to={url} key={url}>
                   <div
@@ -60,6 +68,7 @@ function Dashboard(props: RouteComponentProps) {
                         : 'opacity-75'
                     } pl-4 py-2`}
                   >
+                    {icon && icon()}
                     {name}
                   </div>
                 </Link>
