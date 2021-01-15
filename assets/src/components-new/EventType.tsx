@@ -164,8 +164,126 @@ const EventType = () => {
       </div>
 
       <div className="flex flex-row h-full">
-        <div className="w-64 border-primary border-r border-solid h-full">
-          Left
+        <div className="w-64 border-primary border-r border-solid h-full flex flex-col">
+          <div className="px-4 py-8">
+            <div className="text-xl pb-2">Name</div>
+            <div className="opacity-75">Description</div>
+          </div>
+          <div className="px-4 flex flex-col">
+            <div
+              style={{
+                fontSize: '16px',
+                lineHeight: '1.5',
+                marginBottom: '20px',
+                color: '#4d5055',
+              }}
+            >
+              <i className="fas fa-clock mr-2 w-5 text-center" />
+              {eventType?.duration} 分钟
+            </div>
+            <div
+              style={{
+                fontSize: '16px',
+                lineHeight: '1.5',
+                marginBottom: '20px',
+                color: '#4d5055',
+              }}
+            >
+              <i className="fas fa-calendar-check mr-2 w-5 text-center" />
+              工作时间
+            </div>
+            <div
+              style={{
+                fontSize: '16px',
+                lineHeight: '1.5',
+                marginBottom: '20px',
+                color: '#4d5055',
+              }}
+            >
+              <i className="fas fa-video mr-2 w-5 text-center" />
+              微信
+            </div>{' '}
+            <div
+              style={{
+                fontSize: '16px',
+                lineHeight: '1.5',
+                marginBottom: '20px',
+                color: '#4d5055',
+              }}
+            >
+              <i className="fas fa-user-alt mr-2 w-5 text-center" />
+              个性化
+            </div>
+            <div
+              style={{
+                fontSize: '16px',
+                lineHeight: '1.5',
+                marginBottom: '20px',
+                color: '#4d5055',
+              }}
+            >
+              <i className="fas fa-cog mr-2 w-5 text-center" />
+              设置
+            </div>
+          </div>
+
+          <div className="border-primary border-t border-solid">
+            <div className="flex flex-col px-4 py-4">
+              <div
+                style={{
+                  fontSize: '16px',
+                  lineHeight: '1.5',
+                  marginBottom: '20px',
+                  color: '#4d5055',
+                }}
+              >
+                <i className="fas fa-external-link-alt mr-2 w-5 text-center" />
+                预览
+              </div>
+              <div
+                style={{
+                  fontSize: '16px',
+                  lineHeight: '1.5',
+                  marginBottom: '20px',
+                  color: '#4d5055',
+                }}
+              >
+                <i className="fas fa-link mr-2 w-5 text-center" />
+                复制链接
+              </div>{' '}
+              <div
+                style={{
+                  fontSize: '16px',
+                  lineHeight: '1.5',
+                  marginBottom: '20px',
+                  color: '#4d5055',
+                }}
+              >
+                <i className="far fa-clone mr-2 w-5 text-center" />
+                另存为
+              </div>{' '}
+              <div
+                style={{
+                  fontSize: '16px',
+                  lineHeight: '1.5',
+                  marginBottom: '20px',
+                  color: '#4d5055',
+                }}
+              >
+                <i className="fas fa-code mr-2 w-5 text-center" />
+                嵌入
+              </div>
+            </div>
+          </div>
+
+          {/*<GeneralSectionExpand*/}
+          {/*  eventType={eventType}*/}
+          {/*  onClose={() => {*/}
+          {/*    setFocusStep(-1);*/}
+          {/*  }}*/}
+          {/*  onSave={onSave}*/}
+          {/*  saveButtonLabel="Save & Close"*/}
+          {/*/>*/}
         </div>
         <div>Calendar</div>
       </div>

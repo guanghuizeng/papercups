@@ -825,7 +825,7 @@ module.exports = {
     objectPosition: ['responsive'],
     opacity: ['responsive', 'group-hover', 'focus-within', 'hover', 'focus'],
     order: ['responsive'],
-    outline: ['responsive', 'focus-within', 'focus'],
+    outline: ['responsive', 'focus-within', 'focus', 'hover'],
     overflow: ['responsive'],
     overscrollBehavior: ['responsive'],
     padding: ['responsive'],
