@@ -12,6 +12,8 @@ import AvailabilitySectionCollapsed from './events/sections/AvailabilitySectionC
 import {useAuth} from '../components/auth/AuthProvider';
 import InviteeQuestionsSection from './events/sections/InviteeQuestionsSection';
 import NotifyPolicySection from './events/sections/NotifyPolicySection';
+import Calendar from '@toast-ui/react-calendar';
+import 'tui-calendar/dist/tui-calendar.css';
 
 const EventType = () => {
   let {id} = useParams();
@@ -166,7 +168,7 @@ const EventType = () => {
       <div className="flex flex-row h-full">
         <div className="w-64 border-primary border-r border-solid h-full flex flex-col">
           <div className="px-4 py-8">
-            <div className="text-xl pb-2">Name</div>
+            <div className="text-xl pb-2">{eventType?.name}</div>
             <div className="opacity-75">Description</div>
           </div>
           <div className="px-4 flex flex-col">
@@ -308,7 +310,7 @@ const EventType = () => {
           </div>
         </div>
 
-        <div>
+        <div className="w-full h-full">
           <Switch>
             <Route
               exact
@@ -323,14 +325,18 @@ const EventType = () => {
                       Close
                     </Link>
                   </div>
-                  More Settings
+                  <div>问题</div>
                 </div>
               )}
             />
             <Route
               exact
               path="/event_types/:id"
-              component={() => <div>Calendar</div>}
+              component={() => (
+                <div className="w-full h-full flex flex-col bg-gray-300">
+                  <Calendar height="100%" />
+                </div>
+              )}
             />
           </Switch>
         </div>
