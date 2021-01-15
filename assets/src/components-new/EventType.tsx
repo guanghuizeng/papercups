@@ -144,12 +144,12 @@ const EventType = () => {
     <div className="flex flex-col h-full">
       <div className="Header">
         <div className="flex flex-row w-full">
-          <Link to="/event_types">
-            <span className="inline-block hover:underline">
+          <Link to="/event_types" className="hover:bg-blue-300">
+            <span className="inline-block hover:underline ">
               <i className="fas fa-times m-2 text-lg opacity-25 hover:opacity-100 hover:underline" />
             </span>
           </Link>
-          <div className="flex flex-row justify-between w-full">
+          <div className="flex flex-row justify-between w-full px-8">
             <div className="gentle-flex">
               <span>编辑</span>
             </div>
@@ -250,7 +250,7 @@ const EventType = () => {
               >
                 <i className="fas fa-link mr-2 w-5 text-center" />
                 复制链接
-              </div>{' '}
+              </div>
               <div
                 style={{
                   fontSize: '16px',
@@ -261,7 +261,7 @@ const EventType = () => {
               >
                 <i className="far fa-clone mr-2 w-5 text-center" />
                 另存为
-              </div>{' '}
+              </div>
               <div
                 style={{
                   fontSize: '16px',
@@ -272,6 +272,17 @@ const EventType = () => {
               >
                 <i className="fas fa-code mr-2 w-5 text-center" />
                 嵌入
+              </div>
+              <div
+                className="text-red-500 hover:bg-gray-200 cursor-pointer rounded"
+                style={{
+                  fontSize: '16px',
+                  lineHeight: '1.5',
+                  marginBottom: '20px',
+                }}
+              >
+                <i className="fas fa-code mr-2 w-5 text-center" />
+                删除
               </div>
             </div>
           </div>
