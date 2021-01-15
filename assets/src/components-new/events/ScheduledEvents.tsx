@@ -196,6 +196,7 @@ export default function ScheduledEvents() {
           {[
             {url: '/events/upcoming', name: '待完成'},
             {url: '/events/past', name: '已完成'},
+            {url: '/events/canceled', name: '已取消'},
             {url: '/events/all', name: '全部'},
           ].map(({url, name}) => {
             return (
@@ -223,6 +224,10 @@ export default function ScheduledEvents() {
         <Switch>
           <Route path="/events/upcoming" component={UpcomingScheduledEvents} />
           <Route path="/events/past" component={() => <div>past</div>} />
+          <Route
+            path="/events/canceled"
+            component={() => <div>canceled</div>}
+          />
           <Route path="/events/all" component={() => <div>all</div>} />
           <Route path="/events">
             <Redirect to="/events/upcoming" />

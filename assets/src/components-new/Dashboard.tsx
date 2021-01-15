@@ -44,8 +44,8 @@ function Dashboard(props: RouteComponentProps) {
           </div>
           <div>
             {[
+              {url: '/event_types', name: '预约链接'},
               {url: '/events', name: '预约'},
-              {url: '/event_types', name: '预约类型'},
               {url: '/availability', name: '时间管理'},
               {url: '/workflows', name: '工作流'},
             ].map(({url, name}) => {
