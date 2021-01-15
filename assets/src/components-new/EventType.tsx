@@ -98,44 +98,76 @@ const EventType = () => {
     return <div>Loading...</div>;
   }
 
-  return (
-    <div>
-      <div className="h-6">
-        <Link to="/event_types">
-          <span className="inline-block hover:underline">
-            <i className="fas fa-times m-2 text-lg opacity-25 hover:opacity-100 hover:underline" />
-          </span>
-        </Link>
-      </div>
-      <div className="container lg:px-10 inner-container mx-auto lg:px-8 py-4 flex flex-col">
-        <div className="header py-4 text-3xl font-medium">编辑预约类型</div>
+  // return (
+  //   <div>
+  //     <div className="h-6">
+  //       <Link to="/event_types">
+  //         <span className="inline-block hover:underline">
+  //           <i className="fas fa-times m-2 text-lg opacity-25 hover:opacity-100 hover:underline" />
+  //         </span>
+  //       </Link>
+  //     </div>
+  //     <div className="container lg:px-10 inner-container mx-auto lg:px-8 py-4 flex flex-col">
+  //       <div className="header py-4 text-3xl font-medium">编辑预约类型</div>
+  //
+  //       <section className="pt-10">
+  //         <div className="flex flex-row justify-between">
+  //           <div className="">Your type is ON</div>
+  //           <div className="text-sm opacity-50">
+  //             Last edited {dayjs(eventType.editAt).toString()}.
+  //           </div>
+  //           <a
+  //             href={`/@${settings.slug}/${eventType.url}`}
+  //             target="_blank"
+  //             rel="noopener noreferrer"
+  //             className="text-blue-400"
+  //           >
+  //             <i className="fas fa-external-link-alt mr-2" />
+  //             view live page
+  //           </a>
+  //         </div>
+  //       </section>
+  //       {generalSection()}
+  //       {availabilitySection()}
+  //       <div className="mt-4">
+  //         <div className="mb-2">
+  //           <strong>Additional Options</strong>
+  //         </div>
+  //         <InviteeQuestionsSection />
+  //         <NotifyPolicySection />
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 
-        <section className="pt-10">
-          <div className="flex flex-row justify-between">
-            <div className="">Your type is ON</div>
-            <div className="text-sm opacity-50">
-              Last edited {dayjs(eventType.editAt).toString()}.
+  return (
+    <div className="flex flex-col h-full">
+      <div className="Header">
+        <div className="flex flex-row w-full">
+          <Link to="/event_types">
+            <span className="inline-block hover:underline">
+              <i className="fas fa-times m-2 text-lg opacity-25 hover:opacity-100 hover:underline" />
+            </span>
+          </Link>
+          <div className="flex flex-row justify-between w-full">
+            <div className="gentle-flex">
+              <span>编辑</span>
             </div>
-            <a
-              href={`/@${settings.slug}/${eventType.url}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-400"
-            >
-              <i className="fas fa-external-link-alt mr-2" />
-              view live page
-            </a>
+            <div className="flex flex-row">
+              <div className="gentle-flex">
+                http://localhost:3000/@ycy/15min
+              </div>
+              <div className="gentle-flex">复制</div>
+            </div>
           </div>
-        </section>
-        {generalSection()}
-        {availabilitySection()}
-        <div className="mt-4">
-          <div className="mb-2">
-            <strong>Additional Options</strong>
-          </div>
-          <InviteeQuestionsSection />
-          <NotifyPolicySection />
         </div>
+      </div>
+
+      <div className="flex flex-row h-full">
+        <div className="w-64 border-primary border-r border-solid h-full">
+          Left
+        </div>
+        <div>Calendar</div>
       </div>
     </div>
   );
