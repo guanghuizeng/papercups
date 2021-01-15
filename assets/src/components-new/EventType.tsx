@@ -1,6 +1,6 @@
 import * as React from 'react';
 import EventTypeEdit from './EventTypeEdit';
-import {Link, useParams} from 'react-router-dom';
+import {Link, Switch, useParams, Route} from 'react-router-dom';
 import {useEvents} from './EventsProvider';
 import Header from './events/Header';
 import {GeneralSectionExpand} from './events/sections/GeneralSectionExpand';
@@ -222,8 +222,28 @@ const EventType = () => {
                 color: '#4d5055',
               }}
             >
-              <i className="fas fa-cog mr-2 w-5 text-center" />
-              设置
+              <Switch>
+                <Route
+                  exact
+                  path="/event_types/:id"
+                  component={() => (
+                    <Link to={`/event_types/${id}/more-settings`}>
+                      <i className="fas fa-cog mr-2 w-5 text-center" />
+                      设置
+                    </Link>
+                  )}
+                />
+                <Route
+                  exact
+                  path="/event_types/:id/more-settings"
+                  component={() => (
+                    <div className="bg-gray-300">
+                      <i className="fas fa-cog mr-2 w-5 text-center" />
+                      设置
+                    </div>
+                  )}
+                />
+              </Switch>
             </div>
           </div>
 
@@ -286,17 +306,34 @@ const EventType = () => {
               </div>
             </div>
           </div>
-
-          {/*<GeneralSectionExpand*/}
-          {/*  eventType={eventType}*/}
-          {/*  onClose={() => {*/}
-          {/*    setFocusStep(-1);*/}
-          {/*  }}*/}
-          {/*  onSave={onSave}*/}
-          {/*  saveButtonLabel="Save & Close"*/}
-          {/*/>*/}
         </div>
-        <div>Calendar</div>
+
+        <div>
+          <Switch>
+            <Route
+              exact
+              path="/event_types/:id/more-settings"
+              component={() => (
+                <div>
+                  <div>
+                    <Link
+                      to={`/event_types/${id}`}
+                      className="hover:bg-gray-300"
+                    >
+                      Close
+                    </Link>
+                  </div>
+                  More Settings
+                </div>
+              )}
+            />
+            <Route
+              exact
+              path="/event_types/:id"
+              component={() => <div>Calendar</div>}
+            />
+          </Switch>
+        </div>
       </div>
     </div>
   );
