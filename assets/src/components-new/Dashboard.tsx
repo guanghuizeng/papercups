@@ -83,6 +83,10 @@ function Dashboard(props: RouteComponentProps) {
             )}
           />
           <Route path="/events" component={ScheduledEvents} />
+          <Route
+            path="/availability"
+            component={() => <div>availability</div>}
+          />
           <Route path="/workflows" component={() => <div>workflows</div>} />
           <Route path="/" component={() => <Redirect to="/" />} />
         </Switch>
