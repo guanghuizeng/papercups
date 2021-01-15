@@ -47,7 +47,7 @@ function Dashboard(props: RouteComponentProps) {
               {
                 icon: () => <i className="fas fa-link mr-2" />,
                 url: '/links',
-                name: '预约链接',
+                name: '链接',
               },
               {
                 icon: () => <i className="fas fa-calendar-check mr-2" />,
