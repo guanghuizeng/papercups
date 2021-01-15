@@ -17,6 +17,7 @@ label {
     'San Francisco', 'Helvetica Neue', Helvetica, Ubuntu, Roboto, Noto,
     'Segoe UI', Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
     'Heiti SC', 'WenQuanYi Micro Hei', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
 }
 
 .header {
