@@ -100,7 +100,6 @@ defmodule ChatApi.Messages.Notification do
 
   def notify(%Message{} = message, :event_notify_email) do
     Logger.info("Send event notify email #{inspect(message)}")
-
     formatted = Helpers.format(message)
 
     %{

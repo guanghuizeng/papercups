@@ -73,6 +73,7 @@ config :chat_api, Oban,
   plugins: [Oban.Plugins.Pruner],
   queues: [default: 10, events: 50, mailers: 20],
   crontab: [
+#    {"*/1 * * * *", ChatApi.Workers.EnqueueEventNotifications},
     # Hourly example worker
     {"0 * * * *", ChatApi.Workers.Example},
     {"0 * * * *", ChatApi.Workers.ArchiveStaleClosedConversations}

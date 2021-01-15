@@ -7,7 +7,7 @@ defmodule ChatApi.Workers.SendEventNotificationEmail do
 
   @impl Oban.Worker
   def perform(%Oban.Job{args: %{"message" => message}}) do
-    Logger.info("Performing job: #{inspect(message)}")
+    Logger.info("Performing job SendEventNotificationEmail: #{inspect(message)}")
     send_email(message)
     :ok
   end

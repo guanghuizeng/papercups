@@ -1,5 +1,5 @@
 defmodule ChatApi.Workers.EnqueueEventNotifications do
-  use Oban.Worker, queue: :events
+  use Oban.Worker, queue: :default
 
   require Logger
 
@@ -12,7 +12,8 @@ defmodule ChatApi.Workers.EnqueueEventNotifications do
   """
   @impl Oban.Worker
   def perform(%Oban.Job{} = job) do
-    query = Events.query_events_closed_for(10)
+    query = Events.query_events_closed_for(minutes: 90)
+    Events.notify_events(query)
 
     # message_controller.create, save to messages table
     # msg
@@ -21,7 +22,6 @@ defmodule ChatApi.Workers.EnqueueEventNotifications do
     # |> notify(msg, :feishu)
     # |> notify(msg, :wechat)
     # |> notify(msg, :dingtalk)
-
     Logger.info("Performing job: #{inspect(job)}")
 
     :ok
