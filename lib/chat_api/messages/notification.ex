@@ -10,10 +10,13 @@ defmodule ChatApi.Messages.Notification do
 
   @spec send_webhook_notifications(binary(), map()) :: [Tesla.Env.result()]
   def send_webhook_notifications(account_id, payload) do
-    EventSubscriptions.notify_event_subscriptions(account_id, %{
-      "event" => "message:created",
-      "payload" => payload
-    })
+    EventSubscriptions.notify_event_subscriptions(
+      account_id,
+      %{
+        "event" => "message:created",
+        "payload" => payload
+      }
+    )
   end
 
   @spec broadcast_to_conversation!(Message.t()) :: Message.t()
@@ -32,9 +35,11 @@ defmodule ChatApi.Messages.Notification do
       ) do
     Logger.info("Sending notification: :slack")
     # TODO: should we just pass in the message struct here?
-    Task.start(fn ->
-      ChatApi.Slack.Notifications.notify_primary_channel(message)
-    end)
+    Task.start(
+      fn ->
+        ChatApi.Slack.Notifications.notify_primary_channel(message)
+      end
+    )
 
     message
   end
@@ -42,9 +47,11 @@ defmodule ChatApi.Messages.Notification do
   def notify(%Message{account_id: account_id} = message, :webhooks) do
     Logger.info("Sending notification: :webhooks")
     # TODO: how should we handle errors/retry logic?
-    Task.start(fn ->
-      send_webhook_notifications(account_id, Helpers.format(message))
-    end)
+    Task.start(
+      fn ->
+        send_webhook_notifications(account_id, Helpers.format(message))
+      end
+    )
 
     message
   end
@@ -52,9 +59,11 @@ defmodule ChatApi.Messages.Notification do
   def notify(%Message{} = message, :new_message_email) do
     Logger.info("Sending notification: :new_message_email")
     # TODO: how should we handle errors/retry logic?
-    Task.start(fn ->
-      ChatApi.Emails.send_new_message_alerts(message)
-    end)
+    Task.start(
+      fn ->
+        ChatApi.Emails.send_new_message_alerts(message)
+      end
+    )
 
     message
   end
@@ -80,15 +89,31 @@ defmodule ChatApi.Messages.Notification do
   def notify(%Message{} = message, :slack_support_threads) do
     Logger.info("Sending notification: :slack_support_threads")
 
-    Task.start(fn ->
-      ChatApi.Slack.Notifications.notify_support_threads(message)
-    end)
+    Task.start(
+      fn ->
+        ChatApi.Slack.Notifications.notify_support_threads(message)
+      end
+    )
 
     message
   end
 
   def notify(%Message{} = message, :event_notify_email) do
     Logger.info("Send event notify email #{inspect(message)}")
+
+    formatted = Helpers.format(message)
+
+    %{
+      message: formatted
+    }
+    |> ChatApi.Workers.SendEventNotificationEmail.new(schedule_in: 10)
+    |> Oban.insert()
+
+    message
+  end
+
+  def test_notify_event_notify_email() do
+
   end
 
   def notify(message, type) do

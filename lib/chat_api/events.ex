@@ -69,4 +69,9 @@ defmodule ChatApi.Events do
     )
   end
 
+  def test_notify_events() do
+    query = query_events_closed_for(minutes: 90)
+    notify_events(query)
+  end
+
 end
