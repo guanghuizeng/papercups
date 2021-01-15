@@ -44,7 +44,7 @@ function Dashboard(props: RouteComponentProps) {
           </div>
           <div>
             {[
-              {url: '/event_types', name: '预约链接'},
+              {url: '/links', name: '预约链接'},
               {url: '/events', name: '预约'},
               {url: '/availability', name: '时间管理'},
               {url: '/workflows', name: '工作流'},
@@ -53,7 +53,9 @@ function Dashboard(props: RouteComponentProps) {
                 <Link to={url} key={url}>
                   <div
                     className={`${
-                      pathname === url || pathname.startsWith(url)
+                      pathname === url ||
+                      pathname.startsWith(url) ||
+                      (pathname === '/' && url === '/links')
                         ? 'bg-gray-200 text-black'
                         : 'opacity-75'
                     } pl-4 py-2`}
@@ -69,10 +71,11 @@ function Dashboard(props: RouteComponentProps) {
 
       <div className="flex flex-row" style={{width: 'calc(100% - 200px)'}}>
         <Switch>
-          <Route exact path="/event_types" component={EventTypes} />
-          <Route exact path="/event_types/add" component={NewEventType} />
+          <Route exact path="/" component={EventTypes} />
+          <Route exact path="/links" component={EventTypes} />
+          <Route exact path="/links/add" component={NewEventType} />
           <Route
-            path="/event_types/:id"
+            path="/links/:id"
             component={() => (
               <div className="w-0 lg:w-1/5 invisible lg:visible">
                 <EventTypes />
@@ -81,10 +84,11 @@ function Dashboard(props: RouteComponentProps) {
           />
           <Route path="/events" component={ScheduledEvents} />
           <Route path="/workflows" component={() => <div>workflows</div>} />
+          <Route path="/" component={() => <Redirect to="/" />} />
         </Switch>
         <Switch>
           <Route
-            path="/event_types/:id"
+            path="/links/:id"
             component={() => (
               <div className="w-full lg:w-4/5 border-l border-gray-200 border-solid">
                 <EventType />

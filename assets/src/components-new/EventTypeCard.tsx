@@ -47,7 +47,7 @@ export default function EventTypeCard({eventTypeId}: any) {
           </div>
         </Card.Item>
         <Card.Item fill className="cursor-pointer hover:bg-var-gray-200">
-          <Link to={`/event_types/${id}`}>
+          <Link to={`/links/${id}`}>
             <div className="px-4 py-4 border-b border-gray-300">
               <div className="text-xl">{name}</div>
               <div className="text-gray-500 text-sm opacity-75">

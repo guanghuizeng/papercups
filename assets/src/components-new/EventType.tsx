@@ -103,7 +103,7 @@ const EventType = () => {
   // return (
   //   <div>
   //     <div className="h-6">
-  //       <Link to="/event_types">
+  //       <Link to="/links">
   //         <span className="inline-block hover:underline">
   //           <i className="fas fa-times m-2 text-lg opacity-25 hover:opacity-100 hover:underline" />
   //         </span>
@@ -146,7 +146,7 @@ const EventType = () => {
     <div className="flex flex-col h-full">
       <div className="Header">
         <div className="flex flex-row w-full">
-          <Link to="/event_types" className="hover:bg-blue-300">
+          <Link to="/links" className="hover:bg-blue-300">
             <span className="inline-block hover:underline ">
               <i className="fas fa-times m-2 text-lg opacity-25 hover:opacity-100 hover:underline" />
             </span>
@@ -227,9 +227,9 @@ const EventType = () => {
               <Switch>
                 <Route
                   exact
-                  path="/event_types/:id"
+                  path="/links/:id"
                   component={() => (
-                    <Link to={`/event_types/${id}/more-settings`}>
+                    <Link to={`/links/${id}/more-settings`}>
                       <i className="fas fa-cog mr-2 w-5 text-center" />
                       设置
                     </Link>
@@ -237,7 +237,7 @@ const EventType = () => {
                 />
                 <Route
                   exact
-                  path="/event_types/:id/more-settings"
+                  path="/links/:id/more-settings"
                   component={() => (
                     <div className="bg-gray-300">
                       <i className="fas fa-cog mr-2 w-5 text-center" />
@@ -314,14 +314,11 @@ const EventType = () => {
           <Switch>
             <Route
               exact
-              path="/event_types/:id/more-settings"
+              path="/links/:id/more-settings"
               component={() => (
                 <div>
                   <div>
-                    <Link
-                      to={`/event_types/${id}`}
-                      className="hover:bg-gray-300"
-                    >
+                    <Link to={`/links/${id}`} className="hover:bg-gray-300">
                       Close
                     </Link>
                   </div>
@@ -331,7 +328,7 @@ const EventType = () => {
             />
             <Route
               exact
-              path="/event_types/:id"
+              path="/links/:id"
               component={() => (
                 <div className="w-full h-full flex flex-col bg-gray-300">
                   <Calendar height="100%" />

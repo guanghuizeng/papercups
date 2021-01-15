@@ -116,7 +116,7 @@ export default function NewEventType() {
   return (
     <div className="container lg:px-10 inner-container mx-auto lg:px-8 py-4 flex flex-col">
       <div className="h-6">
-        <Link to="/event_types">
+        <Link to="/links">
           <span className="inline-block hover:underline">
             {' '}
             <i className="fas fa-chevron-left mr-2" />

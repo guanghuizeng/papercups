@@ -49,7 +49,7 @@ export function EventTypes() {
           <div>+</div>
         </div>
         {/*<div className="flex flex-row mb-2">*/}
-        {/*  <Link to="/event_types/add" className="cursor-pointer mr-2 py-1 ">*/}
+        {/*  <Link to="/links/add" className="cursor-pointer mr-2 py-1 ">*/}
         {/*    <DefaultButton text="Add Event Type" />*/}
         {/*  </Link>*/}
         {/*  <div className="cursor-pointer mr-2 py-1 ">*/}
