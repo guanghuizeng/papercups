@@ -216,8 +216,11 @@ export default function ScheduledEvents() {
             );
           })}
         </div>
-        <div className="gentle-flex mb-2">
-          <SearchBoxSmallExample />
+        <div className="flex flex-row">
+          <div className="gentle-flex py-1 w-24 cursor-pointer">Horizons</div>
+          <div className="gentle-flex py-1 w-24 opacity-25 hover:opacity-100 cursor-pointer">
+            日历
+          </div>
         </div>
       </div>
       <div className="h-full">
