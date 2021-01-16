@@ -24,18 +24,14 @@ function Dashboard(props: RouteComponentProps) {
 
   return (
     <div
-      className="flex flex-row h-full w-screen"
+      className="flex flex-col md:flex-row h-full w-screen"
       style={{
         minHeight: '100vh',
       }}
     >
-      {/*<Header />*/}
-
-      {/*<NavSection />*/}
-
       <div
-        className="border-r-4 border-solid border-gray-100 pt-5"
-        style={{width: '200px', backgroundColor: '#f2f2f2'}}
+        className="w-full md:w-64 border-r-4 border-solid border-gray-100 pt-5"
+        style={{backgroundColor: '#f2f2f2'}}
       >
         <div className="flex flex-col">
           <div className="pt-4 pb-4 pl-4">
