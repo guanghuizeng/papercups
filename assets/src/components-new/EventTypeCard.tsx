@@ -34,7 +34,7 @@ export default function EventTypeCard({eventTypeId}: any) {
   return (
     <div>
       <Link to={`/links/${id}`}>
-        <div className="group cursor-pointer rounded-lg p-4 border border-gray-200 hover:bg-light-blue-400 hover:border-transparent hover:shadow-lg">
+        <div className="group cursor-pointer rounded-lg p-4 border border-gray-200 hover:bg-light-blue-500 hover:border-transparent hover:shadow-lg">
           <dl className="grid sm:block lg:grid xl:block grid-cols-2 grid-rows-2 items-center">
             <div className="pb-5">
               <dt className="sr-only">Title</dt>
