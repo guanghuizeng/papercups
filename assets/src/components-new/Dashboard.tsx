@@ -30,7 +30,7 @@ function Dashboard(props: RouteComponentProps) {
       }}
     >
       <div
-        className="w-full md:w-64 border-r-4 border-solid border-gray-100 pt-5"
+        className="w-full md:w-64 border-r-2 border-solid border-gray-100 pt-5"
         style={{backgroundColor: '#f2f2f2'}}
       >
         <div className="flex flex-col">
