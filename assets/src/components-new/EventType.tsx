@@ -166,7 +166,7 @@ const EventType = () => {
       </div>
 
       <div className="flex flex-row h-full">
-        <div className="w-64 border-primary border-r border-solid h-full flex flex-col">
+        <div className="w-80 border-primary border-r border-solid h-full flex flex-col">
           <div className="px-4 py-8">
             <div className="text-2xl font-bold pb-2">{eventType?.name}</div>
             <div className="opacity-75">Description</div>
