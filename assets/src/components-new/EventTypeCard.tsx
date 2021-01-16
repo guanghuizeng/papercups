@@ -33,48 +33,71 @@ export default function EventTypeCard({eventTypeId}: any) {
   };
   return (
     <div>
-      <Card aria-label="Clickable vertical card with image bleeding at the center of the card">
-        <Card.Item>
-          <div className="h-2 bg-red-300 rounded-t" />
-        </Card.Item>
-        <Card.Item>
-          <div className="flex flex-row justify-between px-4 pt-4">
-            <i className="far fa-square  opacity-75 hover:opacity-100 cursor-pointer" />
-            <div className="opacity-75 hover:opacity-100 cursor-pointer">
-              <i className="fas fa-cog mr-1" />
-              <i className="fas fa-caret-down" />
+      <Link to={`/links/${id}`}>
+        <div className="group cursor-pointer rounded-lg p-4 border border-gray-200 hover:bg-light-blue-400 hover:border-transparent hover:shadow-lg">
+          <dl className="grid sm:block lg:grid xl:block grid-cols-2 grid-rows-2 items-center">
+            <div className="pb-5">
+              <dt className="sr-only">Title</dt>
+              <dd className="leading-6 font-medium text-black group-hover:text-white">
+                {eventType?.name}
+                {/*New Benefits Plan*/}
+              </dd>
             </div>
-          </div>
-        </Card.Item>
-        <Card.Item fill className="cursor-pointer hover:bg-var-gray-200">
-          <Link to={`/links/${id}`}>
-            <div className="px-4 py-4 border-b border-gray-300">
-              <div className="text-xl">{name}</div>
-              <div className="text-gray-500 text-sm opacity-75">
-                {duration} mins, One-on-One
-              </div>
+            {/*<div>*/}
+            {/*  <dt className="sr-only">Category</dt>*/}
+            {/*  <dd className="text-sm font-medium group-hover:text-light-blue-200 sm:mb-4 lg:mb-0 xl:mb-4">*/}
+            {/*    Human Resources*/}
+            {/*  </dd>*/}
+            {/*</div>*/}
+            <div className="col-start-2 row-start-1 row-end-3">
+              <dt className="sr-only">Users</dt>
+              <dd className="flex justify-end sm:justify-start lg:justify-end xl:justify-start -space-x-2">
+                <img
+                  src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&amp;fit=facearea&amp;facepad=2&amp;w=48&amp;h=48&amp;q=80"
+                  alt=""
+                  width="48"
+                  height="48"
+                  className="w-7 h-7 rounded-full bg-gray-100 border-2 border-white"
+                  loading="lazy"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&amp;fit=facearea&amp;facepad=2&amp;w=48&amp;h=48&amp;q=80"
+                  alt=""
+                  width="48"
+                  height="48"
+                  className="w-7 h-7 rounded-full bg-gray-100 border-2 border-white"
+                  loading="lazy"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&amp;fit=facearea&amp;facepad=2&amp;w=48&amp;h=48&amp;q=80"
+                  alt=""
+                  width="48"
+                  height="48"
+                  className="w-7 h-7 rounded-full bg-gray-100 border-2 border-white"
+                  loading="lazy"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=facearea&amp;facepad=2&amp;w=48&amp;h=48&amp;q=80"
+                  alt=""
+                  width="48"
+                  height="48"
+                  className="w-7 h-7 rounded-full bg-gray-100 border-2 border-white"
+                  loading="lazy"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&amp;fit=facearea&amp;facepad=2&amp;w=48&amp;h=48&amp;q=80"
+                  alt=""
+                  width="48"
+                  height="48"
+                  className="w-7 h-7 rounded-full bg-gray-100 border-2 border-white"
+                  loading="lazy"
+                />
+              </dd>
             </div>
-          </Link>
-        </Card.Item>
-
-        <Card.Section
-          horizontal
-          tokens={footerCardSectionTokens}
-          className="px-4 pb-2"
-        >
-          <a
-            href={'/@ycy/' + url}
-            className="block text-sm text-blue-500 hover:underline"
-            role="menuitem"
-          >
-            /{url}
-          </a>
-          <Stack.Item grow={1}>
-            <span />
-          </Stack.Item>
-          <DefaultButton text="Copy link" />
-        </Card.Section>
-      </Card>
+          </dl>
+          <div>...</div>
+        </div>
+      </Link>
     </div>
   );
 }
