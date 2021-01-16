@@ -101,7 +101,7 @@ export function EventTypes() {
           {/*    </svg>*/}
           {/*    New*/}
           {/*</button>*/}
-          <li className="hover:shadow-lg flex hover:bg-light-blue-100 hover:text-light-blue-700 rounded-lg w-full h-full">
+          <li className="hover:shadow-lg flex hover:bg-light-blue-200 hover:text-light-blue-800 rounded-lg w-full h-full text-light-blue-600">
             <a
               href="/new"
               className="hover:border-transparent hover:shadow-xs w-full flex items-center justify-center rounded-lg border-2 border-dashed border-gray-200 text-sm font-medium py-4"
