@@ -227,7 +227,7 @@ function SchedulingLink() {
   let {id} = useParams();
 
   return (
-    <SchedulingLinkProvider>
+    <SchedulingLinkProvider linkId={id}>
       <div className="flex flex-col h-full">
         <Header />
 
