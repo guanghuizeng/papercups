@@ -8,7 +8,7 @@ import SchedulingLinkProvider, {
 import SingleSelect from './events/EventLocationSelect';
 import Select from 'react-select';
 import {Toggle} from '@fluentui/react';
-import * as Tooltip from '@radix-ui/react-tooltip';
+import WithTip from '../components-new/common/WithTip';
 
 function Header() {
   return (
@@ -34,16 +34,11 @@ function Header() {
               <Toggle className="m-0" onChange={() => {}} />
             </div>
             <div className="gentle-flex">
-              <Tooltip.Root>
-                <Tooltip.Trigger>
-                  <span className="text-gray-600 hover:text-blue-500">
-                    http://localhost:3000/@ycy/15min
-                  </span>
-                </Tooltip.Trigger>
-                <Tooltip.Content className="bg-black text-white py-1 px-2 rounded text-sm font-bold">
-                  复制链接
-                </Tooltip.Content>
-              </Tooltip.Root>
+              <WithTip content={'复制链接'}>
+                <span className="text-gray-600 hover:text-blue-500">
+                  http://localhost:3000/@ycy/15min
+                </span>
+              </WithTip>
             </div>
             <div className="gentle-flex">
               <button className="btn btn-gray py-1 px-3">编辑</button>
