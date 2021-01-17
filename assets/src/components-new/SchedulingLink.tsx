@@ -5,6 +5,7 @@ import 'tui-calendar/dist/tui-calendar.css';
 import SchedulingLinkProvider, {
   useSchedulingLink,
 } from '../hooks/SchedulingLinkProvider';
+import SingleSelect from './events/EventLocationSelect';
 
 function Header() {
   return (
@@ -50,7 +51,7 @@ function GeneralSection() {
           }}
         >
           <i className="fas fa-clock mr-2 w-5 text-center" />
-          30 分钟
+          {schedulingLink?.duration} 分钟
         </div>
         <div
           style={{
@@ -64,6 +65,7 @@ function GeneralSection() {
           工作时间
         </div>
         <div
+          className="flex flex-row"
           style={{
             fontSize: '16px',
             lineHeight: '1.5',
@@ -72,8 +74,8 @@ function GeneralSection() {
           }}
         >
           <i className="fas fa-video mr-2 w-5 text-center" />
-          微信
-        </div>{' '}
+          <SingleSelect defaultValue={schedulingLink?.location} />
+        </div>
         <div
           style={{
             fontSize: '16px',
@@ -236,7 +238,7 @@ function SchedulingLink() {
         <Header />
 
         <div className="flex flex-row h-full">
-          <div className="w-80 border-primary border-r border-solid h-full flex flex-col">
+          <div className="w-112 border-primary border-r border-solid h-full flex flex-col">
             <GeneralSection />
             <ControlSection />
           </div>

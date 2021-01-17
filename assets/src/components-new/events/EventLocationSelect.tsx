@@ -9,7 +9,7 @@ export default function SingleSelect(props: any) {
     <Fragment>
       <Select
         defaultValue={colourOptions.find((opt) => opt.value === defaultValue)}
-        className=""
+        className="w-full"
         classNamePrefix="select"
         isDisabled={false}
         isLoading={false}
