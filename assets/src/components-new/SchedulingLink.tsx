@@ -6,6 +6,7 @@ import SchedulingLinkProvider, {
   useSchedulingLink,
 } from '../hooks/SchedulingLinkProvider';
 import SingleSelect from './events/EventLocationSelect';
+import Select from 'react-select';
 
 function Header() {
   return (
@@ -30,6 +31,21 @@ function Header() {
   );
 }
 
+const DurationOptions = [
+  ['10 分钟', 10],
+  ['15 分钟', 15],
+  ['30 分钟', 30],
+  ['45 分钟', 45],
+  ['60 分钟', 60],
+  ['90 分钟', 90],
+  ['2 小时', 120],
+];
+
+const DurationOptionsMap = DurationOptions.map((opt) => ({
+  value: opt[1],
+  label: opt[0],
+}));
+
 function GeneralSection() {
   let {id} = useParams();
   const {schedulingLink} = useSchedulingLink();
@@ -38,11 +54,24 @@ function GeneralSection() {
   return (
     <div date-section="general" className="flex flex-col">
       <div className="px-4 py-8">
-        <div className="text-2xl font-bold pb-2">{schedulingLink?.name}</div>
-        <div className="opacity-75">{schedulingLink?.description}</div>
+        <textarea
+          className="-mx-2 px-2 py-0 rounded-lg text-2xl leading-8 font-bold border-transparent focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-gray-800 resize-none w-full placeholder-gray-600"
+          placeholder="Name this link"
+          spellCheck="false"
+          style={{height: '34px !important'}}
+          value={schedulingLink?.name}
+        />
+        <textarea
+          className="-mx-2 px-2 py-0 rounded-md block border-transparent focus:outline-none focus:border focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 w-full text-gray-600 resize-none leading-5 placeholder-gray-600"
+          placeholder="Enter a description"
+          spellCheck="false"
+          style={{height: '24px !important'}}
+          value={schedulingLink?.description}
+        />
       </div>
       <div className="px-4 flex flex-col">
         <div
+          className="flex flex-row"
           style={{
             fontSize: '16px',
             lineHeight: '1.5',
@@ -51,7 +80,8 @@ function GeneralSection() {
           }}
         >
           <i className="fas fa-clock mr-2 w-5 text-center" />
-          {schedulingLink?.duration} 分钟
+          <Select className="w-full" options={DurationOptionsMap} isMulti />
+          {/*{schedulingLink?.duration} 分钟*/}
         </div>
         <div
           style={{

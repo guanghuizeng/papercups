@@ -12249,10 +12249,10 @@ react-helmet@^6.1.0:
     react-fast-compare "^3.1.1"
     react-side-effect "^2.1.0"
 
-react-input-autosize@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.npm.taobao.org/react-input-autosize/download/react-input-autosize-2.2.2.tgz?cache=0&sync_timestamp=1607940844818&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-input-autosize%2Fdownload%2Freact-input-autosize-2.2.2.tgz#fcaa7020568ec206bc04be36f4eb68e647c4d8c2"
-  integrity sha1-/KpwIFaOwga8BL429Oto5kfE2MI=
+react-input-autosize@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npm.taobao.org/react-input-autosize/download/react-input-autosize-3.0.0.tgz#6b5898c790d4478d69420b55441fcc31d5c50a85"
+  integrity sha1-a1iYx5DUR41pQgtVRB/MMdXFCoU=
   dependencies:
     prop-types "^15.5.8"
 
@@ -12458,10 +12458,10 @@ react-scripts@^4.0.1:
   optionalDependencies:
     fsevents "^2.1.3"
 
-react-select@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.npm.taobao.org/react-select/download/react-select-3.1.1.tgz?cache=0&sync_timestamp=1606116510669&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-select%2Fdownload%2Freact-select-3.1.1.tgz#156a5b4a6c22b1e3d62a919cb1fd827adb4060bc"
-  integrity sha1-FWpbSmwisePWKpGcsf2CettAYLw=
+react-select@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.npm.taobao.org/react-select/download/react-select-3.2.0.tgz#de9284700196f5f9b5277c5d850a9ce85f5c72fe"
+  integrity sha1-3pKEcAGW9fm1J3xdhQqc6F9ccv4=
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@emotion/cache" "^10.0.9"
@@ -12469,7 +12469,7 @@ react-select@^3.1.1:
     "@emotion/css" "^10.0.9"
     memoize-one "^5.0.0"
     prop-types "^15.6.0"
-    react-input-autosize "^2.2.2"
+    react-input-autosize "^3.0.0"
     react-transition-group "^4.3.0"
 
 react-side-effect@^2.1.0:
