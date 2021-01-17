@@ -2,7 +2,9 @@ import * as React from 'react';
 import {Link, Route, Switch, useParams} from 'react-router-dom';
 import Calendar from '@toast-ui/react-calendar';
 import 'tui-calendar/dist/tui-calendar.css';
-import SchedulingLinkProvider from '../hooks/SchedulingLinkProvider';
+import SchedulingLinkProvider, {
+  useSchedulingLink,
+} from '../hooks/SchedulingLinkProvider';
 
 function Header() {
   return (
@@ -29,12 +31,14 @@ function Header() {
 
 function GeneralSection() {
   let {id} = useParams();
+  const {schedulingLink} = useSchedulingLink();
+  console.log('general', schedulingLink);
 
   return (
     <div date-section="general" className="flex flex-col">
       <div className="px-4 py-8">
-        <div className="text-2xl font-bold pb-2">Name</div>
-        <div className="opacity-75">Description</div>
+        <div className="text-2xl font-bold pb-2">{schedulingLink?.name}</div>
+        <div className="opacity-75">{schedulingLink?.description}</div>
       </div>
       <div className="px-4 flex flex-col">
         <div

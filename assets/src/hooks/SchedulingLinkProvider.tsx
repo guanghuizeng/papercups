@@ -41,7 +41,7 @@ function useLink(id: string, token = getAccessToken()) {
   );
   console.log('Use link', data);
   return {
-    link: data,
+    link: data && data.data,
     isLoading: !error && !data,
     isError: error,
   };
