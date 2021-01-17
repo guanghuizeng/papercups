@@ -2,15 +2,7 @@ import React, {useContext} from 'react';
 import _ from 'lodash';
 import useSWR from 'swr';
 import {getAccessToken} from '../api';
-
-// @ts-ignore
-const fetcher = (...args: any[]) => fetch(...args).then((res) => res.json());
-const fetchWithToken = (url: string, token: string) =>
-  fetcher(url, {
-    headers: {
-      Authorization: token,
-    },
-  });
+import {fetchWithToken} from './utils';
 
 export const SchedulingLinkContext = React.createContext<{
   schedulingLink: any;
