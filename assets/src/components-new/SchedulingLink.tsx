@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Link, Route, Switch, useParams} from 'react-router-dom';
 import Calendar from '@toast-ui/react-calendar';
 import 'tui-calendar/dist/tui-calendar.css';
+import SchedulingLinkProvider from '../hooks/SchedulingLinkProvider';
 
 function Header() {
   return (
@@ -226,44 +227,46 @@ function SchedulingLink() {
   let {id} = useParams();
 
   return (
-    <div className="flex flex-col h-full">
-      <Header />
+    <SchedulingLinkProvider>
+      <div className="flex flex-col h-full">
+        <Header />
 
-      <div className="flex flex-row h-full">
-        <div className="w-80 border-primary border-r border-solid h-full flex flex-col">
-          <GeneralSection />
-          <ControlSection />
-        </div>
+        <div className="flex flex-row h-full">
+          <div className="w-80 border-primary border-r border-solid h-full flex flex-col">
+            <GeneralSection />
+            <ControlSection />
+          </div>
 
-        <div className="w-full h-full">
-          <Switch>
-            <Route
-              exact
-              path="/links/:id/more-settings"
-              component={() => (
-                <div>
+          <div className="w-full h-full">
+            <Switch>
+              <Route
+                exact
+                path="/links/:id/more-settings"
+                component={() => (
                   <div>
-                    <Link to={`/links/${id}`} className="hover:bg-gray-300">
-                      Close
-                    </Link>
+                    <div>
+                      <Link to={`/links/${id}`} className="hover:bg-gray-300">
+                        Close
+                      </Link>
+                    </div>
+                    <div>问题</div>
                   </div>
-                  <div>问题</div>
-                </div>
-              )}
-            />
-            <Route
-              exact
-              path="/links/:id"
-              component={() => (
-                <div className="w-full h-full flex flex-col bg-gray-300">
-                  <Calendar height="100%" />
-                </div>
-              )}
-            />
-          </Switch>
+                )}
+              />
+              <Route
+                exact
+                path="/links/:id"
+                component={() => (
+                  <div className="w-full h-full flex flex-col bg-gray-300">
+                    <Calendar height="100%" />
+                  </div>
+                )}
+              />
+            </Switch>
+          </div>
         </div>
       </div>
-    </div>
+    </SchedulingLinkProvider>
   );
 }
 
