@@ -2234,10 +2234,30 @@
     "@radix-ui/react-utils" "0.0.1"
     "@radix-ui/utils" "0.0.1"
 
+"@radix-ui/react-tooltip@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.npm.taobao.org/@radix-ui/react-tooltip/download/@radix-ui/react-tooltip-0.0.1.tgz#53370d6217a5a68c97f65aed6798ce6c83245136"
+  integrity sha1-UzcNYhelpoyX9lrtZ5jObIMkUTY=
+  dependencies:
+    "@radix-ui/react-polymorphic" "0.0.1"
+    "@radix-ui/react-popper" "0.0.1"
+    "@radix-ui/react-portal" "0.0.1"
+    "@radix-ui/react-utils" "0.0.1"
+    "@radix-ui/react-visually-hidden" "0.0.1"
+    "@radix-ui/utils" "0.0.1"
+
 "@radix-ui/react-utils@0.0.1":
   version "0.0.1"
   resolved "https://registry.npm.taobao.org/@radix-ui/react-utils/download/@radix-ui/react-utils-0.0.1.tgz#5d9501699377d6cc5a5099088859d4e48fbceb3c"
   integrity sha1-XZUBaZN31sxaUJkIiFnU5I+86zw=
+  dependencies:
+    "@radix-ui/react-polymorphic" "0.0.1"
+    "@radix-ui/utils" "0.0.1"
+
+"@radix-ui/react-visually-hidden@0.0.1":
+  version "0.0.1"
+  resolved "https://registry.npm.taobao.org/@radix-ui/react-visually-hidden/download/@radix-ui/react-visually-hidden-0.0.1.tgz#26c4a8d690e2c82dfd87c3b5ac719f3860f5bc31"
+  integrity sha1-JsSo1pDiyC39h8O1rHGfOGD1vDE=
   dependencies:
     "@radix-ui/react-polymorphic" "0.0.1"
     "@radix-ui/utils" "0.0.1"

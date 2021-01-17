@@ -8,6 +8,7 @@ import SchedulingLinkProvider, {
 import SingleSelect from './events/EventLocationSelect';
 import Select from 'react-select';
 import {Toggle} from '@fluentui/react';
+import * as Tooltip from '@radix-ui/react-tooltip';
 
 function Header() {
   return (
@@ -32,8 +33,21 @@ function Header() {
             <div className="gentle-flex mr-3">
               <Toggle className="m-0" onChange={() => {}} />
             </div>
-            <div className="gentle-flex">http://localhost:3000/@ycy/15min</div>
-            <div className="gentle-flex">复制</div>
+            <div className="gentle-flex">
+              <Tooltip.Root>
+                <Tooltip.Trigger>
+                  <span className="text-gray-600 hover:text-blue-500">
+                    http://localhost:3000/@ycy/15min
+                  </span>
+                </Tooltip.Trigger>
+                <Tooltip.Content className="bg-black text-white py-1 px-2 rounded text-sm font-bold">
+                  复制链接
+                </Tooltip.Content>
+              </Tooltip.Root>
+            </div>
+            <div className="gentle-flex">
+              <button className="btn btn-gray py-1 px-3">编辑</button>
+            </div>
           </div>
         </div>
       </div>
