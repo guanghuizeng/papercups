@@ -306,3 +306,7 @@ input[type='number'] {
   width: 8px;
   left: 50%;
 }
+
+.is-checked .ms-Toggle-background {
+  @apply bg-green-300;
+}

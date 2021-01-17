@@ -7,6 +7,7 @@ import SchedulingLinkProvider, {
 } from '../hooks/SchedulingLinkProvider';
 import SingleSelect from './events/EventLocationSelect';
 import Select from 'react-select';
+import {Toggle} from '@fluentui/react';
 
 function Header() {
   return (
@@ -22,6 +23,15 @@ function Header() {
             <span>编辑</span>
           </div>
           <div className="flex flex-row">
+            <div className="gentle-flex mr-4">
+              <div className="bg-green-100 text-green-700 px-2 py-1">
+                <i className="fas fa-check" />
+                <span className="px-1">已保存</span>
+              </div>
+            </div>
+            <div className="gentle-flex mr-3">
+              <Toggle className="m-0" onChange={() => {}} />
+            </div>
             <div className="gentle-flex">http://localhost:3000/@ycy/15min</div>
             <div className="gentle-flex">复制</div>
           </div>
