@@ -17,6 +17,7 @@ import {EventsProvider, useEvents} from './EventsProvider';
 import NewEventType from './events/NewEventType';
 import NavSection from './NavSection';
 import ScheduledEvents from './events/ScheduledEvents';
+import SchedulingLink from './SchedulingLink';
 
 function Dashboard(props: RouteComponentProps) {
   const auth = useAuth();
@@ -100,7 +101,7 @@ function Dashboard(props: RouteComponentProps) {
             path="/links/:id"
             component={() => (
               <div className="w-full lg:w-4/5 border-l border-gray-200 border-solid">
-                <EventType />
+                <SchedulingLink />
               </div>
             )}
           />
