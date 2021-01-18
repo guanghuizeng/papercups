@@ -5,19 +5,27 @@ import {getAccessToken} from '../api';
 import {fetchWithToken} from './utils';
 
 export const SchedulingLinkContext = React.createContext<{
+  slug: string;
   name: string;
   description: string;
-  slug: string;
+  durations: string[];
   location: string;
 
+  updateSlug: (value: string) => Promise<any>;
   updateName: (value: string) => Promise<any>;
+  updateDescription: (value: string) => Promise<any>;
+  updateDurations: (value: string[]) => Promise<any>;
 }>({
+  slug: '',
   name: '',
   description: '',
-  slug: '',
+  durations: [''],
   location: '',
 
+  updateSlug: (value: string) => Promise.resolve({}),
   updateName: (value: string) => Promise.resolve({}),
+  updateDescription: (value: string) => Promise.resolve({}),
+  updateDurations: (value: string[]) => Promise.resolve({}),
 });
 
 export const useSchedulingLink = () => useContext(SchedulingLinkContext);
@@ -44,22 +52,47 @@ const SchedulingLinkProvider = (props: Props) => {
     mutate(`/api/event_types/${props.linkId}`);
   };
 
+  const updateSlug = (value: string) => {
+    _update({slug: value});
+    // await API.updateSchedulingLinkSlug
+    _revalidate();
+    return Promise.resolve();
+  };
+
   const updateName = (value: string) => {
     _update({name: value});
     // await API.updateSchedulingLinkName
-    // _revalidate()
+    _revalidate();
+    return Promise.resolve();
+  };
+
+  const updateDescription = (value: string) => {
+    _update({description: value});
+    // await API.updateSchedulingLinkDescription
+    _revalidate();
+    return Promise.resolve();
+  };
+
+  const updateDurations = (value: string[]) => {
+    _update({description: value});
+    // await API.updateSchedulingLinkDescription
+    _revalidate();
     return Promise.resolve();
   };
 
   return (
     <SchedulingLinkContext.Provider
       value={{
+        slug: link.slug,
         name: link.name,
         description: link.description,
-        slug: link.slug,
+        durations: link.durations,
         location: link.location,
 
+        updateSlug,
         updateName,
+        updateDescription,
+        updateDurations,
       }}
     >
       {props.children}
