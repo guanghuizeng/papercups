@@ -67,8 +67,8 @@ const DurationOptionsMap = DurationOptions.map((opt) => ({
 
 function GeneralSection() {
   let {id} = useParams();
-  const {schedulingLink} = useSchedulingLink();
-  console.log('general', schedulingLink);
+  const {name, description, location} = useSchedulingLink();
+  console.log('general', name);
 
   return (
     <div date-section="general" className="flex flex-col">
@@ -78,14 +78,14 @@ function GeneralSection() {
           placeholder="Name this link"
           spellCheck="false"
           style={{height: '34px !important'}}
-          value={schedulingLink?.name}
+          value={name}
         />
         <textarea
           className="-mx-2 px-2 py-0 rounded-md block border-transparent focus:outline-none focus:border focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 w-full text-gray-600 resize-none leading-5 placeholder-gray-600"
           placeholder="Enter a description"
           spellCheck="false"
           style={{height: '24px !important'}}
-          value={schedulingLink?.description}
+          value={description}
         />
       </div>
       <div className="px-2 flex flex-col">
@@ -124,7 +124,7 @@ function GeneralSection() {
           }}
         >
           <i className="fas fa-video mr-2 w-5 text-center" />
-          <SingleSelect defaultValue={schedulingLink?.location} />
+          <SingleSelect defaultValue={location} />
         </div>
         <div
           className="flex flex-row px-2 py-2"

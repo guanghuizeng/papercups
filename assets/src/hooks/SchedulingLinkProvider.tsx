@@ -5,9 +5,19 @@ import {getAccessToken} from '../api';
 import {fetchWithToken} from './utils';
 
 export const SchedulingLinkContext = React.createContext<{
-  schedulingLink: any;
+  name: string;
+  description: string;
+  slug: string;
+  location: string;
+
+  updateName: (value: string) => Promise<any>;
 }>({
-  schedulingLink: {},
+  name: '',
+  description: '',
+  slug: '',
+  location: '',
+
+  updateName: (value: string) => Promise.resolve({}),
 });
 
 export const useSchedulingLink = () => useContext(SchedulingLinkContext);
@@ -17,12 +27,24 @@ type Props = React.PropsWithChildren<{
 }>;
 
 const SchedulingLinkProvider = (props: Props) => {
-  const {link} = useLink(props.linkId);
+  const {link, isLoading, isError} = useLink(props.linkId);
+
+  if (isLoading) return <div>Loading</div>;
+  if (isError) return <div>Error</div>;
+
+  const updateName = (value: string) => {
+    return Promise.resolve();
+  };
 
   return (
     <SchedulingLinkContext.Provider
       value={{
-        schedulingLink: link,
+        name: link.name,
+        description: link.description,
+        slug: link.slug,
+        location: link.location,
+
+        updateName,
       }}
     >
       {props.children}
