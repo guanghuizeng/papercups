@@ -88,9 +88,9 @@ function GeneralSection() {
           value={schedulingLink?.description}
         />
       </div>
-      <div className="px-4 flex flex-col">
+      <div className="px-2 flex flex-col">
         <div
-          className="flex flex-row"
+          className="flex flex-row px-2  py-2"
           style={{
             fontSize: '16px',
             lineHeight: '1.5',
@@ -103,6 +103,7 @@ function GeneralSection() {
           {/*{schedulingLink?.duration} 分钟*/}
         </div>
         <div
+          className="px-2 py-2"
           style={{
             fontSize: '16px',
             lineHeight: '1.5',
@@ -114,7 +115,7 @@ function GeneralSection() {
           工作时间
         </div>
         <div
-          className="flex flex-row"
+          className="flex flex-row px-2 py-2"
           style={{
             fontSize: '16px',
             lineHeight: '1.5',
@@ -126,6 +127,7 @@ function GeneralSection() {
           <SingleSelect defaultValue={schedulingLink?.location} />
         </div>
         <div
+          className="flex flex-row px-2 py-2"
           style={{
             fontSize: '16px',
             lineHeight: '1.5',
@@ -149,19 +151,25 @@ function GeneralSection() {
               exact
               path="/links/:id"
               component={() => (
-                <Link to={`/links/${id}/more-settings`}>
-                  <i className="fas fa-cog mr-2 w-5 text-center" />
-                  设置
-                </Link>
+                <div className="hover:bg-gray-200 w-full px-2 py-2 rounded">
+                  <Link to={`/links/${id}/more-settings`} className="w-full">
+                    <div className="w-full">
+                      <i className="fas fa-cog mr-2 w-5 text-center" />
+                      设置
+                    </div>
+                  </Link>
+                </div>
               )}
             />
             <Route
               exact
               path="/links/:id/more-settings"
               component={() => (
-                <div className="bg-gray-300">
-                  <i className="fas fa-cog mr-2 w-5 text-center" />
-                  设置
+                <div className="bg-gray-200 w-full px-2 py-2 rounded">
+                  <div className="w-full">
+                    <i className="fas fa-cog mr-2 w-5 text-center" />
+                    设置
+                  </div>
                 </div>
               )}
             />
@@ -175,19 +183,21 @@ function GeneralSection() {
 function ControlSection() {
   return (
     <div className="border-primary border-t border-solid">
-      <div className="flex flex-col px-4 py-4">
+      <div className="flex flex-col px-2 py-2">
         <div
+          className="hover:underline cursor-pointer text-gray-700 hover:text-green-500 px-2 py-2"
           style={{
             fontSize: '16px',
             lineHeight: '1.5',
             marginBottom: '20px',
-            color: '#4d5055',
+            // color: '#4d5055',
           }}
         >
           <i className="fas fa-external-link-alt mr-2 w-5 text-center" />
           预览
         </div>
         <div
+          className="hover:bg-gray-200 cursor-pointer px-2 py-2 rounded"
           style={{
             fontSize: '16px',
             lineHeight: '1.5',
@@ -199,6 +209,7 @@ function ControlSection() {
           复制链接
         </div>
         <div
+          className="hover:bg-gray-200 cursor-pointer px-2 py-2 rounded"
           style={{
             fontSize: '16px',
             lineHeight: '1.5',
@@ -210,6 +221,7 @@ function ControlSection() {
           另存为
         </div>
         <div
+          className="hover:bg-gray-200 cursor-pointer px-2 py-2 rounded"
           style={{
             fontSize: '16px',
             lineHeight: '1.5',
@@ -221,7 +233,7 @@ function ControlSection() {
           嵌入
         </div>
         <div
-          className="text-gray-700 hover:text-red-500 hover:bg-gray-200 cursor-pointer rounded"
+          className="text-gray-700 hover:text-red-500 hover:bg-gray-200 px-2 py-2  cursor-pointer rounded"
           style={{
             fontSize: '16px',
             lineHeight: '1.5',
