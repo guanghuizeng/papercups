@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import _ from 'lodash';
-import useSWR from 'swr';
+import useSWR, {mutate} from 'swr';
 import {getAccessToken} from '../api';
 import {fetchWithToken} from './utils';
 
@@ -32,7 +32,22 @@ const SchedulingLinkProvider = (props: Props) => {
   if (isLoading) return <div>Loading</div>;
   if (isError) return <div>Error</div>;
 
+  const _update = (newValue: any) => {
+    return mutate(
+      `/api/event_types/${props.linkId}`,
+      {...link, ...newValue},
+      false
+    );
+  };
+
+  const _revalidate = () => {
+    mutate(`/api/event_types/${props.linkId}`);
+  };
+
   const updateName = (value: string) => {
+    _update({name: value});
+    // await API.updateSchedulingLinkName
+    // _revalidate()
     return Promise.resolve();
   };
 

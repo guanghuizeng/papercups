@@ -68,7 +68,6 @@ const DurationOptionsMap = DurationOptions.map((opt) => ({
 function GeneralSection() {
   let {id} = useParams();
   const {name, description, location} = useSchedulingLink();
-  console.log('general', name);
 
   return (
     <div date-section="general" className="flex flex-col">
