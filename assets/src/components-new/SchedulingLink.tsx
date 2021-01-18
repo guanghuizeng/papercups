@@ -65,6 +65,19 @@ const DurationOptionsMap = DurationOptions.map((opt) => ({
   label: opt[0],
 }));
 
+function AvailabilitySelect() {
+  return (
+    <Select
+      className="w-full"
+      options={[
+        {value: '123', label: '工作时间'},
+        {value: '124', label: '周末'},
+      ]}
+      isMulti
+    />
+  );
+}
+
 function GeneralSection() {
   let {id} = useParams();
   const {name, description, location} = useSchedulingLink();
@@ -99,10 +112,9 @@ function GeneralSection() {
         >
           <i className="fas fa-clock mr-2 w-5 text-center" />
           <Select className="w-full" options={DurationOptionsMap} isMulti />
-          {/*{schedulingLink?.duration} 分钟*/}
         </div>
         <div
-          className="px-2 py-2"
+          className="flex flex-row px-2 py-2"
           style={{
             fontSize: '16px',
             lineHeight: '1.5',
@@ -111,7 +123,7 @@ function GeneralSection() {
           }}
         >
           <i className="fas fa-calendar-check mr-2 w-5 text-center" />
-          工作时间
+          <AvailabilitySelect />
         </div>
         <div
           className="flex flex-row px-2 py-2"
