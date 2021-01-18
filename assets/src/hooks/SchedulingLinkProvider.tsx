@@ -10,22 +10,26 @@ export const SchedulingLinkContext = React.createContext<{
   description: string;
   durations: string[];
   location: string;
+  availability: any;
 
   updateSlug: (value: string) => Promise<any>;
   updateName: (value: string) => Promise<any>;
   updateDescription: (value: string) => Promise<any>;
   updateDurations: (value: string[]) => Promise<any>;
+  updateAvailability: (value: any) => Promise<any>;
 }>({
   slug: '',
   name: '',
   description: '',
   durations: [''],
   location: '',
+  availability: {},
 
   updateSlug: (value: string) => Promise.resolve({}),
   updateName: (value: string) => Promise.resolve({}),
   updateDescription: (value: string) => Promise.resolve({}),
   updateDurations: (value: string[]) => Promise.resolve({}),
+  updateAvailability: (value: any) => Promise.resolve({}),
 });
 
 export const useSchedulingLink = () => useContext(SchedulingLinkContext);
@@ -80,6 +84,13 @@ const SchedulingLinkProvider = (props: Props) => {
     return Promise.resolve();
   };
 
+  const updateAvailability = (value: any) => {
+    _update({description: value});
+    // await API.updateSchedulingLinkDescription
+    _revalidate();
+    return Promise.resolve();
+  };
+
   return (
     <SchedulingLinkContext.Provider
       value={{
@@ -88,11 +99,13 @@ const SchedulingLinkProvider = (props: Props) => {
         description: link.description,
         durations: link.durations,
         location: link.location,
+        availability: link.organizer?.availability,
 
         updateSlug,
         updateName,
         updateDescription,
         updateDurations,
+        updateAvailability,
       }}
     >
       {props.children}
