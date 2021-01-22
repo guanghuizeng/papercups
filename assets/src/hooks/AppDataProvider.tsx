@@ -8,9 +8,9 @@ import useSWR, {mutate} from 'swr';
  *
  */
 export const AppDataContext = React.createContext<{
-  getAvailabilityPreset: (id: string) => any;
+  getAvailabilityPresets: (id: string) => any[];
 }>({
-  getAvailabilityPreset: (id) => {},
+  getAvailabilityPresets: (id) => [],
 });
 
 export const useAppData = () => useContext(AppDataContext);
@@ -34,14 +34,30 @@ type Props = React.PropsWithChildren<{
  * @constructor
  */
 const AppDataProvider = (props: Props) => {
-  const getAvailabilityPreset = (id: string) => {
-    return {};
+  const getAvailabilityPresets = (id: string) => {
+    return [
+      {
+        byday: ['一', '二', '三', '四', '五'],
+        endTime: 1020,
+        startTime: 540,
+      },
+      {
+        byday: ['一', '二'],
+        endTime: 1080,
+        startTime: 720,
+      },
+      {
+        byday: ['一', '二', '三', '四', '五'],
+        endTime: 1380,
+        startTime: 1200,
+      },
+    ];
   };
 
   return (
     <AppDataContext.Provider
       value={{
-        getAvailabilityPreset,
+        getAvailabilityPresets,
       }}
     >
       {props.children}

@@ -47,7 +47,7 @@ type Props = React.PropsWithChildren<{
 
 const SchedulingLinkProvider = (props: Props) => {
   const {link, isLoading, isError} = useLink(props.linkId);
-  const {getAvailabilityPreset} = useAppData();
+  const {getAvailabilityPresets} = useAppData();
   const [overrides, setOverrides] = useState<any[]>([
     {
       startAt: '2021-01-19T02:00:00Z',
