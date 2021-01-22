@@ -315,7 +315,7 @@ input[type='number'] {
 
 .fc {
   /* the calendar root */
-  max-width: 1100px;
+  /*max-width: 1100px;*/
   margin: 0 auto;
 }
 
@@ -349,8 +349,8 @@ input[type='number'] {
   left: 0;
   right: 0;
   border: 0 solid red;
-  border-color: var(--fc-now-indicator-color, red);
-  border-top: 1px solid var(--fc-now-indicator-color, red);
+  border-color: red;
+  border-top: 1px solid red;
 }
 
 .fc .fc-timegrid-now-indicator-line:after {

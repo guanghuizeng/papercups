@@ -313,7 +313,7 @@ function SchedulingLink() {
         <Header />
 
         <div className="flex flex-row h-full">
-          <div className="w-112 border-primary border-r border-solid h-full flex flex-col">
+          <div className="w-112  h-full flex flex-col">
             <GeneralSection />
             <ControlSection />
           </div>

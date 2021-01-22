@@ -241,7 +241,7 @@ function Calendar() {
   };
 
   return (
-    <div className="demo-app">
+    <div className="w-full h-full">
       <div className="demo-app-main">
         <FullCalendar
           // height="800px"
