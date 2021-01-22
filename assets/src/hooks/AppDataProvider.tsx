@@ -5,6 +5,7 @@ import * as API from '../api';
 import {getAccessToken} from '../api';
 import {fetchWithToken} from './utils';
 import {useAuth} from '../components/auth/AuthProvider';
+import {useUserSettings} from '../api-hooks';
 
 /**
  * App data
@@ -78,21 +79,5 @@ const AppDataProvider = (props: Props) => {
     </AppDataContext.Provider>
   );
 };
-
-function useUserSettings(token = getAccessToken()) {
-  if (!token) {
-    throw new Error('Invalid token!');
-  }
-
-  const {data, error} = useSWR(`/api/user_settings`, (url) =>
-    fetchWithToken(url, token)
-  );
-
-  return {
-    settings: data && data.data,
-    isLoading: !error && !data,
-    isError: error,
-  };
-}
 
 export default AppDataProvider;

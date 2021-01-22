@@ -1,9 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import _ from 'lodash';
 import useSWR, {mutate} from 'swr';
-import {getAccessToken} from '../api';
-import {fetchWithToken} from './utils';
 import {useAppData} from './AppDataProvider';
+import {useLink} from '../api-hooks';
 
 export const SchedulingLinkContext = React.createContext<{
   slug: string;
@@ -153,19 +152,5 @@ const SchedulingLinkProvider = (props: Props) => {
 };
 
 // hooks
-function useLink(id: string, token = getAccessToken()) {
-  if (!token) {
-    throw new Error('Invalid token!');
-  }
-
-  const {data, error} = useSWR(`/api/event_types/${id}`, (url) =>
-    fetchWithToken(url, token)
-  );
-  return {
-    link: data && data.data,
-    isLoading: !error && !data,
-    isError: error,
-  };
-}
 
 export default SchedulingLinkProvider;
