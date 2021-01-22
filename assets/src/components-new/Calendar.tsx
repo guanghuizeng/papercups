@@ -11,10 +11,10 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayjs, {Dayjs} from 'dayjs';
 import {
+  complementIntervals,
   createEventId,
   eliminateIntervals,
   INITIAL_EVENTS,
-  complementIntervals,
 } from './event-utils';
 import _ from 'lodash';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
@@ -176,9 +176,6 @@ function Calendar() {
     const allowOverrides = overrides.filter((e: any) => e.type === 'allow');
     const blockOverrides = overrides.filter((e: any) => e.type === 'block');
 
-    console.log('allow', allowOverrides);
-
-    // get intervals
     const intervals: Dayjs[][] = [];
     let date = startDate.clone();
     while (!date.isSame(endDate)) {
@@ -217,15 +214,7 @@ function Calendar() {
       e[0].valueOf()
     );
     const eliminatedIntervals2 = eliminateIntervals(sortedIntervals2);
-
-    // sort
-    // eliminate
-
-    // console.log('sortedIntervals', JSON.stringify(sortedIntervals))
-    // console.log('eliminatedIntervals', JSON.stringify(eliminatedIntervals))
-    // console.log('complementedIntervals', JSON.stringify(complementedIntervals))
-
-    const res = eliminatedIntervals2.map((interval) => {
+    return eliminatedIntervals2.map((interval) => {
       return {
         id: createEventId(),
         start: interval[0].toISOString(),
@@ -234,10 +223,6 @@ function Calendar() {
         display: 'background',
       };
     });
-
-    // console.log('Background events', JSON.stringify(res))
-
-    return res;
   };
 
   return (
