@@ -322,6 +322,7 @@ function Calendar(props: CalendarProps) {
         dayjs(override.endAt),
       ]);
     });
+    complementedIntervals.push([startDate, dayjs()]);
     const sortedIntervals2 = _.sortBy(complementedIntervals, (e) =>
       e[0].valueOf()
     );
