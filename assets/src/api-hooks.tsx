@@ -25,6 +25,9 @@ export function useLink(id: string, token = getAccessToken()) {
   const {data, error} = useSWR(`/api/event_types/${id}`, (url) =>
     fetchWithToken(url, token)
   );
+
+  console.log('use link', data, error);
+
   return {
     link: data && data.data,
     isLoading: !error && !data,

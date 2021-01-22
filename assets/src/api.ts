@@ -988,7 +988,9 @@ export const updateEventType = async (
   return request
     .put(`/api/event_types/${eventTypeId}`)
     .set('Authorization', token)
-    .send(updates)
+    .send({
+      event_type: updates,
+    })
     .then((res) => res.body.data);
 };
 

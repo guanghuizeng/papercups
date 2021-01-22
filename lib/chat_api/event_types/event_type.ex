@@ -34,6 +34,5 @@ defmodule ChatApi.EventTypes.EventType do
          [:name, :location, :description, :url, :color, :period_type, :min_booking_time, :max_booking_time,
            :start_date, :end_date, :duration, :before_buffer_time, :after_buffer_time, :schedule_id]
        )
-    |> validate_required([:name, :location, :url, :color])
   end
 end

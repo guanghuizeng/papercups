@@ -3,6 +3,7 @@ import _ from 'lodash';
 import useSWR, {mutate} from 'swr';
 import {useAppData} from './AppDataProvider';
 import {useLink} from '../api-hooks';
+import * as API from '../api';
 
 export const SchedulingLinkContext = React.createContext<{
   slug: string;
@@ -18,6 +19,7 @@ export const SchedulingLinkContext = React.createContext<{
   updateName: (value: string) => Promise<any>;
   updateDescription: (value: string) => Promise<any>;
   updateDurations: (value: string[]) => Promise<any>;
+  updateLocation: (value: string) => Promise<any>;
   updateAvailability: (value: any) => Promise<any>;
   updateAvailabilityOverrides: (value: any) => Promise<any>;
 }>({
@@ -34,6 +36,7 @@ export const SchedulingLinkContext = React.createContext<{
   updateName: (value: string) => Promise.resolve({}),
   updateDescription: (value: string) => Promise.resolve({}),
   updateDurations: (value: string[]) => Promise.resolve({}),
+  updateLocation: (value: string) => Promise.resolve({}),
   updateAvailability: (value: any) => Promise.resolve({}),
   updateAvailabilityOverrides: (value: any) => Promise.resolve({}),
 });
@@ -48,6 +51,8 @@ const SchedulingLinkProvider = (props: Props) => {
   const {link, isLoading, isError} = useLink(props.linkId);
   const {settings, getAvailabilityPresets} = useAppData();
   const [presets, setPresets] = useState<any[]>([]);
+
+  console.log('Scheduling Link Provider', link);
 
   useEffect(() => {
     setPresets(getAvailabilityPresets(''));
@@ -77,7 +82,7 @@ const SchedulingLinkProvider = (props: Props) => {
   const _update = (newValue: any) => {
     return mutate(
       `/api/event_types/${props.linkId}`,
-      {...link, ...newValue},
+      {data: {...link, ...newValue}},
       false
     );
   };
@@ -114,6 +119,13 @@ const SchedulingLinkProvider = (props: Props) => {
     return Promise.resolve();
   };
 
+  const updateLocation = async (value: string) => {
+    _update({location: value});
+    await API.updateEventType(link.id, {location: value});
+    _revalidate();
+    return Promise.resolve();
+  };
+
   const updateAvailability = (value: any) => {
     _update({description: value});
     // await API.updateSchedulingLinkDescription
@@ -142,6 +154,7 @@ const SchedulingLinkProvider = (props: Props) => {
         updateName,
         updateDescription,
         updateDurations,
+        updateLocation,
         updateAvailability,
         updateAvailabilityOverrides,
       }}

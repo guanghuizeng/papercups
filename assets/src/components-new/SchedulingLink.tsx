@@ -83,7 +83,7 @@ function AvailabilitySelect() {
 
 function GeneralSection() {
   let {id} = useParams();
-  const {name, description, location} = useSchedulingLink();
+  const {name, description, location, updateLocation} = useSchedulingLink();
 
   return (
     <div date-section="general" className="flex flex-col">
@@ -138,7 +138,13 @@ function GeneralSection() {
           }}
         >
           <i className="fas fa-video mr-2 w-5 text-center" />
-          <SingleSelect defaultValue={location} />
+          <SingleSelect
+            defaultValue={location}
+            onChange={(v: any) => {
+              updateLocation(v.value);
+              console.log('Change location', v);
+            }}
+          />
         </div>
         <div
           className="flex flex-row px-2 py-2"

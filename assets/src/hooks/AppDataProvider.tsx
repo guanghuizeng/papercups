@@ -47,8 +47,6 @@ const AppDataProvider = (props: Props) => {
   const {data: settings} = useUserSettings();
   const {data: schedulingLinks} = useSchedulingLinks();
 
-  console.log('user settings', settings);
-
   const getAvailabilityPresets = (id: string) => {
     if (settings) {
       return [
