@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {Link, Route, Switch, useParams} from 'react-router-dom';
-import Calendar from '@toast-ui/react-calendar';
 import 'tui-calendar/dist/tui-calendar.css';
 import SchedulingLinkProvider, {
   useSchedulingLink,
@@ -9,6 +8,7 @@ import SingleSelect from './events/EventLocationSelect';
 import Select from 'react-select';
 import {Toggle} from '@fluentui/react';
 import WithTip from '../components-new/common/WithTip';
+import Calendar from './Calendar';
 
 function Header() {
   return (
@@ -66,6 +66,9 @@ const DurationOptionsMap = DurationOptions.map((opt) => ({
 }));
 
 function AvailabilitySelect() {
+  // const {availability_presets} = useAppData()
+  const {availability} = useSchedulingLink();
+
   return (
     <Select
       className="w-full"
@@ -335,8 +338,8 @@ function SchedulingLink() {
                 exact
                 path="/links/:id"
                 component={() => (
-                  <div className="w-full h-full flex flex-col bg-gray-300">
-                    <Calendar height="100%" />
+                  <div className="w-full h-full flex flex-col bg-white">
+                    <Calendar />
                   </div>
                 )}
               />

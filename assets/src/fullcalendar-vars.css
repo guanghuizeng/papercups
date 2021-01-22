@@ -1,0 +1,7 @@
+/* this file is included direcly from the webpack/postcss config */
+
+:root {
+  --fc-border-color: #ddd;
+  --fc-today-bg-color: transparent;
+  --fc-highlight-color: rgba(250, 202, 21, var(--tw-bg-opacity));
+}

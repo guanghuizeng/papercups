@@ -5,6 +5,11 @@
   "license": "MIT",
   "repository": "https://github.com/papercups-io/papercups",
   "dependencies": {
+    "@fullcalendar/core": "^5.5.1",
+    "@fullcalendar/daygrid": "^5.5.0",
+    "@fullcalendar/interaction": "^5.5.0",
+    "@fullcalendar/react": "^5.5.0",
+    "@fullcalendar/timegrid": "^5.5.0",
     "@craco/craco": "^6.0.0",
     "@fluentui/react": "^7.155.3",
     "@fluentui/react-cards": "^1.0.0-beta.0",
@@ -124,6 +129,10 @@
     "@types/react-select": "^3.0.26",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "postcss-calc": "^7.0.5",
+    "postcss-custom-properties": "^10.0.0",
+    "postcss-loader": "^4.1.0",
+    "postcss-preset-env": "^6.7.0"
   }
 }
