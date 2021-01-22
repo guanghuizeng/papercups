@@ -114,22 +114,23 @@ export default function NewEventType() {
   };
 
   return (
-    <div className="container lg:px-10 inner-container mx-auto lg:px-8 py-4 flex flex-col">
-      <div className="h-6">
-        <Link to="/links">
-          <span className="inline-block hover:underline">
-            {' '}
-            <i className="fas fa-chevron-left mr-2" />
-            返回所有日程类型
-          </span>
-        </Link>
-      </div>
-      <div className="py-4 text-3xl font-medium">新建日程类型</div>
-
-      <section className="pt-10 text-gray-700 body-font">
-        {generalSection()}
-        {availabilitySection()}
-      </section>
-    </div>
+    <div>New</div>
+    // <div className="container lg:px-10 inner-container mx-auto lg:px-8 py-4 flex flex-col">
+    //   <div className="h-6">
+    //     <Link to="/links">
+    //       <span className="inline-block hover:underline">
+    //         {' '}
+    //         <i className="fas fa-chevron-left mr-2" />
+    //         返回所有日程类型
+    //       </span>
+    //     </Link>
+    //   </div>
+    //   <div className="py-4 text-3xl font-medium">新建日程类型</div>
+    //
+    //   <section className="pt-10 text-gray-700 body-font">
+    //     {generalSection()}
+    //     {availabilitySection()}
+    //   </section>
+    // </div>
   );
 }
