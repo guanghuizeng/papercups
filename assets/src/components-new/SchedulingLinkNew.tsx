@@ -1,19 +1,24 @@
 import React from 'react';
 import * as API from '../api';
 import {mutate} from 'swr';
+import {useHistory} from 'react-router-dom';
 
 export default function SchedulingLinkNew() {
+  let history = useHistory();
+
   return (
     <div
       onClick={async () => {
         API.createSchedulingLink({
-          name: 'Test link',
+          name: '名称',
           location: 'loc1',
-          description: 'description',
+          description: '描述',
           url: '15min',
           color: 'red',
-        }).then(() => {
+        }).then((r) => {
+          console.log('Resp', r);
           mutate(`/api/scheduling_links/`);
+          history.push(`/links/${r.data.id}`);
         });
       }}
     >

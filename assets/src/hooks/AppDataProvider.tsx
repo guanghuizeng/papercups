@@ -7,6 +7,7 @@ import {fetchWithToken} from './utils';
 import {useAuth} from '../components/auth/AuthProvider';
 import {useSchedulingLinks, useUserSettings} from '../api-hooks';
 import {useSchedulingLink} from './SchedulingLinkProvider';
+import {useHistory} from 'react-router-dom';
 
 /**
  * App data
@@ -16,11 +17,12 @@ import {useSchedulingLink} from './SchedulingLinkProvider';
 export const AppDataContext = React.createContext<{
   settings: any;
   schedulingLinks: any[];
-
+  createSchedulingLinkAndRedirect: () => Promise<any>;
   getAvailabilityPresets: (id: string) => any[];
 }>({
   settings: {},
   schedulingLinks: [],
+  createSchedulingLinkAndRedirect: () => Promise.resolve(),
 
   getAvailabilityPresets: (id) => [],
 });
@@ -44,6 +46,7 @@ type Props = React.PropsWithChildren<{}>;
  * @constructor
  */
 const AppDataProvider = (props: Props) => {
+  let history = useHistory();
   const {data: settings} = useUserSettings();
   const {data: schedulingLinks} = useSchedulingLinks();
 
@@ -70,13 +73,27 @@ const AppDataProvider = (props: Props) => {
     return [];
   };
 
-  const createSchedulingLink = () => {};
+  const createSchedulingLinkAndRedirect = async () => {
+    return API.createSchedulingLink({
+      name: '新类型',
+      location: 'loc1',
+      description: '描述',
+      url: '15min',
+      color: 'red',
+    }).then((r) => {
+      console.log('Resp', r);
+      mutate(`/api/scheduling_links/`);
+      history.push(`/links/${r.id}`);
+      return r;
+    });
+  };
 
   return (
     <AppDataContext.Provider
       value={{
         settings,
         schedulingLinks,
+        createSchedulingLinkAndRedirect,
 
         getAvailabilityPresets,
       }}
