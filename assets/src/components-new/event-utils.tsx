@@ -21,7 +21,11 @@ export function complementIntervals(
   end: Dayjs,
   intervals: Dayjs[][]
 ) {
-  const res = [];
+  const res: Dayjs[][] = [];
+  if (intervals.length === 0) {
+    return res;
+  }
+
   if (start.isBefore(intervals[0][0])) {
     res.push([start, intervals[0][0]]);
   }

@@ -157,7 +157,7 @@ function CalendarAvailabilityControl(props: CalendarAvailabilityControlProps) {
 }
 
 /**
- * presets & overrides
+ * display events, presets & overrides
  *
  *
  * @param props

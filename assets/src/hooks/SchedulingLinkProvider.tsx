@@ -48,6 +48,23 @@ type Props = React.PropsWithChildren<{
 const SchedulingLinkProvider = (props: Props) => {
   const {link, isLoading, isError} = useLink(props.linkId);
   const {getAvailabilityPresets} = useAppData();
+  const [presets, setPresets] = useState<any[]>([
+    {
+      byday: ['一', '二', '三', '四', '五'],
+      endTime: 1020,
+      startTime: 540,
+    },
+    {
+      byday: ['一', '二'],
+      endTime: 1080,
+      startTime: 720,
+    },
+    {
+      byday: ['一', '二', '三', '四', '五'],
+      endTime: 1380,
+      startTime: 1200,
+    },
+  ]);
   const [overrides, setOverrides] = useState<any[]>([
     {
       startAt: '2021-01-19T02:00:00Z',
@@ -129,23 +146,7 @@ const SchedulingLinkProvider = (props: Props) => {
         durations: link.durations,
         location: link.location,
         availability: link.organizer?.availability,
-        availabilityPresets: [
-          {
-            byday: ['一', '二', '三', '四', '五'],
-            endTime: 1020,
-            startTime: 540,
-          },
-          {
-            byday: ['一', '二'],
-            endTime: 1080,
-            startTime: 720,
-          },
-          {
-            byday: ['一', '二', '三', '四', '五'],
-            endTime: 1380,
-            startTime: 1200,
-          },
-        ],
+        availabilityPresets: presets,
         availabilityOverrides: overrides,
 
         updateSlug,
