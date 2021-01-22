@@ -18,6 +18,7 @@ import {
 } from './event-utils';
 import _ from 'lodash';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
+import {useSchedulingLink} from '../hooks/SchedulingLinkProvider';
 
 require('dayjs/locale/zh-cn');
 var isToday = require('dayjs/plugin/isToday');
@@ -25,24 +26,28 @@ var isToday = require('dayjs/plugin/isToday');
 dayjs.extend(isToday);
 dayjs.locale('zh-cn');
 
-function Calendar() {
-  const [overrides, setOverrides] = useState<any[]>([
-    {
-      startAt: '2021-01-19T02:00:00Z',
-      endAt: '2021-01-19T07:00:00Z',
-      type: 'block',
-    },
-    {
-      startAt: '2021-01-18T02:00:00Z',
-      endAt: '2021-01-18T08:00:00Z',
-      type: 'block',
-    },
-    {
-      startAt: '2021-01-23T02:00:00Z',
-      endAt: '2021-01-23T08:00:00Z',
-      type: 'allow',
-    },
-  ]);
+interface CalendarProps {
+  start: string;
+  end: string;
+  presets: any;
+  overrides: any;
+}
+
+/**
+ * presets & overrides
+ *
+ *
+ * @param props
+ * @constructor
+ */
+function Calendar(props: CalendarProps) {
+  // read availability from scheduling link
+  // presets, id => value
+  const {
+    availabilityPresets,
+    availabilityOverrides,
+    updateAvailabilityOverrides,
+  } = useSchedulingLink();
 
   const [selectInfo, setSelectInfo] = useState<DateSelectArg | null>(null);
 
@@ -55,26 +60,26 @@ function Calendar() {
   const handleSelectAllow = () => {
     if (selectInfo) {
       console.log('handleAllowSelect', selectInfo);
-      const copy = _.cloneDeep(overrides);
+      const copy = _.cloneDeep(availabilityOverrides);
       copy.push({
         startAt: selectInfo.startStr,
         endAt: selectInfo.endStr,
         type: 'allow',
       });
-      setOverrides(copy);
+      updateAvailabilityOverrides(copy);
     }
   };
 
   const handleSelectBlock = () => {
     if (selectInfo) {
       console.log('handleSelectBlock', selectInfo);
-      const copy = _.cloneDeep(overrides);
+      const copy = _.cloneDeep(availabilityOverrides);
       copy.push({
         startAt: selectInfo.startStr,
         endAt: selectInfo.endStr,
         type: 'block',
       });
-      setOverrides(copy);
+      updateAvailabilityOverrides(copy);
     }
   };
 
@@ -149,39 +154,23 @@ function Calendar() {
     );
   };
 
-  /**
-   *
-   */
   const getBackgroundEvents = () => {
     const startDate = dayjs('2021-01-18T00:00:00');
     const endDate = startDate.add(14, 'day');
-    const intervalSettings = [
-      {
-        byday: ['一', '二', '三', '四', '五'],
-        endTime: 1020,
-        startTime: 540,
-      },
-      {
-        byday: ['一', '二'],
-        endTime: 1080,
-        startTime: 720,
-      },
-      {
-        byday: ['一', '二', '三', '四', '五'],
-        endTime: 1380,
-        startTime: 1200,
-      },
-    ];
 
-    const allowOverrides = overrides.filter((e: any) => e.type === 'allow');
-    const blockOverrides = overrides.filter((e: any) => e.type === 'block');
+    const allowOverrides = availabilityOverrides.filter(
+      (e: any) => e.type === 'allow'
+    );
+    const blockOverrides = availabilityOverrides.filter(
+      (e: any) => e.type === 'block'
+    );
 
     const intervals: Dayjs[][] = [];
     let date = startDate.clone();
     while (!date.isSame(endDate)) {
       const day = date.format('dd').toLowerCase();
-      intervalSettings.forEach((settings) => {
-        if (settings.byday.findIndex((d) => d === day) > -1) {
+      availabilityPresets.forEach((settings) => {
+        if (settings.byday.findIndex((d: string) => d === day) > -1) {
           let startTime = date.add(settings.startTime, 'minute');
           let endTime = date.add(settings.endTime, 'minute');
           intervals.push([startTime, endTime]);

@@ -339,7 +339,7 @@ function SchedulingLink() {
                 path="/links/:id"
                 component={() => (
                   <div className="w-full h-full flex flex-col bg-white">
-                    <Calendar />
+                    <Calendar start={''} end={''} presets={''} overrides={''} />
                   </div>
                 )}
               />

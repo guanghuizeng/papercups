@@ -1,8 +1,9 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import _ from 'lodash';
 import useSWR, {mutate} from 'swr';
 import {getAccessToken} from '../api';
 import {fetchWithToken} from './utils';
+import {useAppData} from './AppDataProvider';
 
 export const SchedulingLinkContext = React.createContext<{
   slug: string;
@@ -11,12 +12,15 @@ export const SchedulingLinkContext = React.createContext<{
   durations: string[];
   location: string;
   availability: any;
+  availabilityPresets: any[];
+  availabilityOverrides: any[];
 
   updateSlug: (value: string) => Promise<any>;
   updateName: (value: string) => Promise<any>;
   updateDescription: (value: string) => Promise<any>;
   updateDurations: (value: string[]) => Promise<any>;
   updateAvailability: (value: any) => Promise<any>;
+  updateAvailabilityOverrides: (value: any) => Promise<any>;
 }>({
   slug: '',
   name: '',
@@ -24,12 +28,15 @@ export const SchedulingLinkContext = React.createContext<{
   durations: [''],
   location: '',
   availability: {},
+  availabilityPresets: [],
+  availabilityOverrides: [],
 
   updateSlug: (value: string) => Promise.resolve({}),
   updateName: (value: string) => Promise.resolve({}),
   updateDescription: (value: string) => Promise.resolve({}),
   updateDurations: (value: string[]) => Promise.resolve({}),
   updateAvailability: (value: any) => Promise.resolve({}),
+  updateAvailabilityOverrides: (value: any) => Promise.resolve({}),
 });
 
 export const useSchedulingLink = () => useContext(SchedulingLinkContext);
@@ -40,7 +47,24 @@ type Props = React.PropsWithChildren<{
 
 const SchedulingLinkProvider = (props: Props) => {
   const {link, isLoading, isError} = useLink(props.linkId);
-
+  const {getAvailabilityPreset} = useAppData();
+  const [overrides, setOverrides] = useState<any[]>([
+    {
+      startAt: '2021-01-19T02:00:00Z',
+      endAt: '2021-01-19T07:00:00Z',
+      type: 'block',
+    },
+    {
+      startAt: '2021-01-18T02:00:00Z',
+      endAt: '2021-01-18T08:00:00Z',
+      type: 'block',
+    },
+    {
+      startAt: '2021-01-23T02:00:00Z',
+      endAt: '2021-01-23T08:00:00Z',
+      type: 'allow',
+    },
+  ]);
   if (isLoading) return <div>Loading</div>;
   if (isError) return <div>Error</div>;
 
@@ -91,6 +115,11 @@ const SchedulingLinkProvider = (props: Props) => {
     return Promise.resolve();
   };
 
+  const updateAvailabilityOverrides = (value: any) => {
+    setOverrides(value);
+    return Promise.resolve();
+  };
+
   return (
     <SchedulingLinkContext.Provider
       value={{
@@ -100,12 +129,31 @@ const SchedulingLinkProvider = (props: Props) => {
         durations: link.durations,
         location: link.location,
         availability: link.organizer?.availability,
+        availabilityPresets: [
+          {
+            byday: ['一', '二', '三', '四', '五'],
+            endTime: 1020,
+            startTime: 540,
+          },
+          {
+            byday: ['一', '二'],
+            endTime: 1080,
+            startTime: 720,
+          },
+          {
+            byday: ['一', '二', '三', '四', '五'],
+            endTime: 1380,
+            startTime: 1200,
+          },
+        ],
+        availabilityOverrides: overrides,
 
         updateSlug,
         updateName,
         updateDescription,
         updateDurations,
         updateAvailability,
+        updateAvailabilityOverrides,
       }}
     >
       {props.children}

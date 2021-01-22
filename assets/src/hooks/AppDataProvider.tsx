@@ -2,7 +2,16 @@ import React, {useContext} from 'react';
 import _ from 'lodash';
 import useSWR, {mutate} from 'swr';
 
-export const AppDataContext = React.createContext<{}>({});
+/**
+ * App data
+ *  availability presets
+ *
+ */
+export const AppDataContext = React.createContext<{
+  getAvailabilityPreset: (id: string) => any;
+}>({
+  getAvailabilityPreset: (id) => {},
+});
 
 export const useAppData = () => useContext(AppDataContext);
 
@@ -25,8 +34,16 @@ type Props = React.PropsWithChildren<{
  * @constructor
  */
 const AppDataProvider = (props: Props) => {
+  const getAvailabilityPreset = (id: string) => {
+    return {};
+  };
+
   return (
-    <AppDataContext.Provider value={{}}>
+    <AppDataContext.Provider
+      value={{
+        getAvailabilityPreset,
+      }}
+    >
       {props.children}
     </AppDataContext.Provider>
   );
