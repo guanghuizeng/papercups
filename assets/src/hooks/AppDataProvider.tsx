@@ -70,6 +70,8 @@ const AppDataProvider = (props: Props) => {
     return [];
   };
 
+  const createSchedulingLink = () => {};
+
   return (
     <AppDataContext.Provider
       value={{

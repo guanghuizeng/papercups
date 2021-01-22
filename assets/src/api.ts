@@ -962,7 +962,7 @@ export const fetchReportingData = async (
 };
 
 export const createSchedulingLink = async (
-  event_type: any,
+  scheduling_link: any,
   token = getAccessToken()
 ) => {
   if (!token) {
@@ -971,7 +971,7 @@ export const createSchedulingLink = async (
 
   return request
     .post(`/api/scheduling_links`)
-    .send({event_type})
+    .send({scheduling_link})
     .set('Authorization', token)
     .then((res) => res.body.data);
 };
