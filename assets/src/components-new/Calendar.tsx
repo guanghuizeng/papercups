@@ -34,6 +34,128 @@ interface CalendarProps {
   updateAvailabilityOverrides: (value: any) => any;
 }
 
+interface CalendarAvailabilityControlProps {
+  handleSelectAllow: () => void;
+  handleSelectBlock: () => void;
+}
+function CalendarAvailabilityControl(props: CalendarAvailabilityControlProps) {
+  const {handleSelectAllow, handleSelectBlock} = props;
+  return (
+    <div className=" pb-4 bottom-0 w-full flex justify-center">
+      <div className="relative transition-all transform rounded-lg shadow-floating bg-white z-10">
+        <div className="flex p-1">
+          <button
+            type="button"
+            onClick={handleSelectAllow}
+            className="w-32 p-3 rounded-md flex flex-col items-center text-green-600 font-medium text-sm bg-white hover:bg-gray-100 active:bg-gray-200 transition ease-in-out duration-150"
+          >
+            <div className="-ml-px pb-1 flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="feather feather-plus-square"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line
+                  x1="12"
+                  y1="8"
+                  x2="12"
+                  y2="16"
+                  stroke="currentColor"
+                ></line>
+                <line
+                  x1="8"
+                  y1="12"
+                  x2="16"
+                  y2="12"
+                  stroke="currentColor"
+                ></line>
+              </svg>
+            </div>
+            <div>Allow</div>
+          </button>
+          <button
+            type="button"
+            className="w-32 p-3 rounded-md flex flex-col items-center text-green-600 font-medium text-sm bg-white hover:bg-gray-100 active:bg-gray-200 transition ease-in-out duration-150"
+          >
+            <div className="-ml-px pb-1 flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="feather feather-plus-square"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="12" y1="8" x2="12" y2="16" stroke="#FFF"></line>
+                <line x1="8" y1="12" x2="16" y2="12" stroke="#FFF"></line>
+              </svg>
+            </div>
+            <div>Force Allow</div>
+          </button>
+          <button
+            type="button"
+            onClick={handleSelectBlock}
+            className="w-32 p-3 rounded-md flex flex-col items-center text-red-600 font-medium text-sm bg-white hover:bg-gray-100 active:bg-gray-200 transition ease-in-out duration-150"
+          >
+            <div className="-ml-px pb-1 flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="feather feather-x-square"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="9" y1="9" x2="15" y2="15" stroke="#FFF"></line>
+                <line x1="15" y1="9" x2="9" y2="15" stroke="#FFF"></line>
+              </svg>
+            </div>
+            <div>Block</div>
+          </button>
+        </div>
+        <button
+          className="absolute flex items-center justify-center w-8 h-8 rounded-full shadow-floating bg-white hover:bg-gray-100 active:bg-gray-200 transition ease-in-out duration-150 border-2 border-white text-gray-500"
+          style={{right: '-12px; top: -12px'}}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            className="feather feather-x"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
+
 /**
  * presets & overrides
  *
@@ -263,118 +385,10 @@ function Calendar(props: CalendarProps) {
         />
       </div>
 
-      <div className=" pb-4 bottom-0 w-full flex justify-center">
-        <div className="relative transition-all transform rounded-lg shadow-floating bg-white z-10">
-          <div className="flex p-1">
-            <button
-              type="button"
-              onClick={handleSelectAllow}
-              className="w-32 p-3 rounded-md flex flex-col items-center text-green-600 font-medium text-sm bg-white hover:bg-gray-100 active:bg-gray-200 transition ease-in-out duration-150"
-            >
-              <div className="-ml-px pb-1 flex items-center justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="feather feather-plus-square"
-                >
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                  <line
-                    x1="12"
-                    y1="8"
-                    x2="12"
-                    y2="16"
-                    stroke="currentColor"
-                  ></line>
-                  <line
-                    x1="8"
-                    y1="12"
-                    x2="16"
-                    y2="12"
-                    stroke="currentColor"
-                  ></line>
-                </svg>
-              </div>
-              <div>Allow</div>
-            </button>
-            <button
-              type="button"
-              className="w-32 p-3 rounded-md flex flex-col items-center text-green-600 font-medium text-sm bg-white hover:bg-gray-100 active:bg-gray-200 transition ease-in-out duration-150"
-            >
-              <div className="-ml-px pb-1 flex items-center justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="feather feather-plus-square"
-                >
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="12" y1="8" x2="12" y2="16" stroke="#FFF"></line>
-                  <line x1="8" y1="12" x2="16" y2="12" stroke="#FFF"></line>
-                </svg>
-              </div>
-              <div>Force Allow</div>
-            </button>
-            <button
-              type="button"
-              onClick={handleSelectBlock}
-              className="w-32 p-3 rounded-md flex flex-col items-center text-red-600 font-medium text-sm bg-white hover:bg-gray-100 active:bg-gray-200 transition ease-in-out duration-150"
-            >
-              <div className="-ml-px pb-1 flex items-center justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="feather feather-x-square"
-                >
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="9" y1="9" x2="15" y2="15" stroke="#FFF"></line>
-                  <line x1="15" y1="9" x2="9" y2="15" stroke="#FFF"></line>
-                </svg>
-              </div>
-              <div>Block</div>
-            </button>
-          </div>
-          <button
-            className="absolute flex items-center justify-center w-8 h-8 rounded-full shadow-floating bg-white hover:bg-gray-100 active:bg-gray-200 transition ease-in-out duration-150 border-2 border-white text-gray-500"
-            style={{right: '-12px; top: -12px'}}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              className="feather feather-x"
-            >
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-        </div>
-      </div>
+      <CalendarAvailabilityControl
+        handleSelectAllow={handleSelectAllow}
+        handleSelectBlock={handleSelectBlock}
+      />
     </div>
   );
 }
