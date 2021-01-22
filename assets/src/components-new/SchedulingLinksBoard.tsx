@@ -1,17 +1,13 @@
 import React, {useEffect} from 'react';
-import {useQuery, useQueryOne, useStore} from '../store';
-import {Link} from 'react-router-dom';
-import {useEvents} from './EventsProvider';
-import {fetchSchedules, fetchUserProfile} from '../api';
-import CreateEventTypeDialog from './events/CreateEventTypeModal';
 import {
   SearchBox,
   ISearchBoxStyles,
   DefaultButton,
   PrimaryButton,
 } from '@fluentui/react';
-import EventTypeCard from './EventTypeCard';
 import {useAppData} from '../hooks/AppDataProvider';
+import EventTypeCard from './EventTypeCard';
+import SchedulingLinkCard from './SchedulingLinkCard';
 
 const searchBoxStyles: Partial<ISearchBoxStyles> = {
   root: {width: 200, border: '0'},
@@ -36,10 +32,10 @@ export const SearchBoxSmallExample = () => (
   />
 );
 
-export function EventTypes() {
-  const {schedulingLinks: eventTypes} = useAppData();
+export function SchedulingLinksBoard() {
+  const {schedulingLinks} = useAppData();
 
-  console.log('Event types', eventTypes);
+  console.log('Scheduling link board', schedulingLinks);
 
   return (
     <div className="w-full flex flex-col">
@@ -78,10 +74,10 @@ export function EventTypes() {
         {/*</div>*/}
       </div>
       <div className="flex flex-row flex-wrap">
-        {eventTypes.map((eventTypeId: any) => {
+        {schedulingLinks.map((link: any) => {
           return (
-            <div key={eventTypeId} className="py-4 pl-4 mb-4 w-64 h-32">
-              {/*<EventTypeCard eventTypeId={eventTypeId} />*/}
+            <div key={link.id} className="py-4 pl-4 mb-4 w-64 h-32">
+              <SchedulingLinkCard schedulingLink={link} />
             </div>
           );
         })}

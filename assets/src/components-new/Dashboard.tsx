@@ -19,6 +19,7 @@ import NavSection from './NavSection';
 import ScheduledEvents from './events/ScheduledEvents';
 import SchedulingLink from './SchedulingLink';
 import AppDataProvider from '../hooks/AppDataProvider';
+import {SchedulingLinksBoard} from './SchedulingLinksBoard';
 
 function Dashboard(props: RouteComponentProps) {
   const auth = useAuth();
@@ -78,14 +79,14 @@ function Dashboard(props: RouteComponentProps) {
 
       <div className="flex flex-row" style={{width: 'calc(100% - 200px)'}}>
         <Switch>
-          <Route exact path="/" component={EventTypes} />
-          <Route exact path="/links" component={EventTypes} />
+          <Route exact path="/" component={SchedulingLinksBoard} />
+          <Route exact path="/links" component={SchedulingLinksBoard} />
           <Route exact path="/links/add" component={NewEventType} />
           <Route
             path="/links/:id"
             component={() => (
               <div className="w-0 lg:w-1/5 invisible lg:visible">
-                <EventTypes />
+                <SchedulingLinksBoard />
               </div>
             )}
           />

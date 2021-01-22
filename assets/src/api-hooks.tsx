@@ -2,6 +2,21 @@ import {getAccessToken} from './api';
 import useSWR from 'swr';
 import {fetchWithToken} from './hooks/utils';
 
+export function useSchedulingLinks(token = getAccessToken()) {
+  if (!token) {
+    throw new Error('Invalid token!');
+  }
+
+  const {data, error} = useSWR(`/api/event_types/`, (url) =>
+    fetchWithToken(url, token)
+  );
+  return {
+    data: data ? data.data : [],
+    isLoading: !error && !data,
+    isError: error,
+  };
+}
+
 export function useLink(id: string, token = getAccessToken()) {
   if (!token) {
     throw new Error('Invalid token!');
@@ -27,7 +42,7 @@ export function useUserSettings(token = getAccessToken()) {
   );
 
   return {
-    settings: data && data.data,
+    data: data && data.data,
     isLoading: !error && !data,
     isError: error,
   };

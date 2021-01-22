@@ -5,7 +5,8 @@ import * as API from '../api';
 import {getAccessToken} from '../api';
 import {fetchWithToken} from './utils';
 import {useAuth} from '../components/auth/AuthProvider';
-import {useUserSettings} from '../api-hooks';
+import {useSchedulingLinks, useUserSettings} from '../api-hooks';
+import {useSchedulingLink} from './SchedulingLinkProvider';
 
 /**
  * App data
@@ -14,10 +15,12 @@ import {useUserSettings} from '../api-hooks';
  */
 export const AppDataContext = React.createContext<{
   settings: any;
+  schedulingLinks: any[];
 
   getAvailabilityPresets: (id: string) => any[];
 }>({
   settings: {},
+  schedulingLinks: [],
 
   getAvailabilityPresets: (id) => [],
 });
@@ -41,7 +44,8 @@ type Props = React.PropsWithChildren<{}>;
  * @constructor
  */
 const AppDataProvider = (props: Props) => {
-  const {settings} = useUserSettings();
+  const {data: settings} = useUserSettings();
+  const {data: schedulingLinks} = useSchedulingLinks();
 
   console.log('user settings', settings);
 
@@ -72,6 +76,8 @@ const AppDataProvider = (props: Props) => {
     <AppDataContext.Provider
       value={{
         settings,
+        schedulingLinks,
+
         getAvailabilityPresets,
       }}
     >
