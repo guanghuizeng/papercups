@@ -961,7 +961,7 @@ export const fetchReportingData = async (
     .then((res) => res.body.data);
 };
 
-export const createEventType = async (
+export const createSchedulingLink = async (
   event_type: any,
   token = getAccessToken()
 ) => {
@@ -970,13 +970,13 @@ export const createEventType = async (
   }
 
   return request
-    .post(`/api/event_types`)
+    .post(`/api/scheduling_links`)
     .send({event_type})
     .set('Authorization', token)
     .then((res) => res.body.data);
 };
 
-export const updateEventType = async (
+export const updateSchedulingLink = async (
   eventTypeId: string,
   updates: any,
   token = getAccessToken()
@@ -986,10 +986,10 @@ export const updateEventType = async (
   }
 
   return request
-    .put(`/api/event_types/${eventTypeId}`)
+    .put(`/api/scheduling_links/${eventTypeId}`)
     .set('Authorization', token)
     .send({
-      event_type: updates,
+      scheduling_link: updates,
     })
     .then((res) => res.body.data);
 };
@@ -1011,19 +1011,21 @@ export const createDemo = async (token = getAccessToken()) => {
     .then((res) => res.body.data);
 };
 
-export const fetchEventTypes = async (token = getAccessToken()) => {
+export const fetchSchedulingLinks = async (token = getAccessToken()) => {
   if (!token) {
     throw new Error('Invalid token!');
   }
 
   return request
-    .get(`/api/event_types/`)
+    .get(`/api/scheduling_links/`)
     .set('Authorization', token)
     .then((res) => res.body.data);
 };
 
-export const fetchEventTypesBrief = async (user: string) => {
-  return request.get(`/api/event_types_brief/`).then((res) => res.body.data);
+export const fetchSchedulingLinksBrief = async (user: string) => {
+  return request
+    .get(`/api/scheduling_links_brief/`)
+    .then((res) => res.body.data);
 };
 
 export const fetchSchedules = async (token = getAccessToken()) => {
@@ -1051,7 +1053,7 @@ export const fetchUserProfileBySlug = async (slug: string) => {
     .then((res) => res.body.data);
 };
 
-export const fetchEventTypeByUrl = async (user: string, url: string) => {
+export const fetchSchedulingLinkByUrl = async (user: string, url: string) => {
   return request
     .get(`/api/event_type`)
     .query({url})
@@ -1081,7 +1083,7 @@ export const fetchDatetimeSpotsByRange = async (
   end_time: string
 ) => {
   return request
-    .get(`/api/booking/event_types/${event_type_id}/calendar/range`)
+    .get(`/api/booking/scheduling_links/${event_type_id}/calendar/range`)
     .query({
       start_time,
       end_time,

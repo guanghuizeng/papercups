@@ -7,7 +7,7 @@ export function useSchedulingLinks(token = getAccessToken()) {
     throw new Error('Invalid token!');
   }
 
-  const {data, error} = useSWR(`/api/event_types/`, (url) =>
+  const {data, error} = useSWR(`/api/scheduling_links/`, (url) =>
     fetchWithToken(url, token)
   );
   return {
@@ -22,7 +22,7 @@ export function useLink(id: string, token = getAccessToken()) {
     throw new Error('Invalid token!');
   }
 
-  const {data, error} = useSWR(`/api/event_types/${id}`, (url) =>
+  const {data, error} = useSWR(`/api/scheduling_links/${id}`, (url) =>
     fetchWithToken(url, token)
   );
 

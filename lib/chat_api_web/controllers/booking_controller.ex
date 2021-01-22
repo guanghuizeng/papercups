@@ -5,8 +5,8 @@ defmodule ChatApiWeb.BookingController do
   alias ChatApi.Events
   alias ChatApi.Events.Event
 
-  alias ChatApi.EventTypes
-  alias ChatApi.EventTypes.EventType
+  alias ChatApi.SchedulingLinks
+  alias ChatApi.SchedulingLinks.SchedulingLink
 
   alias ChatApi.Schedules
   alias ChatApi.Schedules.Schedule
@@ -146,10 +146,10 @@ defmodule ChatApiWeb.BookingController do
   """
   @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def show(conn, params) do
-    %{"event_type_id" => event_type_id, "start_time" => start_time, "end_time" => end_time} = params
+    %{"scheduling_link_id" => scheduling_link_id, "start_time" => start_time, "end_time" => end_time} = params
 
-    event_type = EventTypes.get_event_type!(event_type_id)
-    schedule = Schedules.get_schedule!(event_type.schedule_id)
+    scheduling_link = SchedulingLinks.get_scheduling_link!(scheduling_link_id)
+    schedule = Schedules.get_schedule!(scheduling_link.schedule_id)
     {:ok, rules} = Jason.decode(schedule.rules)
     {:ok, start_date} = Date.from_iso8601(start_time)
     {:ok, final_date} = Date.from_iso8601(end_time)

@@ -1,40 +1,40 @@
-defmodule ChatApiWeb.EventTypeController do
+defmodule ChatApiWeb.SchedulingLinkController do
   require Logger
   use ChatApiWeb, :controller
 
-  alias ChatApi.EventTypes
-  alias ChatApi.EventTypes.EventType
+  alias ChatApi.SchedulingLinks
+  alias ChatApi.SchedulingLinks.SchedulingLink
 
   @spec index(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def index(conn, filters) do
     with %{id: user_id} <- conn.assigns.current_user do
-      event_types = EventTypes.list_event_types_by_user(user_id, filters)
-      render(conn, "index.json", event_types: event_types)
+      scheduling_links = SchedulingLinks.list_scheduling_links_by_user(user_id, filters)
+      render(conn, "index.json", scheduling_links: scheduling_links)
     end
   end
 
   @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def show(conn, %{"id" => id}) do
-    event_type = EventTypes.get_event_type!(id)
-    render(conn, "show.json", event_type: event_type)
+    scheduling_link = SchedulingLinks.get_scheduling_link!(id)
+    render(conn, "show.json", scheduling_link: scheduling_link)
   end
 
 
   @spec create(Plug.Conn.t(), map()) :: Plug.Conn.t()
-  def create(conn, %{"event_type" => event_type_params}) do
+  def create(conn, %{"scheduling_link" => scheduling_link_params}) do
     %{
       "name" => name,
       "location" => location,
       "description" => description,
       "url" => url,
       "color" => color
-    } = event_type_params
+    } = scheduling_link_params
 
     with %{account_id: account_id, id: author_id} <- conn.assigns.current_user,
          #         {:ok, %Schedule{} = schedule} <-
          #           Schedules.create_default_schedule(),
-         {:ok, %EventType{} = event_type} <-
-           EventTypes.create_event_type(
+         {:ok, %SchedulingLink{} = scheduling_link} <-
+           SchedulingLinks.create_scheduling_link(
              %{
                name: name,
                location: location,
@@ -46,16 +46,16 @@ defmodule ChatApiWeb.EventTypeController do
            ) do
       conn
       |> put_status(:created)
-      |> render("show.json", event_type: event_type)
+      |> render("show.json", scheduling_link: scheduling_link)
     end
   end
 
   @spec update(Plug.Conn.t(), map()) :: Plug.Conn.t()
-  def update(conn, %{"id" => id, "event_type" => event_type_params}) do
-    event_type = EventTypes.get_event_type!(id)
+  def update(conn, %{"id" => id, "scheduling_link" => scheduling_link_params}) do
+    scheduling_link = SchedulingLinks.get_scheduling_link!(id)
 
-    with {:ok, %EventType{} = event_type} <- EventTypes.update_event_type(event_type, event_type_params) do
-      render(conn, "show.json", event_type: event_type)
+    with {:ok, %SchedulingLink{} = scheduling_link} <- SchedulingLinks.update_scheduling_link(scheduling_link, scheduling_link_params) do
+      render(conn, "show.json", scheduling_link: scheduling_link)
     end
   end
 

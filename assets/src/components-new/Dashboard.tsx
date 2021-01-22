@@ -7,6 +7,7 @@ import {
   Route,
   Link,
   RouteComponentProps,
+  BrowserRouter as Router,
 } from 'react-router-dom';
 import _ from 'lodash';
 import EventType from './EventType';
@@ -74,6 +75,14 @@ function Dashboard(props: RouteComponentProps) {
               );
             })}
           </div>
+        </div>
+        <div
+          className="cursor-pointer hover:bg-gray-200"
+          onClick={() => {
+            auth.logout();
+          }}
+        >
+          Logout
         </div>
       </div>
 

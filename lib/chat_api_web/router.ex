@@ -70,10 +70,10 @@ defmodule ChatApiWeb.Router do
 
     get("/profile", UserProfileController, :show)
     get("/user_settings", UserSettingsController, :show)
-    get("/event_type", EventTypeController, :show)
+    get("/scheduling_link", SchedulingLinkController, :show)
     get("/schedules", ScheduleController, :show)
     post("/events", EventController, :create)
-    get("/booking/event_types/:event_type_id/calendar/range", BookingController, :show)
+    get("/booking/scheduling_links/:scheduling_link_id/calendar/range", BookingController, :show)
 
   end
 
@@ -118,7 +118,7 @@ defmodule ChatApiWeb.Router do
     resources("/browser_sessions", BrowserSessionController, except: [:create, :new, :edit])
     resources("/personal_api_keys", PersonalApiKeyController, except: [:new, :edit, :update])
 
-    resources("/event_types", EventTypeController, except: [:new, :edit])
+    resources("/scheduling_links", SchedulingLinkController, except: [:new, :edit])
     resources("/scheduled_events", EventController, except: [:new, :edit])
 
 

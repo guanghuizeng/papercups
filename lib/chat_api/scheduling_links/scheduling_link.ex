@@ -1,10 +1,10 @@
-defmodule ChatApi.EventTypes.EventType do
+defmodule ChatApi.SchedulingLinks.SchedulingLink do
   use Ecto.Schema
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "event_types" do
+  schema "scheduling_links" do
     field :name, :string
     field :description, :string
     field :location, :string
@@ -28,8 +28,8 @@ defmodule ChatApi.EventTypes.EventType do
   end
 
   @doc false
-  def changeset(event_type, attrs) do
-    event_type
+  def changeset(scheduling_link, attrs) do
+    scheduling_link
     |> cast(attrs,
          [:name, :location, :description, :url, :color, :period_type, :min_booking_time, :max_booking_time,
            :start_date, :end_date, :duration, :before_buffer_time, :after_buffer_time, :schedule_id]

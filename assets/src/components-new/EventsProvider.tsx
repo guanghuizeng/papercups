@@ -92,7 +92,7 @@ export class EventsProvider extends React.Component<Props, State> {
       API.fetchAccountInfo(),
       API.fetchUserProfile(),
       API.fetchUserSettings(),
-      API.fetchEventTypes(),
+      API.fetchSchedulingLinks(),
     ]);
 
     const eventTypesById = _.keyBy(eventTypes, 'id');
@@ -112,7 +112,7 @@ export class EventsProvider extends React.Component<Props, State> {
   createEventType = async (value: any) => {
     console.log('createEventType');
     try {
-      await API.createEventType(value);
+      await API.createSchedulingLink(value);
     } catch (e) {
       console.log('Create err', e);
     }
@@ -130,7 +130,7 @@ export class EventsProvider extends React.Component<Props, State> {
     });
 
     try {
-      await API.updateEventType(eventTypeId, {event_type: params});
+      await API.updateSchedulingLink(eventTypeId, {event_type: params});
     } catch (err) {
       this.setState({
         eventTypesById: eventTypesById,
@@ -139,7 +139,7 @@ export class EventsProvider extends React.Component<Props, State> {
   };
 
   fetchAllEventTypes = async (): Promise<Array<any>> => {
-    const eventTypes = await API.fetchEventTypes();
+    const eventTypes = await API.fetchSchedulingLinks();
     const eventTypesById = _.keyBy(eventTypes, 'id');
 
     this.setState({

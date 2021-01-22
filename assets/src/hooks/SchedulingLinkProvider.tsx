@@ -81,33 +81,33 @@ const SchedulingLinkProvider = (props: Props) => {
 
   const _update = (newValue: any) => {
     return mutate(
-      `/api/event_types/${props.linkId}`,
+      `/api/scheduling_links/${props.linkId}`,
       {data: {...link, ...newValue}},
       false
     );
   };
 
   const _revalidate = () => {
-    mutate(`/api/event_types/${props.linkId}`);
+    mutate(`/api/scheduling_links/${props.linkId}`);
   };
 
   const updateSlug = async (value: string) => {
     _update({slug: value});
-    await API.updateEventType(link.id, {slug: value});
+    await API.updateSchedulingLink(link.id, {slug: value});
     _revalidate();
     return Promise.resolve();
   };
 
   const updateName = async (value: string) => {
     _update({name: value});
-    await API.updateEventType(link.id, {name: value});
+    await API.updateSchedulingLink(link.id, {name: value});
     _revalidate();
     return Promise.resolve();
   };
 
   const updateDescription = async (value: string) => {
     _update({description: value});
-    await API.updateEventType(link.id, {description: value});
+    await API.updateSchedulingLink(link.id, {description: value});
     _revalidate();
     return Promise.resolve();
   };
@@ -120,7 +120,7 @@ const SchedulingLinkProvider = (props: Props) => {
 
   const updateLocation = async (value: string) => {
     _update({location: value});
-    await API.updateEventType(link.id, {location: value});
+    await API.updateSchedulingLink(link.id, {location: value});
     _revalidate();
     return Promise.resolve();
   };
@@ -162,7 +162,5 @@ const SchedulingLinkProvider = (props: Props) => {
     </SchedulingLinkContext.Provider>
   );
 };
-
-// hooks
 
 export default SchedulingLinkProvider;

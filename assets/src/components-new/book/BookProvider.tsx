@@ -2,10 +2,10 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useHistory, useLocation} from 'react-router-dom';
 import {
   fetchUserProfileBySlug,
-  fetchEventTypeByUrl as _fetchEventTypeByUrl,
+  fetchSchedulingLinkByUrl as _fetchEventTypeByUrl,
   fetchScheduleById,
   createEvent as _createEvent,
-  fetchEventTypesBrief,
+  fetchSchedulingLinksBrief,
   fetchDatetimeSpotsByRange as fetchDatetimeSpotsByRange,
 } from '../../api';
 import moment from 'moment';
@@ -112,7 +112,7 @@ const BookProvider = (props: Props) => {
   };
 
   const fetchEventTypes = (user: string) => {
-    return fetchEventTypesBrief(user).then((r) => {
+    return fetchSchedulingLinksBrief(user).then((r) => {
       return r;
     });
   };
