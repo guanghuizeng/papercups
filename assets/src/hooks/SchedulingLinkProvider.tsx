@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import _ from 'lodash';
 import useSWR, {mutate} from 'swr';
 import {getAccessToken} from '../api';
@@ -47,24 +47,13 @@ type Props = React.PropsWithChildren<{
 
 const SchedulingLinkProvider = (props: Props) => {
   const {link, isLoading, isError} = useLink(props.linkId);
-  const {getAvailabilityPresets} = useAppData();
-  const [presets, setPresets] = useState<any[]>([
-    {
-      byday: ['一', '二', '三', '四', '五'],
-      endTime: 1020,
-      startTime: 540,
-    },
-    {
-      byday: ['一', '二'],
-      endTime: 1080,
-      startTime: 720,
-    },
-    {
-      byday: ['一', '二', '三', '四', '五'],
-      endTime: 1380,
-      startTime: 1200,
-    },
-  ]);
+  const {settings, getAvailabilityPresets} = useAppData();
+  const [presets, setPresets] = useState<any[]>([]);
+
+  useEffect(() => {
+    setPresets(getAvailabilityPresets(''));
+  }, [settings, link]);
+
   const [overrides, setOverrides] = useState<any[]>([
     {
       startAt: '2021-01-19T02:00:00Z',
@@ -82,6 +71,7 @@ const SchedulingLinkProvider = (props: Props) => {
       type: 'allow',
     },
   ]);
+
   if (isLoading) return <div>Loading</div>;
   if (isError) return <div>Error</div>;
 
@@ -171,7 +161,6 @@ function useLink(id: string, token = getAccessToken()) {
   const {data, error} = useSWR(`/api/event_types/${id}`, (url) =>
     fetchWithToken(url, token)
   );
-  console.log('Use link', data);
   return {
     link: data && data.data,
     isLoading: !error && !data,

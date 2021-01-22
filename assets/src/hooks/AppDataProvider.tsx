@@ -2,6 +2,9 @@ import React, {useContext, useEffect} from 'react';
 import _ from 'lodash';
 import useSWR, {mutate} from 'swr';
 import * as API from '../api';
+import {getAccessToken} from '../api';
+import {fetchWithToken} from './utils';
+import {useAuth} from '../components/auth/AuthProvider';
 
 /**
  * App data
@@ -9,8 +12,12 @@ import * as API from '../api';
  *
  */
 export const AppDataContext = React.createContext<{
+  settings: any;
+
   getAvailabilityPresets: (id: string) => any[];
 }>({
+  settings: {},
+
   getAvailabilityPresets: (id) => [],
 });
 
@@ -33,50 +40,37 @@ type Props = React.PropsWithChildren<{}>;
  * @constructor
  */
 const AppDataProvider = (props: Props) => {
-  useEffect(() => {
-    async function fetch() {
-      const [
-        currentUser,
-        account,
-        profile,
-        settings,
-        eventTypes,
-      ] = await Promise.all([
-        API.me(),
-        API.fetchAccountInfo(),
-        API.fetchUserProfile(),
-        API.fetchUserSettings(),
-        API.fetchEventTypes(),
-      ]);
+  const {settings} = useUserSettings();
 
-      console.log('Fetch', currentUser, account, profile, settings);
-    }
-    fetch();
-  }, []);
+  console.log('user settings', settings);
 
   const getAvailabilityPresets = (id: string) => {
-    return [
-      {
-        byday: ['一', '二', '三', '四', '五'],
-        endTime: 1020,
-        startTime: 540,
-      },
-      {
-        byday: ['一', '二'],
-        endTime: 1080,
-        startTime: 720,
-      },
-      {
-        byday: ['一', '二', '三', '四', '五'],
-        endTime: 1380,
-        startTime: 1200,
-      },
-    ];
+    if (settings) {
+      return [
+        {
+          byday: ['一', '二', '三', '四', '五'],
+          endTime: 1020,
+          startTime: 540,
+        },
+        {
+          byday: ['一', '二'],
+          endTime: 1080,
+          startTime: 720,
+        },
+        {
+          byday: ['一', '二', '三', '四', '五'],
+          endTime: 1380,
+          startTime: 1200,
+        },
+      ];
+    }
+    return [];
   };
 
   return (
     <AppDataContext.Provider
       value={{
+        settings,
         getAvailabilityPresets,
       }}
     >
@@ -84,5 +78,21 @@ const AppDataProvider = (props: Props) => {
     </AppDataContext.Provider>
   );
 };
+
+function useUserSettings(token = getAccessToken()) {
+  if (!token) {
+    throw new Error('Invalid token!');
+  }
+
+  const {data, error} = useSWR(`/api/user_settings`, (url) =>
+    fetchWithToken(url, token)
+  );
+
+  return {
+    settings: data && data.data,
+    isLoading: !error && !data,
+    isError: error,
+  };
+}
 
 export default AppDataProvider;
