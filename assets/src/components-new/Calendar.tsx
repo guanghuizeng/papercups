@@ -29,8 +29,9 @@ dayjs.locale('zh-cn');
 interface CalendarProps {
   start: string;
   end: string;
-  presets: any;
-  overrides: any;
+  availabilityPresets: any[];
+  availabilityOverrides: any[];
+  updateAvailabilityOverrides: (value: any) => any;
 }
 
 /**
@@ -47,7 +48,7 @@ function Calendar(props: CalendarProps) {
     availabilityPresets,
     availabilityOverrides,
     updateAvailabilityOverrides,
-  } = useSchedulingLink();
+  } = props;
 
   const [selectInfo, setSelectInfo] = useState<DateSelectArg | null>(null);
 
@@ -387,4 +388,23 @@ function renderEventContent(eventContent: EventContentArg) {
   );
 }
 
-export default Calendar;
+function CalendarWrapper() {
+  // read availability from scheduling link
+  // presets, id => value
+  const {
+    availabilityPresets,
+    availabilityOverrides,
+    updateAvailabilityOverrides,
+  } = useSchedulingLink();
+  return (
+    <Calendar
+      start={''}
+      end={''}
+      availabilityOverrides={availabilityOverrides}
+      availabilityPresets={availabilityPresets}
+      updateAvailabilityOverrides={updateAvailabilityOverrides}
+    />
+  );
+}
+
+export default CalendarWrapper;
