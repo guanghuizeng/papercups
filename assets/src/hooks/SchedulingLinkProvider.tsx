@@ -91,30 +91,29 @@ const SchedulingLinkProvider = (props: Props) => {
     mutate(`/api/event_types/${props.linkId}`);
   };
 
-  const updateSlug = (value: string) => {
+  const updateSlug = async (value: string) => {
     _update({slug: value});
-    // await API.updateSchedulingLinkSlug
+    await API.updateEventType(link.id, {slug: value});
     _revalidate();
     return Promise.resolve();
   };
 
-  const updateName = (value: string) => {
+  const updateName = async (value: string) => {
     _update({name: value});
-    // await API.updateSchedulingLinkName
+    await API.updateEventType(link.id, {name: value});
     _revalidate();
     return Promise.resolve();
   };
 
-  const updateDescription = (value: string) => {
+  const updateDescription = async (value: string) => {
     _update({description: value});
-    // await API.updateSchedulingLinkDescription
+    await API.updateEventType(link.id, {description: value});
     _revalidate();
     return Promise.resolve();
   };
 
-  const updateDurations = (value: string[]) => {
+  const updateDurations = async (value: string[]) => {
     _update({description: value});
-    // await API.updateSchedulingLinkDescription
     _revalidate();
     return Promise.resolve();
   };
