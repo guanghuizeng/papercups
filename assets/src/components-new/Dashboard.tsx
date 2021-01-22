@@ -18,6 +18,7 @@ import NewEventType from './events/NewEventType';
 import NavSection from './NavSection';
 import ScheduledEvents from './events/ScheduledEvents';
 import SchedulingLink from './SchedulingLink';
+import AppDataProvider from '../hooks/AppDataProvider';
 
 function Dashboard(props: RouteComponentProps) {
   const auth = useAuth();
@@ -113,9 +114,9 @@ function Dashboard(props: RouteComponentProps) {
 
 const DashboardWrapper = (props: RouteComponentProps) => {
   return (
-    <EventsProvider>
+    <AppDataProvider>
       <Dashboard {...props} />
-    </EventsProvider>
+    </AppDataProvider>
   );
 };
 

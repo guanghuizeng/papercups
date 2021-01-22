@@ -1,6 +1,7 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import _ from 'lodash';
 import useSWR, {mutate} from 'swr';
+import * as API from '../api';
 
 /**
  * App data
@@ -15,9 +16,7 @@ export const AppDataContext = React.createContext<{
 
 export const useAppData = () => useContext(AppDataContext);
 
-type Props = React.PropsWithChildren<{
-  userId: string;
-}>;
+type Props = React.PropsWithChildren<{}>;
 
 /**
  * App Data Provider
@@ -34,6 +33,27 @@ type Props = React.PropsWithChildren<{
  * @constructor
  */
 const AppDataProvider = (props: Props) => {
+  useEffect(() => {
+    async function fetch() {
+      const [
+        currentUser,
+        account,
+        profile,
+        settings,
+        eventTypes,
+      ] = await Promise.all([
+        API.me(),
+        API.fetchAccountInfo(),
+        API.fetchUserProfile(),
+        API.fetchUserSettings(),
+        API.fetchEventTypes(),
+      ]);
+
+      console.log('Fetch', currentUser, account, profile, settings);
+    }
+    fetch();
+  }, []);
+
   const getAvailabilityPresets = (id: string) => {
     return [
       {
