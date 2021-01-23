@@ -18,6 +18,8 @@ defmodule ChatApi.SchedulingLinks.SchedulingLink do
     field :end_date, :string
     field :durations, {:array, :integer}
 
+    field :fields, {:array, :map}
+
     field :before_buffer_time, :integer
     field :after_buffer_time, :integer
 
@@ -32,7 +34,7 @@ defmodule ChatApi.SchedulingLinks.SchedulingLink do
     scheduling_link
     |> cast(attrs,
          [:name, :location, :description, :url, :color, :period_type, :min_booking_time, :max_booking_time,
-           :start_date, :end_date, :durations, :before_buffer_time, :after_buffer_time, :schedule_id]
+           :start_date, :end_date, :durations, :before_buffer_time, :after_buffer_time, :schedule_id, :fields]
        )
   end
 end

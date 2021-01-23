@@ -14,6 +14,7 @@ export const SchedulingLinkContext = React.createContext<{
   availability: any;
   availabilityPresets: any[];
   availabilityOverrides: any[];
+  fields: any[];
 
   updateSlug: (value: string) => Promise<any>;
   updateName: (value: string) => Promise<any>;
@@ -31,6 +32,7 @@ export const SchedulingLinkContext = React.createContext<{
   availability: {},
   availabilityPresets: [],
   availabilityOverrides: [],
+  fields: [],
 
   updateSlug: (value: string) => Promise.resolve({}),
   updateName: (value: string) => Promise.resolve({}),
@@ -150,6 +152,7 @@ const SchedulingLinkProvider = (props: Props) => {
         availability: link.organizer?.availability,
         availabilityPresets: presets,
         availabilityOverrides: overrides,
+        fields: link.fields,
 
         updateSlug,
         updateName,

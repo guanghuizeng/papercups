@@ -85,6 +85,20 @@ const AppDataProvider = (props: Props) => {
       location: 'loc1',
       url: '15min',
       color: 'red',
+      fields: [
+        {
+          id: 'q1',
+          label: '你的电话号码是多少？',
+          required: true,
+          type: 'long_text',
+        },
+        {
+          id: 'q2',
+          label: '你的工作是什么？',
+          required: false,
+          type: 'long_text',
+        },
+      ],
     }).then((r) => {
       console.log('Resp', r);
       mutate(`/api/scheduling_links/`);

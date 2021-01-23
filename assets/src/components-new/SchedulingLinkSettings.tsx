@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
+import {useSchedulingLink} from '../hooks/SchedulingLinkProvider';
 
 function SettingSection(props: any) {
   return (
@@ -21,40 +22,25 @@ function CalendarBindingSection() {
   );
 }
 
-interface SchedulingLinkQuestionConfiguration {
-  prompt: string;
+interface SchedulingLinkFieldConfiguration {
+  label: string;
   required: boolean;
   type: string;
 }
 
-interface SchedulingLinkQuestion extends SchedulingLinkQuestionConfiguration {
+interface SchedulingLinkField extends SchedulingLinkFieldConfiguration {
   id: string;
 }
 
-function QuestionSection() {
-  // const {getQuestions} = useAppData() //  map id list to questions
-  // const {questions} = useSchedulingLink() //  id list
-  const questions: SchedulingLinkQuestion[] = [
-    {
-      id: 'q1',
-      prompt: '你的电话号码是多少？',
-      required: true,
-      type: 'text',
-    },
-    {
-      id: 'q2',
-      prompt: '你的工作是什么？',
-      required: false,
-      type: 'text',
-    },
-  ];
+function FieldSection() {
+  const {fields} = useSchedulingLink();
 
-  const updateQuestion = (question: SchedulingLinkQuestion) => {};
+  const updateQuestion = (question: SchedulingLinkField) => {};
 
   const removeQuestion = (id: string) => {};
 
   const addQuestion = (
-    questionConfiguration: SchedulingLinkQuestionConfiguration
+    questionConfiguration: SchedulingLinkFieldConfiguration
   ) => {};
 
   return (
@@ -62,18 +48,22 @@ function QuestionSection() {
       <h2>问题</h2>
       <div>在预约界面上将收集的问题</div>
       <div className="flex flex-col">
-        {questions.map((question) => {
-          return (
-            <div key={question.id} className="flex flex-row  py-2">
-              <div className="mx-2 text-gray-400">
-                <i className="fas fa-bars" />
+        {fields ? (
+          fields.map((field) => {
+            return (
+              <div key={field.id} className="flex flex-row  py-2">
+                <div className="mx-2 text-gray-400">
+                  <i className="fas fa-bars" />
+                </div>
+                <div className="border-primary border-solid border-2 rounded">
+                  {field.label}
+                </div>
               </div>
-              <div className="border-primary border-solid border-2 rounded">
-                {question.prompt}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <div>template</div>
+        )}
       </div>
     </SettingSection>
   );
@@ -108,7 +98,7 @@ export default function SchedulingLinkSettings() {
 
       <div className="w-full h-full flex flex-col">
         {/*<CalendarBindingSection />*/}
-        <QuestionSection />
+        <FieldSection />
         <BufferLimitSection />
         <ReminderSection />
       </div>
