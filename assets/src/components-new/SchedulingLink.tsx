@@ -83,7 +83,14 @@ function AvailabilitySelect() {
 
 function GeneralSection() {
   let {id} = useParams();
-  const {name, description, location, updateLocation} = useSchedulingLink();
+  const {
+    name,
+    description,
+    location,
+    updateLocation,
+    updateName,
+    updateDescription,
+  } = useSchedulingLink();
 
   return (
     <div date-section="general" className="flex flex-col">
@@ -93,14 +100,21 @@ function GeneralSection() {
           placeholder="Name this link"
           spellCheck="false"
           style={{height: '34px !important'}}
-          value={name}
+          defaultValue={name}
+          onChange={(e) => {
+            console.log('Name change', e.target.value);
+            updateName(e.target.value);
+          }}
         />
         <textarea
           className="-mx-2 px-2 py-0 rounded-md block border-transparent focus:outline-none focus:border focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 w-full text-gray-600 resize-none leading-5 placeholder-gray-600"
           placeholder="Enter a description"
           spellCheck="false"
           style={{height: '24px !important'}}
-          value={description}
+          defaultValue={description}
+          onChange={(e) => {
+            updateDescription(e.target.value);
+          }}
         />
       </div>
       <div className="px-2 flex flex-col">

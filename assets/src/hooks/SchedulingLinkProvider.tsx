@@ -89,6 +89,7 @@ const SchedulingLinkProvider = (props: Props) => {
 
   const _revalidate = () => {
     mutate(`/api/scheduling_links/${props.linkId}`);
+    mutate('/api/scheduling_links/');
   };
 
   const updateSlug = async (value: string) => {
