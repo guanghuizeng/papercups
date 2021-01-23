@@ -50,3 +50,19 @@ export function useUserSettings(token = getAccessToken()) {
     isError: error,
   };
 }
+
+export function useSchedules(token = getAccessToken()) {
+  if (!token) {
+    throw new Error('Invalid token!');
+  }
+
+  const {data, error} = useSWR(`/api/schedules`, (url) =>
+    fetchWithToken(url, token)
+  );
+
+  return {
+    data: data && data.data,
+    isLoading: !error && !data,
+    isError: error,
+  };
+}

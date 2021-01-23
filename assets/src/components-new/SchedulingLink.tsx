@@ -65,20 +65,19 @@ const DurationOptionsMap = DurationOptions.map((opt) => ({
   label: opt[0],
 }));
 
-function AvailabilitySelect() {
-  // const {availability_presets} = useAppData()
-  const {availability} = useSchedulingLink();
+const AvailabilityPresetOptions = [
+  {value: '123', label: '工作时间'},
+  {value: '124', label: '周末'},
+];
 
-  return (
-    <Select
-      className="w-full"
-      options={[
-        {value: '123', label: '工作时间'},
-        {value: '124', label: '周末'},
-      ]}
-      isMulti
-    />
-  );
+function AvailabilitySelect({options}: any) {
+  // get presets from scheduling link config as selected value
+  // get all presets from app data as options
+
+  // const {availability_presets} = useAppData()
+  // const {availability} = useSchedulingLink();
+
+  return <Select className="w-full" options={options} isMulti />;
 }
 
 function GeneralSection() {
@@ -163,7 +162,7 @@ function GeneralSection() {
           }}
         >
           <i className="fas fa-calendar-check mr-2 w-5 text-center" />
-          <AvailabilitySelect />
+          <AvailabilitySelect options={AvailabilityPresetOptions} />
         </div>
         <div
           className="flex flex-row px-2 py-2"

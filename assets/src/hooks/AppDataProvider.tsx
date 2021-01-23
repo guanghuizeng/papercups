@@ -5,7 +5,7 @@ import * as API from '../api';
 import {getAccessToken} from '../api';
 import {fetchWithToken} from './utils';
 import {useAuth} from '../components/auth/AuthProvider';
-import {useSchedulingLinks, useUserSettings} from '../api-hooks';
+import {useSchedules, useSchedulingLinks, useUserSettings} from '../api-hooks';
 import {useSchedulingLink} from './SchedulingLinkProvider';
 import {useHistory} from 'react-router-dom';
 
@@ -17,13 +17,16 @@ import {useHistory} from 'react-router-dom';
 export const AppDataContext = React.createContext<{
   settings: any;
   schedulingLinks: any[];
+  availabilityPresets: any[];
+
   createSchedulingLinkAndRedirect: () => Promise<any>;
   getAvailabilityPresets: (id: string) => any[];
 }>({
   settings: {},
   schedulingLinks: [],
-  createSchedulingLinkAndRedirect: () => Promise.resolve(),
+  availabilityPresets: [],
 
+  createSchedulingLinkAndRedirect: () => Promise.resolve(),
   getAvailabilityPresets: (id) => [],
 });
 
@@ -49,6 +52,7 @@ const AppDataProvider = (props: Props) => {
   let history = useHistory();
   const {data: settings} = useUserSettings();
   const {data: schedulingLinks} = useSchedulingLinks();
+  const {data: schedules} = useSchedules();
 
   const getAvailabilityPresets = (id: string) => {
     if (settings) {
@@ -94,6 +98,7 @@ const AppDataProvider = (props: Props) => {
       value={{
         settings,
         schedulingLinks,
+        availabilityPresets: schedules,
         createSchedulingLinkAndRedirect,
 
         getAvailabilityPresets,

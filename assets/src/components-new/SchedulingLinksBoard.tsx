@@ -34,9 +34,13 @@ export const SearchBoxSmallExample = () => (
 );
 
 export function SchedulingLinksBoard() {
-  const {schedulingLinks, createSchedulingLinkAndRedirect} = useAppData();
+  const {
+    schedulingLinks,
+    createSchedulingLinkAndRedirect,
+    availabilityPresets,
+  } = useAppData();
 
-  console.log('Scheduling link board', schedulingLinks);
+  console.log('Scheduling link board', schedulingLinks, availabilityPresets);
 
   return (
     <div className="w-full flex flex-col">
