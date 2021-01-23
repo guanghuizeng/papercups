@@ -24,8 +24,9 @@ defmodule ChatApiWeb.SchedulingLinkController do
   def create(conn, %{"scheduling_link" => scheduling_link_params}) do
     %{
       "name" => name,
-      "location" => location,
       "description" => description,
+      "durations" => durations,
+      "location" => location,
       "url" => url,
       "color" => color
     } = scheduling_link_params
@@ -37,8 +38,9 @@ defmodule ChatApiWeb.SchedulingLinkController do
            SchedulingLinks.create_scheduling_link(
              %{
                name: name,
-               location: location,
                description: description,
+               durations: durations,
+               location: location,
                url: url,
                color: color,
                #             schedule: schedule,

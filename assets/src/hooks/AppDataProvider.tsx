@@ -76,8 +76,9 @@ const AppDataProvider = (props: Props) => {
   const createSchedulingLinkAndRedirect = async () => {
     return API.createSchedulingLink({
       name: '新类型',
-      location: 'loc1',
       description: '描述',
+      durations: [30],
+      location: 'loc1',
       url: '15min',
       color: 'red',
     }).then((r) => {

@@ -18,7 +18,7 @@ export const SchedulingLinkContext = React.createContext<{
   updateSlug: (value: string) => Promise<any>;
   updateName: (value: string) => Promise<any>;
   updateDescription: (value: string) => Promise<any>;
-  updateDurations: (value: string[]) => Promise<any>;
+  updateDurations: (value: number[]) => Promise<any>;
   updateLocation: (value: string) => Promise<any>;
   updateAvailability: (value: any) => Promise<any>;
   updateAvailabilityOverrides: (value: any) => Promise<any>;
@@ -35,7 +35,7 @@ export const SchedulingLinkContext = React.createContext<{
   updateSlug: (value: string) => Promise.resolve({}),
   updateName: (value: string) => Promise.resolve({}),
   updateDescription: (value: string) => Promise.resolve({}),
-  updateDurations: (value: string[]) => Promise.resolve({}),
+  updateDurations: (value: number[]) => Promise.resolve({}),
   updateLocation: (value: string) => Promise.resolve({}),
   updateAvailability: (value: any) => Promise.resolve({}),
   updateAvailabilityOverrides: (value: any) => Promise.resolve({}),
@@ -113,8 +113,9 @@ const SchedulingLinkProvider = (props: Props) => {
     return Promise.resolve();
   };
 
-  const updateDurations = async (value: string[]) => {
-    _update({description: value});
+  const updateDurations = async (value: number[]) => {
+    _update({durations: value});
+    await API.updateSchedulingLink(link.id, {durations: value});
     _revalidate();
     return Promise.resolve();
   };

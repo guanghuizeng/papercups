@@ -86,10 +86,12 @@ function GeneralSection() {
   const {
     name,
     description,
+    durations,
     location,
     updateLocation,
     updateName,
     updateDescription,
+    updateDurations,
   } = useSchedulingLink();
 
   return (
@@ -128,7 +130,28 @@ function GeneralSection() {
           }}
         >
           <i className="fas fa-clock mr-2 w-5 text-center" />
-          <Select className="w-full" options={DurationOptionsMap} isMulti />
+          <Select
+            className="w-full"
+            options={DurationOptionsMap}
+            defaultValue={
+              durations
+                ? durations.map((d) => {
+                    const opt = DurationOptions.find((opt) => opt[1] === d);
+                    if (opt) {
+                      return {
+                        value: opt[1],
+                        label: opt[0],
+                      };
+                    }
+                  })
+                : []
+            }
+            isMulti
+            onChange={(value: any) => {
+              updateDurations(value.map((opt: any) => opt.value));
+              console.log('Durations change', value);
+            }}
+          />
         </div>
         <div
           className="flex flex-row px-2 py-2"
