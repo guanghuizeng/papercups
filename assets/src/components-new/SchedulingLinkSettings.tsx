@@ -107,7 +107,7 @@ export default function SchedulingLinkSettings() {
       </div>
 
       <div className="w-full h-full flex flex-col">
-        <CalendarBindingSection />
+        {/*<CalendarBindingSection />*/}
         <QuestionSection />
         <BufferLimitSection />
         <ReminderSection />
