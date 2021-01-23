@@ -9,6 +9,7 @@ import Select from 'react-select';
 import {Toggle} from '@fluentui/react';
 import WithTip from '../components-new/common/WithTip';
 import Calendar from './Calendar';
+import SchedulingLinkSettings from './SchedulingLinkSettings';
 
 function Header() {
   return (
@@ -365,16 +366,7 @@ function SchedulingLink() {
               <Route
                 exact
                 path="/links/:id/more-settings"
-                component={() => (
-                  <div>
-                    <div>
-                      <Link to={`/links/${id}`} className="hover:bg-gray-300">
-                        Close
-                      </Link>
-                    </div>
-                    <div>问题</div>
-                  </div>
-                )}
+                component={SchedulingLinkSettings}
               />
               <Route
                 exact
