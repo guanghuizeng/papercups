@@ -10,6 +10,7 @@ import {Toggle} from '@fluentui/react';
 import WithTip from '../components-new/common/WithTip';
 import Calendar from './Calendar';
 import SchedulingLinkSettings from './SchedulingLinkSettings';
+import {useAppData} from '../hooks/AppDataProvider';
 
 function Header() {
   return (
@@ -84,7 +85,16 @@ function AvailabilitySelect() {
   // from attender
   // from teammates
 
-  const options = AvailabilityPresetOptions;
+  const {availabilityPresets} = useAppData();
+
+  console.log('availabilityPresets', availabilityPresets);
+
+  const options = availabilityPresets
+    ? availabilityPresets.map((preset) => ({
+        value: preset.id,
+        label: preset.name,
+      }))
+    : [];
 
   const organizer = {
     id: '',

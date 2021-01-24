@@ -120,6 +120,7 @@ defmodule ChatApiWeb.Router do
 
     resources("/scheduling_links", SchedulingLinkController, except: [:new, :edit])
     resources("/scheduled_events", EventController, except: [:new, :edit])
+    resources("/schedules", ScheduleController, except: [:new, :edit])
 
 
     post("/conversations/:conversation_id/share", ConversationController, :share)

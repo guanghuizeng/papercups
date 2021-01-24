@@ -64,14 +64,16 @@ type Props = React.PropsWithChildren<{
 
 const SchedulingLinkProvider = (props: Props) => {
   const {link, isLoading, isError} = useLink(props.linkId);
-  const {settings, getAvailabilityPresets} = useAppData();
+  const {settings, getAvailabilityPresetsById} = useAppData();
   const [presets, setPresets] = useState<any[]>([]);
 
   console.log('Scheduling Link Provider', link);
 
   useEffect(() => {
     if (link && link.organizer && link.organizer.availability) {
-      setPresets(getAvailabilityPresets(link.organizer.availability.presets));
+      setPresets(
+        getAvailabilityPresetsById(link.organizer.availability.presets)
+      );
     }
   }, [settings, link]);
 

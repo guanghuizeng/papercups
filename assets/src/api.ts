@@ -1028,6 +1028,30 @@ export const fetchSchedulingLinksBrief = async (user: string) => {
     .then((res) => res.body.data);
 };
 
+export const createSchedule = async (token = getAccessToken()) => {
+  if (!token) {
+    throw new Error('Invalid token!');
+  }
+
+  return request
+    .post(`/api/schedules/`)
+    .set('Authorization', token)
+    .send({
+      schedule: {
+        name: 'New schedule',
+        timezone: 'Asia / Shanghai',
+        rules: [
+          {
+            byday: ['mo', 'tu', 'we', 'th', 'fr'],
+            endTime: 1020,
+            startTime: 540,
+          },
+        ],
+      },
+    })
+    .then((res) => res.body.data);
+};
+
 export const fetchSchedules = async (token = getAccessToken()) => {
   if (!token) {
     throw new Error('Invalid token!');

@@ -106,26 +106,26 @@ defmodule ChatApiWeb.RegistrationController do
   end
 
   def create_default_user_setting(conn, user_id) do
-    with %{id: id} <- Users.get_user_settings(user_id),
-         {:ok, %Schedule{} = schedule} <- Schedules.create_schedule(%{
-           name: "custom",
-           rules: """
-             [{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"monday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"tuesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"wednesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"thursday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"friday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"saturday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"sunday"}]
-           """,
-           timezone: "Asia / Shanghai",
-           user_id: user_id
-         }),
-         {:ok, %Schedule{} = schedule2} <- Schedules.create_schedule(%{
-           name: "Default Hours",
-           rules: """
-             [{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"monday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"tuesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"wednesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"thursday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"friday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"saturday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"sunday"}]
-           """,
-           timezone: "Asia / Shanghai",
-           user_id: user_id
-         }) do
-      Users.update_user_settings(user_id, %{user_id: user_id, schedule_id: schedule.id})
-      Users.update_user_settings(user_id, %{user_id: user_id, default_schedule_id: schedule.id})
-    end
+#    with %{id: id} <- Users.get_user_settings(user_id),
+#         {:ok, %Schedule{} = schedule} <- Schedules.create_schedule(%{
+#           name: "custom",
+#           rules: """
+#             [{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"monday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"tuesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"wednesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"thursday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"friday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"saturday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"sunday"}]
+#           """,
+#           timezone: "Asia / Shanghai",
+#           user_id: user_id
+#         }),
+#         {:ok, %Schedule{} = schedule2} <- Schedules.create_schedule(%{
+#           name: "Default Hours",
+#           rules: """
+#             [{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"monday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"tuesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"wednesday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"thursday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"friday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"saturday"},{"type":"wday","intervals":[{"from":"09:00","to":"17:00"}],"wday":"sunday"}]
+#           """,
+#           timezone: "Asia / Shanghai",
+#           user_id: user_id
+#         }) do
+#      Users.update_user_settings(user_id, %{user_id: user_id, schedule_id: schedule.id})
+#      Users.update_user_settings(user_id, %{user_id: user_id, default_schedule_id: schedule.id})
+#    end
   end
 
   @spec user_with_account_transaction(Conn.t(), map()) :: Ecto.Multi.t()
@@ -141,7 +141,7 @@ defmodule ChatApiWeb.RegistrationController do
       case Pow.Plug.create_user(conn, user) do
         {:ok, new_user, conn} ->
           create_default_user_profile(conn, new_user.id)
-          create_default_user_setting(conn, new_user.id)
+#          create_default_user_setting(conn, new_user.id)
           {:ok, conn}
 
         {:error, reason, _conn} ->

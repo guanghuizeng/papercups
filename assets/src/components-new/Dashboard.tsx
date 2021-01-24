@@ -22,6 +22,7 @@ import SchedulingLink from './SchedulingLink';
 import AppDataProvider from '../hooks/AppDataProvider';
 import {SchedulingLinksBoard} from './SchedulingLinksBoard';
 import SchedulingLinkNew from './SchedulingLinkNew';
+import * as API from '../api';
 
 function Dashboard(props: RouteComponentProps) {
   const auth = useAuth();
@@ -77,8 +78,20 @@ function Dashboard(props: RouteComponentProps) {
             })}
           </div>
         </div>
+
         <div
-          className="cursor-pointer hover:bg-gray-200"
+          className="cursor-pointer hover:bg-gray-200 mt-20"
+          onClick={() => {
+            API.createSchedule().then((r) => {
+              console.log('createSchedule', r);
+            });
+          }}
+        >
+          Create schedule
+        </div>
+
+        <div
+          className="cursor-pointer hover:bg-gray-200 mt-20"
           onClick={() => {
             auth.logout();
           }}

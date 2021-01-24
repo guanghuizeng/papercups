@@ -6,7 +6,8 @@ defmodule ChatApi.Schedules.Schedule do
   @foreign_key_type :binary_id
   schema "schedules" do
     field :name, :string
-    field :rules, :string
+    field :rules, {:array, :map}
+
     field :timezone, :string
 
     belongs_to(:user, User, type: :integer)
