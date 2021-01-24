@@ -55,24 +55,8 @@ const AppDataProvider = (props: Props) => {
   const {data: schedules} = useSchedules();
 
   const getAvailabilityPresetsById = (presets: string[]) => {
-    if (settings) {
-      return [
-        {
-          byday: ['一', '二', '三', '四', '五'],
-          endTime: 1020,
-          startTime: 540,
-        },
-        {
-          byday: ['一', '二'],
-          endTime: 1080,
-          startTime: 720,
-        },
-        {
-          byday: ['一', '二', '三', '四', '五'],
-          endTime: 1380,
-          startTime: 1200,
-        },
-      ];
+    if (schedules) {
+      return _.flatten(schedules.map((schedule: any) => schedule.rules));
     }
     return [];
   };

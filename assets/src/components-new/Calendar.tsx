@@ -19,6 +19,7 @@ import {
 import _ from 'lodash';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import {useSchedulingLink} from '../hooks/SchedulingLinkProvider';
+import {dayConvertToEn} from '../utils';
 
 require('dayjs/locale/zh-cn');
 var isToday = require('dayjs/plugin/isToday');
@@ -291,7 +292,7 @@ function Calendar(props: CalendarProps) {
     const intervals: Dayjs[][] = [];
     let date = startDate.clone();
     while (!date.isSame(endDate)) {
-      const day = date.format('dd').toLowerCase();
+      const day = dayConvertToEn(date.format('dd').toLowerCase());
       availabilityPresets.forEach((settings) => {
         if (settings.byday.findIndex((d: string) => d === day) > -1) {
           let startTime = date.add(settings.startTime, 'minute');

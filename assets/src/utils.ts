@@ -112,3 +112,22 @@ export const addVisibilityEventListener = (
 
   return () => document.removeEventListener(event, handler);
 };
+
+export const dayConvertToEn = (day: string) => {
+  switch (day) {
+    case '一':
+      return 'mo';
+    case '二':
+      return 'tu';
+    case '三':
+      return 'we';
+    case '四':
+      return 'th';
+    case '五':
+      return 'fr';
+    case '六':
+      return 'sa';
+    case '日':
+      return 'su';
+  }
+};
