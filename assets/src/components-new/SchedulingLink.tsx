@@ -97,7 +97,7 @@ function AvailabilitySelect() {
     availability: {
       mode: 'ranked',
       overrides: [],
-      presets: ['s1', 's2', 's3'],
+      presets: ['1ac33b81-c2cc-43be-90e5-2cd25685bfd8'],
       recurringIntervals: [],
     },
   };
@@ -109,12 +109,6 @@ function AvailabilitySelect() {
       availability: {},
     },
   ];
-
-  const defaultValue = ['1ac33b81-c2cc-43be-90e5-2cd25685bfd8'].map(
-    (scheduleId) => {
-      return options.find((opt) => opt.value === scheduleId);
-    }
-  );
 
   const teammates = [
     {
@@ -129,6 +123,10 @@ function AvailabilitySelect() {
       },
     },
   ];
+
+  const defaultValue = organizer.availability.presets.map((scheduleId) => {
+    return options.find((opt) => opt.value === scheduleId);
+  });
 
   return (
     <Select
