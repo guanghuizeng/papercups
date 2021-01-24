@@ -67,11 +67,6 @@ const DurationOptionsMap = DurationOptions.map((opt) => ({
   label: opt[0],
 }));
 
-const AvailabilityPresetOptions = [
-  {value: '123', label: '工作时间'},
-  {value: '124', label: '周末'},
-];
-
 function AvailabilitySelect() {
   // get presets from scheduling link config as selected value
   // get all presets from app data as options
@@ -86,8 +81,6 @@ function AvailabilitySelect() {
   // from teammates
 
   const {availabilityPresets} = useAppData();
-
-  console.log('availabilityPresets', availabilityPresets);
 
   const options = availabilityPresets
     ? availabilityPresets.map((preset) => ({
@@ -117,6 +110,12 @@ function AvailabilitySelect() {
     },
   ];
 
+  const defaultValue = ['1ac33b81-c2cc-43be-90e5-2cd25685bfd8'].map(
+    (scheduleId) => {
+      return options.find((opt) => opt.value === scheduleId);
+    }
+  );
+
   const teammates = [
     {
       id: '',
@@ -131,7 +130,14 @@ function AvailabilitySelect() {
     },
   ];
 
-  return <Select className="w-full" options={options} isMulti />;
+  return (
+    <Select
+      className="w-full"
+      options={options}
+      defaultValue={defaultValue}
+      isMulti
+    />
+  );
 }
 
 function GeneralSection() {
