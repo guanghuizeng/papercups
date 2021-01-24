@@ -20,14 +20,14 @@ export const AppDataContext = React.createContext<{
   availabilityPresets: any[];
 
   createSchedulingLinkAndRedirect: () => Promise<any>;
-  getAvailabilityPresets: (id: string) => any[];
+  getAvailabilityPresets: (presets: string[]) => any[];
 }>({
   settings: {},
   schedulingLinks: [],
   availabilityPresets: [],
 
   createSchedulingLinkAndRedirect: () => Promise.resolve(),
-  getAvailabilityPresets: (id) => [],
+  getAvailabilityPresets: (presets) => [],
 });
 
 export const useAppData = () => useContext(AppDataContext);
@@ -54,7 +54,8 @@ const AppDataProvider = (props: Props) => {
   const {data: schedulingLinks} = useSchedulingLinks();
   const {data: schedules} = useSchedules();
 
-  const getAvailabilityPresets = (id: string) => {
+  const getAvailabilityPresets = (presets: string[]) => {
+    console.log('getAvailabilityPresets', presets);
     if (settings) {
       return [
         {

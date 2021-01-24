@@ -70,7 +70,9 @@ const SchedulingLinkProvider = (props: Props) => {
   console.log('Scheduling Link Provider', link);
 
   useEffect(() => {
-    setPresets(getAvailabilityPresets(''));
+    if (link && link.organizer && link.organizer.availability) {
+      setPresets(getAvailabilityPresets(link.organizer.availability.presets));
+    }
   }, [settings, link]);
 
   const [overrides, setOverrides] = useState<any[]>([

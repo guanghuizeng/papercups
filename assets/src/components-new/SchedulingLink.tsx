@@ -71,12 +71,55 @@ const AvailabilityPresetOptions = [
   {value: '124', label: '周末'},
 ];
 
-function AvailabilitySelect({options}: any) {
+function AvailabilitySelect() {
   // get presets from scheduling link config as selected value
   // get all presets from app data as options
 
   // const {availability_presets} = useAppData()
   // const {availability} = useSchedulingLink();
+
+  // options
+
+  // from organizer
+  // from attender
+  // from teammates
+
+  const options = AvailabilityPresetOptions;
+
+  const organizer = {
+    id: '',
+    avatarUrl:
+      'https://secure.gravatar.com/avatar/fcb9bbfe7fa822090dce8a194ed9730d?s=256&d=404',
+    displayName: 'Yuanyuan Zhang',
+    availability: {
+      mode: 'ranked',
+      overrides: [],
+      presets: ['s1', 's2', 's3'],
+      recurringIntervals: [],
+    },
+  };
+
+  const guests = [
+    {
+      displayName: '',
+      email: '',
+      availability: {},
+    },
+  ];
+
+  const teammates = [
+    {
+      id: '',
+      displayName: 'Ruoxi Zeng',
+      email: 'ruoxizeng@gmail.com',
+      availability: {
+        mode: 'ranked',
+        overrides: [],
+        schedules: ['z1', 'z2', 'z3'],
+        recurringIntervals: [],
+      },
+    },
+  ];
 
   return <Select className="w-full" options={options} isMulti />;
 }
@@ -167,7 +210,7 @@ function GeneralSection() {
           }}
         >
           <i className="fas fa-calendar-check mr-2 w-5 text-center" />
-          <AvailabilitySelect options={AvailabilityPresetOptions} />
+          <AvailabilitySelect />
         </div>
         <div
           className="flex flex-row px-2 py-2"
@@ -197,7 +240,19 @@ function GeneralSection() {
           }}
         >
           <i className="fas fa-user-alt mr-2 w-5 text-center" />
-          个性化
+          受邀请人信息
+        </div>
+        <div
+          className="flex flex-row px-2 py-2"
+          style={{
+            fontSize: '16px',
+            lineHeight: '1.5',
+            marginBottom: '20px',
+            color: '#4d5055',
+          }}
+        >
+          <i className="fas fa-user-alt mr-2 w-5 text-center" />
+          添加团队成员
         </div>
         <div
           style={{
