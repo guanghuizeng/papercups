@@ -405,3 +405,9 @@ input[type='number'] {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent),
     var(--tw-ring-shadow, 0 0 transparent), var(--tw-shadow);
 }
+
+/** */
+
+.btn-draft {
+  @apply mx-2 px-1 border-gray-300 border-2 border-solid cursor-pointer hover:bg-gray-200 rounded;
+}

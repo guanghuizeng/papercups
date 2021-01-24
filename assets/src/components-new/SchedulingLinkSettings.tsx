@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
+import _ from 'lodash';
 import {useSchedulingLink} from '../hooks/SchedulingLinkProvider';
 
 function SettingSection(props: any) {
@@ -33,30 +34,87 @@ interface SchedulingLinkField extends SchedulingLinkFieldConfiguration {
 }
 
 function FieldSection() {
-  const {fields} = useSchedulingLink();
+  const {fields, updateSchedulingLink} = useSchedulingLink();
 
-  const updateQuestion = (question: SchedulingLinkField) => {};
+  const updateLabel = (id: string, value: string) => {
+    const clone: SchedulingLinkField[] = _.cloneDeep(fields);
+    const field = clone.find((field) => field.id === id);
+    if (field) {
+      field.label = value;
+      updateSchedulingLink({
+        fields: clone,
+      });
+    }
+  };
 
-  const removeQuestion = (id: string) => {};
+  const updateRequired = (id: string, value: boolean) => {
+    const clone: SchedulingLinkField[] = _.cloneDeep(fields);
+    const field = clone.find((field) => field.id === id);
+    if (field) {
+      field.required = value;
+      updateSchedulingLink({
+        fields: clone,
+      });
+    }
+  };
 
-  const addQuestion = (
-    questionConfiguration: SchedulingLinkFieldConfiguration
-  ) => {};
+  const addField = () => {
+    const clone: SchedulingLinkField[] = _.cloneDeep(fields);
+    clone.push({
+      id: 'f' + String(_.random(100)),
+      label: 'new question',
+      required: false,
+      type: 'long_text',
+    });
+    updateSchedulingLink({
+      fields: clone,
+    });
+  };
+
+  const removeField = (id: string) => {
+    if (fields) {
+      updateSchedulingLink({
+        fields: fields.filter((field) => field.id !== id),
+      });
+    }
+  };
+
+  console.log('Field', fields);
 
   return (
     <SettingSection>
-      <h2>问题</h2>
-      <div>在预约界面上将收集的问题</div>
+      <h2 className="text-lg text-gray-700">问题</h2>
+      <div className="text-sm text-gray-400">在预约界面上将收集的问题</div>
       <div className="flex flex-col">
         {fields ? (
           fields.map((field) => {
             return (
               <div key={field.id} className="flex flex-row  py-2">
-                <div className="mx-2 text-gray-400">
-                  <i className="fas fa-bars" />
+                {/*<div className="mx-2 text-gray-400">*/}
+                {/*  <i className="fas fa-bars" />*/}
+                {/*</div>*/}
+                <input
+                  className="border-primary border-solid border-2 rounded"
+                  defaultValue={field.label}
+                  onChange={(e) => {
+                    updateLabel(field.id, e.target.value);
+                  }}
+                />
+                <div
+                  className="btn-draft"
+                  onClick={() => {
+                    updateRequired(field.id, !field.required);
+                  }}
+                >
+                  {field.required ? 'required' : 'optional'}
                 </div>
-                <div className="border-primary border-solid border-2 rounded">
-                  {field.label}
+                <div
+                  className="btn-draft"
+                  onClick={() => {
+                    removeField(field.id);
+                  }}
+                >
+                  delete
                 </div>
               </div>
             );
@@ -64,6 +122,9 @@ function FieldSection() {
         ) : (
           <div>template</div>
         )}
+        <div className="w-24 text-center btn-draft" onClick={addField}>
+          Add
+        </div>
       </div>
     </SettingSection>
   );
@@ -75,7 +136,16 @@ function BufferLimitSection() {
   return (
     <SettingSection>
       <h2>缓冲时间及限制</h2>
-      <div></div>
+      <div>
+        <div>
+          <label>会议前</label>
+          <div>5 mins</div>
+        </div>
+        <div>
+          <label>会议后</label>
+          <div>15 mins</div>
+        </div>
+      </div>
     </SettingSection>
   );
 }

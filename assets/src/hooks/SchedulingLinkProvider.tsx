@@ -1,5 +1,4 @@
 import React, {useContext, useEffect, useState} from 'react';
-import _ from 'lodash';
 import useSWR, {mutate} from 'swr';
 import {useAppData} from './AppDataProvider';
 import {useLink} from '../api-hooks';
@@ -23,6 +22,8 @@ export const SchedulingLinkContext = React.createContext<{
   updateLocation: (value: string) => Promise<any>;
   updateAvailability: (value: any) => Promise<any>;
   updateAvailabilityOverrides: (value: any) => Promise<any>;
+
+  updateSchedulingLink: (value: any) => Promise<any>;
 }>({
   slug: '',
   name: '',
@@ -41,6 +42,8 @@ export const SchedulingLinkContext = React.createContext<{
   updateLocation: (value: string) => Promise.resolve({}),
   updateAvailability: (value: any) => Promise.resolve({}),
   updateAvailabilityOverrides: (value: any) => Promise.resolve({}),
+
+  updateSchedulingLink: (value: any) => Promise.resolve({}),
 });
 
 export const useSchedulingLink = () => useContext(SchedulingLinkContext);
@@ -141,6 +144,13 @@ const SchedulingLinkProvider = (props: Props) => {
     return Promise.resolve();
   };
 
+  const updateSchedulingLink = async (updates: any) => {
+    _update(updates);
+    await API.updateSchedulingLink(link.id, updates);
+    _revalidate();
+    return Promise.resolve();
+  };
+
   return (
     <SchedulingLinkContext.Provider
       value={{
@@ -161,6 +171,8 @@ const SchedulingLinkProvider = (props: Props) => {
         updateLocation,
         updateAvailability,
         updateAvailabilityOverrides,
+
+        updateSchedulingLink,
       }}
     >
       {props.children}
