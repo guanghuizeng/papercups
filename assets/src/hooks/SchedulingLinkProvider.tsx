@@ -14,6 +14,10 @@ export const SchedulingLinkContext = React.createContext<{
   availabilityPresets: any[];
   availabilityOverrides: any[];
   fields: any[];
+  bufferBefore: number;
+  bufferAfter: number;
+  limitBookingTime: number;
+  emailReminders: any[];
 
   updateSlug: (value: string) => Promise<any>;
   updateName: (value: string) => Promise<any>;
@@ -34,6 +38,10 @@ export const SchedulingLinkContext = React.createContext<{
   availabilityPresets: [],
   availabilityOverrides: [],
   fields: [],
+  bufferBefore: 0,
+  bufferAfter: 0,
+  limitBookingTime: 0,
+  emailReminders: [],
 
   updateSlug: (value: string) => Promise.resolve({}),
   updateName: (value: string) => Promise.resolve({}),
@@ -163,6 +171,10 @@ const SchedulingLinkProvider = (props: Props) => {
         availabilityPresets: presets,
         availabilityOverrides: overrides,
         fields: link.fields,
+        bufferBefore: link.before_buffer_time,
+        bufferAfter: link.after_buffer_time,
+        limitBookingTime: link.max_booking_time,
+        emailReminders: link.email_reminders,
 
         updateSlug,
         updateName,

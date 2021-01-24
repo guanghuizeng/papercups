@@ -30,6 +30,7 @@ defmodule ChatApiWeb.SchedulingLinkController do
       "url" => url,
       "color" => color,
       "fields" => fields,
+      "email_reminders" => email_reminders,
     } = scheduling_link_params
 
     with %{account_id: account_id, id: author_id} <- conn.assigns.current_user,
@@ -44,7 +45,8 @@ defmodule ChatApiWeb.SchedulingLinkController do
                location: location,
                url: url,
                color: color,
-               fields: fields
+               fields: fields,
+               email_reminders: email_reminders
                #             schedule: schedule,
              }
            ) do

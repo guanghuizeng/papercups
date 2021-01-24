@@ -99,6 +99,12 @@ const AppDataProvider = (props: Props) => {
           type: 'long_text',
         },
       ],
+      email_reminders: [
+        {
+          quantity: 1,
+          units: 'hours',
+        },
+      ],
     }).then((r) => {
       console.log('Resp', r);
       mutate(`/api/scheduling_links/`);
