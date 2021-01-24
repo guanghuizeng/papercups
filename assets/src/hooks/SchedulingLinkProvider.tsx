@@ -18,6 +18,7 @@ export const SchedulingLinkContext = React.createContext<{
   bufferAfter: number;
   limitBookingTime: number;
   emailReminders: any[];
+  organizer: any;
 
   updateSlug: (value: string) => Promise<any>;
   updateName: (value: string) => Promise<any>;
@@ -42,6 +43,7 @@ export const SchedulingLinkContext = React.createContext<{
   bufferAfter: 0,
   limitBookingTime: 0,
   emailReminders: [],
+  organizer: {},
 
   updateSlug: (value: string) => Promise.resolve({}),
   updateName: (value: string) => Promise.resolve({}),
@@ -175,6 +177,7 @@ const SchedulingLinkProvider = (props: Props) => {
         bufferAfter: link.after_buffer_time,
         limitBookingTime: link.max_booking_time,
         emailReminders: link.email_reminders,
+        organizer: link.organizer,
 
         updateSlug,
         updateName,

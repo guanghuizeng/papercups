@@ -21,6 +21,7 @@ defmodule ChatApiWeb.SchedulingLinkView do
       color: scheduling_link.color,
       fields: scheduling_link.fields,
       email_reminders: scheduling_link.email_reminders,
+      organizer: scheduling_link.organizer,
       period_type: scheduling_link.period_type,
       min_booking_time: scheduling_link.min_booking_time,
       max_booking_time: scheduling_link.max_booking_time,

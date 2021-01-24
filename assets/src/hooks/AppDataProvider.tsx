@@ -105,6 +105,29 @@ const AppDataProvider = (props: Props) => {
           units: 'hours',
         },
       ],
+      organizer: {
+        availability: {
+          mode: 'ranked',
+          overrides: [
+            {
+              endAt: '2021-01-19T07:30:00Z',
+              startAt: '2021-01-19T02:15:00Z',
+              type: 'block',
+            },
+            {
+              endAt: '2021-01-18T08:45:00Z',
+              startAt: '2021-01-18T02:30:00Z',
+              type: 'block',
+            },
+          ],
+          presets: ['39f52432cfa64661', 'ed0eb79a82ba137e', 'ff9e7d4dd2f506c5'],
+          recurringIntervals: [],
+        },
+        avatarUrl:
+          'https://secure.gravatar.com/avatar/fcb9bbfe7fa822090dce8a194ed9730d?s=256&d=404',
+        calendarId: null,
+        displayName: 'Yuanyuan Zhang',
+      },
     }).then((r) => {
       console.log('Resp', r);
       mutate(`/api/scheduling_links/`);

@@ -88,11 +88,15 @@ function GeneralSection() {
     description,
     durations,
     location,
+    organizer,
+
     updateLocation,
     updateName,
     updateDescription,
     updateDurations,
   } = useSchedulingLink();
+
+  console.log('general', organizer);
 
   return (
     <div date-section="general" className="flex flex-col">
