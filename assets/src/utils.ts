@@ -129,5 +129,7 @@ export const dayConvertToEn = (day: string) => {
       return 'sa';
     case '日':
       return 'su';
+    default:
+      return day;
   }
 };
