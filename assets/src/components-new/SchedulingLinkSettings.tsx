@@ -4,6 +4,7 @@ import _ from 'lodash';
 import {useSchedulingLink} from '../hooks/SchedulingLinkProvider';
 import {Toggle} from '@fluentui/react';
 import Select from 'react-select';
+import {nanoid} from 'nanoid';
 
 function SettingSection(props: any) {
   return (
@@ -208,29 +209,36 @@ function BufferLimitSection() {
   );
 }
 
-function ReminderSection() {
+const ReminderSection = React.memo(() => {
   const {emailReminders, updateSchedulingLink} = useSchedulingLink();
 
-  const updateEmailReminderQuantity = (index: number, value: number) => {
+  const updateEmailReminderQuantity = (id: string, value: number) => {
     const clone = _.cloneDeep(emailReminders);
-    clone[index].quantity = value;
-    updateSchedulingLink({
-      email_reminders: clone,
-    });
+    const reminder = clone.find((r) => r.id === id);
+    if (reminder) {
+      reminder.quantity = value;
+      updateSchedulingLink({
+        email_reminders: clone,
+      });
+    }
   };
 
-  const updateEmailReminderUnit = (index: number, value: string) => {
+  const updateEmailReminderUnit = (id: string, value: string) => {
     const clone = _.cloneDeep(emailReminders);
-    clone[index].units = value;
-    updateSchedulingLink({
-      email_reminders: clone,
-    });
+    const reminder = clone.find((r) => r.id === id);
+    if (reminder) {
+      reminder.units = value;
+      updateSchedulingLink({
+        email_reminders: clone,
+      });
+    }
   };
 
   const add = () => {
     if (emailReminders) {
       const clone = _.cloneDeep(emailReminders);
       clone.push({
+        id: nanoid(),
         quantity: 30,
         units: 'min',
       });
@@ -240,32 +248,30 @@ function ReminderSection() {
     }
   };
 
-  const remove = (index: number) => {
+  const remove = (id: string) => {
     if (emailReminders) {
-      emailReminders.splice(index, 1);
       updateSchedulingLink({
-        email_reminders: emailReminders,
+        email_reminders: emailReminders.filter((r) => r.id !== id),
       });
     }
   };
+
+  console.log('reminder', emailReminders);
 
   return (
     <div>
       <label>提醒</label>
       <div>
         {emailReminders &&
-          emailReminders.map(({quantity, units}, index) => {
+          emailReminders.map(({quantity, units, id}) => {
             return (
-              <div className="flex flex-row">
+              <div key={id} className="flex flex-row">
                 <input
                   className="border-primary border-solid border-2 rounded w-20"
                   defaultValue={quantity}
                   type="number"
                   onChange={(e) => {
-                    updateEmailReminderQuantity(
-                      index,
-                      parseInt(e.target.value)
-                    );
+                    updateEmailReminderQuantity(id, parseInt(e.target.value));
                   }}
                 />
                 <Select
@@ -290,14 +296,14 @@ function ReminderSection() {
                   }}
                   onChange={(option) => {
                     if (option) {
-                      updateEmailReminderUnit(index, option.value);
+                      updateEmailReminderUnit(id, option.value);
                     }
                   }}
                 />
                 <div
                   className="btn-draft"
                   onClick={() => {
-                    remove(index);
+                    remove(id);
                   }}
                 >
                   delete
@@ -311,7 +317,7 @@ function ReminderSection() {
       </div>
     </div>
   );
-}
+});
 
 export default function SchedulingLinkSettings() {
   let {id} = useParams();
