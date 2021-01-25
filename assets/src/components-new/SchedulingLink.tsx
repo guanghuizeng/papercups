@@ -83,7 +83,8 @@ function AvailabilitySelect() {
 
   const {availabilityPresets} = useAppData();
   const {
-    availabilityPresetsIntervals: organizerAvailabilityPresets,
+    availabilityPresets: organizerAvailabilityPresets,
+    updateAvailabilityPresets,
   } = useSchedulingLink();
 
   const options = availabilityPresets
@@ -115,15 +116,18 @@ function AvailabilitySelect() {
     },
   ];
 
-  const defaultValue = organizerAvailabilityPresets.map((scheduleId) => {
-    return options.find((opt) => opt.value === scheduleId);
-  });
+  const defaultValue = organizerAvailabilityPresets
+    ? organizerAvailabilityPresets.map((scheduleId) => {
+        return options.find((opt) => opt.value === scheduleId);
+      })
+    : null;
 
-  const updatePresets = (value: string[]) => {
+  const updatePresets = async (value: string[] | null) => {
+    return updateAvailabilityPresets(value);
     // updateSchedulingLink()
   };
 
-  console.log('presets', organizerAvailabilityPresets);
+  console.log('presets', defaultValue, options, organizerAvailabilityPresets);
 
   return (
     <Select
@@ -133,6 +137,7 @@ function AvailabilitySelect() {
       isMulti
       onChange={(value) => {
         // update organizer
+        updatePresets(value ? value.map((opt) => opt.value) : null);
         console.log('Change', value);
       }}
     />

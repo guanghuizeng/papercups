@@ -3,6 +3,7 @@ import useSWR, {mutate} from 'swr';
 import {useAppData} from './AppDataProvider';
 import {useLink} from '../api-hooks';
 import * as API from '../api';
+import _ from 'lodash';
 
 export const SchedulingLinkContext = React.createContext<{
   slug: string;
@@ -11,6 +12,7 @@ export const SchedulingLinkContext = React.createContext<{
   durations: string[];
   location: string;
   availability: any;
+  availabilityPresets: string[];
   availabilityPresetsIntervals: any[];
   availabilityOverrides: any[];
   fields: any[];
@@ -26,6 +28,7 @@ export const SchedulingLinkContext = React.createContext<{
   updateDurations: (value: number[]) => Promise<any>;
   updateLocation: (value: string) => Promise<any>;
   updateAvailability: (value: any) => Promise<any>;
+  updateAvailabilityPresets: (value: string[] | null) => Promise<any>;
   updateAvailabilityOverrides: (value: any) => Promise<any>;
 
   updateSchedulingLink: (value: any) => Promise<any>;
@@ -36,6 +39,7 @@ export const SchedulingLinkContext = React.createContext<{
   durations: [''],
   location: '',
   availability: {},
+  availabilityPresets: [],
   availabilityPresetsIntervals: [],
   availabilityOverrides: [],
   fields: [],
@@ -51,6 +55,7 @@ export const SchedulingLinkContext = React.createContext<{
   updateDurations: (value: number[]) => Promise.resolve({}),
   updateLocation: (value: string) => Promise.resolve({}),
   updateAvailability: (value: any) => Promise.resolve({}),
+  updateAvailabilityPresets: (value: string[] | null) => Promise.resolve({}),
   updateAvailabilityOverrides: (value: any) => Promise.resolve({}),
 
   updateSchedulingLink: (value: any) => Promise.resolve({}),
@@ -153,6 +158,29 @@ const SchedulingLinkProvider = (props: Props) => {
     return Promise.resolve();
   };
 
+  const updateAvailabilityPresets = async (value: string[] | null) => {
+    if (link.organizer) {
+      const clone = _.cloneDeep(link.organizer);
+      return updateSchedulingLink({
+        organizer: {
+          ...clone,
+          availability: {
+            ...clone.availability,
+            presets: value,
+          },
+        },
+      });
+    } else {
+      return updateSchedulingLink({
+        organizer: {
+          availability: {
+            presets: value,
+          },
+        },
+      });
+    }
+  };
+
   const updateAvailabilityOverrides = (value: any) => {
     setOverrides(value);
     return Promise.resolve();
@@ -174,6 +202,7 @@ const SchedulingLinkProvider = (props: Props) => {
         durations: link.durations,
         location: link.location,
         availability: link.organizer?.availability,
+        availabilityPresets: link.organizer?.availability?.presets,
         availabilityPresetsIntervals: presetsIntervals,
         availabilityOverrides: overrides,
         fields: link.fields,
@@ -200,6 +229,7 @@ const SchedulingLinkProvider = (props: Props) => {
         updateDurations,
         updateLocation,
         updateAvailability,
+        updateAvailabilityPresets,
         updateAvailabilityOverrides,
 
         updateSchedulingLink,
