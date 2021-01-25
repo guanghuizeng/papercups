@@ -23,6 +23,7 @@ import AppDataProvider from '../hooks/AppDataProvider';
 import {SchedulingLinksBoard} from './SchedulingLinksBoard';
 import SchedulingLinkNew from './SchedulingLinkNew';
 import * as API from '../api';
+import {AppSettings} from './AppSettings';
 
 function Dashboard(props: RouteComponentProps) {
   const auth = useAuth();
@@ -54,7 +55,17 @@ function Dashboard(props: RouteComponentProps) {
               {
                 icon: () => <i className="fas fa-calendar-check mr-2" />,
                 url: '/events',
-                name: '预约',
+                name: '日程',
+              },
+              {
+                icon: () => <i className="fas fa-code mr-2" />,
+                url: '/apps',
+                name: '应用',
+              },
+              {
+                icon: () => <i className="fas fa-cog mr-2" />,
+                url: '/settings',
+                name: '设置',
               },
               // {url: '/availability', name: '时间管理'},
               // {url: '/workflows', name: '工作流'},
@@ -114,11 +125,12 @@ function Dashboard(props: RouteComponentProps) {
             )}
           />
           <Route path="/events" component={ScheduledEvents} />
+          <Route path="/settings" component={AppSettings} />
           <Route
             path="/availability"
             component={() => <div>availability</div>}
           />
-          <Route path="/workflows" component={() => <div>workflows</div>} />
+          <Route path="/apps" component={() => <div>apps</div>} />
           <Route path="/" component={() => <Redirect to="/" />} />
         </Switch>
         <Switch>
