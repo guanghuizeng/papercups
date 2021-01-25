@@ -35,12 +35,28 @@ export function useLink(id: string, token = getAccessToken()) {
   };
 }
 
+export function useUserProfile(token = getAccessToken()) {
+  if (!token) {
+    throw new Error('Invalid token!');
+  }
+
+  const {data, error} = useSWR(`/api/profile/`, (url) =>
+    fetchWithToken(url, token)
+  );
+
+  return {
+    data: data && data.data,
+    isLoading: !error && !data,
+    isError: error,
+  };
+}
+
 export function useUserSettings(token = getAccessToken()) {
   if (!token) {
     throw new Error('Invalid token!');
   }
 
-  const {data, error} = useSWR(`/api/user_settings`, (url) =>
+  const {data, error} = useSWR(`/api/user_settings/`, (url) =>
     fetchWithToken(url, token)
   );
 

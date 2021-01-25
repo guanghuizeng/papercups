@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Switch, Route, Link, useLocation, Redirect} from 'react-router-dom';
+import {useAppData} from '../hooks/AppDataProvider';
 
 function SettingSection(props: any) {
   return (
@@ -32,24 +33,85 @@ function LinksSettingsSection() {
   );
 }
 
+function SlugSection() {
+  const {settings, updateSlug} = useAppData();
+  const [slug, setSlug] = useState<string>('');
+
+  const [edited, setEdited] = useState(false);
+  useEffect(() => {
+    if (settings) {
+      setSlug(settings.slug);
+    }
+  }, [settings]);
+
+  return (
+    <SettingSection>
+      <h2>链接地址</h2>
+      <div className="flex flex-row">
+        <span>https://timepage.com/</span>
+        <input
+          className="border-primary border-2 border-solid w-24"
+          value={slug}
+          type={'text'}
+          onChange={(e) => {
+            setSlug(e.target.value);
+            setEdited(true);
+          }}
+        />
+        {edited && (
+          <div className="flex flex-row">
+            <div
+              className="btn-draft"
+              onClick={() => {
+                updateSlug(slug);
+                setEdited(false);
+              }}
+            >
+              保存
+            </div>
+            <div
+              className="btn-draft"
+              onClick={() => {
+                setSlug(settings.slug);
+                setEdited(false);
+              }}
+            >
+              取消
+            </div>
+          </div>
+        )}
+      </div>
+    </SettingSection>
+  );
+}
+
 function ProfileSection() {
+  const {profile, settings, updateDisplayName, updateSlug} = useAppData();
+
+  console.log('Profile', profile, settings);
   return (
     <div className={'flex flex-col'}>
       <SettingSection>
         <h2>姓名</h2>
-        <div></div>
+        <div>
+          <input
+            className="border-primary border-2 border-solid"
+            defaultValue={profile?.display_name}
+            type={'text'}
+            onChange={(e) => {
+              updateDisplayName(e.target.value);
+            }}
+          />
+        </div>
       </SettingSection>
-      <SettingSection>
-        <h2>链接地址</h2>
-        <div></div>
-      </SettingSection>
+      <SlugSection />
       <SettingSection>
         <h2>邮件地址</h2>
-        <div></div>
+        <div>{profile?.email}</div>
       </SettingSection>
       <SettingSection>
         <h2>密码</h2>
-        <div></div>
+        <div className="btn-draft">重设密码</div>
       </SettingSection>
     </div>
   );

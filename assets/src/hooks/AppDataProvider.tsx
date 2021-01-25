@@ -5,7 +5,12 @@ import * as API from '../api';
 import {getAccessToken} from '../api';
 import {fetchWithToken} from './utils';
 import {useAuth} from '../components/auth/AuthProvider';
-import {useSchedules, useSchedulingLinks, useUserSettings} from '../api-hooks';
+import {
+  useSchedules,
+  useSchedulingLinks,
+  useUserProfile,
+  useUserSettings,
+} from '../api-hooks';
 import {useSchedulingLink} from './SchedulingLinkProvider';
 import {useHistory} from 'react-router-dom';
 
@@ -15,18 +20,24 @@ import {useHistory} from 'react-router-dom';
  *
  */
 export const AppDataContext = React.createContext<{
+  profile: any;
   settings: any;
   schedulingLinks: any[];
   availabilityPresets: any[];
 
   createSchedulingLinkAndRedirect: () => Promise<any>;
+  updateDisplayName: (value: string) => Promise<any>;
+  updateSlug: (value: string) => Promise<any>;
   getAvailabilityPresetsById: (presets: string[]) => any[];
 }>({
+  profile: {},
   settings: {},
   schedulingLinks: [],
   availabilityPresets: [],
 
   createSchedulingLinkAndRedirect: () => Promise.resolve(),
+  updateDisplayName: (value: string) => Promise.resolve(),
+  updateSlug: (value: string) => Promise.resolve(),
   getAvailabilityPresetsById: (presets) => [],
 });
 
@@ -50,6 +61,7 @@ type Props = React.PropsWithChildren<{}>;
  */
 const AppDataProvider = (props: Props) => {
   let history = useHistory();
+  const {data: profile} = useUserProfile();
   const {data: settings} = useUserSettings();
   const {data: schedulingLinks} = useSchedulingLinks();
   const {data: schedules} = useSchedules();
@@ -120,15 +132,51 @@ const AppDataProvider = (props: Props) => {
     });
   };
 
+  const _updateProfile = (newValue: any) => {
+    return mutate(`/api/profile/`, {data: {...profile, ...newValue}}, false);
+  };
+
+  const _revalidateProfile = () => {
+    mutate(`/api/profile/`);
+  };
+  const _updateUserSettings = (newValue: any) => {
+    return mutate(
+      `/api/user_settings/`,
+      {data: {...settings, ...newValue}},
+      false
+    );
+  };
+
+  const _revalidateUserSettings = () => {
+    mutate(`/api/user_settings/`);
+  };
+
+  const updateDisplayName = async (value: string) => {
+    _updateProfile({display_name: value});
+    await API.updateUserProfile({display_name: value});
+    _revalidateProfile();
+    return Promise.resolve();
+  };
+
+  const updateSlug = async (value: string) => {
+    _updateUserSettings({slug: value});
+    await API.updateUserSettings({slug: value});
+    _revalidateUserSettings();
+    return Promise.resolve();
+  };
+
   return (
     <AppDataContext.Provider
       value={{
+        profile,
         settings,
         schedulingLinks,
         availabilityPresets: schedules,
         createSchedulingLinkAndRedirect,
 
         getAvailabilityPresetsById,
+        updateDisplayName,
+        updateSlug,
       }}
     >
       {props.children}
