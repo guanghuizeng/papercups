@@ -11,7 +11,7 @@ export const SchedulingLinkContext = React.createContext<{
   durations: string[];
   location: string;
   availability: any;
-  availabilityPresets: any[];
+  availabilityPresetsIntervals: any[];
   availabilityOverrides: any[];
   fields: any[];
   bufferBefore: number;
@@ -36,7 +36,7 @@ export const SchedulingLinkContext = React.createContext<{
   durations: [''],
   location: '',
   availability: {},
-  availabilityPresets: [],
+  availabilityPresetsIntervals: [],
   availabilityOverrides: [],
   fields: [],
   bufferBefore: 0,
@@ -65,13 +65,13 @@ type Props = React.PropsWithChildren<{
 const SchedulingLinkProvider = (props: Props) => {
   const {link, isLoading, isError} = useLink(props.linkId);
   const {settings, getAvailabilityPresetsById} = useAppData();
-  const [presets, setPresets] = useState<any[]>([]);
+  const [presetsIntervals, setPresetsIntervals] = useState<any[]>([]);
 
   console.log('Scheduling Link Provider', link);
 
   useEffect(() => {
     if (link && link.organizer && link.organizer.availability) {
-      setPresets(
+      setPresetsIntervals(
         getAvailabilityPresetsById(link.organizer.availability.presets)
       );
     }
@@ -174,14 +174,25 @@ const SchedulingLinkProvider = (props: Props) => {
         durations: link.durations,
         location: link.location,
         availability: link.organizer?.availability,
-        availabilityPresets: presets,
+        availabilityPresetsIntervals: presetsIntervals,
         availabilityOverrides: overrides,
         fields: link.fields,
         bufferBefore: link.before_buffer_time,
         bufferAfter: link.after_buffer_time,
         limitBookingTime: link.max_booking_time,
         emailReminders: link.email_reminders,
-        organizer: link.organizer,
+        organizer: {
+          id: '',
+          avatarUrl:
+            'https://secure.gravatar.com/avatar/fcb9bbfe7fa822090dce8a194ed9730d?s=256&d=404',
+          displayName: 'Yuanyuan Zhang',
+          availability: {
+            mode: 'ranked',
+            overrides: [],
+            presets: ['1ac33b81-c2cc-43be-90e5-2cd25685bfd8'],
+            recurringIntervals: [],
+          },
+        },
 
         updateSlug,
         updateName,

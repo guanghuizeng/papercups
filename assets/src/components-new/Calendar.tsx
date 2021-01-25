@@ -30,7 +30,7 @@ dayjs.locale('zh-cn');
 interface CalendarProps {
   start: string;
   end: string;
-  availabilityPresets: any[];
+  availabilityPresetsIntervals: any[];
   availabilityOverrides: any[];
   updateAvailabilityOverrides: (value: any) => any;
 }
@@ -168,7 +168,7 @@ function Calendar(props: CalendarProps) {
   // read availability from scheduling link
   // presets, id => value
   const {
-    availabilityPresets,
+    availabilityPresetsIntervals,
     availabilityOverrides,
     updateAvailabilityOverrides,
   } = props;
@@ -293,7 +293,7 @@ function Calendar(props: CalendarProps) {
     let date = startDate.clone();
     while (!date.isSame(endDate)) {
       const day = dayConvertToEn(date.format('dd').toLowerCase());
-      availabilityPresets.forEach((settings) => {
+      availabilityPresetsIntervals.forEach((settings) => {
         if (settings.byday.findIndex((d: string) => d === day) > -1) {
           let startTime = date.add(settings.startTime, 'minute');
           let endTime = date.add(settings.endTime, 'minute');
@@ -408,7 +408,7 @@ function CalendarWrapper() {
   // read availability from scheduling link
   // presets, id => value
   const {
-    availabilityPresets,
+    availabilityPresetsIntervals,
     availabilityOverrides,
     updateAvailabilityOverrides,
   } = useSchedulingLink();
@@ -417,7 +417,7 @@ function CalendarWrapper() {
       start={''}
       end={''}
       availabilityOverrides={availabilityOverrides}
-      availabilityPresets={availabilityPresets}
+      availabilityPresetsIntervals={availabilityPresetsIntervals}
       updateAvailabilityOverrides={updateAvailabilityOverrides}
     />
   );

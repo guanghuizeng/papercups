@@ -11,6 +11,7 @@ import WithTip from '../components-new/common/WithTip';
 import Calendar from './Calendar';
 import SchedulingLinkSettings from './SchedulingLinkSettings';
 import {useAppData} from '../hooks/AppDataProvider';
+import {updateSchedulingLink} from '../api';
 
 function Header() {
   return (
@@ -81,6 +82,9 @@ function AvailabilitySelect() {
   // from teammates
 
   const {availabilityPresets} = useAppData();
+  const {
+    availabilityPresetsIntervals: organizerAvailabilityPresets,
+  } = useSchedulingLink();
 
   const options = availabilityPresets
     ? availabilityPresets.map((preset) => ({
@@ -88,19 +92,6 @@ function AvailabilitySelect() {
         label: preset.name,
       }))
     : [];
-
-  const organizer = {
-    id: '',
-    avatarUrl:
-      'https://secure.gravatar.com/avatar/fcb9bbfe7fa822090dce8a194ed9730d?s=256&d=404',
-    displayName: 'Yuanyuan Zhang',
-    availability: {
-      mode: 'ranked',
-      overrides: [],
-      presets: ['1ac33b81-c2cc-43be-90e5-2cd25685bfd8'],
-      recurringIntervals: [],
-    },
-  };
 
   const guests = [
     {
@@ -124,9 +115,15 @@ function AvailabilitySelect() {
     },
   ];
 
-  const defaultValue = organizer.availability.presets.map((scheduleId) => {
+  const defaultValue = organizerAvailabilityPresets.map((scheduleId) => {
     return options.find((opt) => opt.value === scheduleId);
   });
+
+  const updatePresets = (value: string[]) => {
+    // updateSchedulingLink()
+  };
+
+  console.log('presets', organizerAvailabilityPresets);
 
   return (
     <Select
@@ -134,6 +131,10 @@ function AvailabilitySelect() {
       options={options}
       defaultValue={defaultValue}
       isMulti
+      onChange={(value) => {
+        // update organizer
+        console.log('Change', value);
+      }}
     />
   );
 }
