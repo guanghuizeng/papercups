@@ -4,6 +4,13 @@ import {useAppData} from '../hooks/AppDataProvider';
 import TextField from './common/TextField';
 import {listOfTime24, listOfTime24Options} from './constants';
 import Select from 'react-select';
+import FullCalendar, {DayHeaderContentArg} from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import {INITIAL_EVENTS} from './event-utils';
+import zhLocale from '@fullcalendar/core/locales/zh-cn';
+import dayjs from 'dayjs';
 
 const sliceOfTime = listOfTime24.slice(0, 24 * 4);
 const timeOptions = listOfTime24Options;
@@ -82,8 +89,23 @@ export function Availability() {
     ? availabilityPresets.find((p) => p.id === id)
     : null;
 
+  const renderDayHeaderContent = (props: DayHeaderContentArg) => {
+    const date = dayjs(props.date);
+    return (
+      <div>
+        <div className="text-xs font-medium text-gray-600">
+          {date.format('ddd')}
+        </div>
+      </div>
+    );
+  };
+
+  const getBackgroundEvents = () => {
+    return [];
+  };
+
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row w-full">
       <div className="flex flex-col">
         <Link
           to={`/settings/links`}
@@ -111,7 +133,32 @@ export function Availability() {
 
         <div className="btn-draft mt-8">Add</div>
       </div>
-      <div>Calendar</div>
+
+      <div className="demo-app-main w-full">
+        <FullCalendar
+          contentHeight="900px"
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          headerToolbar={false}
+          weekNumberCalculation="ISO"
+          initialView="timeGridWeek"
+          slotDuration="00:30:00"
+          snapDuration="00:15:00"
+          slotLabelInterval="01:00"
+          slotMinTime="06:00:00"
+          dayHeaderContent={renderDayHeaderContent}
+          allDaySlot={false}
+          weekends={true}
+          events={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+          eventSources={[
+            {
+              events: getBackgroundEvents(),
+              display: 'background',
+            },
+          ]}
+          nowIndicator={true}
+          locale={zhLocale}
+        />
+      </div>
     </div>
   );
 }
