@@ -2,6 +2,11 @@ import React from 'react';
 import {useParams, Link} from 'react-router-dom';
 import {useAppData} from '../hooks/AppDataProvider';
 import TextField from './common/TextField';
+import {listOfTime24, listOfTime24Options} from './constants';
+import Select from 'react-select';
+
+const sliceOfTime = listOfTime24.slice(0, 24 * 4);
+const timeOptions = listOfTime24Options;
 
 function AvailabilityByDay({rule}: any) {
   const dayState = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'].map((d) => {
@@ -20,16 +25,51 @@ function AvailabilityByDay({rule}: any) {
               key={state.day}
               className="border-primary border-solid border mx-2"
             >
-              <input type="checkbox" checked={state.checked} />
+              <input type="checkbox" defaultChecked={state.checked} />
               {state.day}
             </div>
           );
         })}
       </div>
-      <div>
-        <label className="mx-2">{rule.startTime}</label>
-        <label className="mx-2">{rule.endTime}</label>
+      <div className="flex flex-row">
+        <Select
+          // ref={selectRef}
+          className="w-1/2"
+          classNamePrefix="select"
+          components={{
+            DropdownIndicator: () => {
+              return null;
+            },
+            IndicatorSeparator: () => {
+              return null;
+            },
+          }}
+          name="color"
+          defaultValue={timeOptions[(rule.startTime / 60) * 4]}
+          options={timeOptions}
+          // onMenuOpen={onMenuOpen}
+          // onChange={onChange}
+        />
+        <Select
+          // ref={selectRef}
+          className="w-1/2"
+          classNamePrefix="select"
+          components={{
+            DropdownIndicator: () => {
+              return null;
+            },
+            IndicatorSeparator: () => {
+              return null;
+            },
+          }}
+          name="color"
+          defaultValue={timeOptions[(rule.endTime / 60) * 4]}
+          options={timeOptions}
+          // onMenuOpen={onMenuOpen}
+          // onChange={onChange}
+        />
       </div>
+      <div className="btn-draft mt-2">Delete</div>
     </>
   );
 }
