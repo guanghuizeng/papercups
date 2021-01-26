@@ -25,12 +25,12 @@ function AvailabilityByDay({rule}: any) {
 
   return (
     <>
-      <div className="flex flex-row">
+      <div className="flex flex-row py-2">
         {dayState.map((state) => {
           return (
             <div
               key={state.day}
-              className="border-primary border-solid border mx-2"
+              className="border-primary border-solid border mx-1"
             >
               <input type="checkbox" defaultChecked={state.checked} />
               {state.day}
@@ -121,7 +121,7 @@ export function Availability() {
           className="h-12 text-lg"
         />
 
-        <div>
+        <div className="py-2">
           {preset?.rules.map((rule: any) => {
             return (
               <div key={`${rule.startTime}-${rule.endTime}`}>
@@ -131,10 +131,13 @@ export function Availability() {
           })}
         </div>
 
-        <div className="btn-draft mt-8">Add</div>
+        <div className="w-full mt-4">
+          <div className="btn-draft-lg mt-4">Add</div>
+          <div className="btn-draft-lg mt-4">Show my calendar overlay</div>
+        </div>
       </div>
 
-      <div className="demo-app-main w-full">
+      <div className="ml-4 demo-app-main w-full">
         <FullCalendar
           contentHeight="900px"
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
