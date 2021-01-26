@@ -68,7 +68,7 @@ type Props = React.PropsWithChildren<{
 }>;
 
 const SchedulingLinkProvider = (props: Props) => {
-  const {link, isLoading, isError} = useLink(props.linkId);
+  const {data: link, isLoading, isError} = useLink(props.linkId);
   const {settings, getAvailabilityPresetsById} = useAppData();
   const [presetsIntervals, setPresetsIntervals] = useState<any[]>([]);
 

@@ -25,6 +25,7 @@ import LadingPage from './components/landing/LadingPage';
 import Live from './components-new/book/Live';
 import {initializeIcons} from '@fluentui/react';
 import Book from './components-new/book/Book';
+import BookingPage from './components-new/booking/BookingPage';
 
 initializeIcons();
 
@@ -89,7 +90,7 @@ const App = () => {
         <Route path="/sandbox" component={Sandbox} />
         <Route path="/share" component={SharedConversation} />
         <Route path="/live" component={Live} />
-        <Route path="/@:user" component={Book} />
+        <Route path="/@:userSlug/:schedulingLinkSlug" component={BookingPage} />
         <Route path="/" component={Dashboard} />
       </Switch>
     </Router>

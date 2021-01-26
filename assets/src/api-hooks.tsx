@@ -1,6 +1,6 @@
 import {getAccessToken} from './api';
 import useSWR from 'swr';
-import {fetchWithToken} from './hooks/utils';
+import {fetchWithToken, fetchWithoutToken} from './hooks/utils';
 
 export function useSchedulingLinks(token = getAccessToken()) {
   if (!token) {
@@ -26,10 +26,26 @@ export function useLink(id: string, token = getAccessToken()) {
     fetchWithToken(url, token)
   );
 
-  console.log('use link', data, error);
+  return {
+    data: data && data.data,
+    isLoading: !error && !data,
+    isError: error,
+  };
+}
+export function useSchedulingLinkBySlug(
+  userSlug: string,
+  schedulingLinkSlug: string
+) {
+  const {
+    data,
+    error,
+  } = useSWR(
+    `/api/scheduling_links?user=${userSlug}&link=${schedulingLinkSlug}`,
+    (url) => fetchWithoutToken(url)
+  );
 
   return {
-    link: data && data.data,
+    data: data && data.data,
     isLoading: !error && !data,
     isError: error,
   };
@@ -83,4 +99,14 @@ export function useSchedules(token = getAccessToken()) {
   };
 }
 
-export function useUserProfileBySlug(slug: string) {}
+export function useUserProfileBySlug(slug: string) {
+  const {data, error} = useSWR(`/api/profile?slug=${slug}`, (url) =>
+    fetchWithoutToken(url)
+  );
+
+  return {
+    data: data && data.data,
+    isLoading: !error && !data,
+    isError: error,
+  };
+}

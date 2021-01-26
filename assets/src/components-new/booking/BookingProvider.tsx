@@ -1,4 +1,11 @@
 import React, {useContext, useEffect} from 'react';
+import {useAuth} from '../../components/auth/AuthProvider';
+import {
+  useLink,
+  useSchedulingLinkBySlug,
+  useUserProfileBySlug,
+} from '../../api-hooks';
+import {useSchedulingLink} from '../../hooks/SchedulingLinkProvider';
 
 const BookingContext = React.createContext<{
   userSlug: string;
@@ -22,6 +29,12 @@ function BookingProvider(props: Props) {
 
   // userSlug, schedulingLinkSlug
   // => scheduling link information
+
+  const {data: profile} = useUserProfileBySlug(userSlug);
+  const {data: schedulingLink} = useSchedulingLinkBySlug(
+    userSlug,
+    schedulingLinkSlug
+  );
 
   return (
     <BookingContext.Provider
