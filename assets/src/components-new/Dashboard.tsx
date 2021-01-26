@@ -135,7 +135,7 @@ function Dashboard(props: RouteComponentProps) {
           <Route path="/settings" component={AppSettings} />
           <Route path="/availabilities/:id/edit" component={Availability} />
           <Route path="/apps" component={() => <div>apps</div>} />
-          <Route path="/:user/:slug" component={BookingPage} />
+          <Route path="/:userSlug/:schedulingLinkId" component={BookingPage} />
         </Switch>
         <Switch>
           <Route
