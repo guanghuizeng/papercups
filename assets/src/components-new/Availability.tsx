@@ -108,6 +108,8 @@ export function Availability() {
             );
           })}
         </div>
+
+        <div className="btn-draft mt-8">Add</div>
       </div>
       <div>Calendar</div>
     </div>
