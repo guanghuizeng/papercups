@@ -25,6 +25,7 @@ import SchedulingLinkNew from './SchedulingLinkNew';
 import * as API from '../api';
 import {AppSettings} from './AppSettings';
 import {Availability} from './Availability';
+import BookingPage from './BookingPage';
 
 function Dashboard(props: RouteComponentProps) {
   const auth = useAuth();
@@ -67,6 +68,11 @@ function Dashboard(props: RouteComponentProps) {
                 icon: () => <i className="fas fa-cog mr-2" />,
                 url: '/settings',
                 name: '设置',
+              },
+              {
+                icon: () => <i className="fas fa-cog mr-2" />,
+                url: '/ycy/chat',
+                name: 'Booking Page Preview',
               },
               // {url: '/availability', name: '时间管理'},
               // {url: '/workflows', name: '工作流'},
@@ -129,7 +135,7 @@ function Dashboard(props: RouteComponentProps) {
           <Route path="/settings" component={AppSettings} />
           <Route path="/availabilities/:id/edit" component={Availability} />
           <Route path="/apps" component={() => <div>apps</div>} />
-          <Route path="/" component={() => <Redirect to="/" />} />
+          <Route path="/:user/:slug" component={BookingPage} />
         </Switch>
         <Switch>
           <Route
