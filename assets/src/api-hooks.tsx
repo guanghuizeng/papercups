@@ -82,3 +82,5 @@ export function useSchedules(token = getAccessToken()) {
     isError: error,
   };
 }
+
+export function useUserProfileBySlug(slug: string) {}

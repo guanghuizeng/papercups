@@ -2,28 +2,32 @@ import React, {useContext, useEffect} from 'react';
 
 const BookingContext = React.createContext<{
   userSlug: string;
-  schedulingLinkId: string;
+  schedulingLinkSlug: string;
 }>({
   userSlug: '',
-  schedulingLinkId: '',
+  schedulingLinkSlug: '',
 });
 
 export const useBooking = () => useContext(BookingContext);
 
 interface BookingProviderProps {
   userSlug: string;
-  schedulingLinkId: string;
+  schedulingLinkSlug: string;
 }
 
 type Props = React.PropsWithChildren<BookingProviderProps>;
 
 function BookingProvider(props: Props) {
-  const {userSlug, schedulingLinkId} = props;
+  const {userSlug, schedulingLinkSlug} = props;
+
+  // userSlug, schedulingLinkSlug
+  // => scheduling link information
+
   return (
     <BookingContext.Provider
       value={{
         userSlug: userSlug,
-        schedulingLinkId: schedulingLinkId,
+        schedulingLinkSlug: schedulingLinkSlug,
       }}
     >
       {props.children}
