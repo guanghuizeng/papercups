@@ -10,13 +10,63 @@ function SettingSection(props: any) {
   );
 }
 
+function AvailabilitySection() {
+  const {availabilityPresets} = useAppData();
+  console.log('ava', availabilityPresets);
+  return (
+    <SettingSection>
+      <h2>可选择时间</h2>
+      <div className="border-primary border-b border-solid py-2">
+        {availabilityPresets &&
+          availabilityPresets.map((preset) => {
+            return (
+              <div
+                key={preset.id}
+                className="border-primary border-t border-solid py-2"
+              >
+                <label>{preset.name}</label>
+                <div>
+                  {preset.rules.map((rule: any) => {
+                    return (
+                      <div key={`${rule.startTime}-${rule.endTime}`}>
+                        <div className="flex flex-row">
+                          {rule.byday.map((byday: string) => {
+                            return (
+                              <div className="mx-2 underline" key={byday}>
+                                {byday}
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <div>
+                          <label className="mx-2">{rule.startTime}</label>
+                          <label className="mx-2">{rule.endTime}</label>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="mt-2">
+                  <Link
+                    to={`/availabilities/${preset.id}/edit`}
+                    className="btn-draft"
+                  >
+                    Edit
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+      </div>
+      <div className="btn-draft my-2 ">Add</div>
+    </SettingSection>
+  );
+}
+
 function LinksSettingsSection() {
   return (
     <div className="flex flex-col">
-      <SettingSection>
-        <h2>可选择时间</h2>
-        <div></div>
-      </SettingSection>
+      <AvailabilitySection />
       <SettingSection>
         <h2>Buffer</h2>
         <div></div>
@@ -121,7 +171,7 @@ export function AppSettings() {
   const {pathname} = useLocation();
 
   return (
-    <div>
+    <div className="w-full">
       <div className={'flex flex-row'}>
         {[
           {

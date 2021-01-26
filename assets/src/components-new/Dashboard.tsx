@@ -24,6 +24,7 @@ import {SchedulingLinksBoard} from './SchedulingLinksBoard';
 import SchedulingLinkNew from './SchedulingLinkNew';
 import * as API from '../api';
 import {AppSettings} from './AppSettings';
+import {Availability} from './Availability';
 
 function Dashboard(props: RouteComponentProps) {
   const auth = useAuth();
@@ -126,10 +127,7 @@ function Dashboard(props: RouteComponentProps) {
           />
           <Route path="/events" component={ScheduledEvents} />
           <Route path="/settings" component={AppSettings} />
-          <Route
-            path="/availability"
-            component={() => <div>availability</div>}
-          />
+          <Route path="/availabilities/:id/edit" component={Availability} />
           <Route path="/apps" component={() => <div>apps</div>} />
           <Route path="/" component={() => <Redirect to="/" />} />
         </Switch>
