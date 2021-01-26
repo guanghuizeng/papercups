@@ -25,7 +25,7 @@ import SchedulingLinkNew from './SchedulingLinkNew';
 import * as API from '../api';
 import {AppSettings} from './AppSettings';
 import {Availability} from './Availability';
-import BookingPage from './BookingPage';
+import BookingPage from './booking/BookingPage';
 
 function Dashboard(props: RouteComponentProps) {
   const auth = useAuth();
