@@ -10,11 +10,11 @@ import interactionPlugin from '@fullcalendar/interaction';
 import {INITIAL_EVENTS} from '../event-utils';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import dayjs from 'dayjs';
+import {Button} from '@geist-ui/react';
+import {colourOptions} from '../events/data';
 
 function GeneralSection() {
-  const {user, schedulingLink} = useBooking();
-
-  console.log('user', user, schedulingLink);
+  const {user, schedulingLink, eventDuration, setEventDuration} = useBooking();
 
   return (
     <div>
@@ -32,13 +32,27 @@ function GeneralSection() {
         <i className="fas fa-clock mr-2 w-5 text-center" />
         <div className="flex flex-row">
           {schedulingLink?.durations.map((d: number) => {
-            return <div key={d}>{d}</div>;
+            return (
+              <div key={d}>
+                <Button
+                  onClick={() => {
+                    setEventDuration(d);
+                  }}
+                  type={d === eventDuration ? 'success' : 'default'}
+                  size="mini"
+                >
+                  {d}
+                </Button>
+              </div>
+            );
           })}
         </div>
       </div>
       <div className="flex flex-row">
         <i className="fas fa-video mr-2 w-5 text-center" />
-        {schedulingLink?.location}
+        {schedulingLink?.location &&
+          colourOptions.find((opt) => opt.value === schedulingLink.location)
+            ?.label}
       </div>
 
       <div>当前登录用户：{user?.display_name}</div>
@@ -47,7 +61,13 @@ function GeneralSection() {
 }
 
 function EventSection() {
-  const {user, timeSelected, schedulingLink, setEventTime} = useBooking();
+  const {
+    user,
+    timeSelected,
+    schedulingLink,
+    setEventTime,
+    eventDuration,
+  } = useBooking();
 
   return (
     <div className="pt-2">
@@ -62,11 +82,13 @@ function EventSection() {
 
         <div>
           <i className="fas fa-clock mr-2 w-5 text-center" />
-          {schedulingLink?.durations[0]}
+          {eventDuration}
         </div>
         <div className="flex flex-row">
           <i className="fas fa-video mr-2 w-5 text-center" />
-          {schedulingLink?.location}
+          {schedulingLink?.location &&
+            colourOptions.find((opt) => opt.value === schedulingLink.location)
+              ?.label}
         </div>
 
         <div>Start: {timeSelected?.start}</div>
@@ -109,10 +131,8 @@ function EventSection() {
         </div>
       )}
       <div className="flex flex-row pt-2">
-        <div className="btn-draft">确定</div>
-        <div className="btn-draft" onClick={() => {}}>
-          取消
-        </div>
+        <Button size="mini">确定</Button>
+        <Button size="mini">取消</Button>
       </div>
     </div>
   );
