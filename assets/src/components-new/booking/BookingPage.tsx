@@ -16,6 +16,7 @@ import dayjs from 'dayjs';
 import {Button, Input} from '@geist-ui/react';
 import {colourOptions} from '../events/data';
 import {convertMinToHrsMin} from '../../utils';
+import moment from 'moment';
 
 function GeneralSection() {
   const {user, schedulingLink, eventDuration, setEventDuration} = useBooking();
@@ -45,7 +46,7 @@ function GeneralSection() {
                   type={d === eventDuration ? 'success' : 'default'}
                   size="mini"
                 >
-                  {d}
+                  {moment.duration(d, 'minutes').humanize()}
                 </Button>
               </div>
             );
@@ -86,7 +87,7 @@ function EventSection() {
 
         <div>
           <i className="fas fa-clock mr-2 w-5 text-center" />
-          {eventDuration}
+          {moment.duration(eventDuration, 'minutes').humanize()}
         </div>
         <div className="flex flex-row">
           <i className="fas fa-video mr-2 w-5 text-center" />
