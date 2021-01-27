@@ -9,8 +9,6 @@ defmodule ChatApiWeb.SchedulingLinkController do
 
   @spec index(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def index(conn, filters) do
-    # if user slug provided, then query by user
-    # else query by current_user if logged in
     with %{id: user_id} <- conn.assigns.current_user do
       scheduling_links = SchedulingLinks.list_scheduling_links_by_user(user_id, filters)
       render(conn, "index.json", scheduling_links: scheduling_links)
