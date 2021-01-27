@@ -1,6 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useParams} from 'react-router-dom';
 import BookingProvider, {useBooking} from './BookingProvider';
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
+import FullCalendar, {DayHeaderContentArg} from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import {INITIAL_EVENTS} from '../event-utils';
+import zhLocale from '@fullcalendar/core/locales/zh-cn';
+import dayjs from 'dayjs';
 
 function GeneralSection() {
   const {user, schedulingLink} = useBooking();
@@ -94,7 +103,21 @@ function EventSection() {
 }
 
 function CalendarMonthView() {
-  return <div>Month view</div>;
+  const [selectedDay, handleDayClick] = useState<Date>(new Date());
+
+  return (
+    <div>
+      <DayPicker
+        selectedDays={selectedDay}
+        onDayClick={handleDayClick}
+        todayButton="今天"
+        modifiers={{
+          foo: new Date(),
+        }}
+        onTodayButtonClick={(day, modifiers) => console.log(day, modifiers)}
+      />
+    </div>
+  );
 }
 
 function ControlSection() {
@@ -102,9 +125,9 @@ function ControlSection() {
   return (
     <div className="flex flex-col w-72">
       <GeneralSection />
-      <div className={'border-primary border-2 border-solid'} />
+      <div className={'border-green-500 border-2 border-solid'} />
       <EventSection />
-      <div className={'border-primary border-2 border-solid'} />
+      <div className={'border-green-500 border-2 border-solid'} />
       <CalendarMonthView />
     </div>
   );
@@ -113,14 +136,93 @@ function ControlSection() {
 function CalendarSection() {
   const {setEventTime} = useBooking();
 
+  const renderDayHeaderContent = (props: DayHeaderContentArg) => {
+    const date = dayjs(props.date);
+    return (
+      <div>
+        {
+          // @ts-ignore
+          date.isToday() ? (
+            <>
+              <div className="text-xs font-medium text-gray-600">
+                {date.format('ddd')}
+              </div>
+              <div className="mb-2 flex justify-center">
+                <div className="flex items-center justify-center w-10 h-10 rounded-full text-2xl bg-indigo-600 text-white font-bold">
+                  {date.format('D')}
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="text-xs font-medium text-gray-600">
+                {date.format('ddd')}
+              </div>
+              <div className="mb-2 flex justify-center">
+                <div className="flex items-center justify-center w-10 h-10 rounded-full text-2xl text-gray-700 font-medium">
+                  {date.format('D')}
+                </div>
+              </div>
+            </>
+          )
+        }
+      </div>
+    );
+  };
+
   return (
-    <div>
+    <div className="w-full h-full">
       <div
         onClick={() => {
           setEventTime('2021-01-28T09:00:00', '2021-01-28T10:00:00');
         }}
       >
         Set time
+      </div>
+      <div className="w-full h-full">
+        <FullCalendar
+          // height="800px"
+          contentHeight="900px"
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          headerToolbar={{
+            left: 'title',
+            center: '',
+            right: 'today prev,next',
+          }}
+          weekNumberCalculation="ISO"
+          initialView="timeGridWeek"
+          slotDuration="00:30:00"
+          snapDuration="00:15:00"
+          slotLabelInterval="01:00"
+          slotMinTime="06:00:00"
+          dayHeaderContent={renderDayHeaderContent}
+          editable={true}
+          selectable={true}
+          allDaySlot={false}
+          // dayMaxEvents={true}
+          weekends={true}
+          // events={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+          // eventSources={[
+          //   {
+          //     events: getBackgroundEvents(),
+          //     display: 'background',
+          //   },
+          // ]}
+          // select={handleDateSelect}
+          // eventContent={renderEventContent} // custom render function
+          // eventClick={this.handleEventClick}
+          // eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
+          dateClick={function (info) {
+            // alert('clicked ' + info.dateStr);
+          }}
+          nowIndicator={true}
+          /* you can update a remote database when these fire:
+                  eventAdd={function(){}}
+                  eventChange={function(){}}
+                  eventRemove={function(){}}
+                  */
+          locale={zhLocale}
+        />
       </div>
     </div>
   );
@@ -141,11 +243,9 @@ export default function BookingPage() {
       userSlug={userSlug}
       schedulingLinkSlug={schedulingLinkSlug}
     >
-      <div className="flex flex-row">
+      <div className="flex flex-row w-full h-full">
         <ControlSection />
-        <div>
-          <CalendarSection />
-        </div>
+        <CalendarSection />
       </div>
     </BookingProvider>
   );
