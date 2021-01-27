@@ -134,9 +134,10 @@ export const dayConvertToEn = (day: string) => {
   }
 };
 
-export function convertMinsToHrsMins(totalMinutes: number) {
+export function convertMinToHrsMin(totalMinutes: number) {
   var hours = Math.floor(totalMinutes / 60);
   var minutes = totalMinutes % 60;
 
-  return `${hours}:${minutes}`;
+  return {hours, minutes};
+  // return `${hours < 10 ? '0' : ''}${hours}:${minutes}`;
 }

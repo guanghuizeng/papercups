@@ -15,7 +15,7 @@ import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import dayjs from 'dayjs';
 import {Button, Input} from '@geist-ui/react';
 import {colourOptions} from '../events/data';
-import {convertMinsToHrsMins} from '../../utils';
+import {convertMinToHrsMin} from '../../utils';
 
 function GeneralSection() {
   const {user, schedulingLink, eventDuration, setEventDuration} = useBooking();
@@ -108,7 +108,7 @@ function EventSection() {
         <Input placeholder="" type="email" id={'email'} />
       </div>
       {schedulingLink?.fields && (
-        <div>
+        <div className="flex flex-row flex-wrap">
           {schedulingLink.fields.map((field: any) => {
             return (
               <div key={field.id} className="pt-2">
@@ -239,7 +239,7 @@ function CalendarSection() {
           weekNumberCalculation="ISO"
           initialView="timeGridWeek"
           slotDuration="00:30:00"
-          snapDuration={`${convertMinsToHrsMins(eventDuration)}:00`}
+          snapDuration={convertMinToHrsMin(eventDuration)}
           slotLabelInterval="01:00"
           slotMinTime="06:00:00"
           dayHeaderContent={renderDayHeaderContent}
@@ -263,8 +263,10 @@ function CalendarSection() {
             // alert('clicked ' + info.dateStr);
           }}
           nowIndicator={true}
+          eventAdd={function (addInfo) {
+            console.log('Add', addInfo);
+          }}
           /* you can update a remote database when these fire:
-                  eventAdd={function(){}}
                   eventChange={function(){}}
                   eventRemove={function(){}}
                   */
