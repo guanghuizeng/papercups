@@ -317,6 +317,8 @@ function GeneralSection() {
 }
 
 function ControlSection() {
+  // const {bookingUrl} = useSchedulingLink()
+  const bookingUrl = '/@ycy/chat';
   return (
     <div className="border-primary border-t border-solid">
       <div className="flex flex-col px-2 py-2">
@@ -329,8 +331,10 @@ function ControlSection() {
             // color: '#4d5055',
           }}
         >
-          <i className="fas fa-external-link-alt mr-2 w-5 text-center" />
-          预览
+          <Link to={bookingUrl}>
+            <i className="fas fa-external-link-alt mr-2 w-5 text-center" />
+            预览
+          </Link>
         </div>
         <div
           className="hover:bg-gray-200 cursor-pointer px-2 py-2 rounded"
