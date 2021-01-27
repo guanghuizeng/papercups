@@ -17,7 +17,7 @@ const BookingContext = React.createContext<{
   userSlug: string;
   schedulingLinkSlug: string;
   timeSelected: EventTime | null;
-  eventDuration: number | null;
+  eventDuration: number;
 
   user: any;
   schedulingLink: any;
@@ -28,7 +28,7 @@ const BookingContext = React.createContext<{
   userSlug: '',
   schedulingLinkSlug: '',
   timeSelected: null,
-  eventDuration: null,
+  eventDuration: 30,
 
   user: {},
   schedulingLink: {},
@@ -54,11 +54,14 @@ function BookingProvider(props: Props) {
     schedulingLinkSlug
   );
   const [timeSelected, setTimeSelected] = useState<EventTime | null>(null);
-  const [eventDuration, setEventDuration] = useState<number | null>(null);
+  const [eventDuration, setEventDuration] = useState<number>(30);
+  const [eventDurationFormat, setEventDurationFormat] = useState<string>('');
 
   useEffect(() => {
     if (schedulingLink) {
       setEventDuration(schedulingLink.durations[0]);
+      // const date = new Dayjs()
+      // setEventDurationFormat()
     }
   }, [schedulingLink]);
 

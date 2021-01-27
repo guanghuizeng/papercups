@@ -15,6 +15,7 @@ import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import dayjs from 'dayjs';
 import {Button, Input} from '@geist-ui/react';
 import {colourOptions} from '../events/data';
+import {convertMinsToHrsMins} from '../../utils';
 
 function GeneralSection() {
   const {user, schedulingLink, eventDuration, setEventDuration} = useBooking();
@@ -238,7 +239,7 @@ function CalendarSection() {
           weekNumberCalculation="ISO"
           initialView="timeGridWeek"
           slotDuration="00:30:00"
-          snapDuration={`00:${eventDuration}:00`}
+          snapDuration={`${convertMinsToHrsMins(eventDuration)}:00`}
           slotLabelInterval="01:00"
           slotMinTime="06:00:00"
           dayHeaderContent={renderDayHeaderContent}
