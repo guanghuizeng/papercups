@@ -9,7 +9,7 @@ import FullCalendar, {
 } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
+import interactionPlugin, {DateClickArg} from '@fullcalendar/interaction';
 import {INITIAL_EVENTS} from '../event-utils';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import dayjs from 'dayjs';
@@ -17,6 +17,7 @@ import {Button, Input} from '@geist-ui/react';
 import humanizeDuration from 'humanize-duration';
 import {colourOptions} from '../events/data';
 import {convertMinToHrsMin} from '../../utils';
+import {nanoid} from 'nanoid';
 var localizedFormat = require('dayjs/plugin/localizedFormat');
 dayjs.extend(localizedFormat);
 dayjs().format('L LT');
@@ -77,6 +78,7 @@ function EventSection() {
   const {
     user,
     timeSelected,
+    eventStartTime,
     schedulingLink,
     setEventTime,
     eventDuration,
@@ -112,12 +114,15 @@ function EventSection() {
           <i className="fas fa-calendar-check w-4 mr-2" />
           <div className="flex flex-row flex-wrap">
             <span>
-              {timeSelected &&
-                dayjs(timeSelected.start).format('MM[月]DD[日] a h点 mm[分]')}
+              {eventStartTime &&
+                dayjs(eventStartTime).format('MM[月]DD[日] a h点 mm[分]')}
             </span>
             <span>
               至{' '}
-              {timeSelected && dayjs(timeSelected.end).format('a h点 mm[分]')}
+              {eventStartTime &&
+                dayjs(eventStartTime)
+                  .add(eventDuration, 'minutes')
+                  .format('a h点 mm[分]')}
             </span>
           </div>
         </div>
@@ -185,7 +190,13 @@ function ControlSection() {
 }
 
 function CalendarSection() {
-  const {eventDuration, setEventTime} = useBooking();
+  const {
+    eventDuration,
+    timeSelected,
+    eventStartTime,
+    setEventTime,
+    setEventStartTime,
+  } = useBooking();
 
   const renderDayHeaderContent = (props: DayHeaderContentArg) => {
     const date = dayjs(props.date);
@@ -237,15 +248,27 @@ function CalendarSection() {
     // console.log('select', selectInfo.endStr, dayjs(selectInfo.end).subtract(15, 'minutes').toISOString())
 
     // if (title) {
-    //   calendarApi.addEvent({
-    //     id: createEventId(),
-    //     title,
-    //     start: selectInfo.startStr,
-    //     end: selectInfo.endStr,
-    //     // end: dayjs(selectInfo.end).subtract(15, 'minutes').toISOString(),
-    //     allDay: selectInfo.allDay
-    //   })
+    calendarApi.addEvent({
+      id: nanoid(),
+      title,
+      start: selectInfo.startStr,
+      end: selectInfo.endStr,
+      // end: dayjs(selectInfo.end).subtract(15, 'minutes').toISOString(),
+      // allDay: selectInfo.allDay
+    });
     // }
+  };
+
+  const handleDateClick = (info: DateClickArg) => {
+    let calendarApi = info.view.calendar;
+    calendarApi.removeAllEvents();
+    setEventStartTime(info.date);
+
+    calendarApi.addEvent({
+      id: nanoid(),
+      start: info.dateStr,
+      end: dayjs(info.date).add(eventDuration, 'minutes').toISOString(),
+    });
   };
 
   return (
@@ -267,12 +290,19 @@ function CalendarSection() {
           slotLabelInterval="01:00"
           slotMinTime="00:00:00"
           dayHeaderContent={renderDayHeaderContent}
-          editable={true}
-          selectable={true}
+          editable={false}
+          selectable={false}
+          eventDurationEditable={false}
           allDaySlot={false}
           // dayMaxEvents={true}
           weekends={true}
-          // events={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+          events={[
+            {
+              id: nanoid(),
+              start: timeSelected?.start,
+              end: timeSelected?.end,
+            },
+          ]} // alternatively, use the `events` setting to fetch from a feed
           // eventSources={[
           //   {
           //     events: getBackgroundEvents(),
@@ -283,9 +313,7 @@ function CalendarSection() {
           // eventContent={renderEventContent} // custom render function
           // eventClick={this.handleEventClick}
           // eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-          dateClick={function (info) {
-            // alert('clicked ' + info.dateStr);
-          }}
+          dateClick={handleDateClick}
           nowIndicator={true}
           eventAdd={function (addInfo) {
             console.log('Add', addInfo);

@@ -17,23 +17,27 @@ const BookingContext = React.createContext<{
   userSlug: string;
   schedulingLinkSlug: string;
   timeSelected: EventTime | null;
+  eventStartTime: Date | null;
   eventDuration: number;
 
   user: any;
   schedulingLink: any;
   createScheduledEvent: () => Promise<any>;
   setEventTime: (start: Date, end: Date) => void;
+  setEventStartTime: (start: Date) => void;
   setEventDuration: (value: number) => void;
 }>({
   userSlug: '',
   schedulingLinkSlug: '',
   timeSelected: null,
+  eventStartTime: null,
   eventDuration: 30,
 
   user: {},
   schedulingLink: {},
   createScheduledEvent: () => Promise.resolve(),
   setEventTime: (start: Date, end: Date) => {},
+  setEventStartTime: (start: Date) => {},
   setEventDuration: (value: number) => {},
 });
 
@@ -54,6 +58,7 @@ function BookingProvider(props: Props) {
     schedulingLinkSlug
   );
   const [timeSelected, setTimeSelected] = useState<EventTime | null>(null);
+  const [eventStartTime, setEventStartTime] = useState<Date | null>(null);
   const [eventDuration, setEventDuration] = useState<number>(30);
   const [eventDurationFormat, setEventDurationFormat] = useState<string>('');
 
@@ -79,6 +84,7 @@ function BookingProvider(props: Props) {
         userSlug,
         schedulingLinkSlug,
         timeSelected,
+        eventStartTime,
         eventDuration,
 
         user,
@@ -86,6 +92,7 @@ function BookingProvider(props: Props) {
         createScheduledEvent,
 
         setEventTime,
+        setEventStartTime,
         setEventDuration,
       }}
     >
