@@ -171,7 +171,7 @@ function CalendarSection() {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full border-green-solid-2">
       <div
         onClick={() => {
           setEventTime('2021-01-28T09:00:00', '2021-01-28T10:00:00');
