@@ -3,14 +3,17 @@ import {useParams} from 'react-router-dom';
 import BookingProvider, {useBooking} from './BookingProvider';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
-import FullCalendar, {DayHeaderContentArg} from '@fullcalendar/react';
+import FullCalendar, {
+  DateSelectArg,
+  DayHeaderContentArg,
+} from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {INITIAL_EVENTS} from '../event-utils';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import dayjs from 'dayjs';
-import {Button} from '@geist-ui/react';
+import {Button, Input} from '@geist-ui/react';
 import {colourOptions} from '../events/data';
 
 function GeneralSection() {
@@ -91,27 +94,17 @@ function EventSection() {
               ?.label}
         </div>
 
-        <div>Start: {timeSelected?.start}</div>
-        <div>End: {timeSelected?.end}</div>
+        <div>Start: {timeSelected?.start.toISOString()}</div>
+        <div>End: {timeSelected?.end.toISOString()}</div>
       </div>
 
       <div className="pt-2">
         <div>联系人</div>
-        <input
-          className="border-primary border-solid border"
-          placeholder=""
-          type="text"
-          id={'name'}
-        />
+        <Input placeholder="" type="text" id={'name'} />
       </div>
       <div className="pt-2">
         <div>Email</div>
-        <input
-          className="border-primary border-solid border"
-          placeholder=""
-          type="email"
-          id={'email'}
-        />
+        <Input placeholder="" type="email" id={'email'} />
       </div>
       {schedulingLink?.fields && (
         <div>
@@ -119,19 +112,16 @@ function EventSection() {
             return (
               <div key={field.id} className="pt-2">
                 <label>{field.label}</label>
-                <input
-                  className="border-primary border-solid border"
-                  placeholder=""
-                  type="text"
-                  id={field.id}
-                />
+                <Input placeholder="" type="text" id={field.id} />
               </div>
             );
           })}
         </div>
       )}
       <div className="flex flex-row pt-2">
-        <Button size="mini">确定</Button>
+        <Button type="success" size="mini">
+          确定
+        </Button>
         <Button size="mini">取消</Button>
       </div>
     </div>
@@ -170,7 +160,7 @@ function ControlSection() {
 }
 
 function CalendarSection() {
-  const {setEventTime} = useBooking();
+  const {eventDuration, setEventTime} = useBooking();
 
   const renderDayHeaderContent = (props: DayHeaderContentArg) => {
     const date = dayjs(props.date);
@@ -206,15 +196,35 @@ function CalendarSection() {
     );
   };
 
+  const handleDateSelect = (selectInfo: DateSelectArg) => {
+    // let title = prompt('Please enter a new title for your event')
+    let title = 'new event';
+    let calendarApi = selectInfo.view.calendar;
+
+    // calendarApi.unselect() // clear date selection
+
+    console.log('select', selectInfo);
+
+    setEventTime(selectInfo.start, selectInfo.end);
+
+    // setSelectInfo(selectInfo);
+
+    // console.log('select', selectInfo.endStr, dayjs(selectInfo.end).subtract(15, 'minutes').toISOString())
+
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: createEventId(),
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     // end: dayjs(selectInfo.end).subtract(15, 'minutes').toISOString(),
+    //     allDay: selectInfo.allDay
+    //   })
+    // }
+  };
+
   return (
     <div className="w-full h-full border-green-solid-2">
-      <div
-        onClick={() => {
-          setEventTime('2021-01-28T09:00:00', '2021-01-28T10:00:00');
-        }}
-      >
-        Set time
-      </div>
       <div className="w-full h-full">
         <FullCalendar
           // height="800px"
@@ -228,7 +238,7 @@ function CalendarSection() {
           weekNumberCalculation="ISO"
           initialView="timeGridWeek"
           slotDuration="00:30:00"
-          snapDuration="00:15:00"
+          snapDuration={`00:${eventDuration}:00`}
           slotLabelInterval="01:00"
           slotMinTime="06:00:00"
           dayHeaderContent={renderDayHeaderContent}
@@ -244,7 +254,7 @@ function CalendarSection() {
           //     display: 'background',
           //   },
           // ]}
-          // select={handleDateSelect}
+          select={handleDateSelect}
           // eventContent={renderEventContent} // custom render function
           // eventClick={this.handleEventClick}
           // eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed

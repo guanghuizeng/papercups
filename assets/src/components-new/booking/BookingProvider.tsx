@@ -9,8 +9,8 @@ import {useSchedulingLink} from '../../hooks/SchedulingLinkProvider';
 import {Dayjs} from 'dayjs';
 
 interface EventTime {
-  start: string;
-  end: string;
+  start: Date;
+  end: Date;
 }
 
 const BookingContext = React.createContext<{
@@ -22,7 +22,7 @@ const BookingContext = React.createContext<{
   user: any;
   schedulingLink: any;
   createScheduledEvent: () => Promise<any>;
-  setEventTime: (start: string, end: string) => void;
+  setEventTime: (start: Date, end: Date) => void;
   setEventDuration: (value: number) => void;
 }>({
   userSlug: '',
@@ -33,7 +33,7 @@ const BookingContext = React.createContext<{
   user: {},
   schedulingLink: {},
   createScheduledEvent: () => Promise.resolve(),
-  setEventTime: (start: string, end: string) => {},
+  setEventTime: (start: Date, end: Date) => {},
   setEventDuration: (value: number) => {},
 });
 
@@ -66,7 +66,7 @@ function BookingProvider(props: Props) {
     return Promise.resolve();
   };
 
-  const setEventTime = (start: string, end: string) => {
+  const setEventTime = (start: Date, end: Date) => {
     setTimeSelected({start, end});
   };
 
