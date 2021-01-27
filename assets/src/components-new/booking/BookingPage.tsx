@@ -18,17 +18,22 @@ function GeneralSection() {
 
   return (
     <div>
+      <div>{schedulingLink?.name}</div>
       <div>{schedulingLink?.organizer.displayName}</div>
-      <div>{schedulingLink?.name}</div>
-      <div>{schedulingLink?.name}</div>
       <div>{schedulingLink?.description}</div>
 
-      <div>
-        {schedulingLink?.durations.map((d: number) => {
-          return <div key={d}>{d}</div>;
-        })}
+      <div className="flex flex-row">
+        <i className="fas fa-clock mr-2 w-5 text-center" />
+        <div className="flex flex-row">
+          {schedulingLink?.durations.map((d: number) => {
+            return <div key={d}>{d}</div>;
+          })}
+        </div>
       </div>
-      <div>{schedulingLink?.location}</div>
+      <div className="flex flex-row">
+        <i className="fas fa-video mr-2 w-5 text-center" />
+        {schedulingLink?.location}
+      </div>
 
       <div>Signed in as {user?.display_name}</div>
     </div>
@@ -41,17 +46,19 @@ function EventSection() {
   return (
     <div className="pt-2">
       <div>
-        <div>{schedulingLink?.organizer.displayName}</div>
-        <div>{schedulingLink?.name}</div>
         <div>{schedulingLink?.name}</div>
         <div>{schedulingLink?.description}</div>
 
+        <div>{schedulingLink?.organizer.displayName}</div>
+
         <div>
-          {schedulingLink?.durations.map((d: number) => {
-            return <div key={d}>{d}</div>;
-          })}
+          <i className="fas fa-clock mr-2 w-5 text-center" />
+          {schedulingLink?.durations[0]}
         </div>
-        <div>{schedulingLink?.location}</div>
+        <div className="flex flex-row">
+          <i className="fas fa-video mr-2 w-5 text-center" />
+          {schedulingLink?.location}
+        </div>
 
         <div>Start: {timeSelected?.start}</div>
         <div>End: {timeSelected?.end}</div>
