@@ -15,18 +15,8 @@ import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import dayjs from 'dayjs';
 import {Button, Input} from '@geist-ui/react';
 import humanizeDuration from 'humanize-duration';
-
 import {colourOptions} from '../events/data';
 import {convertMinToHrsMin} from '../../utils';
-import moment from 'moment';
-
-// var duration = require('dayjs/plugin/duration')
-// var relativeTime = require('dayjs/plugin/relativeTime')
-//
-// dayjs.extend(duration)
-// dayjs.extend(relativeTime)
-
-// dayjs.locale('en')
 
 function GeneralSection() {
   const {user, schedulingLink, eventDuration, setEventDuration} = useBooking();
