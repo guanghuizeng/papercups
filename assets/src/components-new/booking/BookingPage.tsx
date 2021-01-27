@@ -174,7 +174,7 @@ function CalendarMonthView() {
 function ControlSection() {
   const {timeSelected} = useBooking();
   return (
-    <div className="flex flex-col w-72">
+    <div className="flex flex-col w-96">
       <GeneralSection />
       <div className={'border-green-500 border-2 border-solid'} />
       <EventSection />
@@ -190,7 +190,7 @@ function CalendarSection() {
   const renderDayHeaderContent = (props: DayHeaderContentArg) => {
     const date = dayjs(props.date);
     return (
-      <div>
+      <div className="h-full">
         {
           // @ts-ignore
           date.isToday() ? (
@@ -265,7 +265,7 @@ function CalendarSection() {
           slotDuration="00:30:00"
           snapDuration={convertMinToHrsMin(eventDuration)}
           slotLabelInterval="01:00"
-          slotMinTime="06:00:00"
+          slotMinTime="00:00:00"
           dayHeaderContent={renderDayHeaderContent}
           editable={true}
           selectable={true}
@@ -316,7 +316,7 @@ export default function BookingPage() {
       userSlug={userSlug}
       schedulingLinkSlug={schedulingLinkSlug}
     >
-      <div className="flex flex-row w-full h-full">
+      <div className="w-screen h-screen flex flex-row ">
         <ControlSection />
         <CalendarSection />
       </div>
