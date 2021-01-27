@@ -17,6 +17,9 @@ import {Button, Input} from '@geist-ui/react';
 import humanizeDuration from 'humanize-duration';
 import {colourOptions} from '../events/data';
 import {convertMinToHrsMin} from '../../utils';
+var localizedFormat = require('dayjs/plugin/localizedFormat');
+dayjs.extend(localizedFormat);
+dayjs().format('L LT');
 
 function GeneralSection() {
   const {user, schedulingLink, eventDuration, setEventDuration} = useBooking();
@@ -105,8 +108,19 @@ function EventSection() {
               ?.label}
         </div>
 
-        <div>Start: {timeSelected?.start.toISOString()}</div>
-        <div>End: {timeSelected?.end.toISOString()}</div>
+        <div className="flex flex-row">
+          <i className="fas fa-calendar-check w-4 mr-2" />
+          <div className="flex flex-row flex-wrap">
+            <span>
+              {timeSelected &&
+                dayjs(timeSelected.start).format('MM[月]DD[日] a h点 mm[分]')}
+            </span>
+            <span>
+              至{' '}
+              {timeSelected && dayjs(timeSelected.end).format('a h点 mm[分]')}
+            </span>
+          </div>
+        </div>
       </div>
 
       <div className="pt-2">
