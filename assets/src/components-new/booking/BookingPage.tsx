@@ -22,7 +22,7 @@ function GeneralSection() {
   const {user, schedulingLink, eventDuration, setEventDuration} = useBooking();
 
   return (
-    <div>
+    <div className="w-full">
       <div>
         <div>{schedulingLink?.name}</div>
         <div>{schedulingLink?.description}</div>
@@ -35,7 +35,7 @@ function GeneralSection() {
 
       <div className="flex flex-row">
         <i className="fas fa-clock mr-2 w-5 text-center" />
-        <div className="flex flex-row">
+        <div className="flex flex-row flex-wrap">
           {schedulingLink?.durations.map((d: number) => {
             const durationDisplay = humanizeDuration(d * 60 * 1000, {
               units: ['h', 'm'],
@@ -43,7 +43,7 @@ function GeneralSection() {
             });
 
             return (
-              <div key={d}>
+              <div key={d} className="mt-1 ml-1">
                 <Button
                   onClick={() => {
                     setEventDuration(d);
