@@ -232,33 +232,6 @@ function CalendarSection() {
     );
   };
 
-  const handleDateSelect = (selectInfo: DateSelectArg) => {
-    // let title = prompt('Please enter a new title for your event')
-    let title = 'new event';
-    let calendarApi = selectInfo.view.calendar;
-
-    // calendarApi.unselect() // clear date selection
-
-    console.log('select', selectInfo);
-
-    setEventTime(selectInfo.start, selectInfo.end);
-
-    // setSelectInfo(selectInfo);
-
-    // console.log('select', selectInfo.endStr, dayjs(selectInfo.end).subtract(15, 'minutes').toISOString())
-
-    // if (title) {
-    calendarApi.addEvent({
-      id: nanoid(),
-      title,
-      start: selectInfo.startStr,
-      end: selectInfo.endStr,
-      // end: dayjs(selectInfo.end).subtract(15, 'minutes').toISOString(),
-      // allDay: selectInfo.allDay
-    });
-    // }
-  };
-
   const handleDateClick = (info: DateClickArg) => {
     let calendarApi = info.view.calendar;
     calendarApi.removeAllEvents();
@@ -290,7 +263,7 @@ function CalendarSection() {
           slotLabelInterval="01:00"
           slotMinTime="00:00:00"
           dayHeaderContent={renderDayHeaderContent}
-          editable={false}
+          editable={true}
           selectable={false}
           eventDurationEditable={false}
           allDaySlot={false}
@@ -309,19 +282,11 @@ function CalendarSection() {
           //     display: 'background',
           //   },
           // ]}
-          select={handleDateSelect}
           // eventContent={renderEventContent} // custom render function
           // eventClick={this.handleEventClick}
           // eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
           dateClick={handleDateClick}
           nowIndicator={true}
-          eventAdd={function (addInfo) {
-            console.log('Add', addInfo);
-          }}
-          /* you can update a remote database when these fire:
-                  eventChange={function(){}}
-                  eventRemove={function(){}}
-                  */
           locale={zhLocale}
         />
       </div>
