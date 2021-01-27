@@ -70,7 +70,7 @@ defmodule ChatApiWeb.Router do
 
     get("/profile", UserProfileController, :show)
     get("/user_settings", UserSettingsController, :show)
-    get("/scheduling_link", SchedulingLinkController, :show)
+    get("/scheduling_links", SchedulingLinkController, :show)
     get("/schedules", ScheduleController, :show)
     post("/events", EventController, :create)
     get("/booking/scheduling_links/:scheduling_link_id/calendar/range", BookingController, :show)

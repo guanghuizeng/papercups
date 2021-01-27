@@ -3,16 +3,23 @@ import {useParams} from 'react-router-dom';
 import BookingProvider, {useBooking} from './BookingProvider';
 
 function GeneralSection() {
-  const {userSlug, schedulingLinkSlug} = useBooking();
+  const {user, schedulingLink} = useBooking();
+
+  console.log('user', user, schedulingLink);
 
   return (
     <div>
-      <div>{userSlug}</div>
-      <div>{schedulingLinkSlug}</div>
-      <div>Description</div>
-      <div>Organizer</div>
-      <div>Durations</div>
-      <div>Location</div>
+      <div>{user?.display_name}</div>
+      <div>{schedulingLink?.name}</div>
+      <div>{schedulingLink?.description}</div>
+
+      <div>{schedulingLink?.organizer.displayName}</div>
+      <div>
+        {schedulingLink?.durations.map((d: number) => {
+          return <div key={d}>{d}</div>;
+        })}
+      </div>
+      <div>{schedulingLink?.location}</div>
       <div>Signed in as Yuanyuan Zhang</div>
     </div>
   );
@@ -26,6 +33,8 @@ function CalendarSection() {
 
 export default function BookingPage() {
   const {userSlug, schedulingLinkSlug} = useParams();
+
+  console.log('userSlug', userSlug);
 
   // read scheduling link
   // - name

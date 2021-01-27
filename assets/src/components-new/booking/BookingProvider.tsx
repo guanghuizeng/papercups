@@ -10,9 +10,15 @@ import {useSchedulingLink} from '../../hooks/SchedulingLinkProvider';
 const BookingContext = React.createContext<{
   userSlug: string;
   schedulingLinkSlug: string;
+
+  user: any;
+  schedulingLink: any;
 }>({
   userSlug: '',
   schedulingLinkSlug: '',
+
+  user: {},
+  schedulingLink: {},
 });
 
 export const useBooking = () => useContext(BookingContext);
@@ -30,7 +36,7 @@ function BookingProvider(props: Props) {
   // userSlug, schedulingLinkSlug
   // => scheduling link information
 
-  const {data: profile} = useUserProfileBySlug(userSlug);
+  const {data: user} = useUserProfileBySlug(userSlug);
   const {data: schedulingLink} = useSchedulingLinkBySlug(
     userSlug,
     schedulingLinkSlug
@@ -41,6 +47,9 @@ function BookingProvider(props: Props) {
       value={{
         userSlug: userSlug,
         schedulingLinkSlug: schedulingLinkSlug,
+
+        user,
+        schedulingLink,
       }}
     >
       {props.children}

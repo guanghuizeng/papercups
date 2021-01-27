@@ -2,11 +2,15 @@ defmodule ChatApiWeb.SchedulingLinkController do
   require Logger
   use ChatApiWeb, :controller
 
+  alias ChatApi.Users
+
   alias ChatApi.SchedulingLinks
   alias ChatApi.SchedulingLinks.SchedulingLink
 
   @spec index(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def index(conn, filters) do
+    # if user slug provided, then query by user
+    # else query by current_user if logged in
     with %{id: user_id} <- conn.assigns.current_user do
       scheduling_links = SchedulingLinks.list_scheduling_links_by_user(user_id, filters)
       render(conn, "index.json", scheduling_links: scheduling_links)
@@ -17,6 +21,23 @@ defmodule ChatApiWeb.SchedulingLinkController do
   def show(conn, %{"id" => id}) do
     scheduling_link = SchedulingLinks.get_scheduling_link!(id)
     render(conn, "show.json", scheduling_link: scheduling_link)
+  end
+
+  @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
+  def show(conn, %{"user" => user, "link" => link}) do
+#    scheduling_link = SchedulingLinks.get_scheduling_link!(id)
+    Logger.info(inspect(user))
+    Logger.info(inspect(link))
+
+    user_info = Users.get_user_info_by_slug(user)
+    if user_info do
+      scheduling_link = SchedulingLinks.get_scheduling_link_by_url(user_info.user_id, link)
+      Logger.info(inspect(scheduling_link))
+      render(conn, "show.json", scheduling_link: scheduling_link)
+    else
+      Logger.info(inspect(user_info))
+      render(conn, "show.json", scheduling_link: %{id: 1})
+    end
   end
 
 

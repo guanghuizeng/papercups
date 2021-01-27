@@ -20,10 +20,10 @@ defmodule ChatApi.SchedulingLinks do
     |> Repo.all()
   end
 
-  @spec get_scheduling_link_by_url(binary()) :: [SchedulingLink.t()]
-  def get_scheduling_link_by_url(url) do
+  @spec get_scheduling_link_by_url(integer(), binary()) :: [SchedulingLink.t()]
+  def get_scheduling_link_by_url(user_id, url) do
     SchedulingLink
-    |> where(url: ^url)
+    |> where(user_id: ^user_id, url: ^url)
     |> Repo.one()
   end
 
