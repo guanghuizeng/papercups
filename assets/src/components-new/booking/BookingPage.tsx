@@ -18,9 +18,15 @@ function GeneralSection() {
 
   return (
     <div>
-      <div>{schedulingLink?.name}</div>
-      <div>{schedulingLink?.organizer.displayName}</div>
-      <div>{schedulingLink?.description}</div>
+      <div>
+        <div>{schedulingLink?.name}</div>
+        <div>{schedulingLink?.description}</div>
+      </div>
+
+      <div>
+        <i className="fas fa-user-alt mr-2 w-5 text-center" />
+        {schedulingLink?.organizer.displayName}
+      </div>
 
       <div className="flex flex-row">
         <i className="fas fa-clock mr-2 w-5 text-center" />
@@ -35,7 +41,7 @@ function GeneralSection() {
         {schedulingLink?.location}
       </div>
 
-      <div>Signed in as {user?.display_name}</div>
+      <div>当前登录用户：{user?.display_name}</div>
     </div>
   );
 }
@@ -49,7 +55,10 @@ function EventSection() {
         <div>{schedulingLink?.name}</div>
         <div>{schedulingLink?.description}</div>
 
-        <div>{schedulingLink?.organizer.displayName}</div>
+        <div>
+          <i className="fas fa-user-alt mr-2 w-5 text-center" />
+          {schedulingLink?.organizer.displayName}
+        </div>
 
         <div>
           <i className="fas fa-clock mr-2 w-5 text-center" />
