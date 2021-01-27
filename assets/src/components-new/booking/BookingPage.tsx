@@ -14,9 +14,19 @@ import {INITIAL_EVENTS} from '../event-utils';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import dayjs from 'dayjs';
 import {Button, Input} from '@geist-ui/react';
+import humanizeDuration from 'humanize-duration';
+
 import {colourOptions} from '../events/data';
 import {convertMinToHrsMin} from '../../utils';
 import moment from 'moment';
+
+// var duration = require('dayjs/plugin/duration')
+// var relativeTime = require('dayjs/plugin/relativeTime')
+//
+// dayjs.extend(duration)
+// dayjs.extend(relativeTime)
+
+// dayjs.locale('en')
 
 function GeneralSection() {
   const {user, schedulingLink, eventDuration, setEventDuration} = useBooking();
@@ -37,6 +47,11 @@ function GeneralSection() {
         <i className="fas fa-clock mr-2 w-5 text-center" />
         <div className="flex flex-row">
           {schedulingLink?.durations.map((d: number) => {
+            const durationDisplay = humanizeDuration(d * 60 * 1000, {
+              units: ['h', 'm'],
+              language: 'zh_CN',
+            });
+
             return (
               <div key={d}>
                 <Button
@@ -46,7 +61,7 @@ function GeneralSection() {
                   type={d === eventDuration ? 'success' : 'default'}
                   size="mini"
                 >
-                  {moment.duration(d, 'minutes').humanize()}
+                  {durationDisplay}
                 </Button>
               </div>
             );
@@ -73,6 +88,10 @@ function EventSection() {
     setEventTime,
     eventDuration,
   } = useBooking();
+  const durationDisplay = humanizeDuration(eventDuration * 60 * 1000, {
+    units: ['h', 'm'],
+    language: 'zh_CN',
+  });
 
   return (
     <div className="pt-2">
@@ -87,7 +106,7 @@ function EventSection() {
 
         <div>
           <i className="fas fa-clock mr-2 w-5 text-center" />
-          {moment.duration(eventDuration, 'minutes').humanize()}
+          {durationDisplay}
         </div>
         <div className="flex flex-row">
           <i className="fas fa-video mr-2 w-5 text-center" />
