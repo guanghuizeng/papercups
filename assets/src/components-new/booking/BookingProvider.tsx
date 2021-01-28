@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useAuth} from '../../components/auth/AuthProvider';
 import {
+  useIntervals,
   useLink,
   useSchedulingLinkBySlug,
   useUserProfileBySlug,
@@ -19,6 +20,7 @@ const BookingContext = React.createContext<{
   timeSelected: EventTime | null;
   eventStartTime: Date | null;
   eventDuration: number;
+  intervals: any[];
 
   user: any;
   schedulingLink: any;
@@ -32,6 +34,7 @@ const BookingContext = React.createContext<{
   timeSelected: null,
   eventStartTime: null,
   eventDuration: 30,
+  intervals: [],
 
   user: {},
   schedulingLink: {},
@@ -56,6 +59,12 @@ function BookingProvider(props: Props) {
   const {data: schedulingLink} = useSchedulingLinkBySlug(
     userSlug,
     schedulingLinkSlug
+  );
+  const {data: intervals} = useIntervals(
+    userSlug,
+    schedulingLinkSlug,
+    'from',
+    'to'
   );
   const [timeSelected, setTimeSelected] = useState<EventTime | null>(null);
   const [eventStartTime, setEventStartTime] = useState<Date | null>(null);
@@ -86,6 +95,7 @@ function BookingProvider(props: Props) {
         timeSelected,
         eventStartTime,
         eventDuration,
+        intervals,
 
         user,
         schedulingLink,

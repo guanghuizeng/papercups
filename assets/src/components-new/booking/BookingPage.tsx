@@ -202,8 +202,8 @@ function CalendarSection() {
     eventStartTime,
     setEventTime,
     setEventStartTime,
-
     schedulingLink,
+    intervals,
   } = useBooking();
 
   const renderDayHeaderContent = (props: DayHeaderContentArg) => {
@@ -258,21 +258,20 @@ function CalendarSection() {
    * 2. overrides
    */
   const getBlockEvents = () => {
-    // get intervals from api
-    const intervals: Dayjs[][] = [
-      [dayjs().add(1, 'hours'), dayjs().add(4, 'hours')],
-      [
-        dayjs().add(1, 'days').add(1, 'hours'),
-        dayjs().add(1, 'days').add(4, 'hours'),
-      ],
-    ];
+    const intervalsFormat: Dayjs[][] = intervals
+      ? intervals.map((interval) => [
+          dayjs(interval.startAt),
+          dayjs(interval.endAt),
+        ])
+      : [];
+
     const startDate = dayjs('2021-01-18T00:00:00');
     const endDate = startDate.add(14, 'day');
 
     const complementedIntervals = complementIntervals(
       startDate,
       endDate,
-      intervals
+      intervalsFormat
     );
     return complementedIntervals.map((interval) => {
       return {

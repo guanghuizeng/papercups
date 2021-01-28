@@ -110,3 +110,26 @@ export function useUserProfileBySlug(slug: string) {
     isError: error,
   };
 }
+
+export function useIntervals(
+  userSlug: string,
+  linkSlug: string,
+  from: string,
+  to: string
+) {
+  const {
+    data,
+    error,
+  } = useSWR(
+    `/api/links/${userSlug}/${linkSlug}/intervals?from=${from}&to=${to}`,
+    (url) => fetchWithoutToken(url)
+  );
+
+  console.log('intervals', data);
+
+  return {
+    data: data && data.data,
+    isLoading: !error && !data,
+    isError: error,
+  };
+}

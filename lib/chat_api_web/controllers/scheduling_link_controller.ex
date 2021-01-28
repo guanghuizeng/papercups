@@ -23,7 +23,7 @@ defmodule ChatApiWeb.SchedulingLinkController do
 
   @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def show(conn, %{"user" => user, "link" => link}) do
-#    scheduling_link = SchedulingLinks.get_scheduling_link!(id)
+    #    scheduling_link = SchedulingLinks.get_scheduling_link!(id)
     Logger.info(inspect(user))
     Logger.info(inspect(link))
 
@@ -34,7 +34,13 @@ defmodule ChatApiWeb.SchedulingLinkController do
       render(conn, "show.json", scheduling_link: scheduling_link)
     else
       Logger.info(inspect(user_info))
-      render(conn, "show.json", scheduling_link: %{id: 1})
+      render(
+        conn,
+        "show.json",
+        scheduling_link: %{
+          id: 1
+        }
+      )
     end
   end
 
@@ -81,7 +87,10 @@ defmodule ChatApiWeb.SchedulingLinkController do
   def update(conn, %{"id" => id, "scheduling_link" => scheduling_link_params}) do
     scheduling_link = SchedulingLinks.get_scheduling_link!(id)
 
-    with {:ok, %SchedulingLink{} = scheduling_link} <- SchedulingLinks.update_scheduling_link(scheduling_link, scheduling_link_params) do
+    with {:ok, %SchedulingLink{} = scheduling_link} <- SchedulingLinks.update_scheduling_link(
+      scheduling_link,
+      scheduling_link_params
+    ) do
       render(conn, "show.json", scheduling_link: scheduling_link)
     end
   end
@@ -91,6 +100,37 @@ defmodule ChatApiWeb.SchedulingLinkController do
   """
   @spec intervals(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def intervals(conn, %{"user" => user, "link" => link, "from" => from, "to" => to}) do
-
+    json(
+      conn,
+      %{
+        data: [
+            %{
+              "endAt": "2021-01-28T09:00:00Z",
+              "rank": 1,
+              "startAt": "2021-01-28T07:50:00Z"
+            },
+            %{
+              "endAt": "2021-01-28T14:00:00.000Z",
+              "rank": 1,
+              "startAt": "2021-01-28T12:00:00.000Z"
+            },
+            %{
+              "endAt": "2021-01-29T09:00:00.000Z",
+              "rank": 1,
+              "startAt": "2021-01-29T01:00:00.000Z"
+            },
+            %{
+              "endAt": "2021-01-29T14:00:00.000Z",
+              "rank": 1,
+              "startAt": "2021-01-29T12:00:00.000Z"
+            },
+            %{
+              "endAt": "2021-01-30T09:00:00.000Z",
+              "rank": 1,
+              "startAt": "2021-01-30T01:00:00.000Z"
+            }
+          ]
+      }
+    )
   end
 end
