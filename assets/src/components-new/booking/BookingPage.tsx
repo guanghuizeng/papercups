@@ -256,12 +256,16 @@ function CalendarSection() {
    * organizer.availability
    * 1. presets
    * 2. overrides
-   *
    */
   const getBlockEvents = () => {
     // get intervals from api
-    const intervals: Dayjs[][] = [];
-
+    const intervals: Dayjs[][] = [
+      [dayjs().add(1, 'hours'), dayjs().add(4, 'hours')],
+      [
+        dayjs().add(1, 'days').add(1, 'hours'),
+        dayjs().add(1, 'days').add(4, 'hours'),
+      ],
+    ];
     const startDate = dayjs('2021-01-18T00:00:00');
     const endDate = startDate.add(14, 'day');
 
@@ -270,8 +274,16 @@ function CalendarSection() {
       endDate,
       intervals
     );
-
-    return complementedIntervals;
+    return complementedIntervals.map((interval) => {
+      return {
+        id: createEventId(),
+        start: interval[0].toISOString(),
+        end: interval[1].toISOString(),
+        className: 'sc-unavailable',
+        overlap: false,
+        display: 'background',
+      };
+    });
   };
 
   return (
@@ -306,12 +318,12 @@ function CalendarSection() {
               end: timeSelected?.end,
             },
           ]} // alternatively, use the `events` setting to fetch from a feed
-          // eventSources={[
-          //   {
-          //     events: getBackgroundEvents(),
-          //     display: 'background',
-          //   },
-          // ]}
+          eventSources={[
+            {
+              events: getBlockEvents(),
+              display: 'background',
+            },
+          ]}
           // eventContent={renderEventContent} // custom render function
           // eventClick={this.handleEventClick}
           // eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed

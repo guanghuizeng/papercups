@@ -23,6 +23,7 @@ export function complementIntervals(
 ) {
   const res: Dayjs[][] = [];
   if (intervals.length === 0) {
+    res.push([start, end]);
     return res;
   }
 

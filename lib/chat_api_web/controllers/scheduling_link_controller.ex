@@ -86,4 +86,11 @@ defmodule ChatApiWeb.SchedulingLinkController do
     end
   end
 
+  @doc """
+  get available intervals for given scheduling link
+  """
+  @spec intervals(Plug.Conn.t(), map()) :: Plug.Conn.t()
+  def intervals(conn, %{"user" => user, "link" => link, "from" => from, "to" => to}) do
+
+  end
 end
