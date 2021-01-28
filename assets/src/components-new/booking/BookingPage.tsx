@@ -259,7 +259,7 @@ function CalendarSection() {
           weekNumberCalculation="ISO"
           initialView="timeGridWeek"
           slotDuration="00:30:00"
-          snapDuration={convertMinToHrsMin(eventDuration)}
+          snapDuration="00:15:00"
           slotLabelInterval="01:00"
           slotMinTime="00:00:00"
           dayHeaderContent={renderDayHeaderContent}
@@ -286,6 +286,9 @@ function CalendarSection() {
           // eventClick={this.handleEventClick}
           // eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
           dateClick={handleDateClick}
+          eventDragStop={function (arg) {
+            console.log('drag stop', arg, arg.event.startStr, arg.event.endStr);
+          }}
           nowIndicator={true}
           locale={zhLocale}
         />
