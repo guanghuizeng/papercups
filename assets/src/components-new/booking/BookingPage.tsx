@@ -281,6 +281,7 @@ function CalendarSection() {
         end: interval[1].toISOString(),
         className: 'sc-unavailable',
         overlap: false,
+        editable: false,
         display: 'background',
       };
     });
