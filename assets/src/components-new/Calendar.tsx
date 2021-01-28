@@ -278,6 +278,10 @@ function Calendar(props: CalendarProps) {
     );
   };
 
+  /**
+   * availabilityOverrides
+   * availabilityPresetsIntervals
+   */
   const getBackgroundEvents = () => {
     const startDate = dayjs('2021-01-18T00:00:00');
     const endDate = startDate.add(14, 'day');

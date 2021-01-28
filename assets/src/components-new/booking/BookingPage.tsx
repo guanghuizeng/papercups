@@ -10,14 +10,20 @@ import FullCalendar, {
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin, {DateClickArg} from '@fullcalendar/interaction';
-import {INITIAL_EVENTS} from '../event-utils';
+import {
+  complementIntervals,
+  createEventId,
+  eliminateIntervals,
+  INITIAL_EVENTS,
+} from '../event-utils';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
-import dayjs from 'dayjs';
+import dayjs, {Dayjs} from 'dayjs';
 import {Button, Input} from '@geist-ui/react';
 import humanizeDuration from 'humanize-duration';
 import {colourOptions} from '../events/data';
-import {convertMinToHrsMin} from '../../utils';
+import {convertMinToHrsMin, dayConvertToEn} from '../../utils';
 import {nanoid} from 'nanoid';
+import _ from 'lodash';
 var localizedFormat = require('dayjs/plugin/localizedFormat');
 dayjs.extend(localizedFormat);
 dayjs().format('L LT');
@@ -196,6 +202,8 @@ function CalendarSection() {
     eventStartTime,
     setEventTime,
     setEventStartTime,
+
+    schedulingLink,
   } = useBooking();
 
   const renderDayHeaderContent = (props: DayHeaderContentArg) => {
@@ -242,6 +250,28 @@ function CalendarSection() {
       start: info.dateStr,
       end: dayjs(info.date).add(eventDuration, 'minutes').toISOString(),
     });
+  };
+
+  /**
+   * organizer.availability
+   * 1. presets
+   * 2. overrides
+   *
+   */
+  const getBlockEvents = () => {
+    // get intervals from api
+    const intervals: Dayjs[][] = [];
+
+    const startDate = dayjs('2021-01-18T00:00:00');
+    const endDate = startDate.add(14, 'day');
+
+    const complementedIntervals = complementIntervals(
+      startDate,
+      endDate,
+      intervals
+    );
+
+    return complementedIntervals;
   };
 
   return (
