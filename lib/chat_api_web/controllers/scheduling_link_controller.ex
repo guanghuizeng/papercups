@@ -97,9 +97,24 @@ defmodule ChatApiWeb.SchedulingLinkController do
 
   @doc """
   get available intervals for given scheduling link
+
+
   """
   @spec intervals(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def intervals(conn, %{"user" => user, "link" => link, "from" => from, "to" => to}) do
+    user_info = Users.get_user_info_by_slug(user)
+    if user_info do
+      scheduling_link = SchedulingLinks.get_scheduling_link_by_url(user_info.user_id, link)
+
+      # find related scheduled events
+      scheduled_events = []
+
+
+      Logger.info(inspect(scheduling_link))
+    else
+
+    end
+
     json(
       conn,
       %{

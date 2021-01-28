@@ -1101,6 +1101,23 @@ export const createEvent = async (
     .then((res) => res.body.data);
 };
 
+export const createScheduledEvent = async (
+  scheduling_link_id: string,
+  start_time: string,
+  guest_name: string
+) => {
+  return request
+    .post(`/api/scheduled_events`)
+    .send({
+      event: {
+        scheduling_link_id,
+        start_time,
+        guest_name,
+      },
+    })
+    .then((res) => res.body.data);
+};
+
 export const fetchDatetimeSpotsByRange = async (
   event_type_id: string,
   start_time: string,

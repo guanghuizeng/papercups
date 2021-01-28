@@ -30,18 +30,21 @@ defmodule ChatApiWeb.EventController do
   @spec create(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def create(conn, %{"event" => event_params}) do
     %{
-      "guest_name" => guest_name,
       "scheduling_link_id" => scheduling_link_id,
+      "guest_name" => guest_name,
       "start_time" => start_time,
     } = event_params
+    Logger.info(inspect(event_params))
+
     scheduling_link = SchedulingLinks.get_scheduling_link!(scheduling_link_id)
+    Logger.info(inspect(scheduling_link))
 
     with {:ok, start_time, _offset} <- DateTime.from_iso8601(start_time),
 #         {:ok, %EventType{} = event_type} <- EventTypes.get_event_type!(event_type_id),
          {:ok, %Event{} = event} <- Events.create_event(
            %{
              guest_name: guest_name,
-             scheduling_link_id: scheduling_link,
+             scheduling_link_id: scheduling_link_id,
              user_id: scheduling_link.user_id,
              start_time: start_time
            }

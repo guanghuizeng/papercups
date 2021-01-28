@@ -4,7 +4,7 @@ defmodule ChatApi.Events.Event do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "events" do
+  schema "scheduled_events" do
     field :guest_name, :string
     field :invitee_full_name, :string
     field :invitee_email, :string

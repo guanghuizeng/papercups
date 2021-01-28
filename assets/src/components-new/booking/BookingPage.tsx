@@ -24,6 +24,8 @@ import {colourOptions} from '../events/data';
 import {convertMinToHrsMin, dayConvertToEn} from '../../utils';
 import {nanoid} from 'nanoid';
 import _ from 'lodash';
+import * as API from '../../api';
+
 var localizedFormat = require('dayjs/plugin/localizedFormat');
 dayjs.extend(localizedFormat);
 dayjs().format('L LT');
@@ -94,6 +96,19 @@ function EventSection() {
     language: 'zh_CN',
   });
 
+  const submit = () => {
+    if (eventStartTime) {
+      console.log('scheduling link', schedulingLink);
+      API.createScheduledEvent(
+        schedulingLink.id,
+        eventStartTime.toISOString(),
+        'guest_name'
+      ).then((r) => {
+        console.log('createScheduledEvent response', r);
+      });
+    }
+  };
+
   return (
     <div className="pt-2">
       <div>
@@ -155,7 +170,7 @@ function EventSection() {
         </div>
       )}
       <div className="flex flex-row pt-2">
-        <Button type="success" size="mini">
+        <Button type="success" size="mini" onClick={submit}>
           确定
         </Button>
         <Button size="mini">取消</Button>
