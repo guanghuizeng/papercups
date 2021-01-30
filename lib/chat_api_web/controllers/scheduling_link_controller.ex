@@ -110,10 +110,9 @@ defmodule ChatApiWeb.SchedulingLinkController do
     day_seconds = 60*60*24
     if (DateTime.compare(current, endTime) != :eq) do
       day = weekday_label(Date.day_of_week(DateTime.to_date(current)))
-      Enum.map(schedules,
+      List.flatten(Enum.map(schedules,
         fn (schedule) ->
           Enum.map(schedule.rules, fn (rule) ->
-          Logger.info("=====")
           Logger.info(inspect(rule))
               %{
               byday: byday,
@@ -123,12 +122,12 @@ defmodule ChatApiWeb.SchedulingLinkController do
 
             if (Enum.member?(byday, day)) do
               %{
-                start: startTime,
-                end: endTime,
+                start: DateTime.add(current, startTime, :second),
+                end: DateTime.add(current, endTime, :second),
               }
             end
           end)
-        end) ++ print_day(DateTime.add(current, day_seconds, :second), endTime, schedules)
+        end)) ++ print_day(DateTime.add(current, day_seconds, :second), endTime, schedules)
       else
       []
     end
@@ -191,8 +190,7 @@ defmodule ChatApiWeb.SchedulingLinkController do
       ]
 
       Logger.info(inspect(schedules))
-
-    {:ok, startTime} = DateTime.now("Asia/Shanghai")
+    {:ok, startTime, 28800} = DateTime.from_iso8601("2021-01-30T00:00:00+08:00")
     endTime = DateTime.add(startTime, day*7, :second)
     current = startTime
     print_day(current, endTime, schedules)
