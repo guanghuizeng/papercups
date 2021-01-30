@@ -319,8 +319,8 @@ defmodule ChatApiWeb.SchedulingLinkController do
     eliminated_intervals = eliminate_intervals(sorted_intervals)
     complemented_intervals = complement_intervals(startTime, endTime, eliminated_intervals) # as result
 
-        complement_intervals_overrides = combine_intervals(complemented_intervals, block_overrides)
-        eliminate_intervals(sort_intervals(complement_intervals_overrides))
+    complement_intervals_overrides = combine_intervals(complemented_intervals, block_overrides)
+    eliminate_intervals(sort_intervals(complement_intervals_overrides))
 
   end
 
