@@ -180,7 +180,7 @@ defmodule ChatApiWeb.SchedulingLinkController do
     interval = Enum.at(intervals, 0)
     if interval && current do
       if (
-           DateTime.compare(current.end, interval.start) == :ge || DateTime.compare(
+           DateTime.compare(current.end, interval.start) == :gt || DateTime.compare(
              current.end,
              interval.start
            ) == :eq) do
@@ -204,12 +204,9 @@ defmodule ChatApiWeb.SchedulingLinkController do
     first = Enum.at(intervals, 0)
     second = Enum.at(intervals, 1)
     if (second) do
-      %{
-        end: firstEnd
-      } = first
       [
         %{
-          start: firstEnd,
+          start: first.end,
           end: second.start
         } |
         Enum.slice(intervals, 1..-1)
@@ -227,6 +224,7 @@ defmodule ChatApiWeb.SchedulingLinkController do
       }]
     else
       first = Enum.at(intervals, 0)
+      last = Enum.at(intervals, -1)
       [
         if (DateTime.compare(startTime, first.start) == :lt) do
           %{
@@ -236,9 +234,14 @@ defmodule ChatApiWeb.SchedulingLinkController do
           else
           []
         end
-        |
-        complement_intervals(intervals)
-      ]
+        | complement_intervals(intervals)
+      ] ++ if (DateTime.compare(endTime, last.end) == :gt) do
+        [%{
+        start: last.end,
+        end: endTime
+        }]
+        else []
+      end
     end
   end
 
