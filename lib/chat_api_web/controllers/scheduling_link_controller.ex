@@ -104,36 +104,6 @@ defmodule ChatApiWeb.SchedulingLinkController do
   end
 
   @doc """
-
-  """
-  def print_day(current, endTime, schedules) do
-    day_seconds = 60*60*24
-    if (DateTime.compare(current, endTime) != :eq) do
-      day = weekday_label(Date.day_of_week(DateTime.to_date(current)))
-      List.flatten(Enum.map(schedules,
-        fn (schedule) ->
-          Enum.map(schedule.rules, fn (rule) ->
-          Logger.info(inspect(rule))
-              %{
-              byday: byday,
-              startTime: startTime,
-              endTime: endTime,
-              } = rule
-
-            if (Enum.member?(byday, day)) do
-              %{
-                start: DateTime.add(current, startTime, :second),
-                end: DateTime.add(current, endTime, :second),
-              }
-            end
-          end)
-        end)) ++ print_day(DateTime.add(current, day_seconds, :second), endTime, schedules)
-      else
-      []
-    end
-  end
-
-  @doc """
   schedules = [
     {
       rules: [
@@ -161,40 +131,84 @@ defmodule ChatApiWeb.SchedulingLinkController do
     }
   ]
   """
-  def schedules_to_intervals() do
+  def schedules_to_intervals(current, endTime, schedules) do
+    day_seconds = 60 * 60 * 24
+    if (DateTime.compare(current, endTime) != :eq) do
+      day = weekday_label(Date.day_of_week(DateTime.to_date(current)))
+      List.flatten(
+        Enum.map(
+          schedules,
+          fn (schedule) ->
+            Enum.map(
+              schedule.rules,
+              fn (rule) ->
+                Logger.info(inspect(rule))
+                %{
+                  byday: byday,
+                  startTime: startTime,
+                  endTime: endTime,
+                } = rule
 
-    day = 60*60*24
+                if (Enum.member?(byday, day)) do
+                  %{
+                    start: DateTime.add(current, startTime, :second),
+                    end: DateTime.add(current, endTime, :second),
+                  }
+                end
+              end
+            )
+          end
+        )
+      ) ++ schedules_to_intervals(DateTime.add(current, day_seconds, :second), endTime, schedules)
+    else
+      []
+    end
+  end
+
+  def sort_intervals() do
+
+  end
+
+  def eliminate_intervals() do
+
+  end
+
+  def complement_intervals() do
+
+  end
+
+  def test_get_intervals() do
+    day = 60 * 60 * 24
     schedules = [
-        %{
-          rules: [%{
-            byday: [
-              "mo",
-              "tu",
-              "we",
-              "th",
-              "fr"
-            ],
-            endTime: 1020,
-            startTime: 540
-          }]
-        },
-        %{
-          rules: [%{
-            byday: [
-              "sa"
-            ],
-            endTime: 780,
-            startTime: 540
-          }]
-        }
-      ]
+      %{
+        rules: [%{
+          byday: [
+            "mo",
+            "tu",
+            "we",
+            "th",
+            "fr"
+          ],
+          endTime: 1020,
+          startTime: 540
+        }]
+      },
+      %{
+        rules: [%{
+          byday: [
+            "sa"
+          ],
+          endTime: 780,
+          startTime: 540
+        }]
+      }
+    ]
 
-      Logger.info(inspect(schedules))
+    Logger.info(inspect(schedules))
     {:ok, startTime, 28800} = DateTime.from_iso8601("2021-01-30T00:00:00+08:00")
-    endTime = DateTime.add(startTime, day*7, :second)
+    endTime = DateTime.add(startTime, day * 7, :second)
     current = startTime
-    print_day(current, endTime, schedules)
-
+    schedules_to_intervals(current, endTime, schedules)
   end
 
   @doc """
@@ -236,32 +250,32 @@ defmodule ChatApiWeb.SchedulingLinkController do
       conn,
       %{
         data: [
-            %{
-              "endAt": "2021-01-28T09:00:00Z",
-              "rank": 1,
-              "startAt": "2021-01-28T07:50:00Z"
-            },
-            %{
-              "endAt": "2021-01-28T14:00:00.000Z",
-              "rank": 1,
-              "startAt": "2021-01-28T12:00:00.000Z"
-            },
-            %{
-              "endAt": "2021-01-29T09:00:00.000Z",
-              "rank": 1,
-              "startAt": "2021-01-29T01:00:00.000Z"
-            },
-            %{
-              "endAt": "2021-01-29T14:00:00.000Z",
-              "rank": 1,
-              "startAt": "2021-01-29T12:00:00.000Z"
-            },
-            %{
-              "endAt": "2021-01-30T09:00:00.000Z",
-              "rank": 1,
-              "startAt": "2021-01-30T01:00:00.000Z"
-            }
-          ]
+          %{
+            "endAt": "2021-01-28T09:00:00Z",
+            "rank": 1,
+            "startAt": "2021-01-28T07:50:00Z"
+          },
+          %{
+            "endAt": "2021-01-28T14:00:00.000Z",
+            "rank": 1,
+            "startAt": "2021-01-28T12:00:00.000Z"
+          },
+          %{
+            "endAt": "2021-01-29T09:00:00.000Z",
+            "rank": 1,
+            "startAt": "2021-01-29T01:00:00.000Z"
+          },
+          %{
+            "endAt": "2021-01-29T14:00:00.000Z",
+            "rank": 1,
+            "startAt": "2021-01-29T12:00:00.000Z"
+          },
+          %{
+            "endAt": "2021-01-30T09:00:00.000Z",
+            "rank": 1,
+            "startAt": "2021-01-30T01:00:00.000Z"
+          }
+        ]
       }
     )
   end
