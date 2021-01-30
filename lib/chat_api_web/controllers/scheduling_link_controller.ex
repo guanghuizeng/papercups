@@ -95,8 +95,127 @@ defmodule ChatApiWeb.SchedulingLinkController do
     end
   end
 
+  def preset_to_intervals() do
+
+  end
+
+  def weekday_label(day) do
+    Enum.at(["mo", "tu", "we", "th", "fr", "sa", "su"], day - 1)
+  end
+
+  @doc """
+
+  """
+  def print_day(current, endTime, schedules) do
+    day_seconds = 60*60*24
+    if (DateTime.compare(current, endTime) != :eq) do
+      day = weekday_label(Date.day_of_week(DateTime.to_date(current)))
+      Enum.map(schedules,
+        fn (schedule) ->
+          Enum.map(schedule.rules, fn (rule) ->
+          Logger.info("=====")
+          Logger.info(inspect(rule))
+              %{
+              byday: byday,
+              startTime: startTime,
+              endTime: endTime,
+              } = rule
+
+            if (Enum.member?(byday, day)) do
+              %{
+                start: startTime,
+                end: endTime,
+              }
+            end
+          end)
+        end) ++ print_day(DateTime.add(current, day_seconds, :second), endTime, schedules)
+      else
+      []
+    end
+  end
+
+  @doc """
+  schedules = [
+    {
+      rules: [
+        byday: [
+          'mo',
+          'tu',
+          'fr',
+          'sa',
+        ],
+        start: "2021-01-29 17:18:14.747035+08:00"
+        end: "2021-01-31 17:18:14.747035+08:00"
+      ]
+    } ,
+    {
+      rules: [
+        byday: [
+          'mo',
+          'tu',
+          'fr',
+          'sa',
+        ],
+        start: "2021-01-29 10:18:14.747035+08:00"
+        end: "2021-01- 10:18:14.747035+08:00"
+      ]
+    }
+  ]
+  """
+  def schedules_to_intervals() do
+
+    day = 60*60*24
+    schedules = [
+        %{
+          rules: [%{
+            byday: [
+              "mo",
+              "tu",
+              "we",
+              "th",
+              "fr"
+            ],
+            endTime: 1020,
+            startTime: 540
+          }]
+        },
+        %{
+          rules: [%{
+            byday: [
+              "sa"
+            ],
+            endTime: 780,
+            startTime: 540
+          }]
+        }
+      ]
+
+      Logger.info(inspect(schedules))
+
+    {:ok, startTime} = DateTime.now("Asia/Shanghai")
+    endTime = DateTime.add(startTime, day*7, :second)
+    current = startTime
+    print_day(current, endTime, schedules)
+
+  end
+
+  @doc """
+  return available intervals for the scheduling link
+  """
+  def intervals_trial() do
+    # predefined
+    # from time, to time
+    # scheduling link: preset schedules, overrides
+    # scheduled events
+
+    # step 1: preset schedules => intervals
+
+
+  end
+
   @doc """
   get available intervals for given scheduling link
+
 
 
   """
