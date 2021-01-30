@@ -135,7 +135,7 @@ defmodule ChatApiWeb.SchedulingLinkController do
     day_seconds = 60 * 60 * 24
     if (DateTime.compare(current, endTime) != :eq) do
       day = weekday_label(Date.day_of_week(DateTime.to_date(current)))
-      List.flatten(
+      Enum.filter(List.flatten(
         Enum.map(
           schedules,
           fn (schedule) ->
@@ -159,7 +159,7 @@ defmodule ChatApiWeb.SchedulingLinkController do
             )
           end
         )
-      ) ++ schedules_to_intervals(DateTime.add(current, day_seconds, :second), endTime, schedules)
+      ), fn (x) -> x != nil end) ++ schedules_to_intervals(DateTime.add(current, day_seconds, :second), endTime, schedules)
     else
       []
     end
