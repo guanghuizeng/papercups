@@ -165,16 +165,20 @@ defmodule ChatApiWeb.SchedulingLinkController do
     end
   end
 
-  def sort_intervals() do
-
+  def combine_intervals(intervals, others) do
+    intervals
   end
 
-  def eliminate_intervals() do
-
+  def sort_intervals(intervals) do
+    intervals
   end
 
-  def complement_intervals() do
+  def eliminate_intervals(intervals) do
+    intervals
+  end
 
+  def complement_intervals(intervals) do
+    intervals
   end
 
   def test_get_intervals() do
@@ -208,7 +212,12 @@ defmodule ChatApiWeb.SchedulingLinkController do
     {:ok, startTime, 28800} = DateTime.from_iso8601("2021-01-30T00:00:00+08:00")
     endTime = DateTime.add(startTime, day * 7, :second)
     current = startTime
-    schedules_to_intervals(current, endTime, schedules)
+    intervals_from_schedules = schedules_to_intervals(current, endTime, schedules)
+    intervals_with_overrides = combine_intervals(intervals_from_schedules, [])
+    sorted_intervals = sort_intervals(intervals_from_schedules)
+    eliminated_intervals = eliminate_intervals(sort_intervals)
+    complemented_intervals = complement_intervals(eliminate_intervals) # as result
+
   end
 
   @doc """
