@@ -309,7 +309,6 @@ defmodule ChatApiWeb.SchedulingLinkController do
       #      }
     ]
 
-    Logger.info(inspect(schedules))
     {:ok, startTime, 0} = DateTime.from_iso8601("2021-01-30T00:00:00Z")
     endTime = DateTime.add(startTime, day * 7, :second)
     current = startTime
