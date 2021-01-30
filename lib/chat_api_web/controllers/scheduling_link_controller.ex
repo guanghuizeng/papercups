@@ -180,19 +180,19 @@ defmodule ChatApiWeb.SchedulingLinkController do
   def eliminate_intervals(intervals, current) do
     interval = Enum.at(intervals, 0)
     if interval && current do
-      if (current.end < interval.start) do
+      if (DateTime.compare(current.end, interval.start ) == :ge || DateTime.compare(current.end, interval.start ) == :eq ) do
         eliminate_intervals(Enum.slice(intervals, 1..-1), %{start: current.start, end: max(current.end, interval.end)})
       else
         [
           %{start: current.start, end: current.end} |
-          eliminate_intervals(Enum.slice(intervals, 1..-1), Enum.at(intervals, 2))
+          eliminate_intervals(Enum.slice(intervals, 1..-1), Enum.at(intervals, 1))
         ]
       end
     end
   end
 
   def eliminate_intervals(intervals) do
-    eliminate_intervals(Enum.slice(sorted_intervals, 1..-1), Enum.at(sorted_intervals, 0))
+    eliminate_intervals(Enum.slice(intervals, 1..-1), Enum.at(intervals, 0))
   end
 
   def complement_intervals(intervals) do
