@@ -313,6 +313,7 @@ defmodule ChatApiWeb.SchedulingLinkController do
     {:ok, startTime, 0} = DateTime.from_iso8601("2021-01-30T00:00:00Z")
     endTime = DateTime.add(startTime, day * 7, :second)
     current = startTime
+
     intervals_from_schedules = schedules_to_intervals(current, endTime, schedules)
     intervals_with_overrides = combine_intervals(intervals_from_schedules, allow_overrides)
     sorted_intervals = sort_intervals(intervals_from_schedules)
