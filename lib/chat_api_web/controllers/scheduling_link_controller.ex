@@ -180,7 +180,7 @@ defmodule ChatApiWeb.SchedulingLinkController do
   def eliminate_intervals(intervals, current) do
     interval = Enum.at(intervals, 0)
     if interval && current do
-      if (current.end < interval.start || current.end == interval.start) do
+      if (current.end < interval.start) do
         eliminate_intervals(Enum.slice(intervals, 1..-1), %{start: current.start, end: max(current.end, interval.end)})
       else
         [
@@ -189,6 +189,10 @@ defmodule ChatApiWeb.SchedulingLinkController do
         ]
       end
     end
+  end
+
+  def eliminate_intervals(intervals) do
+    eliminate_intervals(Enum.slice(sorted_intervals, 1..-1), Enum.at(sorted_intervals, 0))
   end
 
   def complement_intervals(intervals) do
@@ -237,7 +241,8 @@ defmodule ChatApiWeb.SchedulingLinkController do
     intervals_from_schedules = schedules_to_intervals(current, endTime, schedules)
     intervals_with_overrides = combine_intervals(intervals_from_schedules, [])
     sorted_intervals = sort_intervals(intervals_from_schedules)
-    eliminated_intervals = eliminate_intervals(Enum.slice(sorted_intervals, 1..-1), Enum.at(sorted_intervals, 0))
+    Logger.info(inspect(sorted_intervals))
+    eliminated_intervals = eliminate_intervals(sorted_intervals)
     complemented_intervals = complement_intervals(eliminated_intervals) # as result
 
   end
