@@ -188,6 +188,8 @@ defmodule ChatApiWeb.SchedulingLinkController do
           eliminate_intervals(Enum.slice(intervals, 1..-1), Enum.at(intervals, 1))
         ]
       end
+    else
+      []
     end
   end
 
