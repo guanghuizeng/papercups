@@ -166,18 +166,21 @@ defmodule ChatApiWeb.SchedulingLinkController do
   end
 
   def combine_intervals(intervals, others) do
-    intervals
+    intervals ++ others
   end
 
   def sort_intervals(intervals) do
+    Enum.sort_by(intervals, &(&1.start))
     intervals
   end
 
   def eliminate_intervals(intervals) do
+
     intervals
   end
 
   def complement_intervals(intervals) do
+    
     intervals
   end
 
