@@ -143,7 +143,6 @@ defmodule ChatApiWeb.SchedulingLinkController do
               Enum.map(
                 schedule.rules,
                 fn (rule) ->
-                  Logger.info(inspect(rule))
                   %{
                     byday: byday,
                     startTime: startTime,
@@ -180,7 +179,11 @@ defmodule ChatApiWeb.SchedulingLinkController do
   def eliminate_intervals(intervals, current) do
     interval = Enum.at(intervals, 0)
     if interval && current do
-      if (DateTime.compare(current.end, interval.start ) == :ge || DateTime.compare(current.end, interval.start ) == :eq ) do
+      if (
+           DateTime.compare(current.end, interval.start) == :ge || DateTime.compare(
+             current.end,
+             interval.start
+           ) == :eq) do
         eliminate_intervals(Enum.slice(intervals, 1..-1), %{start: current.start, end: max(current.end, interval.end)})
       else
         [
@@ -198,8 +201,45 @@ defmodule ChatApiWeb.SchedulingLinkController do
   end
 
   def complement_intervals(intervals) do
+    first = Enum.at(intervals, 0)
+    second = Enum.at(intervals, 1)
+    if (second) do
+      %{
+        end: firstEnd
+      } = first
+      [
+        %{
+          start: firstEnd,
+          end: second.start
+        } |
+        Enum.slice(intervals, 1..-1)
+      ]
+    else
+      []
+    end
+  end
 
-    intervals
+  def complement_intervals(startTime, endTime, intervals) do
+    if (length(intervals) == 0) do
+      [%{
+        start: startTime,
+        end: endTime
+      }]
+    else
+      first = Enum.at(intervals, 0)
+      [
+        if (DateTime.compare(startTime, first.start) == :lt) do
+          %{
+            start: startTime,
+            end: first.start
+          }
+          else
+          []
+        end
+        |
+        complement_intervals(intervals)
+      ]
+    end
   end
 
   def test_eliminate_intervals() do
@@ -219,33 +259,37 @@ defmodule ChatApiWeb.SchedulingLinkController do
             "tu",
             "we",
             "th",
-            "fr"
+            "fr",
+          "sa",
+          "su",
           ],
           endTime: 1020,
           startTime: 540
         }]
       },
-      %{
-        rules: [%{
-          byday: [
-            "sa"
-          ],
-          endTime: 780,
-          startTime: 540
-        }]
-      }
+#      %{
+#        rules: [%{
+#          byday: [
+#            "mo"
+#          ],
+#          endTime: 780,
+#          startTime: 540
+#        }]
+#      }
     ]
 
     Logger.info(inspect(schedules))
-    {:ok, startTime, 28800} = DateTime.from_iso8601("2021-01-30T00:00:00+08:00")
+    {:ok, startTime, 0} = DateTime.from_iso8601("2021-01-30T00:00:00Z")
     endTime = DateTime.add(startTime, day * 7, :second)
     current = startTime
     intervals_from_schedules = schedules_to_intervals(current, endTime, schedules)
     intervals_with_overrides = combine_intervals(intervals_from_schedules, [])
     sorted_intervals = sort_intervals(intervals_from_schedules)
-    Logger.info(inspect(sorted_intervals))
     eliminated_intervals = eliminate_intervals(sorted_intervals)
-    complemented_intervals = complement_intervals(eliminated_intervals) # as result
+    Logger.info(inspect(eliminated_intervals))
+    complemented_intervals = complement_intervals(startTime, endTime, eliminated_intervals) # as result
+
+
 
   end
 
