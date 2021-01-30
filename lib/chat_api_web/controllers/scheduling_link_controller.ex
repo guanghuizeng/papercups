@@ -135,31 +135,34 @@ defmodule ChatApiWeb.SchedulingLinkController do
     day_seconds = 60 * 60 * 24
     if (DateTime.compare(current, endTime) != :eq) do
       day = weekday_label(Date.day_of_week(DateTime.to_date(current)))
-      Enum.filter(List.flatten(
-        Enum.map(
-          schedules,
-          fn (schedule) ->
-            Enum.map(
-              schedule.rules,
-              fn (rule) ->
-                Logger.info(inspect(rule))
-                %{
-                  byday: byday,
-                  startTime: startTime,
-                  endTime: endTime,
-                } = rule
-
-                if (Enum.member?(byday, day)) do
+      Enum.filter(
+        List.flatten(
+          Enum.map(
+            schedules,
+            fn (schedule) ->
+              Enum.map(
+                schedule.rules,
+                fn (rule) ->
+                  Logger.info(inspect(rule))
                   %{
-                    start: DateTime.add(current, startTime, :second),
-                    end: DateTime.add(current, endTime, :second),
-                  }
+                    byday: byday,
+                    startTime: startTime,
+                    endTime: endTime,
+                  } = rule
+
+                  if (Enum.member?(byday, day)) do
+                    %{
+                      start: DateTime.add(current, startTime, :second),
+                      end: DateTime.add(current, endTime, :second),
+                    }
+                  end
                 end
-              end
-            )
-          end
-        )
-      ), fn (x) -> x != nil end) ++ schedules_to_intervals(DateTime.add(current, day_seconds, :second), endTime, schedules)
+              )
+            end
+          )
+        ),
+        fn (x) -> x != nil end
+      ) ++ schedules_to_intervals(DateTime.add(current, day_seconds, :second), endTime, schedules)
     else
       []
     end
@@ -174,14 +177,30 @@ defmodule ChatApiWeb.SchedulingLinkController do
     intervals
   end
 
-  def eliminate_intervals(intervals) do
+  def eliminate_intervals(intervals, current) do
+    interval = Enum.at(intervals, 0)
+    if interval && current do
+      if (current.end < interval.start || current.end == interval.start) do
+        eliminate_intervals(Enum.slice(intervals, 1..-1), %{start: current.start, end: max(current.end, interval.end)})
+      else
+        [
+          %{start: current.start, end: current.end} |
+          eliminate_intervals(Enum.slice(intervals, 1..-1), Enum.at(intervals, 2))
+        ]
+      end
+    end
+  end
+
+  def complement_intervals(intervals) do
 
     intervals
   end
 
-  def complement_intervals(intervals) do
-    
-    intervals
+  def test_eliminate_intervals() do
+    intervals = []
+
+
+
   end
 
   def test_get_intervals() do
@@ -218,7 +237,7 @@ defmodule ChatApiWeb.SchedulingLinkController do
     intervals_from_schedules = schedules_to_intervals(current, endTime, schedules)
     intervals_with_overrides = combine_intervals(intervals_from_schedules, [])
     sorted_intervals = sort_intervals(intervals_from_schedules)
-    eliminated_intervals = eliminate_intervals(sorted_intervals)
+    eliminated_intervals = eliminate_intervals(Enum.slice(sorted_intervals, 1..-1), Enum.at(sorted_intervals, 0))
     complemented_intervals = complement_intervals(eliminated_intervals) # as result
 
   end
