@@ -10,12 +10,20 @@ function SettingSection(props: any) {
   );
 }
 
+interface SectionTitleProps extends React.PropsWithChildren<any> {
+  title: string;
+}
+
+function SectionTitle(props: SectionTitleProps) {
+  return <div className="text-xl">{props.title}</div>;
+}
+
 function AvailabilitySection() {
   const {availabilityPresets} = useAppData();
   console.log('ava', availabilityPresets);
   return (
     <SettingSection>
-      <h2>可选择时间</h2>
+      <SectionTitle title={'可选择时间'} />
       <div className="border-primary border-b border-solid py-2">
         {availabilityPresets &&
           availabilityPresets.map((preset) => {
@@ -68,15 +76,15 @@ function LinksSettingsSection() {
     <div className="flex flex-col">
       <AvailabilitySection />
       <SettingSection>
-        <h2>Buffer</h2>
+        <SectionTitle title={'Buffer'} />
         <div></div>
       </SettingSection>
       <SettingSection>
-        <h2>提醒</h2>
+        <SectionTitle title={'提醒'} />
         <div></div>
       </SettingSection>
       <SettingSection>
-        <h2>品牌</h2>
+        <SectionTitle title={'品牌'} />
         <div></div>
       </SettingSection>
     </div>
@@ -96,8 +104,8 @@ function SlugSection() {
 
   return (
     <SettingSection>
-      <h2>链接地址</h2>
-      <div className="flex flex-row">
+      <SectionTitle title={'链接地址'} />
+      <div className="pt-4 flex flex-row">
         <span>https://timepage.com/</span>
         <input
           className="border-primary border-2 border-solid w-24"
@@ -142,8 +150,8 @@ function ProfileSection() {
   return (
     <div className={'flex flex-col'}>
       <SettingSection>
-        <h2>姓名</h2>
-        <div>
+        <SectionTitle title={'姓名'} />
+        <div className="pt-4">
           <input
             className="border-primary border-2 border-solid"
             defaultValue={profile?.display_name}
@@ -156,12 +164,14 @@ function ProfileSection() {
       </SettingSection>
       <SlugSection />
       <SettingSection>
-        <h2>邮件地址</h2>
-        <div>{profile?.email}</div>
+        <SectionTitle title={'邮件地址'} />
+        <div className="pt-4">{profile?.email}</div>
       </SettingSection>
       <SettingSection>
-        <h2>密码</h2>
-        <div className="btn-draft">重设密码</div>
+        <SectionTitle title={'密码'} />
+        <div className="pt-4">
+          <div className="btn-draft">重设密码</div>
+        </div>
       </SettingSection>
     </div>
   );
