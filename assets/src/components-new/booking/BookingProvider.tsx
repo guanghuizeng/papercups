@@ -63,8 +63,8 @@ function BookingProvider(props: Props) {
   const {data: intervals} = useIntervals(
     userSlug,
     schedulingLinkSlug,
-    'from',
-    'to'
+    '2021-01-31T00:00:00Z',
+    '2021-02-06T00:00:00Z'
   );
   const [timeSelected, setTimeSelected] = useState<EventTime | null>(null);
   const [eventStartTime, setEventStartTime] = useState<Date | null>(null);

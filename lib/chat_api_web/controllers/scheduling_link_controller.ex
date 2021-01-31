@@ -355,18 +355,25 @@ defmodule ChatApiWeb.SchedulingLinkController do
   def intervals(conn, %{"user" => user, "link" => link, "from" => from, "to" => to}) do
     user_info = Users.get_user_info_by_slug(user)
     if user_info do
-      with scheduling_link <- SchedulingLinks.get_scheduling_link_by_url(user_info.user_id, link),
+      with {:ok, startTime, 0} <- DateTime.from_iso8601(from),
+           {:ok, endTime, 0} <- DateTime.from_iso8601(to),
+           scheduling_link <- SchedulingLinks.get_scheduling_link_by_url(user_info.user_id, link),
            %{"organizer": organizer} <- scheduling_link,
            %{"availability" => availability} <- organizer,
            %{"overrides" => overrides, "presets" => presets} <- availability,
            schedules <- Schedules.list_schedules_by_ids(presets)
         do
         Logger.info(inspect(availability))
-        Logger.info(inspect(overrides))
         Logger.info(inspect(presets))
 
         Logger.info("===========")
+
+        Logger.info(inspect(startTime))
+        Logger.info(inspect(endTime))
         Logger.info(inspect(schedules))
+        Logger.info(inspect(overrides))
+
+
 
       end
 
