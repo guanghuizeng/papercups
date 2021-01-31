@@ -20,6 +20,17 @@ defmodule ChatApi.Schedules do
     |> Repo.all()
   end
 
+  @spec list_schedules_by_ids([binary()]) :: [Schedule.t()]
+  def list_schedules_by_ids(schedule_ids) do
+    query =
+      from(
+        s in Schedule,
+        where: s.id in ^schedule_ids,
+        select: s
+      )
+    Repo.all(query)
+  end
+
   @spec get_schedule!(binary()) :: Schedule.t()
   def get_schedule!(id), do: Repo.get!(Schedule, id)
 

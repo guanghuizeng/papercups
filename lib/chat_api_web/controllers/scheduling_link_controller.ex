@@ -4,6 +4,9 @@ defmodule ChatApiWeb.SchedulingLinkController do
 
   alias ChatApi.Users
 
+  alias ChatApi.Schedules
+  alias ChatApi.Schedules.Schedule
+
   alias ChatApi.SchedulingLinks
   alias ChatApi.SchedulingLinks.SchedulingLink
 
@@ -362,6 +365,11 @@ defmodule ChatApiWeb.SchedulingLinkController do
         Logger.info(inspect(availability))
         Logger.info(inspect(overrides))
         Logger.info(inspect(presets))
+
+        schedules = Schedules.list_schedules_by_ids(presets)
+
+        Logger.info("===========")
+        Logger.info(inspect(schedules))
 
       end
 
