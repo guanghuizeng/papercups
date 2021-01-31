@@ -147,9 +147,9 @@ defmodule ChatApiWeb.SchedulingLinkController do
                 schedule.rules,
                 fn (rule) ->
                   %{
-                    byday: byday,
-                    startTime: startTime,
-                    endTime: endTime,
+                    "byday" => byday,
+                    "startTime" => startTime,
+                    "endTime" => endTime,
                   } = rule
 
                   if (Enum.member?(byday, day)) do
@@ -175,12 +175,14 @@ defmodule ChatApiWeb.SchedulingLinkController do
     Enum.map(
       others,
       fn (interval) ->
-        {:ok, startTime, 0} = DateTime.from_iso8601(interval.startAt)
-        {:ok, endTime, 0} = DateTime.from_iso8601(interval.endAt)
-        %{
-          startAt: startTime,
-          endAt: endTime
-        }
+        with %{"startAt" => startAt, "endAt" => endAt} <- interval do
+          {:ok, startTime, 0} = DateTime.from_iso8601(startAt)
+          {:ok, endTime, 0} = DateTime.from_iso8601(endAt)
+          %{
+            startAt: startTime,
+            endAt: endTime
+          }
+        end
       end
     )
   end
@@ -197,7 +199,10 @@ defmodule ChatApiWeb.SchedulingLinkController do
              current.endAt,
              interval.startAt
            ) == :eq) do
-        eliminate_intervals(Enum.slice(intervals, 1..-1), %{startAt: current.startAt, endAt: max(current.endAt, interval.endAt)})
+        eliminate_intervals(
+          Enum.slice(intervals, 1..-1),
+          %{startAt: current.startAt, endAt: max(current.endAt, interval.endAt)}
+        )
       else
         [
           %{startAt: current.startAt, endAt: current.endAt} |
@@ -264,8 +269,8 @@ defmodule ChatApiWeb.SchedulingLinkController do
   end
 
   def intervals(startTime, endTime, schedules, overrides) do
-    allow_overrides = Enum.filter(overrides, fn (rule) -> rule.type == "allow" end)
-    block_overrides= Enum.filter(overrides, fn (rule) -> rule.type == "block" end)
+    allow_overrides = Enum.filter(overrides, fn (rule) -> Map.get(rule, "type") == "allow" end)
+    block_overrides = Enum.filter(overrides, fn (rule) -> Map.get(rule, "type") == "block" end)
 
     intervals_from_schedules = schedules_to_intervals(startTime, endTime, schedules)
     intervals_with_overrides = combine_intervals(intervals_from_schedules, allow_overrides)
@@ -281,8 +286,8 @@ defmodule ChatApiWeb.SchedulingLinkController do
     day = 60 * 60 * 24
     schedules = [
       %{
-        rules: [%{
-          byday: [
+        "rules" => [%{
+          "byday" => [
             "mo",
             "tu",
             "we",
@@ -291,8 +296,8 @@ defmodule ChatApiWeb.SchedulingLinkController do
             "sa",
             "su",
           ],
-          endTime: 1020,
-          startTime: 540
+          "endTime" => 1020,
+          "startTime" => 540
         }]
       },
       #      %{
@@ -308,19 +313,19 @@ defmodule ChatApiWeb.SchedulingLinkController do
 
     overrides = [
       %{
-        "type": "allow",
-        "startAt": "2021-02-01T18:00:00Z",
-        "endAt": "2021-02-01T20:00:00Z"
+        "type" => "allow",
+        "startAt" => "2021-02-01T18:00:00Z",
+        "endAt" => "2021-02-01T20:00:00Z"
       },
       %{
-        "type": "block",
-        "startAt": "2021-02-01T10:00:00Z",
-        "endAt": "2021-02-01T11:00:00Z"
+        "type" => "block",
+        "startAt" => "2021-02-01T10:00:00Z",
+        "endAt" => "2021-02-01T11:00:00Z"
       },
       %{
-        "type": "block",
-        "startAt": "2021-02-02T16:00:00Z",
-        "endAt": "2021-02-02T18:00:00Z"
+        "type" => "block",
+        "startAt" => "2021-02-02T16:00:00Z",
+        "endAt" => "2021-02-02T18:00:00Z"
       }
     ]
 
@@ -374,6 +379,7 @@ defmodule ChatApiWeb.SchedulingLinkController do
         Logger.info(inspect(overrides))
 
 
+        Logger.info(inspect(intervals(startTime, endTime, schedules, overrides)))
 
       end
 
@@ -381,7 +387,14 @@ defmodule ChatApiWeb.SchedulingLinkController do
       scheduled_events = []
 
     else
-
+      #      json(
+      #        conn,
+      #        %{
+      #          data: [
+      #
+      #          ]
+      #        }
+      #      )
     end
 
     json(
