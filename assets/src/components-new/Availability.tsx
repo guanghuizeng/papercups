@@ -105,6 +105,23 @@ export function Availability() {
     return [];
   };
 
+  /** update functions
+   *  1. name
+   *  2. rule: edit, add, remove
+   * */
+
+  const updateName = () => {};
+
+  const updateRule = () => {};
+
+  const removeRule = () => {};
+
+  const addRule = () => {};
+
+  console.log('Availability', preset);
+
+  // TODO rules => background events
+
   return (
     <div className="flex flex-row w-full">
       <div className="flex flex-col">
