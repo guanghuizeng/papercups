@@ -45,9 +45,6 @@ function AvailabilityByDay({rule}: any) {
           className="w-1/2"
           classNamePrefix="select"
           components={{
-            DropdownIndicator: () => {
-              return null;
-            },
             IndicatorSeparator: () => {
               return null;
             },
@@ -63,9 +60,6 @@ function AvailabilityByDay({rule}: any) {
           className="w-1/2"
           classNamePrefix="select"
           components={{
-            DropdownIndicator: () => {
-              return null;
-            },
             IndicatorSeparator: () => {
               return null;
             },
