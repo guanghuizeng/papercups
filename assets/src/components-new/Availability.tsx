@@ -121,7 +121,7 @@ export function Availability() {
           }}
           size="large"
         />
-        <div className="py-2">
+        <div className="py-4">
           {preset?.rules.map((rule: any) => {
             return (
               <div key={`${rule.startTime}-${rule.endTime}`}>
