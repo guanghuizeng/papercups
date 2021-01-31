@@ -183,7 +183,7 @@ defmodule ChatApiWeb.SchedulingLinkController do
   end
 
   def sort_intervals(intervals) do
-    Enum.sort_by(intervals, &(&1.start))
+    Enum.sort(intervals, &(DateTime.compare(&1.start, &2.start) != :gt))
   end
 
   def eliminate_intervals(intervals, current) do
@@ -303,11 +303,16 @@ defmodule ChatApiWeb.SchedulingLinkController do
     ]
 
     block_overrides = [
-      #      %{
-      #        "type": "block",
-      #        "end": "2021-01-18T08:45:00Z",
-      #        "start": "2021-01-18T02:30:00Z"
-      #      }
+      %{
+        "type": "block",
+        "start": "2021-02-01T10:00:00Z",
+        "end": "2021-02-01T11:00:00Z"
+      },
+      %{
+        "type": "block",
+        "start": "2021-02-02T16:00:00Z",
+        "end": "2021-02-02T18:00:00Z"
+      }
     ]
 
     {:ok, startTime, 0} = DateTime.from_iso8601("2021-01-30T00:00:00Z")
@@ -319,10 +324,11 @@ defmodule ChatApiWeb.SchedulingLinkController do
     sorted_intervals = sort_intervals(intervals_with_overrides)
     Logger.info(inspect(sorted_intervals))
     eliminated_intervals = eliminate_intervals(sorted_intervals)
+    Logger.info(inspect(eliminated_intervals))
     complemented_intervals = complement_intervals(startTime, endTime, eliminated_intervals) # as result
 
-    #    complement_intervals_overrides = combine_intervals(complemented_intervals, block_overrides)
-    #    eliminate_intervals(sort_intervals(complement_intervals_overrides))
+    complement_intervals_overrides = combine_intervals(complemented_intervals, block_overrides)
+    eliminate_intervals(sort_intervals(complement_intervals_overrides))
 
   end
 
