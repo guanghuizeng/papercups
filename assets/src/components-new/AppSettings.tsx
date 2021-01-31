@@ -182,6 +182,7 @@ export function AppSettings() {
 
   return (
     <div className="w-full">
+      <div className="Header">设置</div>
       <div className="border-primary border-b border-solid">
         <div className="mx-auto w-128">
           <div className={'flex flex-row'}>
@@ -206,7 +207,7 @@ export function AppSettings() {
                       pathname === url ||
                       pathname.startsWith(url) ||
                       (pathname === '/' && url === '/links')
-                        ? 'bg-gray-200 text-black'
+                        ? 'border-primary border-b-4 border-pink-400 text-black'
                         : 'opacity-75'
                     } px-4 py-2`}
                   >
