@@ -10,6 +10,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {INITIAL_EVENTS} from './event-utils';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
+import {Button, Input} from '@geist-ui/react';
 import dayjs from 'dayjs';
 
 const sliceOfTime = listOfTime24.slice(0, 24 * 4);
@@ -113,14 +114,13 @@ export function Availability() {
         >
           <i className="fas fa-times" />
         </Link>
-        <TextField
-          defaultValue={preset?.name}
+        <Input
+          initialValue={preset?.name}
           onChange={(value) => {
             console.log(value);
           }}
-          className="h-12 text-lg"
+          size="large"
         />
-
         <div className="py-2">
           {preset?.rules.map((rule: any) => {
             return (
