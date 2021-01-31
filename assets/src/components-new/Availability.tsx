@@ -77,7 +77,7 @@ function AvailabilityByDay({rule}: any) {
           // onChange={onChange}
         />
       </div>
-      <div className="btn-draft mt-2">Delete</div>
+      <Button>Delete</Button>
     </>
   );
 }
@@ -149,8 +149,8 @@ export function Availability() {
         </div>
 
         <div className="w-full mt-4">
-          <div className="btn-draft-lg mt-4">Add</div>
-          <div className="btn-draft-lg mt-4">Show my calendar overlay</div>
+          <Button>Add</Button>
+          <Button>Show my calendar overlay</Button>
         </div>
       </div>
 
