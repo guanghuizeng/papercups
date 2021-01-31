@@ -337,20 +337,6 @@ defmodule ChatApiWeb.SchedulingLinkController do
   end
 
   @doc """
-  return available intervals for the scheduling link
-  """
-  def intervals_trial() do
-    # predefined
-    # from time, to time
-    # scheduling link: preset schedules, overrides
-    # scheduled events
-
-    # step 1: preset schedules => intervals
-
-
-  end
-
-  @doc """
   get available intervals for given scheduling link
 
     # 1. preset schedules
@@ -369,18 +355,20 @@ defmodule ChatApiWeb.SchedulingLinkController do
            %{"overrides" => overrides, "presets" => presets} <- availability,
            schedules <- Schedules.list_schedules_by_ids(presets)
         do
-        Logger.info(inspect(availability))
-        Logger.info(inspect(presets))
+#        Logger.info(inspect(availability))
+#        Logger.info(inspect(presets))
+#
+#        Logger.info("===========")
+#
+#        Logger.info(inspect(startTime))
+#        Logger.info(inspect(endTime))
+#        Logger.info(inspect(schedules))
+#        Logger.info(inspect(overrides))
+#
+#
+#        Logger.info(inspect(intervals(startTime, endTime, schedules, overrides)))
 
-        Logger.info("===========")
-
-        Logger.info(inspect(startTime))
-        Logger.info(inspect(endTime))
-        Logger.info(inspect(schedules))
-        Logger.info(inspect(overrides))
-
-
-        Logger.info(inspect(intervals(startTime, endTime, schedules, overrides)))
+        scheduled_events = []
 
         json(
           conn,
@@ -391,7 +379,6 @@ defmodule ChatApiWeb.SchedulingLinkController do
       end
 
 
-      scheduled_events = []
 
     else
             json(

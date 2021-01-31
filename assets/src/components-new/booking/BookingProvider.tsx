@@ -69,13 +69,10 @@ function BookingProvider(props: Props) {
   const [timeSelected, setTimeSelected] = useState<EventTime | null>(null);
   const [eventStartTime, setEventStartTime] = useState<Date | null>(null);
   const [eventDuration, setEventDuration] = useState<number>(30);
-  const [eventDurationFormat, setEventDurationFormat] = useState<string>('');
 
   useEffect(() => {
     if (schedulingLink) {
       setEventDuration(schedulingLink.durations[0]);
-      // const date = new Dayjs()
-      // setEventDurationFormat()
     }
   }, [schedulingLink]);
 
