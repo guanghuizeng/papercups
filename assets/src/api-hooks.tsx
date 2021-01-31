@@ -1,6 +1,7 @@
 import {getAccessToken} from './api';
 import useSWR from 'swr';
 import {fetchWithToken, fetchWithoutToken} from './hooks/utils';
+import * as queryString from 'query-string';
 
 export function useSchedulingLinks(token = getAccessToken()) {
   if (!token) {
@@ -117,13 +118,15 @@ export function useIntervals(
   from: string,
   to: string
 ) {
-  const {
-    data,
-    error,
-  } = useSWR(
-    `/api/links/${userSlug}/${linkSlug}/intervals?from=${from}&to=${to}`,
-    (url) => fetchWithoutToken(url)
-  );
+  const url = queryString.stringifyUrl({
+    url: `/api/links/${userSlug}/${linkSlug}/intervals`,
+    query: {
+      from,
+      to,
+    },
+  });
+  console.log('use interval', url);
+  const {data, error} = useSWR(url, (url) => fetchWithoutToken(url));
 
   console.log('intervals', data);
 

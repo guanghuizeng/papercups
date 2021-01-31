@@ -279,7 +279,8 @@ defmodule ChatApiWeb.SchedulingLinkController do
     complemented_intervals = complement_intervals(startTime, endTime, eliminated_intervals) # as result
 
     complement_intervals_overrides = combine_intervals(complemented_intervals, block_overrides)
-    eliminate_intervals(sort_intervals(complement_intervals_overrides))
+    complement_intervals(startTime, endTime, eliminate_intervals(sort_intervals(complement_intervals_overrides)))
+
   end
 
   def test_get_intervals() do
@@ -360,8 +361,8 @@ defmodule ChatApiWeb.SchedulingLinkController do
   def intervals(conn, %{"user" => user, "link" => link, "from" => from, "to" => to}) do
     user_info = Users.get_user_info_by_slug(user)
     if user_info do
-      with {:ok, startTime, 0} <- DateTime.from_iso8601(from),
-           {:ok, endTime, 0} <- DateTime.from_iso8601(to),
+      with {:ok, startTime, 28800} <- DateTime.from_iso8601(from),
+           {:ok, endTime, 28800} <- DateTime.from_iso8601(to),
            scheduling_link <- SchedulingLinks.get_scheduling_link_by_url(user_info.user_id, link),
            %{"organizer": organizer} <- scheduling_link,
            %{"availability" => availability} <- organizer,
@@ -381,53 +382,27 @@ defmodule ChatApiWeb.SchedulingLinkController do
 
         Logger.info(inspect(intervals(startTime, endTime, schedules, overrides)))
 
+        json(
+          conn,
+          %{
+            data: intervals(startTime, endTime, schedules, overrides)
+          }
+        )
       end
 
 
       scheduled_events = []
 
     else
-      #      json(
-      #        conn,
-      #        %{
-      #          data: [
-      #
-      #          ]
-      #        }
-      #      )
+            json(
+              conn,
+              %{
+                data: [
+
+                ]
+              }
+            )
     end
 
-    json(
-      conn,
-      %{
-        data: [
-          %{
-            "endAt": "2021-01-28T09:00:00Z",
-            "rank": 1,
-            "startAt": "2021-01-28T07:50:00Z"
-          },
-          %{
-            "endAt": "2021-01-28T14:00:00.000Z",
-            "rank": 1,
-            "startAt": "2021-01-28T12:00:00.000Z"
-          },
-          %{
-            "endAt": "2021-01-29T09:00:00.000Z",
-            "rank": 1,
-            "startAt": "2021-01-29T01:00:00.000Z"
-          },
-          %{
-            "endAt": "2021-01-29T14:00:00.000Z",
-            "rank": 1,
-            "startAt": "2021-01-29T12:00:00.000Z"
-          },
-          %{
-            "endAt": "2021-01-30T09:00:00.000Z",
-            "rank": 1,
-            "startAt": "2021-01-30T01:00:00.000Z"
-          }
-        ]
-      }
-    )
   end
 end
