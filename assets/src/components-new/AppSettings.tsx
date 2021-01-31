@@ -5,7 +5,7 @@ import {useAppData} from '../hooks/AppDataProvider';
 function SettingSection(props: any) {
   return (
     <div className="border-primary border-b border-solid py-8">
-      <div className="mx-auto">{props.children}</div>
+      <div className="mx-auto w-128">{props.children}</div>
     </div>
   );
 }
@@ -172,37 +172,41 @@ export function AppSettings() {
 
   return (
     <div className="w-full">
-      <div className={'flex flex-row'}>
-        {[
-          {
-            url: '/settings/profile',
-            name: '账号',
-          },
-          {
-            url: '/settings/links',
-            name: '链接',
-          },
-          {
-            url: '/settings/teams',
-            name: '团队',
-          },
-        ].map(({url, name}) => {
-          return (
-            <Link to={url} key={url}>
-              <div
-                className={`${
-                  pathname === url ||
-                  pathname.startsWith(url) ||
-                  (pathname === '/' && url === '/links')
-                    ? 'bg-gray-200 text-black'
-                    : 'opacity-75'
-                } px-4 py-2`}
-              >
-                {name}
-              </div>
-            </Link>
-          );
-        })}
+      <div className="border-primary border-b border-solid">
+        <div className="mx-auto w-128">
+          <div className={'flex flex-row'}>
+            {[
+              {
+                url: '/settings/profile',
+                name: '账号',
+              },
+              {
+                url: '/settings/links',
+                name: '链接',
+              },
+              {
+                url: '/settings/teams',
+                name: '团队',
+              },
+            ].map(({url, name}) => {
+              return (
+                <Link to={url} key={url}>
+                  <div
+                    className={`${
+                      pathname === url ||
+                      pathname.startsWith(url) ||
+                      (pathname === '/' && url === '/links')
+                        ? 'bg-gray-200 text-black'
+                        : 'opacity-75'
+                    } px-4 py-2`}
+                  >
+                    {name}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </div>
       <Switch>
         <Route
