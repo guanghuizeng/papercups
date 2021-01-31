@@ -154,8 +154,8 @@ defmodule ChatApiWeb.SchedulingLinkController do
 
                   if (Enum.member?(byday, day)) do
                     %{
-                      start: DateTime.add(current, startTime * 60, :second),
-                      end: DateTime.add(current, endTime * 60, :second),
+                      startAt: DateTime.add(current, startTime * 60, :second),
+                      endAt: DateTime.add(current, endTime * 60, :second),
                     }
                   end
                 end
@@ -175,32 +175,32 @@ defmodule ChatApiWeb.SchedulingLinkController do
     Enum.map(
       others,
       fn (interval) ->
-        {:ok, startTime, 0} = DateTime.from_iso8601(interval.start)
-        {:ok, endTime, 0} = DateTime.from_iso8601(interval.end)
+        {:ok, startTime, 0} = DateTime.from_iso8601(interval.startAt)
+        {:ok, endTime, 0} = DateTime.from_iso8601(interval.endAt)
         %{
-          start: startTime,
-          end: endTime
+          startAt: startTime,
+          endAt: endTime
         }
       end
     )
   end
 
   def sort_intervals(intervals) do
-    Enum.sort(intervals, &(DateTime.compare(&1.start, &2.start) != :gt))
+    Enum.sort(intervals, &(DateTime.compare(&1.startAt, &2.startAt) != :gt))
   end
 
   def eliminate_intervals(intervals, current) do
     interval = Enum.at(intervals, 0)
     if interval do
       if (
-           DateTime.compare(current.end, interval.start) == :gt || DateTime.compare(
-             current.end,
-             interval.start
+           DateTime.compare(current.endAt, interval.startAt) == :gt || DateTime.compare(
+             current.endAt,
+             interval.startAt
            ) == :eq) do
-        eliminate_intervals(Enum.slice(intervals, 1..-1), %{start: current.start, end: max(current.end, interval.end)})
+        eliminate_intervals(Enum.slice(intervals, 1..-1), %{startAt: current.startAt, endAt: max(current.endAt, interval.endAt)})
       else
         [
-          %{start: current.start, end: current.end} |
+          %{startAt: current.startAt, endAt: current.endAt} |
           eliminate_intervals(Enum.slice(intervals, 1..-1), Enum.at(intervals, 0))
         ]
       end
@@ -219,8 +219,8 @@ defmodule ChatApiWeb.SchedulingLinkController do
     if (second) do
       [
         %{
-          start: first.end,
-          end: second.start
+          startAt: first.endAt,
+          endAt: second.startAt
         } |
         complement_intervals(Enum.slice(intervals, 1..-1))
       ]
@@ -233,28 +233,28 @@ defmodule ChatApiWeb.SchedulingLinkController do
     if (length(intervals) == 0) do
       [
         %{
-          start: startTime,
-          end: endTime
+          startAt: startTime,
+          endAt: endTime
         }
       ]
     else
       first = Enum.at(intervals, 0)
       last = Enum.at(intervals, -1)
       [
-        if (DateTime.compare(startTime, first.start) == :lt) do
+        if (DateTime.compare(startTime, first.startAt) == :lt) do
           %{
-            start: startTime,
-            end: first.start
+            startAt: startTime,
+            endAt: first.startAt
           }
         else
           []
         end
         | complement_intervals(intervals)
-      ] ++ if (DateTime.compare(endTime, last.end) == :gt) do
+      ] ++ if (DateTime.compare(endTime, last.endAt) == :gt) do
         [
           %{
-            start: last.end,
-            end: endTime
+            startAt: last.endAt,
+            endAt: endTime
           }
         ]
       else
@@ -309,18 +309,18 @@ defmodule ChatApiWeb.SchedulingLinkController do
     overrides = [
       %{
         "type": "allow",
-        "start": "2021-02-01T18:00:00Z",
-        "end": "2021-02-01T20:00:00Z"
+        "startAt": "2021-02-01T18:00:00Z",
+        "endAt": "2021-02-01T20:00:00Z"
       },
       %{
         "type": "block",
-        "start": "2021-02-01T10:00:00Z",
-        "end": "2021-02-01T11:00:00Z"
+        "startAt": "2021-02-01T10:00:00Z",
+        "endAt": "2021-02-01T11:00:00Z"
       },
       %{
         "type": "block",
-        "start": "2021-02-02T16:00:00Z",
-        "end": "2021-02-02T18:00:00Z"
+        "startAt": "2021-02-02T16:00:00Z",
+        "endAt": "2021-02-02T18:00:00Z"
       }
     ]
 
