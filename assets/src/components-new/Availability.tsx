@@ -217,8 +217,6 @@ export function Availability() {
     updateAvailabilityPreset(preset.id, {rules});
   };
 
-  console.log('Availability', preset);
-
   return (
     <div className="flex flex-row w-full">
       <div className="flex flex-col">
