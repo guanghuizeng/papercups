@@ -11,7 +11,13 @@ import Calendar from './Calendar';
 import SchedulingLinkSettings from './SchedulingLinkSettings';
 import {useAppData} from '../hooks/AppDataProvider';
 import {useState} from 'react';
-import {Button, Input, Toggle} from '@geist-ui/react';
+import {
+  Button,
+  Input,
+  Toggle,
+  Link as LinkPlain,
+  Tooltip,
+} from '@geist-ui/react';
 
 const URL = 'http://localhost:3000';
 
@@ -23,6 +29,8 @@ function Header() {
   console.log('Header', settings, schedulingLinkSlug);
 
   const [editing, setEditing] = useState<boolean>(false);
+
+  const test = () => {};
 
   return (
     <div className="Header">
@@ -41,12 +49,13 @@ function Header() {
               <div className="bg-green-100 text-green-700 px-2 py-1">
                 <i className="fas fa-check" />
                 <span className="px-1">已保存</span>
+                <div onClick={() => {}}>测试保存</div>
               </div>
             </div>
             <div className="gentle-flex mr-3">
               <Toggle initialChecked={true} size="medium" onChange={() => {}} />
             </div>
-            <div className="gentle-flex px-3">
+            <div className="gentle-flex px-1">
               {editing ? (
                 <div>
                   <span className="text-gray-600 hover:text-blue-500 mr-1">
@@ -55,11 +64,11 @@ function Header() {
                   <Input initialValue={schedulingLinkSlug} />
                 </div>
               ) : (
-                <WithTip content={'点击复制链接'}>
-                  <span className="text-gray-600 hover:text-blue-500">
+                <Tooltip text={'点击复制链接'} type={'dark'} placement="bottom">
+                  <span className="cursor-pointer text-gray-600 hover:text-blue-500 hover:bg-blue-100 py-2 px-2 rounded">
                     {URL + '/@' + userSlug + '/' + schedulingLinkSlug}
                   </span>
-                </WithTip>
+                </Tooltip>
               )}
             </div>
             <div className="gentle-flex">
