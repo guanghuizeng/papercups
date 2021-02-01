@@ -10,7 +10,7 @@ import WithTip from '../components-new/common/WithTip';
 import Calendar from './Calendar';
 import SchedulingLinkSettings from './SchedulingLinkSettings';
 import {useAppData} from '../hooks/AppDataProvider';
-import {useState} from 'react';
+import {useState, Fragment} from 'react';
 import {X} from '@geist-ui/react-icons';
 import {
   Button,
@@ -215,7 +215,7 @@ function GeneralSection() {
 
   return (
     <div date-section="general" className="flex flex-col">
-      <div className="px-4 py-8">
+      <div className="px-4 pt-8">
         <textarea
           className="-mx-2 px-2 py-2 rounded-lg text-2xl leading-6 font-bold border-transparent focus:outline-none focus:border-gray-300 focus:ring focus:ring-black focus:ring-opacity-50 text-gray-800 resize-none w-full placeholder-gray-600"
           placeholder="Name this link"
@@ -234,7 +234,6 @@ function GeneralSection() {
             updateName(e.target.value);
           }}
         />
-
         <textarea
           className="-mx-2 mt-2 px-2 py-2 rounded-md block border-transparent focus:outline-none focus:border focus:border-gray-300 focus:ring focus:ring-black  focus:ring-opacity-50 w-full text-gray-600 resize-none leading-5 placeholder-gray-600"
           placeholder="Enter a description"
@@ -252,17 +251,14 @@ function GeneralSection() {
           }}
         />
       </div>
-      <div className="px-2 flex flex-col">
-        <div
-          className="flex flex-row px-2  py-2"
-          style={{
-            fontSize: '16px',
-            lineHeight: '1.5',
-            marginBottom: '20px',
-            color: '#4d5055',
-          }}
-        >
-          <i className="fas fa-clock mr-2 w-5 text-center" />
+      <div
+        className="px-2 py-2 grid gap-x-1 gap-y-6"
+        style={{gridTemplateColumns: '30px auto'}}
+      >
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="fas fa-clock" />
+          </span>
           <Select
             className="w-full"
             options={DurationOptionsMap}
@@ -285,29 +281,17 @@ function GeneralSection() {
               console.log('Durations change', value);
             }}
           />
-        </div>
-        <div
-          className="flex flex-row px-2 py-2"
-          style={{
-            fontSize: '16px',
-            lineHeight: '1.5',
-            marginBottom: '20px',
-            color: '#4d5055',
-          }}
-        >
-          <i className="fas fa-calendar-check mr-2 w-5 text-center" />
+        </Fragment>
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="fas fa-calendar-check" />
+          </span>
           <AvailabilitySelect />
-        </div>
-        <div
-          className="flex flex-row px-2 py-2"
-          style={{
-            fontSize: '16px',
-            lineHeight: '1.5',
-            marginBottom: '20px',
-            color: '#4d5055',
-          }}
-        >
-          <i className="fas fa-video mr-2 w-5 text-center" />
+        </Fragment>
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="fas fa-video" />
+          </span>
           <SingleSelect
             defaultValue={location}
             onChange={(v: any) => {
@@ -315,68 +299,45 @@ function GeneralSection() {
               console.log('Change location', v);
             }}
           />
-        </div>
-        <div
-          className="flex flex-row px-2 py-2"
-          style={{
-            fontSize: '16px',
-            lineHeight: '1.5',
-            marginBottom: '20px',
-            color: '#4d5055',
-          }}
-        >
-          <i className="fas fa-user-alt mr-2 w-5 text-center" />
-          受邀请人信息
-        </div>
-        <div
-          className="flex flex-row px-2 py-2"
-          style={{
-            fontSize: '16px',
-            lineHeight: '1.5',
-            marginBottom: '20px',
-            color: '#4d5055',
-          }}
-        >
-          <i className="fas fa-user-alt mr-2 w-5 text-center" />
-          添加团队成员
-        </div>
-        <div
-          style={{
-            fontSize: '16px',
-            lineHeight: '1.5',
-            marginBottom: '20px',
-            color: '#4d5055',
-          }}
-        >
+        </Fragment>
+        <Fragment>
           <Switch>
             <Route
               exact
               path="/links/:id"
               component={() => (
-                <div className="hover:bg-gray-200 w-full px-2 py-2 rounded">
+                // <div className="hover:bg-gray-200 w-full px-2 py-2 rounded">
+                <>
+                  <span className="w-full gentle-flex">
+                    <i className="fas fa-cog" />
+                  </span>
                   <Link to={`/links/${id}/more-settings`} className="w-full">
-                    <div className="w-full">
-                      <i className="fas fa-cog mr-2 w-5 text-center" />
-                      设置
-                    </div>
+                    设置
                   </Link>
-                </div>
+                </>
+                // </div>
               )}
             />
             <Route
               exact
               path="/links/:id/more-settings"
               component={() => (
-                <div className="bg-gray-200 w-full px-2 py-2 rounded">
-                  <div className="w-full">
-                    <i className="fas fa-cog mr-2 w-5 text-center" />
+                <>
+                  <span className="w-full gentle-flex">
+                    <i className="fas fa-cog" />
+                  </span>
+                  <span className="bg-gray-200 w-full px-2 py-2 rounded">
                     设置
-                  </div>
-                </div>
+                  </span>
+                </>
+                // <div className="bg-gray-200 w-full px-2 py-2 rounded">
+                //   <div className="w-full">
+                //   </div>
+                // </div>
               )}
             />
           </Switch>
-        </div>
+        </Fragment>
       </div>
     </div>
   );
@@ -386,70 +347,42 @@ function ControlSection() {
   // const {bookingUrl} = useSchedulingLink()
   const bookingUrl = '/@ycy/chat';
   return (
-    <div className="border-primary border-t border-solid">
-      <div className="flex flex-col px-2 py-2">
-        <div
-          className="hover:underline cursor-pointer text-gray-700 hover:text-green-500 px-2 py-2"
-          style={{
-            fontSize: '16px',
-            lineHeight: '1.5',
-            marginBottom: '20px',
-            // color: '#4d5055',
-          }}
-        >
-          <Link to={bookingUrl}>
-            <i className="fas fa-external-link-alt mr-2 w-5 text-center" />
-            预览
-          </Link>
-        </div>
-        <div
-          className="hover:bg-gray-200 cursor-pointer px-2 py-2 rounded"
-          style={{
-            fontSize: '16px',
-            lineHeight: '1.5',
-            marginBottom: '20px',
-            color: '#4d5055',
-          }}
-        >
-          <i className="fas fa-link mr-2 w-5 text-center" />
-          复制链接
-        </div>
-        <div
-          className="hover:bg-gray-200 cursor-pointer px-2 py-2 rounded"
-          style={{
-            fontSize: '16px',
-            lineHeight: '1.5',
-            marginBottom: '20px',
-            color: '#4d5055',
-          }}
-        >
-          <i className="far fa-clone mr-2 w-5 text-center" />
-          另存为
-        </div>
-        <div
-          className="hover:bg-gray-200 cursor-pointer px-2 py-2 rounded"
-          style={{
-            fontSize: '16px',
-            lineHeight: '1.5',
-            marginBottom: '20px',
-            color: '#4d5055',
-          }}
-        >
-          <i className="fas fa-code mr-2 w-5 text-center" />
-          嵌入
-        </div>
-        <div
-          className="text-gray-700 hover:text-red-500 hover:bg-gray-200 px-2 py-2  cursor-pointer rounded"
-          style={{
-            fontSize: '16px',
-            lineHeight: '1.5',
-            marginBottom: '20px',
-            // color: '#4d5055',
-          }}
-        >
-          <i className="far fa-trash-alt mr-2 w-5 text-center" />
-          删除
-        </div>
+    <div className="border-primary border-t border-solid mt-8">
+      <div
+        className="px-2 pt-8 grid gap-x-1 gap-y-6"
+        style={{gridTemplateColumns: '30px auto'}}
+      >
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="fas fa-external-link-alt " />
+          </span>
+          <span>预览</span>
+        </Fragment>
+
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="fas fa-link" />
+          </span>
+          <span>复制链接</span>
+        </Fragment>
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="far fa-clone " />
+          </span>
+          <Link to={bookingUrl}>另存为</Link>
+        </Fragment>
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="fas fa-code " />
+          </span>
+          <span>嵌入</span>
+        </Fragment>
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="far fa-trash-alt" />
+          </span>
+          <span>删除</span>
+        </Fragment>
       </div>
     </div>
   );
