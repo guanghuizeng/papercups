@@ -38,6 +38,8 @@ function AvailabilityByDay({rule}: any) {
 
   const updateEndTime = (value: number) => {};
 
+  const removeRule = () => {};
+
   return (
     <>
       <div className="flex flex-row py-2">
@@ -95,7 +97,7 @@ function AvailabilityByDay({rule}: any) {
           }}
         />
       </div>
-      <Button>Delete</Button>
+      <Button onClick={removeRule}>Delete</Button>
     </>
   );
 }
@@ -219,7 +221,7 @@ export function Availability() {
         </div>
 
         <div className="w-full mt-4">
-          <Button>Add</Button>
+          <Button onClick={addRule}>Add</Button>
           <Button>Show my calendar overlay</Button>
         </div>
       </div>
