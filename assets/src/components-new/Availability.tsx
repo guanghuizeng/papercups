@@ -8,10 +8,17 @@ import FullCalendar, {DayHeaderContentArg} from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import {INITIAL_EVENTS} from './event-utils';
+import {
+  complementIntervals,
+  createEventId,
+  eliminateIntervals,
+  INITIAL_EVENTS,
+} from './event-utils';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import {Button, Input} from '@geist-ui/react';
-import dayjs from 'dayjs';
+import dayjs, {Dayjs} from 'dayjs';
+import {dayConvertToEn} from '../utils';
+import _ from 'lodash';
 
 const sliceOfTime = listOfTime24.slice(0, 24 * 4);
 const timeOptions = listOfTime24Options;
@@ -95,8 +102,49 @@ export function Availability() {
     );
   };
 
+  // TODO rules => background events
+
   const getBackgroundEvents = () => {
-    return [];
+    const startDate = dayjs('2021-02-01T00:00:00');
+    const endDate = startDate.add(14, 'day');
+    const availabilityPresetsIntervals = [
+      {
+        byday: ['mo', 'tu', 'we', 'th', 'fr'],
+        endTime: 1020,
+        startTime: 540,
+      },
+    ];
+
+    const availableIntervals: Dayjs[][] = [];
+    let date = startDate.clone();
+    while (!date.isSame(endDate)) {
+      const day = dayConvertToEn(date.format('dd').toLowerCase());
+      availabilityPresetsIntervals.forEach((settings) => {
+        if (settings.byday.findIndex((d: string) => d === day) > -1) {
+          let startTime = date.add(settings.startTime, 'minute');
+          let endTime = date.add(settings.endTime, 'minute');
+          availableIntervals.push([startTime, endTime]);
+        }
+      });
+      date = date.add(1, 'day');
+    }
+    const sortedIntervals = _.sortBy(availableIntervals, (e) => e[0].valueOf());
+    const eliminatedIntervals = eliminateIntervals(sortedIntervals);
+    const complementedIntervals = complementIntervals(
+      startDate,
+      endDate,
+      eliminatedIntervals
+    );
+
+    return complementedIntervals.map((interval) => {
+      return {
+        id: createEventId(),
+        start: interval[0].toISOString(),
+        end: interval[1].toISOString(),
+        className: 'sc-unavailable',
+        display: 'background',
+      };
+    });
   };
 
   /** update functions
@@ -113,8 +161,6 @@ export function Availability() {
   const addRule = () => {};
 
   console.log('Availability', preset);
-
-  // TODO rules => background events
 
   return (
     <div className="flex flex-row w-full">
@@ -162,7 +208,6 @@ export function Availability() {
           dayHeaderContent={renderDayHeaderContent}
           allDaySlot={false}
           weekends={true}
-          events={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
           eventSources={[
             {
               events: getBackgroundEvents(),
