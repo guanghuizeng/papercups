@@ -20,7 +20,6 @@ function SectionTitle(props: SectionTitleProps) {
 
 function AvailabilitySection() {
   const {availabilityPresets} = useAppData();
-  console.log('ava', availabilityPresets);
   return (
     <SettingSection>
       <SectionTitle title={'可选择时间'} />
