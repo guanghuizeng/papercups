@@ -11,6 +11,7 @@ import Calendar from './Calendar';
 import SchedulingLinkSettings from './SchedulingLinkSettings';
 import {useAppData} from '../hooks/AppDataProvider';
 import {useState} from 'react';
+import {X} from '@geist-ui/react-icons';
 import {
   Button,
   Input,
@@ -35,10 +36,11 @@ function Header() {
   return (
     <div className="Header">
       <div className="flex flex-row w-full">
-        <Link to="/links" className="hover:bg-blue-300">
-          <span className="inline-block hover:underline ">
-            <i className="fas fa-times m-2 text-lg opacity-25 hover:opacity-100 hover:underline" />
-          </span>
+        <Link
+          to="/links"
+          className="hover:bg-gray-200 text-gray-600 hover:text-black gentle-flex w-10 "
+        >
+          <X />
         </Link>
         <div className="flex flex-row justify-between w-full px-8">
           <div className="gentle-flex">
@@ -49,9 +51,9 @@ function Header() {
               <div className="bg-green-100 text-green-700 px-2 py-1">
                 <i className="fas fa-check" />
                 <span className="px-1">已保存</span>
-                <div onClick={() => {}}>测试保存</div>
               </div>
             </div>
+            <Button onClick={() => {}}>测试保存</Button>
             <div className="gentle-flex mr-3">
               <Toggle initialChecked={true} size="medium" onChange={() => {}} />
             </div>
