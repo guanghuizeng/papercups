@@ -46,7 +46,10 @@ function max(a: Dayjs, b: Dayjs) {
 }
 
 export function eliminateIntervals(intervals: Dayjs[][]) {
-  const res = [];
+  const res: Dayjs[][] = [];
+  if (intervals.length === 0) {
+    return res;
+  }
   let currentStart = intervals[0][0];
   let currentEnd = intervals[0][1];
   for (let index = 1; index < intervals.length; index++) {

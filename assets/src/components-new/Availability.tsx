@@ -122,19 +122,13 @@ export function Availability() {
   const getBackgroundEvents = () => {
     const startDate = dayjs('2021-02-01T00:00:00');
     const endDate = startDate.add(14, 'day');
-    const availabilityPresetsIntervals = [
-      {
-        byday: ['mo', 'tu', 'we', 'th', 'fr'],
-        endTime: 1020,
-        startTime: 540,
-      },
-    ];
+    const availabilityPresetsIntervals: any = preset ? preset.rules : [];
 
     const availableIntervals: Dayjs[][] = [];
     let date = startDate.clone();
     while (!date.isSame(endDate)) {
       const day = dayConvertToEn(date.format('dd').toLowerCase());
-      availabilityPresetsIntervals.forEach((settings) => {
+      availabilityPresetsIntervals.forEach((settings: any) => {
         if (settings.byday.findIndex((d: string) => d === day) > -1) {
           let startTime = date.add(settings.startTime, 'minute');
           let endTime = date.add(settings.endTime, 'minute');
