@@ -183,27 +183,30 @@ function BufferLimitSection() {
     <SettingSection>
       <SectionTitle title={'缓冲时间及限制'} />
       <div>
-        <div>
-          <label>会议前</label>
-          <input
-            className="border-primary border-solid border-2 rounded"
-            defaultValue={bufferBefore}
-            type="number"
-            onChange={(e) => {
-              updateBufferBefore(parseInt(e.target.value));
-            }}
-          />
-        </div>
-        <div>
-          <label>会议后</label>
-          <input
-            className="border-primary border-solid border-2 rounded"
-            defaultValue={bufferAfter}
-            type="number"
-            onChange={(e) => {
-              updateBufferAfter(parseInt(e.target.value));
-            }}
-          />
+        <div className="flex flex-row">
+          <div className="flex flex-col">
+            <label>会议前</label>
+            <input
+              className="border-primary border-solid border-2 rounded"
+              defaultValue={bufferBefore}
+              type="number"
+              onChange={(e) => {
+                updateBufferBefore(parseInt(e.target.value));
+              }}
+            />
+          </div>
+
+          <div className="flex flex-col ml-4">
+            <label>会议后</label>
+            <input
+              className="border-primary border-solid border-2 rounded"
+              defaultValue={bufferAfter}
+              type="number"
+              onChange={(e) => {
+                updateBufferAfter(parseInt(e.target.value));
+              }}
+            />
+          </div>
         </div>
 
         <div className="flex flex-row">

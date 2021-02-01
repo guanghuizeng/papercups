@@ -61,10 +61,11 @@ function Header() {
             <div className="gentle-flex px-1">
               {editing ? (
                 <div>
-                  <span className="text-gray-600 hover:text-blue-500 mr-1">
-                    {URL + '/@' + userSlug + '/'}
-                  </span>
-                  <Input initialValue={schedulingLinkSlug} />
+                  <Input
+                    label={URL + '/@' + userSlug + '/'}
+                    placeholder="必填"
+                    initialValue={schedulingLinkSlug}
+                  />
                 </div>
               ) : (
                 <Tooltip text={'点击复制链接'} type={'dark'} placement="bottom">
