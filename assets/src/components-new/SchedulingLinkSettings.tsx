@@ -6,6 +6,7 @@ import {Toggle} from '@fluentui/react';
 import Select from 'react-select';
 import {nanoid} from 'nanoid';
 import {X} from '@geist-ui/react-icons';
+import {Button, Input} from '@geist-ui/react';
 
 function SettingSection(props: any) {
   return (
@@ -94,37 +95,45 @@ function FieldSection() {
   return (
     <SettingSection>
       <SectionTitle title={'问题'} />
-      <div className="text-sm text-gray-400">在预约界面上将收集的问题</div>
       <div className="flex flex-col">
         {fields ? (
           fields.map((field) => {
             return (
-              <div key={field.id} className="flex flex-row  py-2">
-                {/*<div className="mx-2 text-gray-400">*/}
-                {/*  <i className="fas fa-bars" />*/}
-                {/*</div>*/}
-                <input
-                  className="border-primary border-solid border-2 rounded"
-                  defaultValue={field.label}
+              <div
+                key={field.id}
+                className="flex flex-row py-2 justify-between"
+              >
+                <Input
+                  size="large"
+                  // className="border-primary border-solid border-2 rounded"
+                  initialValue={field.label}
                   onChange={(e) => {
                     updateLabel(field.id, e.target.value);
                   }}
                 />
-                <div
-                  className="btn-draft"
-                  onClick={() => {
-                    updateRequired(field.id, !field.required);
-                  }}
-                >
-                  {field.required ? 'required' : 'optional'}
-                </div>
-                <div
-                  className="btn-draft"
-                  onClick={() => {
-                    removeField(field.id);
-                  }}
-                >
-                  delete
+                <div className="flex flex-row">
+                  <div className="mx-1">
+                    <Button
+                      size={'small'}
+                      auto
+                      onClick={() => {
+                        updateRequired(field.id, !field.required);
+                      }}
+                    >
+                      {field.required ? 'required' : 'optional'}
+                    </Button>
+                  </div>
+                  <div className="mx-1">
+                    <Button
+                      size={'small'}
+                      auto
+                      onClick={() => {
+                        removeField(field.id);
+                      }}
+                    >
+                      delete
+                    </Button>
+                  </div>
                 </div>
               </div>
             );
@@ -132,8 +141,10 @@ function FieldSection() {
         ) : (
           <div>template</div>
         )}
-        <div className="w-24 text-center btn-draft" onClick={addField}>
-          Add
+        <div className="w-24 pt-4">
+          <Button onClick={addField} size={'small'}>
+            添加
+          </Button>
         </div>
       </div>
     </SettingSection>
