@@ -10,9 +10,17 @@ import {X} from '@geist-ui/react-icons';
 function SettingSection(props: any) {
   return (
     <div className="border-primary border-b border-solid py-8">
-      <div className="mx-auto">{props.children}</div>
+      <div className="mx-auto w-128">{props.children}</div>
     </div>
   );
+}
+
+interface SectionTitleProps extends React.PropsWithChildren<any> {
+  title: string;
+}
+
+function SectionTitle(props: SectionTitleProps) {
+  return <div className="text-xl py-2">{props.title}</div>;
 }
 
 function CalendarBindingSection() {
@@ -83,11 +91,9 @@ function FieldSection() {
     }
   };
 
-  console.log('Field', fields);
-
   return (
     <SettingSection>
-      <h2 className="text-lg text-gray-700">问题</h2>
+      <SectionTitle title={'问题'} />
       <div className="text-sm text-gray-400">在预约界面上将收集的问题</div>
       <div className="flex flex-col">
         {fields ? (
@@ -164,8 +170,7 @@ function BufferLimitSection() {
 
   return (
     <SettingSection>
-      <h2 className="text-lg text-gray-700">缓冲时间及限制</h2>
-      {/*<div className="text-sm text-gray-400"></div>*/}
+      <SectionTitle title={'缓冲时间及限制'} />
       <div>
         <div>
           <label>会议前</label>
@@ -260,8 +265,8 @@ const ReminderSection = React.memo(() => {
   console.log('reminder', emailReminders);
 
   return (
-    <div>
-      <label>提醒</label>
+    <SettingSection>
+      <SectionTitle title={'提醒'} />
       <div>
         {emailReminders &&
           emailReminders.map(({quantity, units, id}) => {
@@ -316,7 +321,7 @@ const ReminderSection = React.memo(() => {
       <div className="w-24 text-center btn-draft" onClick={add}>
         Add
       </div>
-    </div>
+    </SettingSection>
   );
 });
 
@@ -324,7 +329,7 @@ export default function SchedulingLinkSettings() {
   let {id} = useParams();
   return (
     <div className="border-primary border-l border-solid w-full h-full">
-      <div>
+      <div className="Header">
         <Link
           to={`/links/${id}`}
           className="hover:bg-gray-200 text-gray-600 hover:text-black gentle-flex w-10"
@@ -333,7 +338,7 @@ export default function SchedulingLinkSettings() {
         </Link>
       </div>
 
-      <div className="w-full h-full flex flex-col">
+      <div className="w-full flex flex-col">
         {/*<CalendarBindingSection />*/}
         <FieldSection />
         <BufferLimitSection />

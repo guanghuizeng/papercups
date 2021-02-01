@@ -256,7 +256,7 @@ function GeneralSection() {
         />
       </div>
       <div
-        className="px-2 py-2 grid gap-x-1 gap-y-6"
+        className="px-2 pr-4 py-2 grid gap-x-1 gap-y-6"
         style={{gridTemplateColumns: '30px auto'}}
       >
         <Fragment>
