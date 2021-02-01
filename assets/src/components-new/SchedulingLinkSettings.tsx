@@ -184,7 +184,7 @@ function BufferLimitSection() {
       <div>
         <div className="flex flex-row">
           <div className="flex flex-col">
-            <label>会议前</label>
+            <label>约见前</label>
             <input
               className="border-primary border-solid border-2 rounded mt-2 py-1 px-2 w-16 focus:outline-none"
               defaultValue={bufferBefore}
@@ -196,7 +196,7 @@ function BufferLimitSection() {
           </div>
 
           <div className="flex flex-col ml-4">
-            <label>会议后</label>
+            <label>约见后</label>
             <input
               className="border-primary border-solid border-2 rounded mt-2 py-1 px-2 w-16 focus:outline-none"
               defaultValue={bufferAfter}
