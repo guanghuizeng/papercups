@@ -38,8 +38,6 @@ function AvailabilityByDay({rule}: any) {
 
   const updateEndTime = (value: number) => {};
 
-  const removeRule = () => {};
-
   return (
     <>
       <div className="flex flex-row py-2">
@@ -97,7 +95,6 @@ function AvailabilityByDay({rule}: any) {
           }}
         />
       </div>
-      <Button onClick={removeRule}>Delete</Button>
     </>
   );
 }
@@ -177,7 +174,7 @@ export function Availability() {
 
   const removeRule = (id: string) => {
     updateAvailabilityPreset(preset.id, {
-      rules: preset.rules.filter((rule: any) => rule.id !== id),
+      rules: preset.rules.filter((rule: any) => rule.id != id),
     });
   };
 
@@ -213,8 +210,9 @@ export function Availability() {
         <div className="py-4">
           {preset?.rules.map((rule: any) => {
             return (
-              <div key={`${rule.startTime}-${rule.endTime}`}>
+              <div key={rule.id}>
                 <AvailabilityByDay rule={rule} />
+                <Button onClick={() => removeRule(rule.id)}>Delete</Button>
               </div>
             );
           })}
@@ -246,7 +244,7 @@ export function Availability() {
               display: 'background',
             },
           ]}
-          nowIndicator={true}
+          nowIndicator={false}
           locale={zhLocale}
         />
       </div>

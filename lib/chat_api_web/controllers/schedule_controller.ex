@@ -64,7 +64,7 @@ defmodule ChatApiWeb.ScheduleController do
     schedule = Schedules.get_schedule!(id)
 
     with {:ok, %Schedule{} = schedule} <- Schedules.update_schedule(schedule, schedule_params) do
-      render(conn, "show.json", schedule: schedule)
+      render(conn, "show_one.json", schedule: schedule)
     end
   end
 end

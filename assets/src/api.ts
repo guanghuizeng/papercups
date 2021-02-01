@@ -1070,6 +1070,26 @@ export const fetchScheduleById = async (user: string, schedule_id: string) => {
     .then((res) => res.body.data);
 };
 
+export const updateSchedule = async (
+  id: string,
+  updates: any,
+  token = getAccessToken()
+) => {
+  if (!token) {
+    throw new Error('Invalid token!');
+  }
+
+  console.log('update schedule', id, updates);
+
+  return request
+    .put(`/api/schedules/${id}`)
+    .set('Authorization', token)
+    .send({
+      schedule: updates,
+    })
+    .then((res) => res.body.data);
+};
+
 export const fetchUserProfileBySlug = async (slug: string) => {
   return request
     .get(`/api/profile`)

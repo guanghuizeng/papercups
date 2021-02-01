@@ -167,7 +167,17 @@ const AppDataProvider = (props: Props) => {
     return Promise.resolve();
   };
 
-  const updateAvailabilityPreset = async (id: string, updates: any) => {};
+  const updateAvailabilityPreset = async (id: string, updates: any) => {
+    const clone = _.cloneDeep(schedules);
+    const targetIndex = clone.findIndex((schedule: any) => schedule.id === id);
+    clone[targetIndex] = {
+      ...clone[targetIndex],
+      ...updates,
+    };
+    mutate(`/api/schedules/`, {data: clone}, false);
+    await API.updateSchedule(id, updates);
+    mutate(`/api/schedules/`);
+  };
 
   return (
     <AppDataContext.Provider

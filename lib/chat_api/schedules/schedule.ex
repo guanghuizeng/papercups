@@ -19,6 +19,6 @@ defmodule ChatApi.Schedules.Schedule do
   def changeset(schedule, attrs) do
     schedule
     |> cast(attrs, [:user_id, :name, :rules, :timezone])
-    |> validate_required([:name, :rules, :timezone])
+#    |> validate_required([:name, :rules, :timezone])
   end
 end

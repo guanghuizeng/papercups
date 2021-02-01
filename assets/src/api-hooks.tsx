@@ -89,7 +89,7 @@ export function useSchedules(token = getAccessToken()) {
     throw new Error('Invalid token!');
   }
 
-  const {data, error} = useSWR(`/api/schedules`, (url) =>
+  const {data, error} = useSWR(`/api/schedules/`, (url) =>
     fetchWithToken(url, token)
   );
 
