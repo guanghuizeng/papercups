@@ -189,7 +189,7 @@ export function Availability() {
       if (checked) {
         rule.byday.push(day);
       } else {
-        rule.byday = rule.byday.filter((byday: string) => byday === day);
+        rule.byday = rule.byday.filter((byday: string) => byday !== day);
       }
     });
     updateAvailabilityPreset(preset.id, {rules});
