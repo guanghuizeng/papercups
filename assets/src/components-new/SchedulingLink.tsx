@@ -127,8 +127,6 @@ function AvailabilitySelect() {
     // updateSchedulingLink()
   };
 
-  console.log('presets', defaultValue, options, organizerAvailabilityPresets);
-
   return (
     <Select
       className="w-full"
@@ -138,7 +136,6 @@ function AvailabilitySelect() {
       onChange={(value) => {
         // update organizer
         updatePresets(value ? value.map((opt) => opt.value) : null);
-        console.log('Change', value);
       }}
     />
   );
@@ -158,8 +155,6 @@ function GeneralSection() {
     updateDescription,
     updateDurations,
   } = useSchedulingLink();
-
-  console.log('general', organizer);
 
   return (
     <div date-section="general" className="flex flex-col">
