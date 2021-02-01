@@ -35,7 +35,7 @@ function AvailabilitySection() {
                 <div>
                   {preset.rules.map((rule: any) => {
                     return (
-                      <div key={`${rule.startTime}-${rule.endTime}`}>
+                      <div key={rule.id}>
                         <div className="flex flex-row">
                           {rule.byday.map((byday: string) => {
                             return (

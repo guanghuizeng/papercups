@@ -17,6 +17,8 @@ import {
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import {Button, Input} from '@geist-ui/react';
 import dayjs, {Dayjs} from 'dayjs';
+import produce, {Draft} from 'immer';
+
 import {dayConvertToEn} from '../utils';
 import _ from 'lodash';
 import {nanoid} from 'nanoid';
@@ -24,19 +26,18 @@ import {nanoid} from 'nanoid';
 const sliceOfTime = listOfTime24.slice(0, 24 * 4);
 const timeOptions = listOfTime24Options;
 
-function AvailabilityByDay({rule}: any) {
+function AvailabilityByDay({
+  rule,
+  updateDayCheck,
+  updateStartTime,
+  updateEndTime,
+}: any) {
   const dayState = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'].map((d) => {
     return {
       day: d,
       checked: rule.byday.findIndex((day: string) => day === d) > -1,
     };
   });
-
-  const updateDayCheck = (day: string, checked: boolean) => {};
-
-  const updateStartTime = (value: number) => {};
-
-  const updateEndTime = (value: number) => {};
 
   return (
     <>
@@ -51,7 +52,7 @@ function AvailabilityByDay({rule}: any) {
                 type="checkbox"
                 defaultChecked={state.checked}
                 onChange={(e) => {
-                  updateDayCheck(state.day, e.target.checked);
+                  updateDayCheck(rule.id, state.day, e.target.checked);
                 }}
               />
               {state.day}
@@ -73,7 +74,7 @@ function AvailabilityByDay({rule}: any) {
           options={timeOptions}
           onChange={(option) => {
             if (option) {
-              updateStartTime(option.value);
+              updateStartTime(rule.id, option.value);
             }
           }}
         />
@@ -90,7 +91,7 @@ function AvailabilityByDay({rule}: any) {
           options={timeOptions}
           onChange={(option) => {
             if (option) {
-              updateEndTime(option.value);
+              updateEndTime(rule.id, option.value);
             }
           }}
         />
@@ -179,12 +180,41 @@ export function Availability() {
   };
 
   const addRule = () => {
-    const rules = _.cloneDeep(preset.rules);
-    rules.push({
-      id: nanoid(),
-      byday: ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'],
-      startTime: 1000,
-      endTime: 1000,
+    const rules = produce(preset.rules, (draft: Draft<any>) => {
+      draft.push({
+        id: nanoid(),
+        byday: ['mo', 'tu', 'we', 'th', 'fr'],
+        startTime: 540,
+        endTime: 1020,
+      });
+    });
+    updateAvailabilityPreset(preset.id, {rules});
+  };
+
+  const updateDayCheck = (ruleId: string, day: string, checked: boolean) => {
+    const rules = produce(preset.rules, (draft: Draft<any>) => {
+      const rule = draft.find((rule: any) => rule.id === ruleId);
+      if (checked) {
+        rule.byday.push(day);
+      } else {
+        rule.byday = rule.byday.filter((byday: string) => byday === day);
+      }
+    });
+    updateAvailabilityPreset(preset.id, {rules});
+  };
+
+  const updateStartTime = (ruleId: string, value: number) => {
+    const rules = produce(preset.rules, (draft: Draft<any>) => {
+      const rule = draft.find((rule: any) => rule.id === ruleId);
+      rule.startTime = value;
+    });
+    updateAvailabilityPreset(preset.id, {rules});
+  };
+
+  const updateEndTime = (ruleId: string, value: number) => {
+    const rules = produce(preset.rules, (draft: Draft<any>) => {
+      const rule = draft.find((rule: any) => rule.id === ruleId);
+      rule.endTime = value;
     });
     updateAvailabilityPreset(preset.id, {rules});
   };
@@ -211,7 +241,12 @@ export function Availability() {
           {preset?.rules.map((rule: any) => {
             return (
               <div key={rule.id}>
-                <AvailabilityByDay rule={rule} />
+                <AvailabilityByDay
+                  rule={rule}
+                  updateDayCheck={updateDayCheck}
+                  updateStartTime={updateStartTime}
+                  updateEndTime={updateEndTime}
+                />
                 <Button onClick={() => removeRule(rule.id)}>Delete</Button>
               </div>
             );
