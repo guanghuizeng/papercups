@@ -2,11 +2,10 @@ import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 import _ from 'lodash';
 import {useSchedulingLink} from '../hooks/SchedulingLinkProvider';
-import {Toggle} from '@fluentui/react';
 import Select from 'react-select';
 import {nanoid} from 'nanoid';
 import {X} from '@geist-ui/react-icons';
-import {Button, Input} from '@geist-ui/react';
+import {Button, Input, Toggle} from '@geist-ui/react';
 
 function SettingSection(props: any) {
   return (
@@ -187,7 +186,7 @@ function BufferLimitSection() {
           <div className="flex flex-col">
             <label>会议前</label>
             <input
-              className="border-primary border-solid border-2 rounded"
+              className="border-primary border-solid border-2 rounded mt-2 py-1 px-2 w-16 focus:outline-none"
               defaultValue={bufferBefore}
               type="number"
               onChange={(e) => {
@@ -199,7 +198,7 @@ function BufferLimitSection() {
           <div className="flex flex-col ml-4">
             <label>会议后</label>
             <input
-              className="border-primary border-solid border-2 rounded"
+              className="border-primary border-solid border-2 rounded mt-2 py-1 px-2 w-16 focus:outline-none"
               defaultValue={bufferAfter}
               type="number"
               onChange={(e) => {
@@ -209,20 +208,24 @@ function BufferLimitSection() {
           </div>
         </div>
 
-        <div className="flex flex-row">
-          <Toggle className="m-0" checked={true} onChange={() => {}} />
+        <div className="flex flex-row pt-6">
+          <div className="gentle-flex mr-2">
+            <Toggle initialChecked={true} onChange={() => {}} />
+          </div>
           <label>限制多少天内可以预约</label>
         </div>
-        <div className="flex flex-row">
+        <div className="flex flex-row pt-4">
           <input
-            className="border-primary border-solid border-2 rounded"
+            className="border-primary border-solid border-2 rounded py-1 px-2 w-16 focus:outline-none"
             defaultValue={limitBookingTime / 24 / 60}
             type="number"
             onChange={(e) => {
               updateLimitBookingTime(parseInt(e.target.value) * 24 * 60);
             }}
           />
-          <label>天</label>
+          <span className="gentle-flex ml-2">
+            <label>天</label>
+          </span>
         </div>
       </div>
     </SettingSection>
