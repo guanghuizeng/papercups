@@ -100,7 +100,7 @@ function FieldSection() {
             return (
               <div
                 key={field.id}
-                className="flex flex-row py-2 justify-between"
+                className="flex flex-row px-2 py-2 justify-between hover:bg-gray-50 rounded-md"
               >
                 <Input
                   size="large"
@@ -286,8 +286,8 @@ const ReminderSection = React.memo(() => {
         {emailReminders &&
           emailReminders.map(({quantity, units, id}) => {
             return (
-              <div className="flex flex-row justify-between">
-                <div key={id} className="flex flex-row pt-4">
+              <div className="flex flex-row justify-between hover:bg-gray-50 rounded-md py-2 px-2">
+                <div key={id} className="flex flex-row ">
                   <input
                     className="border-primary border-solid border-2 rounded py-1 px-2 w-16 focus:outline-none"
                     defaultValue={quantity}
