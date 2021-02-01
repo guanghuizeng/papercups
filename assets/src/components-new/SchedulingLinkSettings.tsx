@@ -286,46 +286,48 @@ const ReminderSection = React.memo(() => {
         {emailReminders &&
           emailReminders.map(({quantity, units, id}) => {
             return (
-              <div key={id} className="flex flex-row pt-4">
-                <input
-                  className="border-primary border-solid border-2 rounded py-1 px-2 w-16 focus:outline-none"
-                  defaultValue={quantity}
-                  type="number"
-                  onChange={(e) => {
-                    updateEmailReminderQuantity(id, parseInt(e.target.value));
-                  }}
-                />
+              <div className="flex flex-row justify-between">
+                <div key={id} className="flex flex-row pt-4">
+                  <input
+                    className="border-primary border-solid border-2 rounded py-1 px-2 w-16 focus:outline-none"
+                    defaultValue={quantity}
+                    type="number"
+                    onChange={(e) => {
+                      updateEmailReminderQuantity(id, parseInt(e.target.value));
+                    }}
+                  />
 
-                <Select
-                  className="ml-2 w-32"
-                  options={[
-                    {
+                  <Select
+                    className="ml-2 w-32"
+                    options={[
+                      {
+                        label: 'minutes',
+                        value: 'min',
+                      },
+                      {
+                        label: 'hours',
+                        value: 'hour',
+                      },
+                      {
+                        label: 'days',
+                        value: 'day',
+                      },
+                    ]}
+                    defaultValue={{
                       label: 'minutes',
                       value: 'min',
-                    },
-                    {
-                      label: 'hours',
-                      value: 'hour',
-                    },
-                    {
-                      label: 'days',
-                      value: 'day',
-                    },
-                  ]}
-                  defaultValue={{
-                    label: 'minutes',
-                    value: 'min',
-                  }}
-                  components={{
-                    IndicatorSeparator: null,
-                  }}
-                  onChange={(option) => {
-                    if (option) {
-                      updateEmailReminderUnit(id, option.value);
-                    }
-                  }}
-                />
-                <div className="gentle-flex ml-2">
+                    }}
+                    components={{
+                      IndicatorSeparator: null,
+                    }}
+                    onChange={(option) => {
+                      if (option) {
+                        updateEmailReminderUnit(id, option.value);
+                      }
+                    }}
+                  />
+                </div>
+                <div className="gentle-flex">
                   <Button
                     size={'small'}
                     auto
