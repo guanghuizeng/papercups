@@ -13,6 +13,7 @@ import {
 } from '../api-hooks';
 import {useSchedulingLink} from './SchedulingLinkProvider';
 import {useHistory} from 'react-router-dom';
+import {nanoid} from 'nanoid';
 
 /**
  * App data
@@ -85,7 +86,7 @@ const AppDataProvider = (props: Props) => {
       description: '描述',
       durations: [30],
       location: 'loc1',
-      url: '15min',
+      url: nanoid(7),
       color: 'red',
       fields: [
         {

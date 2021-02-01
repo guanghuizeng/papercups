@@ -194,7 +194,7 @@ const SchedulingLinkProvider = (props: Props) => {
   return (
     <SchedulingLinkContext.Provider
       value={{
-        slug: link.slug,
+        slug: link.url,
         name: link.name,
         description: link.description,
         durations: link.durations,

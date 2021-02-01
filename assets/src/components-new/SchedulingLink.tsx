@@ -6,14 +6,24 @@ import SchedulingLinkProvider, {
 } from '../hooks/SchedulingLinkProvider';
 import SingleSelect from './events/EventLocationSelect';
 import Select from 'react-select';
-import {Toggle} from '@fluentui/react';
 import WithTip from '../components-new/common/WithTip';
 import Calendar from './Calendar';
 import SchedulingLinkSettings from './SchedulingLinkSettings';
 import {useAppData} from '../hooks/AppDataProvider';
-import {updateSchedulingLink} from '../api';
+import {useState} from 'react';
+import {Button, Input, Toggle} from '@geist-ui/react';
+
+const URL = 'http://localhost:3000';
 
 function Header() {
+  const {settings} = useAppData();
+  const {slug: schedulingLinkSlug} = useSchedulingLink();
+  const userSlug = settings?.slug;
+
+  console.log('Header', settings, schedulingLinkSlug);
+
+  const [editing, setEditing] = useState<boolean>(false);
+
   return (
     <div className="Header">
       <div className="flex flex-row w-full">
@@ -34,17 +44,52 @@ function Header() {
               </div>
             </div>
             <div className="gentle-flex mr-3">
-              <Toggle className="m-0" onChange={() => {}} />
+              <Toggle initialChecked={true} size="medium" onChange={() => {}} />
+            </div>
+            <div className="gentle-flex px-3">
+              {editing ? (
+                <div>
+                  <span className="text-gray-600 hover:text-blue-500 mr-1">
+                    {URL + '/@' + userSlug + '/'}
+                  </span>
+                  <Input initialValue={schedulingLinkSlug} />
+                </div>
+              ) : (
+                <WithTip content={'点击复制链接'}>
+                  <span className="text-gray-600 hover:text-blue-500">
+                    {URL + '/@' + userSlug + '/' + schedulingLinkSlug}
+                  </span>
+                </WithTip>
+              )}
             </div>
             <div className="gentle-flex">
-              <WithTip content={'复制链接'}>
-                <span className="text-gray-600 hover:text-blue-500">
-                  http://localhost:3000/@ycy/15min
-                </span>
-              </WithTip>
-            </div>
-            <div className="gentle-flex">
-              <button className="btn btn-gray py-1 px-3">编辑</button>
+              {editing ? (
+                <div className="flex flex-row">
+                  <div className="ml-1">
+                    <Button
+                      size={'small'}
+                      type={'success'}
+                      auto
+                      onClick={() => setEditing(true)}
+                    >
+                      保存
+                    </Button>
+                  </div>
+                  <div className="ml-1">
+                    <Button
+                      size={'small'}
+                      auto
+                      onClick={() => setEditing(false)}
+                    >
+                      取消
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <Button size={'small'} auto onClick={() => setEditing(true)}>
+                  编辑
+                </Button>
+              )}
             </div>
           </div>
         </div>
