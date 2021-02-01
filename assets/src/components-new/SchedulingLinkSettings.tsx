@@ -5,6 +5,7 @@ import {useSchedulingLink} from '../hooks/SchedulingLinkProvider';
 import {Toggle} from '@fluentui/react';
 import Select from 'react-select';
 import {nanoid} from 'nanoid';
+import {X} from '@geist-ui/react-icons';
 
 function SettingSection(props: any) {
   return (
@@ -324,8 +325,11 @@ export default function SchedulingLinkSettings() {
   return (
     <div className="border-primary border-l border-solid w-full h-full">
       <div>
-        <Link to={`/links/${id}`} className="text-gray-400 hover:text-gray-700">
-          <i className="fas fa-times" />
+        <Link
+          to={`/links/${id}`}
+          className="hover:bg-gray-200 text-gray-600 hover:text-black gentle-flex w-10"
+        >
+          <X />
         </Link>
       </div>
 
