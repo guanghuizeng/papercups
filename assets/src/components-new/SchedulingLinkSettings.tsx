@@ -100,7 +100,7 @@ function FieldSection() {
             return (
               <div
                 key={field.id}
-                className="flex flex-row px-2 py-2 justify-between "
+                className="flex flex-row py-2 justify-between "
               >
                 <Input
                   size="large"
