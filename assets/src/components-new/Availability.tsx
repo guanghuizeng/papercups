@@ -236,7 +236,7 @@ export function Availability() {
         <div className="py-4">
           {preset?.rules.map((rule: any) => {
             return (
-              <div key={rule.id}>
+              <div key={rule.id} className="py-2">
                 <AvailabilityByDay
                   rule={rule}
                   updateDayCheck={updateDayCheck}
