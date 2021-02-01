@@ -20,6 +20,10 @@ export default function SingleSelect(props: any) {
         placeholder={'Add a location'}
         options={colourOptions}
         onChange={onChange}
+        components={{
+          ClearIndicator: null,
+          IndicatorSeparator: null,
+        }}
       />
     </Fragment>
   );

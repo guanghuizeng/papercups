@@ -190,6 +190,10 @@ function AvailabilitySelect() {
       options={options}
       defaultValue={defaultValue}
       isMulti
+      components={{
+        ClearIndicator: null,
+        IndicatorSeparator: null,
+      }}
       onChange={(value) => {
         // update organizer
         updatePresets(value ? value.map((opt) => opt.value) : null);
@@ -262,6 +266,10 @@ function GeneralSection() {
           <Select
             className="w-full"
             options={DurationOptionsMap}
+            components={{
+              ClearIndicator: null,
+              IndicatorSeparator: null,
+            }}
             defaultValue={
               durations
                 ? durations.map((d) => {
