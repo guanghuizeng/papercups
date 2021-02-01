@@ -18,6 +18,7 @@ import {
   Toggle,
   Link as LinkPlain,
   Tooltip,
+  Textarea,
 } from '@geist-ui/react';
 
 const URL = 'http://localhost:3000';
@@ -216,21 +217,29 @@ function GeneralSection() {
     <div date-section="general" className="flex flex-col">
       <div className="px-4 py-8">
         <textarea
-          className="-mx-2 px-2 py-0 rounded-lg text-2xl leading-8 font-bold border-transparent focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-gray-800 resize-none w-full placeholder-gray-600"
+          className="-mx-2 px-2 py-2 rounded-lg text-2xl leading-6 font-bold border-transparent focus:outline-none focus:border-gray-300 focus:ring focus:ring-black focus:ring-opacity-50 text-gray-800 resize-none w-full placeholder-gray-600"
           placeholder="Name this link"
           spellCheck="false"
-          style={{height: '34px !important'}}
+          style={{minHeight: '42px !important'}}
           defaultValue={name}
+          rows={1}
+          onKeyPress={(e) => {
+            console.log(e.key);
+            if (e.key === 'Enter') {
+              e.preventDefault();
+            }
+          }}
           onChange={(e) => {
             console.log('Name change', e.target.value);
             updateName(e.target.value);
           }}
         />
+
         <textarea
-          className="-mx-2 px-2 py-0 rounded-md block border-transparent focus:outline-none focus:border focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 w-full text-gray-600 resize-none leading-5 placeholder-gray-600"
+          className="-mx-2 mt-2 px-2 py-2 rounded-md block border-transparent focus:outline-none focus:border focus:border-gray-300 focus:ring focus:ring-black  focus:ring-opacity-50 w-full text-gray-600 resize-none leading-5 placeholder-gray-600"
           placeholder="Enter a description"
           spellCheck="false"
-          style={{height: '24px !important'}}
+          style={{minHeight: '24px !important'}}
           defaultValue={description}
           onChange={(e) => {
             updateDescription(e.target.value);
