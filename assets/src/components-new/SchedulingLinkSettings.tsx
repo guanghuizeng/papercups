@@ -358,7 +358,7 @@ export default function SchedulingLinkSettings() {
       <div className="Header">
         <Link
           to={`/links/${id}`}
-          className="hover:bg-gray-200 text-gray-600 hover:text-black gentle-flex w-10"
+          className="hover:bg-gray-200 text-gray-600 hover:text-black gentle-flex w-10 h-10"
         >
           <X />
         </Link>
