@@ -313,7 +313,7 @@ function GeneralSection() {
                   </span>
                   <Link
                     to={`/links/${id}/more-settings`}
-                    className="w-full px-2 py-2"
+                    className="w-full px-2 py-2 hover:bg-blue-100 rounded"
                   >
                     设置
                   </Link>
@@ -329,7 +329,7 @@ function GeneralSection() {
                   <span className="w-full gentle-flex">
                     <i className="fas fa-cog" />
                   </span>
-                  <span className="bg-gray-200 w-full px-2 py-2 rounded">
+                  <span className="bg-blue-100 w-full px-2 py-2 rounded">
                     设置
                   </span>
                 </>
