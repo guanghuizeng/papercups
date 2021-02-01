@@ -120,7 +120,7 @@ function FieldSection() {
                         updateRequired(field.id, !field.required);
                       }}
                     >
-                      {field.required ? 'required' : 'optional'}
+                      {field.required ? '必填' : '可选'}
                     </Button>
                   </div>
                   <div className="mx-1">
@@ -131,7 +131,7 @@ function FieldSection() {
                         removeField(field.id);
                       }}
                     >
-                      delete
+                      删除
                     </Button>
                   </div>
                 </div>
