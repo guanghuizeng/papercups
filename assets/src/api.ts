@@ -1079,8 +1079,6 @@ export const updateSchedule = async (
     throw new Error('Invalid token!');
   }
 
-  console.log('update schedule', id, updates);
-
   return request
     .put(`/api/schedules/${id}`)
     .set('Authorization', token)
