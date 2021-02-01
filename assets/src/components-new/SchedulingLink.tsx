@@ -311,7 +311,10 @@ function GeneralSection() {
                   <span className="w-full gentle-flex">
                     <i className="fas fa-cog" />
                   </span>
-                  <Link to={`/links/${id}/more-settings`} className="w-full">
+                  <Link
+                    to={`/links/${id}/more-settings`}
+                    className="w-full px-2 py-2"
+                  >
                     设置
                   </Link>
                 </>
