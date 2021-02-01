@@ -171,8 +171,6 @@ export function Availability() {
     updateAvailabilityPreset(preset.id, {name: value});
   };
 
-  const updateRule = (ruleId: string) => {};
-
   const removeRule = (id: string) => {
     updateAvailabilityPreset(preset.id, {
       rules: preset.rules.filter((rule: any) => rule.id != id),
