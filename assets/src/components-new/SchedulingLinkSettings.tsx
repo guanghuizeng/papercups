@@ -181,52 +181,50 @@ function BufferLimitSection() {
   return (
     <SettingSection>
       <SectionTitle title={'缓冲时间及限制'} />
-      <div>
-        <div className="flex flex-row">
-          <div className="flex flex-col">
-            <label>约见前</label>
-            <input
-              className="border-primary border-solid border-2 rounded mt-2 py-1 px-2 w-16 focus:outline-none"
-              defaultValue={bufferBefore}
-              type="number"
-              onChange={(e) => {
-                updateBufferBefore(parseInt(e.target.value));
-              }}
-            />
-          </div>
-
-          <div className="flex flex-col ml-4">
-            <label>约见后</label>
-            <input
-              className="border-primary border-solid border-2 rounded mt-2 py-1 px-2 w-16 focus:outline-none"
-              defaultValue={bufferAfter}
-              type="number"
-              onChange={(e) => {
-                updateBufferAfter(parseInt(e.target.value));
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-row pt-6">
-          <div className="gentle-flex mr-2">
-            <Toggle initialChecked={true} onChange={() => {}} />
-          </div>
-          <label>限制多少天内可以预约</label>
-        </div>
-        <div className="flex flex-row pt-4">
+      <div className="flex flex-row pt-4">
+        <div className="flex flex-col">
+          <label>约见前</label>
           <input
-            className="border-primary border-solid border-2 rounded py-1 px-2 w-16 focus:outline-none"
-            defaultValue={limitBookingTime / 24 / 60}
+            className="border-primary border-solid border-2 rounded mt-2 py-1 px-2 w-16 focus:outline-none"
+            defaultValue={bufferBefore}
             type="number"
             onChange={(e) => {
-              updateLimitBookingTime(parseInt(e.target.value) * 24 * 60);
+              updateBufferBefore(parseInt(e.target.value));
             }}
           />
-          <span className="gentle-flex ml-2">
-            <label>天</label>
-          </span>
         </div>
+
+        <div className="flex flex-col ml-4">
+          <label>约见后</label>
+          <input
+            className="border-primary border-solid border-2 rounded mt-2 py-1 px-2 w-16 focus:outline-none"
+            defaultValue={bufferAfter}
+            type="number"
+            onChange={(e) => {
+              updateBufferAfter(parseInt(e.target.value));
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="flex flex-row pt-6">
+        <div className="gentle-flex mr-2">
+          <Toggle initialChecked={true} onChange={() => {}} />
+        </div>
+        <label>限制多少天内可以预约</label>
+      </div>
+      <div className="flex flex-row pt-4">
+        <input
+          className="border-primary border-solid border-2 rounded py-1 px-2 w-16 focus:outline-none"
+          defaultValue={limitBookingTime / 24 / 60}
+          type="number"
+          onChange={(e) => {
+            updateLimitBookingTime(parseInt(e.target.value) * 24 * 60);
+          }}
+        />
+        <span className="gentle-flex ml-2">
+          <label>天</label>
+        </span>
       </div>
     </SettingSection>
   );
@@ -288,17 +286,18 @@ const ReminderSection = React.memo(() => {
         {emailReminders &&
           emailReminders.map(({quantity, units, id}) => {
             return (
-              <div key={id} className="flex flex-row">
+              <div key={id} className="flex flex-row pt-4">
                 <input
-                  className="border-primary border-solid border-2 rounded w-20"
+                  className="border-primary border-solid border-2 rounded py-1 px-2 w-16 focus:outline-none"
                   defaultValue={quantity}
                   type="number"
                   onChange={(e) => {
                     updateEmailReminderQuantity(id, parseInt(e.target.value));
                   }}
                 />
+
                 <Select
-                  className="w-32"
+                  className="ml-2 w-32"
                   options={[
                     {
                       label: 'minutes',
@@ -317,26 +316,34 @@ const ReminderSection = React.memo(() => {
                     label: 'minutes',
                     value: 'min',
                   }}
+                  components={{
+                    IndicatorSeparator: null,
+                  }}
                   onChange={(option) => {
                     if (option) {
                       updateEmailReminderUnit(id, option.value);
                     }
                   }}
                 />
-                <div
-                  className="btn-draft"
-                  onClick={() => {
-                    remove(id);
-                  }}
-                >
-                  delete
+                <div className="gentle-flex ml-2">
+                  <Button
+                    size={'small'}
+                    auto
+                    onClick={() => {
+                      remove(id);
+                    }}
+                  >
+                    删除
+                  </Button>
                 </div>
               </div>
             );
           })}
       </div>
-      <div className="w-24 text-center btn-draft" onClick={add}>
-        Add
+      <div className="w-24 pt-4">
+        <Button onClick={add} size={'small'}>
+          添加
+        </Button>
       </div>
     </SettingSection>
   );
