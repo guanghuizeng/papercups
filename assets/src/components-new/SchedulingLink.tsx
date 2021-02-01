@@ -241,6 +241,12 @@ function GeneralSection() {
           spellCheck="false"
           style={{minHeight: '24px !important'}}
           defaultValue={description}
+          onKeyPress={(e) => {
+            console.log(e.key);
+            if (e.key === 'Enter') {
+              e.preventDefault();
+            }
+          }}
           onChange={(e) => {
             updateDescription(e.target.value);
           }}
