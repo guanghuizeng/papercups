@@ -19,6 +19,7 @@ import {Button, Input} from '@geist-ui/react';
 import dayjs, {Dayjs} from 'dayjs';
 import {dayConvertToEn} from '../utils';
 import _ from 'lodash';
+import {nanoid} from 'nanoid';
 
 const sliceOfTime = listOfTime24.slice(0, 24 * 4);
 const timeOptions = listOfTime24Options;
@@ -31,6 +32,12 @@ function AvailabilityByDay({rule}: any) {
     };
   });
 
+  const updateDayCheck = (day: string, checked: boolean) => {};
+
+  const updateStartTime = (value: number) => {};
+
+  const updateEndTime = (value: number) => {};
+
   return (
     <>
       <div className="flex flex-row py-2">
@@ -40,7 +47,13 @@ function AvailabilityByDay({rule}: any) {
               key={state.day}
               className="border-primary border-solid border mx-1"
             >
-              <input type="checkbox" defaultChecked={state.checked} />
+              <input
+                type="checkbox"
+                defaultChecked={state.checked}
+                onChange={(e) => {
+                  updateDayCheck(state.day, e.target.checked);
+                }}
+              />
               {state.day}
             </div>
           );
@@ -48,7 +61,6 @@ function AvailabilityByDay({rule}: any) {
       </div>
       <div className="flex flex-row">
         <Select
-          // ref={selectRef}
           className="w-1/2"
           classNamePrefix="select"
           components={{
@@ -59,11 +71,13 @@ function AvailabilityByDay({rule}: any) {
           name="color"
           defaultValue={timeOptions[(rule.startTime / 60) * 4]}
           options={timeOptions}
-          // onMenuOpen={onMenuOpen}
-          // onChange={onChange}
+          onChange={(option) => {
+            if (option) {
+              updateStartTime(option.value);
+            }
+          }}
         />
         <Select
-          // ref={selectRef}
           className="w-1/2"
           classNamePrefix="select"
           components={{
@@ -74,8 +88,11 @@ function AvailabilityByDay({rule}: any) {
           name="color"
           defaultValue={timeOptions[(rule.endTime / 60) * 4]}
           options={timeOptions}
-          // onMenuOpen={onMenuOpen}
-          // onChange={onChange}
+          onChange={(option) => {
+            if (option) {
+              updateEndTime(option.value);
+            }
+          }}
         />
       </div>
       <Button>Delete</Button>
@@ -86,7 +103,7 @@ function AvailabilityByDay({rule}: any) {
 export function Availability() {
   const {id} = useParams();
 
-  const {availabilityPresets} = useAppData();
+  const {availabilityPresets, updateAvailabilityPreset} = useAppData();
   const preset = availabilityPresets
     ? availabilityPresets.find((p) => p.id === id)
     : null;
@@ -101,8 +118,6 @@ export function Availability() {
       </div>
     );
   };
-
-  // TODO rules => background events
 
   const getBackgroundEvents = () => {
     const startDate = dayjs('2021-02-01T00:00:00');
@@ -152,13 +167,28 @@ export function Availability() {
    *  2. rule: edit, add, remove
    * */
 
-  const updateName = () => {};
+  const updateName = (value: string) => {
+    updateAvailabilityPreset(preset.id, {name: value});
+  };
 
-  const updateRule = () => {};
+  const updateRule = (ruleId: string) => {};
 
-  const removeRule = () => {};
+  const removeRule = (id: string) => {
+    updateAvailabilityPreset(preset.id, {
+      rules: preset.rules.filter((rule: any) => rule.id !== id),
+    });
+  };
 
-  const addRule = () => {};
+  const addRule = () => {
+    const rules = _.cloneDeep(preset.rules);
+    rules.push({
+      id: nanoid(),
+      byday: ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'],
+      startTime: 1000,
+      endTime: 1000,
+    });
+    updateAvailabilityPreset(preset.id, {rules});
+  };
 
   console.log('Availability', preset);
 
@@ -173,8 +203,8 @@ export function Availability() {
         </Link>
         <Input
           initialValue={preset?.name}
-          onChange={(value) => {
-            console.log(value);
+          onChange={(e) => {
+            updateName(e.target.value);
           }}
           size="large"
         />

@@ -28,6 +28,7 @@ export const AppDataContext = React.createContext<{
   createSchedulingLinkAndRedirect: () => Promise<any>;
   updateDisplayName: (value: string) => Promise<any>;
   updateSlug: (value: string) => Promise<any>;
+  updateAvailabilityPreset: (id: string, update: any) => Promise<any>;
   getAvailabilityPresetsById: (presets: string[]) => any[];
 }>({
   profile: {},
@@ -38,6 +39,7 @@ export const AppDataContext = React.createContext<{
   createSchedulingLinkAndRedirect: () => Promise.resolve(),
   updateDisplayName: (value: string) => Promise.resolve(),
   updateSlug: (value: string) => Promise.resolve(),
+  updateAvailabilityPreset: (value: string, update: any) => Promise.resolve(),
   getAvailabilityPresetsById: (presets) => [],
 });
 
@@ -165,15 +167,19 @@ const AppDataProvider = (props: Props) => {
     return Promise.resolve();
   };
 
+  const updateAvailabilityPreset = async (id: string, updates: any) => {};
+
   return (
     <AppDataContext.Provider
       value={{
         profile,
         settings,
         schedulingLinks,
-        availabilityPresets: schedules,
-        createSchedulingLinkAndRedirect,
 
+        availabilityPresets: schedules,
+        updateAvailabilityPreset,
+
+        createSchedulingLinkAndRedirect,
         getAvailabilityPresetsById,
         updateDisplayName,
         updateSlug,
