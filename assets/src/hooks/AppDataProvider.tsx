@@ -69,8 +69,12 @@ const AppDataProvider = (props: Props) => {
   const {data: schedules} = useSchedules();
 
   const getAvailabilityPresetsById = (presets: string[]) => {
-    if (schedules) {
-      return _.flatten(schedules.map((schedule: any) => schedule.rules));
+    if (schedules && presets) {
+      return _.flatten(
+        schedules
+          .filter((schedule: any) => presets.includes(schedule.id))
+          .map((schedule: any) => schedule.rules)
+      );
     }
     return [];
   };

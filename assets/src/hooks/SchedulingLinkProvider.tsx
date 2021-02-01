@@ -72,8 +72,6 @@ const SchedulingLinkProvider = (props: Props) => {
   const {settings, getAvailabilityPresetsById} = useAppData();
   const [presetsIntervals, setPresetsIntervals] = useState<any[]>([]);
 
-  console.log('Scheduling Link Provider', link);
-
   useEffect(() => {
     if (link && link.organizer && link.organizer.availability) {
       setPresetsIntervals(
