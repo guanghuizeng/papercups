@@ -35,19 +35,21 @@ const BookingContext = React.createContext<{
 }>({
   userSlug: '',
   schedulingLinkSlug: '',
-  timeSelected: null,
-  eventStartTime: null,
-  eventDuration: 30,
   intervals: [],
-  eventId: null,
-
   user: {},
   schedulingLink: {},
-  submitScheduledEvent: () => Promise.resolve(),
-  setEventTime: (start: Date, end: Date) => {},
+
+  timeSelected: null,
+  eventId: null,
+  eventDuration: 30,
+  eventStartTime: null,
+
+  setEventId: (id: string | null) => {},
   setEventStartTime: (start: Date) => {},
   setEventDuration: (value: number) => {},
-  setEventId: (id: string | null) => {},
+  setEventTime: (start: Date, end: Date) => {},
+
+  submitScheduledEvent: () => Promise.resolve(),
 });
 
 export const useBooking = () => useContext(BookingContext);
