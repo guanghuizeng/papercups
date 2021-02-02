@@ -41,7 +41,7 @@ function GeneralSection() {
       </div>
 
       <div
-        className="px-2 pr-4 py-2 grid gap-x-1 gap-y-6"
+        className="px-2 pt-8 pr-4 py-2 grid gap-x-1 gap-y-6"
         style={{gridTemplateColumns: '30px auto'}}
       >
         <Fragment>
@@ -63,7 +63,7 @@ function GeneralSection() {
               });
 
               return (
-                <div key={d} className="mt-1 ml-1">
+                <div key={d} className="mt-1 mr-1">
                   <Button
                     onClick={() => {
                       setEventDuration(d);
@@ -91,7 +91,7 @@ function GeneralSection() {
         </Fragment>
       </div>
 
-      <div className="px-4 pt-4">当前登录用户：{user?.display_name}</div>
+      <div className="px-4 pt-8">当前登录用户：{user?.display_name}</div>
     </div>
   );
 }
