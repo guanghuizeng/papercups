@@ -210,7 +210,7 @@ function CalendarMonthView() {
   const [selectedDay, handleDayClick] = useState<Date>(new Date());
 
   return (
-    <div>
+    <div className="absolute bottom-0">
       <DayPicker
         selectedDays={selectedDay}
         onDayClick={handleDayClick}
@@ -332,7 +332,7 @@ function CalendarSection() {
     <div className="w-full h-full border-green-solid-2">
       <div className="w-full h-full">
         <FullCalendar
-          // height="800px"
+          height="100%"
           contentHeight="900px"
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           headerToolbar={{
