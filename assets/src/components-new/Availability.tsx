@@ -260,7 +260,7 @@ export function Availability() {
                     updateEndTime={updateEndTime}
                   />
                   <button
-                    className="w-8 h-8 relative text-gray-300 hover:text-black hover:bg-gray-200 rounded-full gentle-flex"
+                    className="w-8 h-8 relative text-gray-300 hover:text-black hover:bg-gray-100 rounded-full gentle-flex"
                     onClick={() => removeRule(rule.id)}
                   >
                     <X />
