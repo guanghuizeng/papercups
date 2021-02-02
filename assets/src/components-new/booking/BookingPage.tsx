@@ -196,8 +196,8 @@ function EventSection() {
         )}
       </div>
 
-      <div className="flex flex-row pt-2">
-        <Button type="success" size="mini" onClick={submit}>
+      <div className="px-4 flex flex-row pt-8">
+        <Button className="mr-8" type="success" size="mini" onClick={submit}>
           确定
         </Button>
         <Button size="mini">取消</Button>
