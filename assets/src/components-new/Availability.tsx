@@ -246,7 +246,7 @@ export function Availability() {
             />
           </div>
 
-          <div className="py-4">
+          <div className="pt-4">
             {preset?.rules.map((rule: any) => {
               return (
                 <div
@@ -271,8 +271,10 @@ export function Availability() {
           </div>
 
           <div className="w-full mt-4">
-            <Button onClick={addRule}>Add</Button>
-            <Button>Show my calendar overlay</Button>
+            <Button className={'ml-4 mt-4'} onClick={addRule}>
+              添加
+            </Button>
+            <Button className={'ml-4 mt-4'}>显示我的日历</Button>
           </div>
         </div>
 
