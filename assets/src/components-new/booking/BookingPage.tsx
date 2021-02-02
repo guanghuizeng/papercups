@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, Fragment} from 'react';
 import {useParams} from 'react-router-dom';
 import BookingProvider, {useBooking} from './BookingProvider';
 import DayPicker from 'react-day-picker';
@@ -18,7 +18,7 @@ import {
 } from '../event-utils';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import dayjs, {Dayjs} from 'dayjs';
-import {Button, Input} from '@geist-ui/react';
+import {Button, Input, Text} from '@geist-ui/react';
 import humanizeDuration from 'humanize-duration';
 import {colourOptions} from '../events/data';
 import {convertMinToHrsMin, dayConvertToEn} from '../../utils';
@@ -34,50 +34,64 @@ function GeneralSection() {
   const {user, schedulingLink, eventDuration, setEventDuration} = useBooking();
 
   return (
-    <div className="w-full">
-      <div>
-        <div>{schedulingLink?.name}</div>
-        <div>{schedulingLink?.description}</div>
+    <div date-section="control" className="flex flex-col">
+      <div className="px-4 pt-8">
+        <h2 className="text-2xl">{schedulingLink?.name}</h2>
+        <p className="pt-4">{schedulingLink?.description}</p>
       </div>
 
-      <div>
-        <i className="fas fa-user-alt mr-2 w-5 text-center" />
-        {schedulingLink?.organizer.displayName}
+      <div
+        className="px-2 pr-4 py-2 grid gap-x-1 gap-y-6"
+        style={{gridTemplateColumns: '30px auto'}}
+      >
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="fas fa-user-alt " />
+          </span>
+          <span>{schedulingLink?.organizer.displayName}</span>
+        </Fragment>
+
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="fas fa-clock" />
+          </span>
+          <div className="flex flex-row flex-wrap">
+            {schedulingLink?.durations.map((d: number) => {
+              const durationDisplay = humanizeDuration(d * 60 * 1000, {
+                units: ['h', 'm'],
+                language: 'zh_CN',
+              });
+
+              return (
+                <div key={d} className="mt-1 ml-1">
+                  <Button
+                    onClick={() => {
+                      setEventDuration(d);
+                    }}
+                    type={d === eventDuration ? 'success' : 'default'}
+                    size="mini"
+                  >
+                    {durationDisplay}
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
+        </Fragment>
+
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="fas fa-video" />
+          </span>
+          <span>
+            {schedulingLink?.location &&
+              colourOptions.find((opt) => opt.value === schedulingLink.location)
+                ?.label}
+          </span>
+        </Fragment>
       </div>
 
-      <div className="flex flex-row">
-        <i className="fas fa-clock mr-2 w-5 text-center" />
-        <div className="flex flex-row flex-wrap">
-          {schedulingLink?.durations.map((d: number) => {
-            const durationDisplay = humanizeDuration(d * 60 * 1000, {
-              units: ['h', 'm'],
-              language: 'zh_CN',
-            });
-
-            return (
-              <div key={d} className="mt-1 ml-1">
-                <Button
-                  onClick={() => {
-                    setEventDuration(d);
-                  }}
-                  type={d === eventDuration ? 'success' : 'default'}
-                  size="mini"
-                >
-                  {durationDisplay}
-                </Button>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <div className="flex flex-row">
-        <i className="fas fa-video mr-2 w-5 text-center" />
-        {schedulingLink?.location &&
-          colourOptions.find((opt) => opt.value === schedulingLink.location)
-            ?.label}
-      </div>
-
-      <div>当前登录用户：{user?.display_name}</div>
+      <div className="px-4 pt-4">当前登录用户：{user?.display_name}</div>
     </div>
   );
 }
