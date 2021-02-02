@@ -162,3 +162,9 @@ export function convertMinToHrsMin(totalMinutes: number) {
   return {hours, minutes};
   // return `${hours < 10 ? '0' : ''}${hours}:${minutes}`;
 }
+export function convertMinToHrsMinString(totalMinutes: number) {
+  var hours = Math.floor(totalMinutes / 60);
+  var minutes = totalMinutes % 60;
+
+  return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+}

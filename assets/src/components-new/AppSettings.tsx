@@ -2,7 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {Switch, Route, Link, useLocation, Redirect} from 'react-router-dom';
 import {useAppData} from '../hooks/AppDataProvider';
 import {Button, Input, Spacer, Text} from '@geist-ui/react';
-import {dayConvertToZh} from '../utils';
+import {
+  convertMinToHrsMin,
+  convertMinToHrsMinString,
+  dayConvertToZh,
+} from '../utils';
+import dayjs from 'dayjs';
 
 function SettingSection(props: any) {
   return (
@@ -22,6 +27,11 @@ function SectionTitle(props: SectionTitleProps) {
 
 function AvailabilitySection() {
   const {availabilityPresets} = useAppData();
+
+  const format = (minutes: number) => {
+    if (minutes) return convertMinToHrsMinString(minutes);
+  };
+
   return (
     <SettingSection>
       <SectionTitle title={'时间管理'} />
@@ -38,7 +48,9 @@ function AvailabilitySection() {
                     to={`/availabilities/${preset.id}/edit`}
                     className={'hover:underline'}
                   >
-                    <Text h3>{preset.name}</Text>
+                    <Text h3 className="font-medium">
+                      {preset.name}
+                    </Text>
                   </Link>
                   <div className="pt-2">
                     {preset.rules.map((rule: any) => {
@@ -47,15 +59,19 @@ function AvailabilitySection() {
                           <div className="flex flex-row">
                             {rule.byday.map((byday: string) => {
                               return (
-                                <Text className="mr-1">
+                                <span className="mr-1 text-sm text-gray-600">
                                   {dayConvertToZh(byday)}
-                                </Text>
+                                </span>
                               );
                             })}
                           </div>
-                          <div>
-                            <label className="mx-2">{rule.startTime}</label>
-                            <label className="mx-2">{rule.endTime}</label>
+                          <div className="text-sm text-gray-600">
+                            <label className="mx-2">
+                              {format(rule.startTime)}
+                            </label>
+                            <label className="mx-2">
+                              {format(rule.endTime)}
+                            </label>
                           </div>
                         </div>
                       );
