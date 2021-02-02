@@ -320,10 +320,9 @@ function CalendarSection() {
    */
   const getBlockEvents = () => {
     const intervalsFormat: Dayjs[][] = intervals
-      ? intervals.map((interval) => [
-          dayjs(interval.startAt),
-          dayjs(interval.endAt),
-        ])
+      ? intervals
+          .map((interval) => [dayjs(interval.startAt), dayjs(interval.endAt)])
+          .filter((interval) => interval.length > 0)
       : [];
 
     const startDate = dayjs('2021-01-31T00:00:00+08:00');
@@ -334,6 +333,13 @@ function CalendarSection() {
       endDate,
       intervalsFormat
     );
+
+    console.log(
+      'get block events',
+      intervals,
+      JSON.stringify(complementedIntervals)
+    );
+
     return complementedIntervals.map((interval) => {
       return {
         id: createEventId(),
