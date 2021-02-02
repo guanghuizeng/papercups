@@ -17,17 +17,21 @@ interface EventTime {
 const BookingContext = React.createContext<{
   userSlug: string;
   schedulingLinkSlug: string;
-  timeSelected: EventTime | null;
-  eventStartTime: Date | null;
-  eventDuration: number;
   intervals: any[];
-
   user: any;
   schedulingLink: any;
-  createScheduledEvent: () => Promise<any>;
-  setEventTime: (start: Date, end: Date) => void;
+
+  timeSelected: EventTime | null;
+  eventId: string | null;
+  eventDuration: number;
+  eventStartTime: Date | null;
+
+  setEventId: (id: string | null) => void;
   setEventStartTime: (start: Date) => void;
   setEventDuration: (value: number) => void;
+  setEventTime: (start: Date, end: Date) => void;
+
+  submitScheduledEvent: () => Promise<any>;
 }>({
   userSlug: '',
   schedulingLinkSlug: '',
@@ -35,13 +39,15 @@ const BookingContext = React.createContext<{
   eventStartTime: null,
   eventDuration: 30,
   intervals: [],
+  eventId: null,
 
   user: {},
   schedulingLink: {},
-  createScheduledEvent: () => Promise.resolve(),
+  submitScheduledEvent: () => Promise.resolve(),
   setEventTime: (start: Date, end: Date) => {},
   setEventStartTime: (start: Date) => {},
   setEventDuration: (value: number) => {},
+  setEventId: (id: string | null) => {},
 });
 
 export const useBooking = () => useContext(BookingContext);
@@ -69,6 +75,7 @@ function BookingProvider(props: Props) {
   const [timeSelected, setTimeSelected] = useState<EventTime | null>(null);
   const [eventStartTime, setEventStartTime] = useState<Date | null>(null);
   const [eventDuration, setEventDuration] = useState<number>(30);
+  const [eventId, setEventId] = useState<string | null>(null);
 
   useEffect(() => {
     if (schedulingLink) {
@@ -96,7 +103,10 @@ function BookingProvider(props: Props) {
 
         user,
         schedulingLink,
-        createScheduledEvent,
+        submitScheduledEvent: createScheduledEvent,
+
+        eventId,
+        setEventId,
 
         setEventTime,
         setEventStartTime,

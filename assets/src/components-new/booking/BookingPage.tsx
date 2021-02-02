@@ -6,6 +6,7 @@ import 'react-day-picker/lib/style.css';
 import FullCalendar, {
   DateSelectArg,
   DayHeaderContentArg,
+  EventApi,
 } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -104,13 +105,14 @@ function EventSection() {
     schedulingLink,
     setEventTime,
     eventDuration,
+    setEventId,
   } = useBooking();
   const durationDisplay = humanizeDuration(eventDuration * 60 * 1000, {
     units: ['h', 'm'],
     language: 'zh_CN',
   });
 
-  const submit = () => {
+  const onSubmit = () => {
     if (eventStartTime) {
       console.log('scheduling link', schedulingLink);
       API.createScheduledEvent(
@@ -121,6 +123,10 @@ function EventSection() {
         console.log('createScheduledEvent response', r);
       });
     }
+  };
+
+  const onCancel = () => {
+    setEventId(null);
   };
 
   return (
@@ -197,10 +203,12 @@ function EventSection() {
       </div>
 
       <div className="px-4 flex flex-row pt-8">
-        <Button className="mr-8" type="success" size="mini" onClick={submit}>
+        <Button className="mr-8" type="success" size="mini" onClick={onSubmit}>
           确定
         </Button>
-        <Button size="mini">取消</Button>
+        <Button size="mini" onClick={onCancel}>
+          取消
+        </Button>
       </div>
     </div>
   );
@@ -225,12 +233,10 @@ function CalendarMonthView() {
 }
 
 function ControlSection() {
-  const {timeSelected} = useBooking();
+  const {timeSelected, eventId} = useBooking();
   return (
     <div className="flex flex-col w-96">
-      <GeneralSection />
-      <div className={'border-gray-400 border-2 border-solid'} />
-      <EventSection />
+      {eventId ? <EventSection /> : <GeneralSection />}
       <CalendarMonthView />
     </div>
   );
@@ -245,6 +251,8 @@ function CalendarSection() {
     setEventStartTime,
     schedulingLink,
     intervals,
+    eventId,
+    setEventId,
   } = useBooking();
 
   const renderDayHeaderContent = (props: DayHeaderContentArg) => {
@@ -286,11 +294,18 @@ function CalendarSection() {
     calendarApi.removeAllEvents();
     setEventStartTime(info.date);
 
+    const id = nanoid();
+    setEventId(id);
+
     calendarApi.addEvent({
-      id: nanoid(),
+      id,
       start: info.dateStr,
       end: dayjs(info.date).add(eventDuration, 'minutes').toISOString(),
     });
+  };
+
+  const handleEvents = (events: EventApi[]) => {
+    console.log('handleEvents', events);
   };
 
   /**
@@ -366,8 +381,10 @@ function CalendarSection() {
             },
           ]}
           // eventContent={renderEventContent} // custom render function
-          // eventClick={this.handleEventClick}
-          // eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
+          eventClick={(e) => {
+            console.log('click', e);
+          }}
+          eventsSet={handleEvents} // called after events are initialized/added/changed/removed
           dateClick={handleDateClick}
           eventDragStop={function (arg) {
             console.log('drag stop', arg, arg.event.startStr, arg.event.endStr);
