@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Switch, Route, Link, useLocation, Redirect} from 'react-router-dom';
 import {useAppData} from '../hooks/AppDataProvider';
-import {Button, Input, Text} from '@geist-ui/react';
+import {Button, Input, Spacer, Text} from '@geist-ui/react';
 import {dayConvertToZh} from '../utils';
 
 function SettingSection(props: any) {
@@ -74,7 +74,8 @@ function AvailabilitySection() {
             );
           })}
       </div>
-      <div className="btn-draft my-2 ">Add</div>
+      <Spacer y={1.5} />
+      <Button size={'small'}>新建</Button>
     </SettingSection>
   );
 }
