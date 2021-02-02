@@ -61,6 +61,7 @@ function Header() {
                     label={URL + '/@' + userSlug + '/'}
                     placeholder="必填"
                     initialValue={schedulingLinkSlug}
+                    autoFocus={true}
                   />
                 </div>
               ) : (
