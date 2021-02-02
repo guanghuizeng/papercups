@@ -15,11 +15,11 @@ import {
   INITIAL_EVENTS,
 } from './event-utils';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
-import {Button, Input} from '@geist-ui/react';
+import {Button, Checkbox, Input} from '@geist-ui/react';
 import dayjs, {Dayjs} from 'dayjs';
 import produce, {Draft} from 'immer';
 
-import {dayConvertToEn} from '../utils';
+import {dayConvertToEn, dayConvertToZh} from '../utils';
 import _ from 'lodash';
 import {nanoid} from 'nanoid';
 import {X} from '@geist-ui/react-icons';
@@ -42,21 +42,20 @@ function AvailabilityByDay({
 
   return (
     <>
-      <div className="flex flex-row py-2">
+      <div className="flex flex-row py-2 px-4 ">
         {dayState.map((state) => {
           return (
-            <div
-              key={state.day}
-              className="border-primary border-solid border mx-1"
-            >
-              <input
-                type="checkbox"
-                defaultChecked={state.checked}
-                onChange={(e) => {
-                  updateDayCheck(rule.id, state.day, e.target.checked);
-                }}
-              />
-              {state.day}
+            <div key={state.day} className="cursor-pointer pl-4">
+              <label className="cursor-pointer inline-flex flex-col">
+                <input
+                  type="checkbox"
+                  defaultChecked={state.checked}
+                  onChange={(e) => {
+                    updateDayCheck(rule.id, state.day, e.target.checked);
+                  }}
+                />
+                {state.day}
+              </label>
             </div>
           );
         })}

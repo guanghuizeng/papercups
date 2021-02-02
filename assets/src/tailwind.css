@@ -323,6 +323,10 @@ input[type='number'] {
   @apply bg-green-300;
 }
 
+.h-32-important {
+  height: 32px !important;
+}
+
 /**/
 
 .fc {

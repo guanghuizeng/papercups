@@ -134,6 +134,27 @@ export const dayConvertToEn = (day: string) => {
   }
 };
 
+export const dayConvertToZh = (day: string) => {
+  switch (day) {
+    case 'mo':
+      return '一';
+    case 'tu':
+      return '二';
+    case 'we':
+      return '三';
+    case 'th':
+      return '四';
+    case 'fr':
+      return '五';
+    case 'sa':
+      return '六';
+    case 'su':
+      return '日';
+    default:
+      return day;
+  }
+};
+
 export function convertMinToHrsMin(totalMinutes: number) {
   var hours = Math.floor(totalMinutes / 60);
   var minutes = totalMinutes % 60;
