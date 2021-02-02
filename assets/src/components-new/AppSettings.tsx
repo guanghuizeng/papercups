@@ -59,7 +59,10 @@ function AvailabilitySection() {
                           <div className="flex flex-row">
                             {rule.byday.map((byday: string) => {
                               return (
-                                <span className="mr-1 text-sm text-gray-600">
+                                <span
+                                  key={byday}
+                                  className="mr-1 text-sm text-gray-600"
+                                >
                                   {dayConvertToZh(byday)}
                                 </span>
                               );
