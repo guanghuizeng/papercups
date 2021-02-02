@@ -259,7 +259,7 @@ function Calendar(props: CalendarProps) {
                 {date.format('ddd')}
               </div>
               <div className="mb-2 flex justify-center">
-                <div className="flex items-center justify-center w-10 h-10 rounded-full text-2xl bg-indigo-600 text-white font-bold">
+                <div className="flex items-center justify-center w-10 h-10 rounded-full text-2xl bg-blue-500 text-white font-bold">
                   {date.format('D')}
                 </div>
               </div>

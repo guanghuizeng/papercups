@@ -466,7 +466,7 @@ function SchedulingLink() {
                 exact
                 path="/links/:id"
                 component={() => (
-                  <div className="w-full h-full flex flex-col bg-white">
+                  <div className="w-full h-full flex flex-col bg-white pt-8">
                     <Calendar />
                   </div>
                 )}
