@@ -41,7 +41,7 @@ function AvailabilityByDay({
   });
 
   return (
-    <>
+    <div className={'flex flex-col'}>
       <div className="flex flex-row py-2 px-4 ">
         {dayState.map((state) => {
           return (
@@ -54,7 +54,7 @@ function AvailabilityByDay({
                     updateDayCheck(rule.id, state.day, e.target.checked);
                   }}
                 />
-                {state.day}
+                {dayConvertToZh(state.day)}
               </label>
             </div>
           );
@@ -62,7 +62,7 @@ function AvailabilityByDay({
       </div>
       <div className="flex flex-row">
         <Select
-          className="w-1/2"
+          className="w-28 mx-4"
           classNamePrefix="select"
           components={{
             IndicatorSeparator: () => {
@@ -79,7 +79,7 @@ function AvailabilityByDay({
           }}
         />
         <Select
-          className="w-1/2"
+          className="w-28 mx-4"
           classNamePrefix="select"
           components={{
             IndicatorSeparator: () => {
@@ -96,7 +96,7 @@ function AvailabilityByDay({
           }}
         />
       </div>
-    </>
+    </div>
   );
 }
 
@@ -216,7 +216,7 @@ export function Availability() {
       <div className="flex flex-row header-padding header-border header-h items-center">
         <Link
           to={`/settings/links`}
-          className="gentle-flex w-10 h-10 text-gray-400 hover:text-gray-700 hover:bg-gray-100"
+          className="gentle-flex focus:outline-none w-10 h-10 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full"
         >
           <X />
         </Link>
@@ -249,14 +249,22 @@ export function Availability() {
           <div className="py-4">
             {preset?.rules.map((rule: any) => {
               return (
-                <div key={rule.id} className="py-2">
+                <div
+                  key={rule.id}
+                  className="flex flex-row py-2 pb-8 mb-4 border-b border-primary border-solid"
+                >
                   <AvailabilityByDay
                     rule={rule}
                     updateDayCheck={updateDayCheck}
                     updateStartTime={updateStartTime}
                     updateEndTime={updateEndTime}
                   />
-                  <Button onClick={() => removeRule(rule.id)}>Delete</Button>
+                  <button
+                    className="w-8 h-8 relative text-gray-300 hover:text-black hover:bg-gray-200 rounded-full gentle-flex"
+                    onClick={() => removeRule(rule.id)}
+                  >
+                    <X />
+                  </button>
                 </div>
               );
             })}

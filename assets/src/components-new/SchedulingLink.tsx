@@ -37,11 +37,11 @@ function Header() {
       <div className="flex flex-row w-full">
         <Link
           to="/links"
-          className="hover:bg-gray-200 text-gray-600 hover:text-black gentle-flex w-10 "
+          className="hover:bg-gray-100 text-gray-600 focus:outline-none hover:text-black gentle-flex w-10 h-10 rounded-full "
         >
           <X />
         </Link>
-        <div className="flex flex-row justify-between w-full px-8">
+        <div className="flex flex-row justify-between w-full px-10">
           <div className="gentle-flex">
             <span>编辑</span>
           </div>
