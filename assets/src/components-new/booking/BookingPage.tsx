@@ -125,64 +125,77 @@ function EventSection() {
 
   return (
     <div className="pt-2">
-      <div>
-        <div>{schedulingLink?.name}</div>
-        <div>{schedulingLink?.description}</div>
+      <div className="px-4 pt-8">
+        <h2 className="text-2xl">{schedulingLink?.name}</h2>
+        <p className="pt-4">{schedulingLink?.description}</p>
+      </div>
 
-        <div>
-          <i className="fas fa-user-alt mr-2 w-5 text-center" />
-          {schedulingLink?.organizer.displayName}
-        </div>
+      <div
+        className="px-2 pt-8 pr-4 py-2 grid gap-x-1 gap-y-6"
+        style={{gridTemplateColumns: '30px auto'}}
+      >
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="fas fa-user-alt " />
+          </span>
+          <span>{schedulingLink?.organizer.displayName}</span>
+        </Fragment>
 
-        <div>
-          <i className="fas fa-clock mr-2 w-5 text-center" />
-          {durationDisplay}
-        </div>
-        <div className="flex flex-row">
-          <i className="fas fa-video mr-2 w-5 text-center" />
-          {schedulingLink?.location &&
-            colourOptions.find((opt) => opt.value === schedulingLink.location)
-              ?.label}
-        </div>
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="fas fa-clock" />
+          </span>
+          <span>{durationDisplay}</span>
+        </Fragment>
 
-        <div className="flex flex-row">
-          <i className="fas fa-calendar-check w-4 mr-2" />
-          <div className="flex flex-row flex-wrap">
-            <span>
-              {eventStartTime &&
-                dayjs(eventStartTime).format('MM[月]DD[日] a h点 mm[分]')}
-            </span>
-            <span>
-              至{' '}
-              {eventStartTime &&
-                dayjs(eventStartTime)
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="fas fa-calendar-check" />
+          </span>
+          {eventStartTime && (
+            <div
+              className="grid grid-cols-2 gap-2"
+              style={{gridTemplateColumns: '80px auto'}}
+            >
+              <span>{dayjs(eventStartTime).format('M[月]DD[日]')}</span>
+              <span>{dayjs(eventStartTime).format('a h点 mm[分]')}</span>
+              <span className="text-right">至</span>
+              <span>
+                {dayjs(eventStartTime)
                   .add(eventDuration, 'minutes')
                   .format('a h点 mm[分]')}
-            </span>
-          </div>
-        </div>
+              </span>
+            </div>
+          )}
+        </Fragment>
       </div>
 
-      <div className="pt-2">
-        <div>联系人</div>
-        <Input placeholder="" type="text" id={'name'} />
-      </div>
-      <div className="pt-2">
-        <div>Email</div>
-        <Input placeholder="" type="email" id={'email'} />
-      </div>
-      {schedulingLink?.fields && (
-        <div className="flex flex-row flex-wrap">
-          {schedulingLink.fields.map((field: any) => {
-            return (
-              <div key={field.id} className="pt-2">
-                <label>{field.label}</label>
-                <Input placeholder="" type="text" id={field.id} />
-              </div>
-            );
-          })}
+      <div className="px-4 pt-8">
+        <div className="pt-4">
+          <Input placeholder="" type="text" id={'name'} clearable>
+            联系人
+          </Input>
         </div>
-      )}
+        <div className="pt-4">
+          <Input placeholder="" type="email" id={'email'} clearable>
+            Email
+          </Input>
+        </div>
+        {schedulingLink?.fields && (
+          <>
+            {schedulingLink.fields.map((field: any) => {
+              return (
+                <div key={field.id} className="pt-4">
+                  <Input placeholder="" type="text" id={field.id} clearable>
+                    {field.label}
+                  </Input>
+                </div>
+              );
+            })}
+          </>
+        )}
+      </div>
+
       <div className="flex flex-row pt-2">
         <Button type="success" size="mini" onClick={submit}>
           确定
