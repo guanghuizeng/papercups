@@ -368,7 +368,7 @@ function ControlSection() {
           <span className="w-full gentle-flex">
             <i className="fas fa-external-link-alt " />
           </span>
-          <span>预览</span>
+          <Link to={bookingUrl}>预览</Link>
         </Fragment>
 
         <Fragment>
@@ -381,7 +381,7 @@ function ControlSection() {
           <span className="w-full gentle-flex">
             <i className="far fa-clone " />
           </span>
-          <Link to={bookingUrl}>另存为</Link>
+          <span>另存为</span>
         </Fragment>
         <Fragment>
           <span className="w-full gentle-flex">
