@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Switch, Route, Link, useLocation, Redirect} from 'react-router-dom';
 import {useAppData} from '../hooks/AppDataProvider';
-import {Button, Input} from '@geist-ui/react';
+import {Button, Input, Text} from '@geist-ui/react';
+import {dayConvertToZh} from '../utils';
 
 function SettingSection(props: any) {
   return (
@@ -30,36 +31,43 @@ function AvailabilitySection() {
             return (
               <div
                 key={preset.id}
-                className="border-primary border-t border-solid py-2"
+                className="border-primary border-t border-solid  py-6 flex flex-row justify-between"
               >
-                <label>{preset.name}</label>
-                <div>
-                  {preset.rules.map((rule: any) => {
-                    return (
-                      <div key={rule.id}>
-                        <div className="flex flex-row">
-                          {rule.byday.map((byday: string) => {
-                            return (
-                              <div className="mx-2 underline" key={byday}>
-                                {byday}
-                              </div>
-                            );
-                          })}
+                <div className="flex flex-col">
+                  <Link
+                    to={`/availabilities/${preset.id}/edit`}
+                    className={'hover:underline'}
+                  >
+                    <Text h3>{preset.name}</Text>
+                  </Link>
+                  <div className="pt-2">
+                    {preset.rules.map((rule: any) => {
+                      return (
+                        <div key={rule.id} className="flex flex-row">
+                          <div className="flex flex-row">
+                            {rule.byday.map((byday: string) => {
+                              return (
+                                <Text className="mr-1">
+                                  {dayConvertToZh(byday)}
+                                </Text>
+                              );
+                            })}
+                          </div>
+                          <div>
+                            <label className="mx-2">{rule.startTime}</label>
+                            <label className="mx-2">{rule.endTime}</label>
+                          </div>
                         </div>
-                        <div>
-                          <label className="mx-2">{rule.startTime}</label>
-                          <label className="mx-2">{rule.endTime}</label>
-                        </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
                 <div className="mt-2">
                   <Link
                     to={`/availabilities/${preset.id}/edit`}
-                    className="btn-draft"
+                    // className="btn-draft"
                   >
-                    Edit
+                    <Button size={'mini'}>编辑</Button>
                   </Link>
                 </div>
               </div>
