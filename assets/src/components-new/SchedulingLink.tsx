@@ -368,32 +368,40 @@ function ControlSection() {
           <span className="w-full gentle-flex">
             <i className="fas fa-external-link-alt " />
           </span>
-          <Link to={bookingUrl}>预览</Link>
+          <Link to={bookingUrl} className="w-full px-2 py-2 hover:underline">
+            预览
+          </Link>
         </Fragment>
 
         <Fragment>
           <span className="w-full gentle-flex">
             <i className="fas fa-link" />
           </span>
-          <span>复制链接</span>
+          <div className="cursor-pointer w-full px-2 py-2 hover:bg-blue-100 rounded">
+            <span>复制链接</span>
+          </div>
         </Fragment>
         <Fragment>
           <span className="w-full gentle-flex">
             <i className="far fa-clone " />
           </span>
-          <span>另存为</span>
+          <div className="cursor-pointer w-full px-2 py-2 hover:bg-blue-100 rounded">
+            <span>另存为</span>
+          </div>
         </Fragment>
-        <Fragment>
-          <span className="w-full gentle-flex">
-            <i className="fas fa-code " />
-          </span>
-          <span>嵌入</span>
-        </Fragment>
+        {/*<Fragment>*/}
+        {/*  <span className="w-full gentle-flex">*/}
+        {/*    <i className="fas fa-code " />*/}
+        {/*  </span>*/}
+        {/*  <span>嵌入</span>*/}
+        {/*</Fragment>*/}
         <Fragment>
           <span className="w-full gentle-flex">
             <i className="far fa-trash-alt" />
           </span>
-          <span>删除</span>
+          <div className="cursor-pointer w-full px-2 py-2 hover:bg-blue-100 hover:text-red-600 rounded">
+            <span>删除</span>
+          </div>
         </Fragment>
       </div>
     </div>
