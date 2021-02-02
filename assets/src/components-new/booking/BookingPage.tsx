@@ -229,9 +229,9 @@ function ControlSection() {
   return (
     <div className="flex flex-col w-96">
       <GeneralSection />
-      <div className={'border-green-500 border-2 border-solid'} />
+      <div className={'border-gray-400 border-2 border-solid'} />
       <EventSection />
-      <div className={'border-green-500 border-2 border-solid'} />
+      <div className={'border-gray-400 border-2 border-solid'} />
       <CalendarMonthView />
     </div>
   );
@@ -329,7 +329,7 @@ function CalendarSection() {
   };
 
   return (
-    <div className="w-full h-full border-green-solid-2">
+    <div className="pt-8 w-full h-full">
       <div className="w-full h-full">
         <FullCalendar
           height="100%"
