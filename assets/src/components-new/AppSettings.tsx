@@ -55,7 +55,7 @@ function AvailabilitySection() {
                   <div className="pt-2">
                     {preset.rules.map((rule: any) => {
                       return (
-                        <div key={rule.id} className="flex flex-row">
+                        <div key={rule.id} className="grid grid-cols-2">
                           <div className="flex flex-row">
                             {rule.byday.map((byday: string) => {
                               return (
@@ -65,11 +65,12 @@ function AvailabilitySection() {
                               );
                             })}
                           </div>
-                          <div className="text-sm text-gray-600">
-                            <label className="mx-2">
+                          <div className="text-sm text-gray-600 pl-4">
+                            <label className="mx-1">
                               {format(rule.startTime)}
                             </label>
-                            <label className="mx-2">
+                            -
+                            <label className="mx-1">
                               {format(rule.endTime)}
                             </label>
                           </div>
