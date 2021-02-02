@@ -1,4 +1,4 @@
-import React, {useState, Fragment} from 'react';
+import React, {useState, Fragment, RefObject} from 'react';
 import {useParams} from 'react-router-dom';
 import BookingProvider, {useBooking} from './BookingProvider';
 import DayPicker from 'react-day-picker';
@@ -255,6 +255,7 @@ function CalendarSection() {
     eventId,
     setEventId,
     draftEvent,
+    calendarRef,
   } = useBooking();
 
   const renderDayHeaderContent = (props: DayHeaderContentArg) => {
@@ -350,6 +351,7 @@ function CalendarSection() {
     <div className="pt-8 w-full h-full">
       <div className="w-full h-full">
         <FullCalendar
+          ref={calendarRef}
           height="100%"
           contentHeight="900px"
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}

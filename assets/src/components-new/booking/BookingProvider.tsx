@@ -23,6 +23,7 @@ const BookingContext = React.createContext<{
 
   eventDrafted: boolean;
   draftEvent: () => void;
+  calendarRef: any;
 
   eventStartTime: Date | null;
   setEventStartTime: (start: Date) => void;
@@ -46,6 +47,7 @@ const BookingContext = React.createContext<{
 
   eventDrafted: false,
   draftEvent: () => {},
+  calendarRef: {},
 
   eventStartTime: null,
   setEventStartTime: (start: Date) => {},
@@ -89,6 +91,7 @@ function BookingProvider(props: Props) {
   const [eventId, setEventId] = useState<string | null>(null);
 
   const [eventDrafted, setEventDrafted] = useState<boolean>(false);
+  const calendarRef = React.createRef<any>();
 
   useEffect(() => {
     if (schedulingLink) {
@@ -106,6 +109,9 @@ function BookingProvider(props: Props) {
 
   const cancelEventDrafted = () => {
     setEventDrafted(false);
+    if (calendarRef.current) {
+      calendarRef.current.getApi().removeAllEvents();
+    }
     return Promise.resolve();
   };
 
@@ -137,6 +143,7 @@ function BookingProvider(props: Props) {
         eventDrafted,
         draftEvent,
         cancelEventDrafted,
+        calendarRef,
       }}
     >
       {props.children}
