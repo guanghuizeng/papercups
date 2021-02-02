@@ -276,6 +276,18 @@ input[type='number'] {
   height: 70px;
 }
 
+.header-padding {
+  padding: 20px 20px 18px;
+}
+
+.header-border {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.header-h {
+  height: 70px;
+}
+
 .ms-SearchBox:focus {
   outline: none;
   border: 0;

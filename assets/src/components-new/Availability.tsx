@@ -22,6 +22,7 @@ import produce, {Draft} from 'immer';
 import {dayConvertToEn} from '../utils';
 import _ from 'lodash';
 import {nanoid} from 'nanoid';
+import {X} from '@geist-ui/react-icons';
 
 const sliceOfTime = listOfTime24.slice(0, 24 * 4);
 const timeOptions = listOfTime24Options;
@@ -212,66 +213,72 @@ export function Availability() {
   };
 
   return (
-    <div className="flex flex-row w-full">
-      <div className="flex flex-col">
+    <div className="flex flex-col w-full">
+      <div className="flex flex-row header-padding header-border header-h items-center">
         <Link
           to={`/settings/links`}
-          className="text-gray-400 hover:text-gray-700"
+          className="gentle-flex w-10 h-10 text-gray-400 hover:text-gray-700 hover:bg-gray-100"
         >
-          <i className="fas fa-times" />
+          <X />
         </Link>
-        <Input
-          initialValue={preset?.name}
-          onChange={(e) => {
-            updateName(e.target.value);
-          }}
-          size="large"
-        />
-        <div className="py-4">
-          {preset?.rules.map((rule: any) => {
-            return (
-              <div key={rule.id} className="py-2">
-                <AvailabilityByDay
-                  rule={rule}
-                  updateDayCheck={updateDayCheck}
-                  updateStartTime={updateStartTime}
-                  updateEndTime={updateEndTime}
-                />
-                <Button onClick={() => removeRule(rule.id)}>Delete</Button>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="w-full mt-4">
-          <Button onClick={addRule}>Add</Button>
-          <Button>Show my calendar overlay</Button>
-        </div>
+        <span className="pl-2">时间管理</span>
       </div>
 
-      <div className="ml-4 demo-app-main w-full">
-        <FullCalendar
-          contentHeight="900px"
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          headerToolbar={false}
-          weekNumberCalculation="ISO"
-          initialView="timeGridWeek"
-          slotDuration="00:30:00"
-          snapDuration="00:15:00"
-          slotLabelInterval="01:00"
-          slotMinTime="06:00:00"
-          dayHeaderContent={renderDayHeaderContent}
-          allDaySlot={false}
-          weekends={true}
-          eventSources={[
-            {
-              events: getBackgroundEvents(),
-              display: 'background',
-            },
-          ]}
-          nowIndicator={false}
-          locale={zhLocale}
-        />
+      <div className="flex flex-row w-full">
+        <div className="flex flex-col">
+          <Input
+            initialValue={preset?.name}
+            onChange={(e) => {
+              updateName(e.target.value);
+            }}
+            size="large"
+          />
+          <div className="py-4">
+            {preset?.rules.map((rule: any) => {
+              return (
+                <div key={rule.id} className="py-2">
+                  <AvailabilityByDay
+                    rule={rule}
+                    updateDayCheck={updateDayCheck}
+                    updateStartTime={updateStartTime}
+                    updateEndTime={updateEndTime}
+                  />
+                  <Button onClick={() => removeRule(rule.id)}>Delete</Button>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="w-full mt-4">
+            <Button onClick={addRule}>Add</Button>
+            <Button>Show my calendar overlay</Button>
+          </div>
+        </div>
+
+        <div className="ml-4 demo-app-main w-full">
+          <FullCalendar
+            contentHeight="900px"
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            headerToolbar={false}
+            weekNumberCalculation="ISO"
+            initialView="timeGridWeek"
+            slotDuration="00:30:00"
+            snapDuration="00:15:00"
+            slotLabelInterval="01:00"
+            slotMinTime="06:00:00"
+            dayHeaderContent={renderDayHeaderContent}
+            allDaySlot={false}
+            weekends={true}
+            eventSources={[
+              {
+                events: getBackgroundEvents(),
+                display: 'background',
+              },
+            ]}
+            nowIndicator={false}
+            locale={zhLocale}
+          />
+        </div>
       </div>
     </div>
   );

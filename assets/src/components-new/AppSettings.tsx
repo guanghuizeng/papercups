@@ -22,7 +22,7 @@ function AvailabilitySection() {
   const {availabilityPresets} = useAppData();
   return (
     <SettingSection>
-      <SectionTitle title={'可选择时间'} />
+      <SectionTitle title={'时间管理'} />
       <div className="border-primary border-b border-solid py-2">
         {availabilityPresets &&
           availabilityPresets.map((preset) => {
