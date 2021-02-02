@@ -210,7 +210,7 @@ function CalendarMonthView() {
   const [selectedDay, handleDayClick] = useState<Date>(new Date());
 
   return (
-    <div className="absolute bottom-0">
+    <div className="absolute bottom-0 border-t border-primary border-solid">
       <DayPicker
         selectedDays={selectedDay}
         onDayClick={handleDayClick}
@@ -231,7 +231,6 @@ function ControlSection() {
       <GeneralSection />
       <div className={'border-gray-400 border-2 border-solid'} />
       <EventSection />
-      <div className={'border-gray-400 border-2 border-solid'} />
       <CalendarMonthView />
     </div>
   );
