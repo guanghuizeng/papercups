@@ -190,25 +190,31 @@ function EmailSection() {
   );
 }
 
+function NameSection() {
+  const {profile, settings, updateDisplayName, updateSlug} = useAppData();
+
+  return (
+    <SettingSection>
+      <SectionTitle title={'姓名'} />
+      <div className="pt-4">
+        <Input
+          className="focus:outline-none"
+          initialValue={profile?.display_name}
+          onChange={(e) => {
+            updateDisplayName(e.target.value);
+          }}
+        />
+      </div>
+    </SettingSection>
+  );
+}
+
 function ProfileSection() {
   const {profile, settings, updateDisplayName, updateSlug} = useAppData();
 
-  console.log('Profile', profile, settings);
   return (
     <div className={'flex flex-col'}>
-      <SettingSection>
-        <SectionTitle title={'姓名'} />
-        <div className="pt-4">
-          <input
-            className="border-primary border-2 border-solid"
-            defaultValue={profile?.display_name}
-            type={'text'}
-            onChange={(e) => {
-              updateDisplayName(e.target.value);
-            }}
-          />
-        </div>
-      </SettingSection>
+      <NameSection />
       <SlugSection />
       <EmailSection />
       <SettingSection>

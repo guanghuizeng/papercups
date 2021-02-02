@@ -28,8 +28,6 @@ function Header() {
   const {slug: schedulingLinkSlug} = useSchedulingLink();
   const userSlug = settings?.slug;
 
-  console.log('Header', settings, schedulingLinkSlug);
-
   const [editing, setEditing] = useState<boolean>(false);
 
   return (
@@ -227,13 +225,11 @@ function GeneralSection() {
           defaultValue={name}
           rows={1}
           onKeyPress={(e) => {
-            console.log(e.key);
             if (e.key === 'Enter') {
               e.preventDefault();
             }
           }}
           onChange={(e) => {
-            console.log('Name change', e.target.value);
             updateName(e.target.value);
           }}
         />
@@ -244,7 +240,6 @@ function GeneralSection() {
           style={{minHeight: '24px !important'}}
           defaultValue={description}
           onKeyPress={(e) => {
-            console.log(e.key);
             if (e.key === 'Enter') {
               e.preventDefault();
             }
@@ -285,7 +280,6 @@ function GeneralSection() {
             isMulti
             onChange={(value: any) => {
               updateDurations(value.map((opt: any) => opt.value));
-              console.log('Durations change', value);
             }}
           />
         </Fragment>
@@ -303,7 +297,6 @@ function GeneralSection() {
             defaultValue={location}
             onChange={(v: any) => {
               updateLocation(v.value);
-              console.log('Change location', v);
             }}
           />
         </Fragment>
