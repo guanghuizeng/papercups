@@ -21,17 +21,22 @@ const BookingContext = React.createContext<{
   user: any;
   schedulingLink: any;
 
+  eventDrafted: boolean;
+  draftEvent: () => void;
+
+  eventStartTime: Date | null;
+  setEventStartTime: (start: Date) => void;
+
   timeSelected: EventTime | null;
   eventId: string | null;
   eventDuration: number;
-  eventStartTime: Date | null;
 
   setEventId: (id: string | null) => void;
-  setEventStartTime: (start: Date) => void;
   setEventDuration: (value: number) => void;
   setEventTime: (start: Date, end: Date) => void;
 
   submitScheduledEvent: () => Promise<any>;
+  cancelEventDrafted: () => Promise<any>;
 }>({
   userSlug: '',
   schedulingLinkSlug: '',
@@ -39,17 +44,21 @@ const BookingContext = React.createContext<{
   user: {},
   schedulingLink: {},
 
+  eventDrafted: false,
+  draftEvent: () => {},
+
+  eventStartTime: null,
+  setEventStartTime: (start: Date) => {},
   timeSelected: null,
   eventId: null,
-  eventDuration: 30,
-  eventStartTime: null,
 
+  eventDuration: 30,
   setEventId: (id: string | null) => {},
-  setEventStartTime: (start: Date) => {},
   setEventDuration: (value: number) => {},
   setEventTime: (start: Date, end: Date) => {},
 
   submitScheduledEvent: () => Promise.resolve(),
+  cancelEventDrafted: () => Promise.resolve(),
 });
 
 export const useBooking = () => useContext(BookingContext);
@@ -79,6 +88,8 @@ function BookingProvider(props: Props) {
   const [eventDuration, setEventDuration] = useState<number>(30);
   const [eventId, setEventId] = useState<string | null>(null);
 
+  const [eventDrafted, setEventDrafted] = useState<boolean>(false);
+
   useEffect(() => {
     if (schedulingLink) {
       setEventDuration(schedulingLink.durations[0]);
@@ -91,6 +102,15 @@ function BookingProvider(props: Props) {
 
   const setEventTime = (start: Date, end: Date) => {
     setTimeSelected({start, end});
+  };
+
+  const cancelEventDrafted = () => {
+    setEventDrafted(false);
+    return Promise.resolve();
+  };
+
+  const draftEvent = () => {
+    setEventDrafted(true);
   };
 
   return (
@@ -113,6 +133,10 @@ function BookingProvider(props: Props) {
         setEventTime,
         setEventStartTime,
         setEventDuration,
+
+        eventDrafted,
+        draftEvent,
+        cancelEventDrafted,
       }}
     >
       {props.children}

@@ -106,6 +106,7 @@ function EventSection() {
     setEventTime,
     eventDuration,
     setEventId,
+    cancelEventDrafted,
   } = useBooking();
   const durationDisplay = humanizeDuration(eventDuration * 60 * 1000, {
     units: ['h', 'm'],
@@ -126,7 +127,7 @@ function EventSection() {
   };
 
   const onCancel = () => {
-    setEventId(null);
+    cancelEventDrafted();
   };
 
   return (
@@ -233,10 +234,10 @@ function CalendarMonthView() {
 }
 
 function ControlSection() {
-  const {timeSelected, eventId} = useBooking();
+  const {eventDrafted} = useBooking();
   return (
     <div className="flex flex-col w-96">
-      {eventId ? <EventSection /> : <GeneralSection />}
+      {eventDrafted ? <EventSection /> : <GeneralSection />}
       <CalendarMonthView />
     </div>
   );
@@ -253,6 +254,7 @@ function CalendarSection() {
     intervals,
     eventId,
     setEventId,
+    draftEvent,
   } = useBooking();
 
   const renderDayHeaderContent = (props: DayHeaderContentArg) => {
@@ -296,6 +298,8 @@ function CalendarSection() {
 
     const id = nanoid();
     setEventId(id);
+
+    draftEvent();
 
     calendarApi.addEvent({
       id,
