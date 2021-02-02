@@ -32,8 +32,6 @@ function Header() {
 
   const [editing, setEditing] = useState<boolean>(false);
 
-  const test = () => {};
-
   return (
     <div className="Header">
       <div className="flex flex-row w-full">
@@ -356,8 +354,10 @@ function GeneralSection() {
 }
 
 function ControlSection() {
-  // const {bookingUrl} = useSchedulingLink()
-  const bookingUrl = '/@ycy/chat';
+  const {settings} = useAppData();
+  const {slug: schedulingLinkSlug} = useSchedulingLink();
+  const userSlug = settings?.slug;
+  const bookingUrl = '/@' + userSlug + '/' + schedulingLinkSlug;
   return (
     <div className="border-primary border-t border-solid mt-8">
       <div
