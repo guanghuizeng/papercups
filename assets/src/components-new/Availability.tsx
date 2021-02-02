@@ -280,7 +280,7 @@ export function Availability() {
 
         <div className="ml-4 demo-app-main w-full">
           <FullCalendar
-            contentHeight="900px"
+            contentHeight="1100px"
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             headerToolbar={false}
             weekNumberCalculation="ISO"
