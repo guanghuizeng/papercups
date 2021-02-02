@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Switch, Route, Link, useLocation, Redirect} from 'react-router-dom';
 import {useAppData} from '../hooks/AppDataProvider';
+import {Button, Input} from '@geist-ui/react';
 
 function SettingSection(props: any) {
   return (
@@ -90,11 +91,13 @@ function LinksSettingsSection() {
   );
 }
 
+const URL = 'http://localhost:3000';
+
 function SlugSection() {
   const {settings, updateSlug} = useAppData();
   const [slug, setSlug] = useState<string>('');
 
-  const [edited, setEdited] = useState(false);
+  const [editing, setEditing] = useState(false);
   useEffect(() => {
     if (settings) {
       setSlug(settings.slug);
@@ -104,40 +107,85 @@ function SlugSection() {
   return (
     <SettingSection>
       <SectionTitle title={'链接地址'} />
-      <div className="pt-4 flex flex-row">
-        <span>https://timepage.com/</span>
-        <input
-          className="border-primary border-2 border-solid w-24"
-          value={slug}
-          type={'text'}
-          onChange={(e) => {
-            setSlug(e.target.value);
-            setEdited(true);
-          }}
-        />
-        {edited && (
+      <div className="pt-4 flex flex-row justify-between">
+        {editing ? (
+          <Input label={URL + '/@'} initialValue={slug} autoFocus={true} />
+        ) : (
+          <div className="my-auto">{URL + '/@' + slug} </div>
+        )}
+        {editing ? (
           <div className="flex flex-row">
-            <div
-              className="btn-draft"
-              onClick={() => {
-                updateSlug(slug);
-                setEdited(false);
-              }}
-            >
-              保存
+            <div className="ml-1">
+              <Button
+                size={'small'}
+                type={'success'}
+                auto
+                onClick={() => {
+                  updateSlug(slug);
+                  setEditing(false);
+                }}
+              >
+                保存
+              </Button>
             </div>
-            <div
-              className="btn-draft"
-              onClick={() => {
-                setSlug(settings.slug);
-                setEdited(false);
-              }}
-            >
-              取消
+            <div className="ml-1">
+              <Button
+                size={'small'}
+                auto
+                onClick={() => {
+                  setSlug(settings.slug);
+                  setEditing(false);
+                }}
+              >
+                取消
+              </Button>
             </div>
           </div>
+        ) : (
+          // <div className="flex flex-row">
+          //   <div
+          //     className="btn-draft"
+          //     onClick={() => {
+          //       updateSlug(slug);
+          //       setEditing(false);
+          //     }}
+          //   >
+          //     保存
+          //   </div>
+          //   <div
+          //     className="btn-draft"
+          //     onClick={() => {
+          //       setSlug(settings.slug);
+          //       setEditing(false);
+          //     }}
+          //   >
+          //     取消
+          //   </div>
+          // </div>
+          <Button size={'small'} onClick={() => setEditing(true)}>
+            编辑
+          </Button>
         )}
       </div>
+    </SettingSection>
+  );
+}
+
+function LinkUrlSection() {
+  const {profile, settings, updateDisplayName, updateSlug} = useAppData();
+
+  const [editing, setEditing] = useState<boolean>(false);
+}
+
+function EmailSection() {
+  const {profile, settings, updateDisplayName, updateSlug} = useAppData();
+
+  const [editing, setEditing] = useState<boolean>(false);
+
+  return (
+    <SettingSection>
+      <SectionTitle title={'邮件地址'} />
+      <div className="pt-4">{profile?.email}</div>
     </SettingSection>
   );
 }
@@ -162,10 +210,7 @@ function ProfileSection() {
         </div>
       </SettingSection>
       <SlugSection />
-      <SettingSection>
-        <SectionTitle title={'邮件地址'} />
-        <div className="pt-4">{profile?.email}</div>
-      </SettingSection>
+      <EmailSection />
       <SettingSection>
         <SectionTitle title={'密码'} />
         <div className="pt-4">
