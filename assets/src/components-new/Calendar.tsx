@@ -42,7 +42,10 @@ interface CalendarAvailabilityControlProps {
 function CalendarAvailabilityControl(props: CalendarAvailabilityControlProps) {
   const {handleSelectAllow, handleSelectBlock} = props;
   return (
-    <div className=" pb-4 bottom-0 w-full flex justify-center">
+    <div
+      className="relative pb-4 bottom-0 w-full flex justify-center"
+      style={{top: '-120px'}}
+    >
       <div className="relative transition-all transform rounded-lg shadow-floating bg-white z-10">
         <div className="flex p-1">
           <button
@@ -132,26 +135,26 @@ function CalendarAvailabilityControl(props: CalendarAvailabilityControlProps) {
             <div>Block</div>
           </button>
         </div>
-        <button
-          className="absolute flex items-center justify-center w-8 h-8 rounded-full shadow-floating bg-white hover:bg-gray-100 active:bg-gray-200 transition ease-in-out duration-150 border-2 border-white text-gray-500"
-          style={{right: '-12px; top: -12px'}}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            className="feather feather-x"
-          >
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
+        {/*  <button*/}
+        {/*    className="absolute flex items-center justify-center w-8 h-8 rounded-full shadow-floating bg-white hover:bg-gray-100 active:bg-gray-200 transition ease-in-out duration-150 border-2 border-white text-gray-500"*/}
+        {/*    style={{right: '-12px; top: -12px'}}*/}
+        {/*  >*/}
+        {/*    <svg*/}
+        {/*      xmlns="http://www.w3.org/2000/svg"*/}
+        {/*      width="16"*/}
+        {/*      height="16"*/}
+        {/*      viewBox="0 0 24 24"*/}
+        {/*      fill="none"*/}
+        {/*      stroke="currentColor"*/}
+        {/*      stroke-width="2"*/}
+        {/*      stroke-linecap="round"*/}
+        {/*      stroke-linejoin="round"*/}
+        {/*      className="feather feather-x"*/}
+        {/*    >*/}
+        {/*      <line x1="18" y1="6" x2="6" y2="18"></line>*/}
+        {/*      <line x1="6" y1="6" x2="18" y2="18"></line>*/}
+        {/*    </svg>*/}
+        {/*  </button>*/}
       </div>
     </div>
   );
@@ -344,16 +347,16 @@ function Calendar(props: CalendarProps) {
   };
 
   return (
-    <div className="w-full h-full">
-      <div className="demo-app-main">
+    <div className="w-full">
+      <div className="">
         <FullCalendar
-          // height="800px"
+          height="1200px"
           contentHeight="900px"
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           headerToolbar={{
-            left: 'prev,next today',
-            center: 'title',
-            right: 'timeGridWeek',
+            left: 'title',
+            // center: '',
+            right: 'today prev,next',
           }}
           weekNumberCalculation="ISO"
           initialView="timeGridWeek"
