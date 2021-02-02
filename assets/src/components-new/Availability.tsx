@@ -225,14 +225,28 @@ export function Availability() {
       </div>
 
       <div className="flex flex-row w-full">
-        <div className="flex flex-col">
-          <Input
-            initialValue={preset?.name}
-            onChange={(e) => {
-              updateName(e.target.value);
-            }}
-            size="large"
-          />
+        <div className="flex flex-col w-112">
+          <div className="px-4 pt-8">
+            <textarea
+              className="-mx-2 px-2 py-2 rounded-lg text-2xl leading-6 font-bold border-transparent focus:outline-none focus:border-gray-300 focus:ring focus:ring-black focus:ring-opacity-50 text-gray-800 resize-none placeholder-gray-600"
+              placeholder="Name this link"
+              spellCheck="false"
+              style={{minHeight: '42px !important'}}
+              defaultValue={preset?.name}
+              rows={1}
+              onKeyPress={(e) => {
+                console.log(e.key);
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                }
+              }}
+              onChange={(e) => {
+                console.log('Name change', e.target.value);
+                // updateName(e.target.value);
+              }}
+            />
+          </div>
+
           <div className="py-4">
             {preset?.rules.map((rule: any) => {
               return (
