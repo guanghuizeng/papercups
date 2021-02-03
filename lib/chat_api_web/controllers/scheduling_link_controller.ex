@@ -355,6 +355,10 @@ defmodule ChatApiWeb.SchedulingLinkController do
            %{"overrides" => overrides, "presets" => presets} <- availability,
            schedules <- Schedules.list_schedules_by_ids(presets)
         do
+#        Logger.info(inspect(user_info))
+#        Logger.info(inspect(link))
+#        Logger.info(inspect(scheduling_link))
+#        Logger.info(inspect(organizer))
 #        Logger.info(inspect(availability))
 #        Logger.info(inspect(presets))
 #
