@@ -82,26 +82,13 @@ const AppDataProvider = (props: Props) => {
 
   const createSchedulingLinkAndRedirect = async () => {
     return API.createSchedulingLink({
-      name: '新类型',
-      description: '描述',
+      name: '未命名',
+      description: '',
       durations: [30],
       location: 'loc1',
       url: nanoid(7),
       color: 'red',
-      fields: [
-        {
-          id: 'q1',
-          label: '你的电话号码是多少？',
-          required: true,
-          type: 'long_text',
-        },
-        {
-          id: 'q2',
-          label: '你的工作是什么？',
-          required: false,
-          type: 'long_text',
-        },
-      ],
+      fields: [],
       email_reminders: [
         {
           quantity: 1,
@@ -111,18 +98,7 @@ const AppDataProvider = (props: Props) => {
       organizer: {
         availability: {
           mode: 'ranked',
-          overrides: [
-            {
-              endAt: '2021-01-19T07:30:00Z',
-              startAt: '2021-01-19T02:15:00Z',
-              type: 'block',
-            },
-            {
-              endAt: '2021-01-18T08:45:00Z',
-              startAt: '2021-01-18T02:30:00Z',
-              type: 'block',
-            },
-          ],
+          overrides: [],
           presets: ['39f52432cfa64661', 'ed0eb79a82ba137e', 'ff9e7d4dd2f506c5'],
           recurringIntervals: [],
         },
