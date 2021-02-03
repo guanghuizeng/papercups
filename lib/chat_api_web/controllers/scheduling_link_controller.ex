@@ -76,7 +76,8 @@ defmodule ChatApiWeb.SchedulingLinkController do
                color: color,
                fields: fields,
                email_reminders: email_reminders,
-               organizer: organizer
+               organizer: organizer,
+               user_id: author_id
                #             schedule: schedule,
              }
            ) do

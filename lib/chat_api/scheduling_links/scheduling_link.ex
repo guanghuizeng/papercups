@@ -36,7 +36,7 @@ defmodule ChatApi.SchedulingLinks.SchedulingLink do
     scheduling_link
     |> cast(attrs,
          [:name, :location, :description, :url, :color, :period_type, :min_booking_time, :max_booking_time,
-           :start_date, :end_date, :durations, :before_buffer_time, :after_buffer_time, :schedule_id, :fields, :email_reminders, :organizer]
+           :start_date, :end_date, :durations, :before_buffer_time, :after_buffer_time, :schedule_id, :fields, :email_reminders, :organizer, :user_id]
        )
   end
 end
