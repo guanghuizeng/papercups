@@ -257,6 +257,7 @@ function CalendarSection() {
     setEventId,
     draftEvent,
     calendarRef,
+    eventDrafted,
   } = useBooking();
 
   const renderDayHeaderContent = (props: DayHeaderContentArg) => {
@@ -375,7 +376,7 @@ function CalendarSection() {
     failureCallback: (error: any) => any
   ) => {
     successCallback(
-      eventStartTime
+      eventDrafted && eventStartTime
         ? [
             {
               id: nanoid(),
