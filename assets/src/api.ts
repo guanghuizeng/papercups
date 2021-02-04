@@ -2,6 +2,7 @@ import request from 'superagent';
 import qs from 'query-string';
 import {getAuthTokens} from './storage';
 import {Conversation, User} from './types';
+import * as queryString from 'query-string';
 
 // TODO: handle this on the server instead
 function now() {
@@ -1158,5 +1159,27 @@ export const fetchScheduledEvents = async (token = getAccessToken()) => {
   return request
     .get(`/api/scheduled_events/`)
     .set('Authorization', token)
+    .then((res) => res.body.data);
+};
+
+export const fetchIntervals = async (
+  userSlug: string,
+  linkSlug: string,
+  from: string,
+  to: string
+) => {
+  const url = queryString.stringifyUrl({
+    url: `/api/links/${userSlug}/${linkSlug}/intervals`,
+    query: {
+      from,
+      to,
+    },
+  });
+  return request
+    .get(`/api/links/${userSlug}/${linkSlug}/intervals`)
+    .query({
+      from,
+      to,
+    })
     .then((res) => res.body.data);
 };

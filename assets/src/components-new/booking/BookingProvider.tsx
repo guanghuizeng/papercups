@@ -6,6 +6,7 @@ import {
   useSchedulingLinkBySlug,
   useUserProfileBySlug,
 } from '../../api-hooks';
+import * as API from '../../api';
 import {useSchedulingLink} from '../../hooks/SchedulingLinkProvider';
 import dayjs, {Dayjs} from 'dayjs';
 
@@ -36,6 +37,7 @@ const BookingContext = React.createContext<{
   setEventDuration: (value: number) => void;
   setEventTime: (start: Date, end: Date) => void;
 
+  fetchIntervals: (start: Date, end: Date) => void;
   submitScheduledEvent: () => Promise<any>;
   cancelEventDrafted: () => Promise<any>;
 }>({
@@ -59,6 +61,7 @@ const BookingContext = React.createContext<{
   setEventDuration: (value: number) => {},
   setEventTime: (start: Date, end: Date) => {},
 
+  fetchIntervals: (start: Date, end: Date) => {},
   submitScheduledEvent: () => Promise.resolve(),
   cancelEventDrafted: () => Promise.resolve(),
 });
@@ -79,14 +82,25 @@ function BookingProvider(props: Props) {
     userSlug,
     schedulingLinkSlug
   );
-  const {data: intervals} = useIntervals(
-    userSlug,
-    schedulingLinkSlug,
-    dayjs('2021-02-01T00:00:00+08:00').format('YYYY-MM-DDTHH:mm:ssZ'),
-    dayjs('2021-02-01T00:00:00+08:00')
-      .add(14, 'day')
-      .format('YYYY-MM-DDTHH:mm:ssZ')
-  );
+  // const {data: intervals} = useIntervals(
+  //   userSlug,
+  //   schedulingLinkSlug,
+  //   dayjs('2021-02-01T00:00:00+08:00').format('YYYY-MM-DDTHH:mm:ssZ'),
+  //   dayjs('2021-02-01T00:00:00+08:00')
+  //     .add(14, 'day')
+  //     .format('YYYY-MM-DDTHH:mm:ssZ')
+  // );
+
+  useEffect(() => {
+    if (userSlug) {
+      fetchIntervals(
+        dayjs('2021-02-01T00:00:00+08:00').toDate(),
+        dayjs('2021-02-01T00:00:00+08:00').add(14, 'day').toDate()
+      );
+    }
+  }, []);
+
+  const [intervals, setIntervals] = useState<any[]>([]);
   const [timeSelected, setTimeSelected] = useState<EventTime | null>(null);
   const [eventStartTime, setEventStartTime] = useState<Date | null>(null);
   const [eventDuration, setEventDuration] = useState<number>(30);
@@ -121,6 +135,18 @@ function BookingProvider(props: Props) {
     setEventDrafted(true);
   };
 
+  const fetchIntervals = (start: Date, end: Date) => {
+    API.fetchIntervals(
+      userSlug,
+      schedulingLinkSlug,
+      dayjs(start).format('YYYY-MM-DDTHH:mm:ssZ'),
+      dayjs(end).format('YYYY-MM-DDTHH:mm:ssZ')
+    ).then((data) => {
+      console.log('fetch intervals', data);
+      setIntervals(data);
+    });
+  };
+
   return (
     <BookingContext.Provider
       value={{
@@ -146,6 +172,8 @@ function BookingProvider(props: Props) {
         draftEvent,
         cancelEventDrafted,
         calendarRef,
+
+        fetchIntervals,
       }}
     >
       {props.children}
