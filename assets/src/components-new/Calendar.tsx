@@ -20,6 +20,7 @@ import _ from 'lodash';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import {useSchedulingLink} from '../hooks/SchedulingLinkProvider';
 import {dayConvertToEn} from '../utils';
+import {EventInput} from '@fullcalendar/common';
 
 require('dayjs/locale/zh-cn');
 var isToday = require('dayjs/plugin/isToday');
@@ -285,9 +286,19 @@ function Calendar(props: CalendarProps) {
    * availabilityOverrides
    * availabilityPresetsIntervals
    */
-  const getBackgroundEvents = () => {
-    const startDate = dayjs('2021-02-01T00:00:00');
-    const endDate = startDate.add(14, 'day');
+  const getBackgroundEvents = (
+    arg: {
+      start: Date;
+      end: Date;
+      startStr: string;
+      endStr: string;
+      timeZone: string;
+    },
+    successCallback: (events: EventInput[]) => void,
+    failureCallback: (error: any) => any
+  ) => {
+    const startDate = dayjs(arg.start);
+    const endDate = dayjs(arg.end);
 
     const allowOverrides = availabilityOverrides.filter(
       (e: any) => e.type === 'allow'
@@ -335,15 +346,18 @@ function Calendar(props: CalendarProps) {
       e[0].valueOf()
     );
     const eliminatedIntervals2 = eliminateIntervals(sortedIntervals2);
-    return eliminatedIntervals2.map((interval) => {
-      return {
-        id: createEventId(),
-        start: interval[0].toISOString(),
-        end: interval[1].toISOString(),
-        className: 'sc-unavailable',
-        display: 'background',
-      };
-    });
+
+    successCallback(
+      eliminatedIntervals2.map((interval) => {
+        return {
+          id: createEventId(),
+          start: interval[0].toISOString(),
+          end: interval[1].toISOString(),
+          className: 'sc-unavailable',
+          display: 'background',
+        };
+      })
+    );
   };
 
   return (
@@ -373,7 +387,7 @@ function Calendar(props: CalendarProps) {
           events={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
           eventSources={[
             {
-              events: getBackgroundEvents(),
+              events: getBackgroundEvents,
               display: 'background',
             },
           ]}

@@ -23,6 +23,7 @@ import {dayConvertToEn, dayConvertToZh} from '../utils';
 import _ from 'lodash';
 import {nanoid} from 'nanoid';
 import {X} from '@geist-ui/react-icons';
+import {EventInput} from '@fullcalendar/common';
 
 const sliceOfTime = listOfTime24.slice(0, 24 * 4);
 const timeOptions = listOfTime24Options;
@@ -119,7 +120,17 @@ export function Availability() {
     );
   };
 
-  const getBackgroundEvents = () => {
+  const getBackgroundEvents = (
+    arg: {
+      start: Date;
+      end: Date;
+      startStr: string;
+      endStr: string;
+      timeZone: string;
+    },
+    successCallback: (events: EventInput[]) => void,
+    failureCallback: (error: any) => any
+  ) => {
     const startDate = dayjs('2021-02-01T00:00:00');
     const endDate = startDate.add(14, 'day');
     const availabilityPresetsIntervals: any = preset ? preset.rules : [];
@@ -145,15 +156,17 @@ export function Availability() {
       eliminatedIntervals
     );
 
-    return complementedIntervals.map((interval) => {
-      return {
-        id: createEventId(),
-        start: interval[0].toISOString(),
-        end: interval[1].toISOString(),
-        className: 'sc-unavailable',
-        display: 'background',
-      };
-    });
+    successCallback(
+      complementedIntervals.map((interval) => {
+        return {
+          id: createEventId(),
+          start: interval[0].toISOString(),
+          end: interval[1].toISOString(),
+          className: 'sc-unavailable',
+          display: 'background',
+        };
+      })
+    );
   };
 
   /** update functions
@@ -294,7 +307,7 @@ export function Availability() {
             weekends={true}
             eventSources={[
               {
-                events: getBackgroundEvents(),
+                events: getBackgroundEvents,
                 display: 'background',
               },
             ]}
