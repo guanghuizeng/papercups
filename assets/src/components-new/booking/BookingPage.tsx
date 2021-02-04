@@ -347,11 +347,6 @@ function CalendarSection() {
       intervalsFormat
     );
 
-    console.log(
-      'get block events',
-      intervals,
-      JSON.stringify(complementedIntervals)
-    );
     successCallback(
       complementedIntervals.map((interval) => {
         return {
