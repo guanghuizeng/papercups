@@ -82,8 +82,10 @@ function BookingProvider(props: Props) {
   const {data: intervals} = useIntervals(
     userSlug,
     schedulingLinkSlug,
-    dayjs().format('YYYY-MM-DDTHH:mm:ssZ'),
-    dayjs().add(14, 'day').format('YYYY-MM-DDTHH:mm:ssZ')
+    dayjs('2021-02-01T00:00:00+08:00').format('YYYY-MM-DDTHH:mm:ssZ'),
+    dayjs('2021-02-01T00:00:00+08:00')
+      .add(14, 'day')
+      .format('YYYY-MM-DDTHH:mm:ssZ')
   );
   const [timeSelected, setTimeSelected] = useState<EventTime | null>(null);
   const [eventStartTime, setEventStartTime] = useState<Date | null>(null);

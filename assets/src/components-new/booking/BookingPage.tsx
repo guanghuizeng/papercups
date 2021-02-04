@@ -295,19 +295,20 @@ function CalendarSection() {
 
   const handleDateClick = (info: DateClickArg) => {
     let calendarApi = info.view.calendar;
-    calendarApi.removeAllEvents();
+    // calendarApi.
+    // calendarApi.removeAllEvents();
     setEventStartTime(info.date);
-
-    const id = nanoid();
-    setEventId(id);
-
+    //
+    // const id = nanoid();
+    // setEventId(id);
+    //
     draftEvent();
 
-    calendarApi.addEvent({
-      id,
-      start: info.dateStr,
-      end: dayjs(info.date).add(eventDuration, 'minutes').toISOString(),
-    });
+    // calendarApi.addEvent({
+    //   id,
+    //   start: info.dateStr,
+    //   end: dayjs(info.date).add(eventDuration, 'minutes').toISOString(),
+    // });
   };
 
   const handleEvents = (events: EventApi[]) => {
@@ -362,6 +363,32 @@ function CalendarSection() {
     );
   };
 
+  const getEvent = (
+    arg: {
+      start: Date;
+      end: Date;
+      startStr: string;
+      endStr: string;
+      timeZone: string;
+    },
+    successCallback: (events: EventInput[]) => void,
+    failureCallback: (error: any) => any
+  ) => {
+    successCallback(
+      eventStartTime
+        ? [
+            {
+              id: nanoid(),
+              start: eventStartTime,
+              end: dayjs(eventStartTime)
+                .add(eventDuration, 'minutes')
+                .toISOString(),
+            },
+          ]
+        : []
+    );
+  };
+
   return (
     <div className="pt-8 w-full h-full">
       <div className="w-full h-full">
@@ -401,13 +428,7 @@ function CalendarSection() {
               display: 'background',
             },
             {
-              events: [
-                {
-                  id: nanoid(),
-                  start: timeSelected?.start,
-                  end: timeSelected?.end,
-                },
-              ],
+              events: getEvent,
             },
           ]}
           // eventContent={renderEventContent} // custom render function

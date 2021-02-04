@@ -118,6 +118,8 @@ export function useIntervals(
   from: string,
   to: string
 ) {
+  console.log('use intervals', userSlug, linkSlug, from, to);
+
   const url = queryString.stringifyUrl({
     url: `/api/links/${userSlug}/${linkSlug}/intervals`,
     query: {
@@ -125,7 +127,6 @@ export function useIntervals(
       to,
     },
   });
-  console.log('use interval', url);
   const {data, error} = useSWR(url, (url) => fetchWithoutToken(url));
 
   console.log('intervals', data);
