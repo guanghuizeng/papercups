@@ -331,10 +331,7 @@ function CalendarSection() {
     successCallback: (events: EventInput[]) => void,
     failureCallback: (error: any) => any
   ) => {
-    console.log('get block events', arg.startStr, arg.endStr);
-
     const now = dayjs();
-
     const intervalsFormat: Dayjs[][] = intervals
       ? intervals
           .filter((interval) => dayjs(interval.endAt).isAfter(now))
@@ -344,8 +341,6 @@ function CalendarSection() {
 
     const startDate = dayjs(arg.start);
     const endDate = dayjs(arg.end);
-
-    console.log('intervals', intervals);
 
     const complementedIntervals = complementIntervals(
       startDate,
