@@ -131,8 +131,8 @@ export function Availability() {
     successCallback: (events: EventInput[]) => void,
     failureCallback: (error: any) => any
   ) => {
-    const startDate = dayjs('2021-02-01T00:00:00');
-    const endDate = startDate.add(14, 'day');
+    const startDate = dayjs(arg.start);
+    const endDate = dayjs(arg.end);
     const availabilityPresetsIntervals: any = preset ? preset.rules : [];
 
     const availableIntervals: Dayjs[][] = [];
