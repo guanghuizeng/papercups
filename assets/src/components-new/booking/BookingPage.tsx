@@ -325,7 +325,7 @@ function CalendarSection() {
           .filter((interval) => interval.length > 0)
       : [];
 
-    const startDate = dayjs('2021-01-31T00:00:00+08:00');
+    const startDate = dayjs('2021-02-01T00:00:00');
     const endDate = startDate.add(14, 'day');
 
     const complementedIntervals = complementIntervals(

@@ -7,7 +7,7 @@ import {
   useUserProfileBySlug,
 } from '../../api-hooks';
 import {useSchedulingLink} from '../../hooks/SchedulingLinkProvider';
-import {Dayjs} from 'dayjs';
+import dayjs, {Dayjs} from 'dayjs';
 
 interface EventTime {
   start: Date;
@@ -82,8 +82,8 @@ function BookingProvider(props: Props) {
   const {data: intervals} = useIntervals(
     userSlug,
     schedulingLinkSlug,
-    '2021-01-31T00:00:00+08:00',
-    '2021-02-06T00:00:00+08:00'
+    dayjs().format('YYYY-MM-DDTHH:mm:ssZ'),
+    dayjs().add(14, 'day').format('YYYY-MM-DDTHH:mm:ssZ')
   );
   const [timeSelected, setTimeSelected] = useState<EventTime | null>(null);
   const [eventStartTime, setEventStartTime] = useState<Date | null>(null);
