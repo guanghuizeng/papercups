@@ -26,6 +26,7 @@ import {convertMinToHrsMin, dayConvertToEn} from '../../utils';
 import {nanoid} from 'nanoid';
 import _ from 'lodash';
 import * as API from '../../api';
+import {EventInput} from '@fullcalendar/common';
 
 var localizedFormat = require('dayjs/plugin/localizedFormat');
 dayjs.extend(localizedFormat);
@@ -318,7 +319,19 @@ function CalendarSection() {
    * 1. presets
    * 2. overrides
    */
-  const getBlockEvents = () => {
+  const getBlockEvents = (
+    arg: {
+      start: Date;
+      end: Date;
+      startStr: string;
+      endStr: string;
+      timeZone: string;
+    },
+    successCallback: (events: EventInput[]) => void,
+    failureCallback: (error: any) => any
+  ) => {
+    console.log('get block events', arg.startStr, arg.endStr);
+
     const intervalsFormat: Dayjs[][] = intervals
       ? intervals
           .map((interval) => [dayjs(interval.startAt), dayjs(interval.endAt)])
@@ -339,18 +352,19 @@ function CalendarSection() {
       intervals,
       JSON.stringify(complementedIntervals)
     );
-
-    return complementedIntervals.map((interval) => {
-      return {
-        id: createEventId(),
-        start: interval[0].toISOString(),
-        end: interval[1].toISOString(),
-        className: 'sc-unavailable',
-        overlap: false,
-        editable: false,
-        display: 'background',
-      };
-    });
+    successCallback(
+      complementedIntervals.map((interval) => {
+        return {
+          id: createEventId(),
+          start: interval[0].toISOString(),
+          end: interval[1].toISOString(),
+          className: 'sc-unavailable',
+          overlap: false,
+          editable: false,
+          display: 'background',
+        };
+      })
+    );
   };
 
   return (
@@ -388,7 +402,7 @@ function CalendarSection() {
           ]} // alternatively, use the `events` setting to fetch from a feed
           eventSources={[
             {
-              events: getBlockEvents(),
+              events: getBlockEvents,
               display: 'background',
             },
           ]}
