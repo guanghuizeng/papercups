@@ -388,17 +388,26 @@ function CalendarSection() {
           allDaySlot={false}
           // dayMaxEvents={true}
           weekends={true}
-          events={[
-            {
-              id: nanoid(),
-              start: timeSelected?.start,
-              end: timeSelected?.end,
-            },
-          ]} // alternatively, use the `events` setting to fetch from a feed
+          // events={[
+          //   {
+          //     id: nanoid(),
+          //     start: timeSelected?.start,
+          //     end: timeSelected?.end,
+          //   },
+          // ]} // alternatively, use the `events` setting to fetch from a feed
           eventSources={[
             {
               events: getBlockEvents,
               display: 'background',
+            },
+            {
+              events: [
+                {
+                  id: nanoid(),
+                  start: timeSelected?.start,
+                  end: timeSelected?.end,
+                },
+              ],
             },
           ]}
           // eventContent={renderEventContent} // custom render function
