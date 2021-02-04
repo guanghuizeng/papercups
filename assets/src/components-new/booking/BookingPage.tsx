@@ -333,14 +333,19 @@ function CalendarSection() {
   ) => {
     console.log('get block events', arg.startStr, arg.endStr);
 
+    const now = dayjs();
+
     const intervalsFormat: Dayjs[][] = intervals
       ? intervals
+          .filter((interval) => dayjs(interval.endAt).isAfter(now))
           .map((interval) => [dayjs(interval.startAt), dayjs(interval.endAt)])
           .filter((interval) => interval.length > 0)
       : [];
 
     const startDate = dayjs(arg.start);
     const endDate = dayjs(arg.end);
+
+    console.log('intervals', intervals);
 
     const complementedIntervals = complementIntervals(
       startDate,
