@@ -93,15 +93,6 @@ function BookingProvider(props: Props) {
     schedulingLinkSlug
   );
 
-  useEffect(() => {
-    if (userSlug) {
-      fetchIntervals(
-        dayjs('2021-02-01T00:00:00+08:00').toDate(),
-        dayjs('2021-02-01T00:00:00+08:00').add(14, 'day').toDate()
-      );
-    }
-  }, []);
-
   const [
     intervalsCache,
     {
