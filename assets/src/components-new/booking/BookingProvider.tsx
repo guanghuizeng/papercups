@@ -102,7 +102,6 @@ function BookingProvider(props: Props) {
       reset: resetIntervalsCache,
     },
   ] = useMap<IntervalsCache>({});
-  const [intervals, setIntervals] = useState<any[]>([]);
   const [timeSelected, setTimeSelected] = useState<EventTime | null>(null);
   const [eventStartTime, setEventStartTime] = useState<Date | null>(null);
   const [eventDuration, setEventDuration] = useState<number>(30);
