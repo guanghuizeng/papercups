@@ -92,15 +92,9 @@ function BookingProvider(props: Props) {
     userSlug,
     schedulingLinkSlug
   );
-
   const [
     intervalsCache,
-    {
-      set: setIntervalsCache,
-      get: getIntervalsCache,
-      remove: removeIntervalsCache,
-      reset: resetIntervalsCache,
-    },
+    {set: setIntervalsCache, get: getIntervalsCache},
   ] = useMap<IntervalsCache>({});
   const [timeSelected, setTimeSelected] = useState<EventTime | null>(null);
   const [eventStartTime, setEventStartTime] = useState<Date | null>(null);
