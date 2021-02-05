@@ -258,6 +258,8 @@ function CalendarSection() {
     draftEvent,
     calendarRef,
     eventDrafted,
+    fetchIntervals,
+    getIntervals,
   } = useBooking();
 
   const renderDayHeaderContent = (props: DayHeaderContentArg) => {
@@ -332,6 +334,10 @@ function CalendarSection() {
     successCallback: (events: EventInput[]) => void,
     failureCallback: (error: any) => any
   ) => {
+    console.log('get intervals', getIntervals(arg.start, arg.end));
+
+    const intervals = getIntervals(arg.start, arg.end);
+
     const now = dayjs();
     const intervalsFormat: Dayjs[][] = intervals
       ? intervals

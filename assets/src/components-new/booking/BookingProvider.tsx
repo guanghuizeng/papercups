@@ -9,6 +9,7 @@ import {
 import * as API from '../../api';
 import {useSchedulingLink} from '../../hooks/SchedulingLinkProvider';
 import dayjs, {Dayjs} from 'dayjs';
+import {useMap} from 'react-use';
 
 interface EventTime {
   start: Date;
@@ -40,6 +41,7 @@ const BookingContext = React.createContext<{
   fetchIntervals: (start: Date, end: Date) => void;
   submitScheduledEvent: () => Promise<any>;
   cancelEventDrafted: () => Promise<any>;
+  getIntervals: (start: Date, end: Date) => Interval[];
 }>({
   userSlug: '',
   schedulingLinkSlug: '',
@@ -64,6 +66,7 @@ const BookingContext = React.createContext<{
   fetchIntervals: (start: Date, end: Date) => {},
   submitScheduledEvent: () => Promise.resolve(),
   cancelEventDrafted: () => Promise.resolve(),
+  getIntervals: (start: Date, end: Date) => [],
 });
 
 export const useBooking = () => useContext(BookingContext);
@@ -71,6 +74,15 @@ export const useBooking = () => useContext(BookingContext);
 interface BookingProviderProps {
   userSlug: string;
   schedulingLinkSlug: string;
+}
+
+interface Interval {
+  startAt: string;
+  endAt: string;
+}
+
+interface IntervalsCache {
+  [key: string]: Interval[];
 }
 
 type Props = React.PropsWithChildren<BookingProviderProps>;
@@ -100,6 +112,15 @@ function BookingProvider(props: Props) {
     }
   }, []);
 
+  const [
+    intervalsCache,
+    {
+      set: setIntervalsCache,
+      get: getIntervalsCache,
+      remove: removeIntervalsCache,
+      reset: resetIntervalsCache,
+    },
+  ] = useMap<IntervalsCache>({});
   const [intervals, setIntervals] = useState<any[]>([]);
   const [timeSelected, setTimeSelected] = useState<EventTime | null>(null);
   const [eventStartTime, setEventStartTime] = useState<Date | null>(null);
@@ -136,16 +157,27 @@ function BookingProvider(props: Props) {
   };
 
   const fetchIntervals = (start: Date, end: Date) => {
-    API.fetchIntervals(
-      userSlug,
-      schedulingLinkSlug,
-      dayjs(start).format('YYYY-MM-DDTHH:mm:ssZ'),
-      dayjs(end).format('YYYY-MM-DDTHH:mm:ssZ')
-    ).then((data) => {
-      console.log('fetch intervals', data);
-      setIntervals(data);
-    });
+    if (!Object.keys(intervalsCache).includes(start.toISOString())) {
+      API.fetchIntervals(
+        userSlug,
+        schedulingLinkSlug,
+        dayjs(start).format('YYYY-MM-DDTHH:mm:ssZ'),
+        dayjs(end).format('YYYY-MM-DDTHH:mm:ssZ')
+      ).then((data) => {
+        console.log('fetch intervals', data);
+        setIntervals(data);
+
+        setIntervalsCache(start.toISOString(), data);
+      });
+    }
   };
+
+  const getIntervals = (start: Date, end: Date) => {
+    fetchIntervals(start, end);
+    return getIntervalsCache(start.toISOString());
+  };
+
+  console.log('intervals', intervalsCache);
 
   return (
     <BookingContext.Provider
@@ -174,6 +206,7 @@ function BookingProvider(props: Props) {
         calendarRef,
 
         fetchIntervals,
+        getIntervals,
       }}
     >
       {props.children}

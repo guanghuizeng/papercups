@@ -81,6 +81,7 @@
     "react-scripts": "^4.0.1",
     "react-select": "^3.2.0",
     "react-syntax-highlighter": "^12.2.1",
+    "react-use": "^17.1.0",
     "recharts": "^1.8.5",
     "remark-breaks": "^2.0.0",
     "rrweb": "^0.9.7",
