@@ -247,18 +247,11 @@ function ControlSection() {
 function CalendarSection() {
   const {
     eventDuration,
-    timeSelected,
     eventStartTime,
-    setEventTime,
     setEventStartTime,
-    schedulingLink,
-    intervals,
-    eventId,
-    setEventId,
     draftEvent,
     calendarRef,
     eventDrafted,
-    fetchIntervals,
     getIntervals,
   } = useBooking();
 

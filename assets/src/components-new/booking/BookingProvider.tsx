@@ -19,7 +19,6 @@ interface EventTime {
 const BookingContext = React.createContext<{
   userSlug: string;
   schedulingLinkSlug: string;
-  intervals: any[];
   user: any;
   schedulingLink: any;
 
@@ -45,7 +44,6 @@ const BookingContext = React.createContext<{
 }>({
   userSlug: '',
   schedulingLinkSlug: '',
-  intervals: [],
   user: {},
   schedulingLink: {},
 
@@ -94,14 +92,6 @@ function BookingProvider(props: Props) {
     userSlug,
     schedulingLinkSlug
   );
-  // const {data: intervals} = useIntervals(
-  //   userSlug,
-  //   schedulingLinkSlug,
-  //   dayjs('2021-02-01T00:00:00+08:00').format('YYYY-MM-DDTHH:mm:ssZ'),
-  //   dayjs('2021-02-01T00:00:00+08:00')
-  //     .add(14, 'day')
-  //     .format('YYYY-MM-DDTHH:mm:ssZ')
-  // );
 
   useEffect(() => {
     if (userSlug) {
@@ -164,9 +154,6 @@ function BookingProvider(props: Props) {
         dayjs(start).format('YYYY-MM-DDTHH:mm:ssZ'),
         dayjs(end).format('YYYY-MM-DDTHH:mm:ssZ')
       ).then((data) => {
-        console.log('fetch intervals', data);
-        setIntervals(data);
-
         setIntervalsCache(start.toISOString(), data);
       });
     }
@@ -177,8 +164,6 @@ function BookingProvider(props: Props) {
     return getIntervalsCache(start.toISOString());
   };
 
-  console.log('intervals', intervalsCache);
-
   return (
     <BookingContext.Provider
       value={{
@@ -187,7 +172,6 @@ function BookingProvider(props: Props) {
         timeSelected,
         eventStartTime,
         eventDuration,
-        intervals,
 
         user,
         schedulingLink,
