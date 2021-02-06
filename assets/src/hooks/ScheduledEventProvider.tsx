@@ -9,6 +9,10 @@ type Props = React.PropsWithChildren<{
 }>;
 
 const ScheduledEventProvider = (props: Props) => {
+  const {scheduledEventId} = props;
+
+  // TODO read event info by scheduledEventId
+
   return (
     <ScheduledEventContext.Provider value={{}}>
       {props.children}
