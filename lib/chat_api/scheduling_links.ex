@@ -17,6 +17,7 @@ defmodule ChatApi.SchedulingLinks do
   @spec list_scheduling_links_by_user(binary(), map()) :: [SchedulingLink.t()]
   def list_scheduling_links_by_user(user_id, filters) do
     SchedulingLink
+    |> where(user_id: ^user_id)
     |> Repo.all()
   end
 
