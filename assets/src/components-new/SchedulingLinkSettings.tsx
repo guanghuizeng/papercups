@@ -184,26 +184,32 @@ function BufferLimitSection() {
       <div className="flex flex-row pt-4">
         <div className="flex flex-col">
           <label>约见前</label>
-          <input
-            className="border-primary border-solid border-2 rounded mt-2 py-1 px-2 w-16 focus:outline-none"
-            defaultValue={bufferBefore}
-            type="number"
-            onChange={(e) => {
-              updateBufferBefore(parseInt(e.target.value));
-            }}
-          />
+          <div className="flex flex-row items-center mt-2 py-1 pr-2">
+            <input
+              className="border-primary border-solid border-2 rounded px-2 mr-2 w-16 focus:outline-none"
+              defaultValue={bufferBefore}
+              type="number"
+              onChange={(e) => {
+                updateBufferBefore(parseInt(e.target.value));
+              }}
+            />
+            <span>分钟</span>
+          </div>
         </div>
 
         <div className="flex flex-col ml-4">
           <label>约见后</label>
-          <input
-            className="border-primary border-solid border-2 rounded mt-2 py-1 px-2 w-16 focus:outline-none"
-            defaultValue={bufferAfter}
-            type="number"
-            onChange={(e) => {
-              updateBufferAfter(parseInt(e.target.value));
-            }}
-          />
+          <div className="flex flex-row items-center mt-2 py-1 pr-2">
+            <input
+              className="border-primary border-solid border-2 rounded px-2 mr-2 w-16 focus:outline-none"
+              defaultValue={bufferAfter}
+              type="number"
+              onChange={(e) => {
+                updateBufferAfter(parseInt(e.target.value));
+              }}
+            />
+            <span className="">分钟</span>
+          </div>
         </div>
       </div>
 

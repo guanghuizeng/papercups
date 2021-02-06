@@ -17,6 +17,7 @@ defmodule ChatApi.Schedules do
   @spec list_schedules_by_user(binary(), map()) :: [Schedule.t()]
   def list_schedules_by_user(user_id, filters) do
     Schedule
+    |> where(user_id: ^user_id)
     |> Repo.all()
   end
 
