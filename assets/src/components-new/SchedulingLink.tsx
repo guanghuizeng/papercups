@@ -5,7 +5,7 @@ import SchedulingLinkProvider, {
   useSchedulingLink,
 } from '../hooks/SchedulingLinkProvider';
 import SingleSelect from './events/EventLocationSelect';
-import Select from 'react-select';
+import Select, {components} from 'react-select';
 import WithTip from '../components-new/common/WithTip';
 import Calendar from './Calendar';
 import SchedulingLinkSettings from './SchedulingLinkSettings';
@@ -123,6 +123,28 @@ const DurationOptionsMap = DurationOptions.map((opt) => ({
   label: opt[0],
 }));
 
+const MenuList = (props: any) => {
+  return (
+    <components.MenuList {...props}>
+      <div className="flex flex-row justify-end px-2 items-center ">
+        <Link to="/" className="text-gray-400 hover:text-black">
+          <i className="fas fa-external-link-alt" />
+          <span className="px-2">编辑</span>
+        </Link>
+      </div>
+      {props.children}
+    </components.MenuList>
+  );
+};
+
+const NoOptionsMessage = (props: any) => {
+  return (
+    <components.NoOptionsMessage {...props}>
+      <Button>新建</Button>
+    </components.NoOptionsMessage>
+  );
+};
+
 function AvailabilitySelect() {
   // get presets from scheduling link config as selected value
   // get all presets from app data as options
@@ -191,6 +213,8 @@ function AvailabilitySelect() {
       components={{
         ClearIndicator: null,
         IndicatorSeparator: null,
+        MenuList,
+        NoOptionsMessage,
       }}
       onChange={(value) => {
         // update organizer
