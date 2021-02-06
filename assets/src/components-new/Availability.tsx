@@ -243,7 +243,7 @@ export function Availability() {
           <div className="px-4 pt-8">
             <textarea
               className="-mx-2 px-2 py-2 rounded-lg text-2xl leading-6 font-bold border-transparent focus:outline-none focus:border-gray-300 focus:ring focus:ring-black focus:ring-opacity-50 text-gray-800 resize-none placeholder-gray-600"
-              placeholder="Name this link"
+              placeholder="未命名"
               spellCheck="false"
               style={{minHeight: '42px !important'}}
               defaultValue={preset?.name}
@@ -255,8 +255,8 @@ export function Availability() {
                 }
               }}
               onChange={(e) => {
-                console.log('Name change', e.target.value);
-                // updateName(e.target.value);
+                // console.log('Name change', e.target.value);
+                updateName(e.target.value);
               }}
             />
           </div>
