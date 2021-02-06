@@ -154,7 +154,7 @@ const MenuList = (props: any) => {
 const NoOptionsMessage = (props: any) => {
   return (
     <components.NoOptionsMessage {...props}>
-      <Button>新建</Button>
+      没有更多选项
     </components.NoOptionsMessage>
   );
 };
