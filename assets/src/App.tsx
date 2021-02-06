@@ -26,6 +26,7 @@ import Live from './components-new/book/Live';
 import {initializeIcons} from '@fluentui/react';
 import Book from './components-new/book/Book';
 import BookingPage from './components-new/booking/BookingPage';
+import ScheduledEvent from './components-new/ScheduledEvent';
 
 initializeIcons();
 
@@ -58,6 +59,7 @@ const App = () => {
           <Route path="/sandbox" component={Sandbox} />
           <Route path="/share" component={SharedConversation} />
           <Route path="/live" component={Live} />
+          <Route path="/event/:id" component={ScheduledEvent} />
           <Route path="/@:user" component={Book} />
           <Route
             path="*"
@@ -91,6 +93,7 @@ const App = () => {
         <Route path="/share" component={SharedConversation} />
         <Route path="/live" component={Live} />
         <Route path="/@:userSlug/:schedulingLinkSlug" component={BookingPage} />
+        <Route path="/event/:id" component={ScheduledEvent} />
         <Route path="/" component={Dashboard} />
       </Switch>
     </Router>

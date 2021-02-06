@@ -26,6 +26,7 @@ import * as API from '../api';
 import {AppSettings} from './AppSettings';
 import {Availability} from './Availability';
 import BookingPage from './booking/BookingPage';
+import ScheduledEvent from './ScheduledEvent';
 
 function Dashboard(props: RouteComponentProps) {
   const auth = useAuth();
