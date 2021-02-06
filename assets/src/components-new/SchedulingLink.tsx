@@ -146,18 +146,6 @@ const NoOptionsMessage = (props: any) => {
 };
 
 function AvailabilitySelect() {
-  // get presets from scheduling link config as selected value
-  // get all presets from app data as options
-
-  // const {availability_presets} = useAppData()
-  // const {availability} = useSchedulingLink();
-
-  // options
-
-  // from organizer
-  // from attender
-  // from teammates
-
   const {availabilityPresets} = useAppData();
   const {
     availabilityPresets: organizerAvailabilityPresets,
@@ -170,28 +158,6 @@ function AvailabilitySelect() {
         label: preset.name,
       }))
     : [];
-
-  const guests = [
-    {
-      displayName: '',
-      email: '',
-      availability: {},
-    },
-  ];
-
-  const teammates = [
-    {
-      id: '',
-      displayName: 'Ruoxi Zeng',
-      email: 'ruoxizeng@gmail.com',
-      availability: {
-        mode: 'ranked',
-        overrides: [],
-        schedules: ['z1', 'z2', 'z3'],
-        recurringIntervals: [],
-      },
-    },
-  ];
 
   const defaultValue = organizerAvailabilityPresets
     ? organizerAvailabilityPresets.map((scheduleId) => {
