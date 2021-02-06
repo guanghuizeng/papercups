@@ -134,22 +134,31 @@ function LinksSettingsSection() {
 const URL = 'http://localhost:3000';
 
 function SlugSection() {
-  const {settings, updateSlug} = useAppData();
+  const {profile, updateSlug} = useAppData();
   const [slug, setSlug] = useState<string>('');
 
   const [editing, setEditing] = useState(false);
   useEffect(() => {
-    if (settings) {
-      setSlug(settings.slug);
+    if (profile) {
+      setSlug(profile.slug);
     }
-  }, [settings]);
+  }, [profile]);
+
+  console.log('slug', profile);
 
   return (
     <SettingSection>
       <SectionTitle title={'链接地址'} />
       <div className="pt-4 flex flex-row justify-between">
         {editing ? (
-          <Input label={URL + '/@'} initialValue={slug} autoFocus={true} />
+          <Input
+            label={URL + '/@'}
+            initialValue={slug}
+            autoFocus={true}
+            onChange={(e) => {
+              setSlug(e.target.value);
+            }}
+          />
         ) : (
           <div className="my-auto">{URL + '/@' + slug} </div>
         )}

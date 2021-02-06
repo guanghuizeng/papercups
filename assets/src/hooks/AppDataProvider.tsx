@@ -144,9 +144,9 @@ const AppDataProvider = (props: Props) => {
   };
 
   const updateSlug = async (value: string) => {
-    _updateUserSettings({slug: value});
-    await API.updateUserSettings({slug: value});
-    _revalidateUserSettings();
+    _updateProfile({slug: value});
+    await API.updateUserProfile({slug: value});
+    _revalidateProfile();
     return Promise.resolve();
   };
 
