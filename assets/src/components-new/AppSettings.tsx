@@ -50,14 +50,14 @@ function AvailabilitySection() {
                 className="border-primary border-t border-solid  py-6 flex flex-row justify-between"
               >
                 <div className="flex flex-col">
-                  <Link
-                    to={`/availabilities/${preset.id}/edit`}
-                    className={'hover:underline'}
-                  >
-                    <Text h3 className="font-medium">
+                  <Text h3 className="font-medium">
+                    <Link
+                      to={`/availabilities/${preset.id}/edit`}
+                      className={'hover:underline'}
+                    >
                       {preset.name}
-                    </Text>
-                  </Link>
+                    </Link>
+                  </Text>
                   <div className="pt-2">
                     {preset.rules.map((rule: any) => {
                       return (
