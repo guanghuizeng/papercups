@@ -1,33 +1,33 @@
-defmodule ChatApi.Events do
+defmodule ChatApi.ScheduledEvents do
   require Logger
   import Ecto.Query, warn: false
   alias ChatApi.Repo
 
   alias ChatApi.Messages
   alias ChatApi.Messages.Message
-  alias ChatApi.Events.Event
+  alias ChatApi.ScheduledEvents.ScheduledEvent
 
-  @spec create_event(map()) :: {:ok, Event.t()} | {:error, Ecto.Changeset.t()}
+  @spec create_event(map()) :: {:ok, ScheduledEvent.t()} | {:error, Ecto.Changeset.t()}
   def create_event(attrs \\ %{}) do
-    %Event{}
-    |> Event.changeset(attrs)
+    %ScheduledEvent{}
+    |> ScheduledEvent.changeset(attrs)
     |> Repo.insert()
   end
 
-  @spec get_event!(binary()) :: Event.t()
-  def get_event!(id), do: Repo.get!(Event, id)
+  @spec get_event!(binary()) :: ScheduledEvent.t()
+  def get_event!(id), do: Repo.get!(ScheduledEvent, id)
 
-  @spec list_by_start_time(binary(), binary()) :: [Event.t()]
+  @spec list_by_start_time(binary(), binary()) :: [ScheduledEvent.t()]
   def list_by_start_time(from_time, to_time) do
-    query = from e in Event,
+    query = from e in ScheduledEvent,
                  where: e.start_time > ^from_time and e.start_time < ^to_time,
                  select: e
     Repo.all(query)
   end
 
-  @spec list_by_user(binary()) :: [Event.t()]
+  @spec list_by_user(binary()) :: [ScheduledEvent.t()]
   def list_by_user(user_id) do
-    Event
+    ScheduledEvent
     |> where(user_id: ^user_id)
     |> order_by(asc: :start_time)
     |> Repo.all()
@@ -37,7 +37,7 @@ defmodule ChatApi.Events do
   def query_events_closed_for(minutes: minutes) do
     current = DateTime.utc_now()
     to_time = DateTime.add(current, minutes * 60)
-    from e in Event, where: e.start_time < ^to_time and e.start_time > ^current, select: e
+    from e in ScheduledEvent, where: e.start_time < ^to_time and e.start_time > ^current, select: e
   end
 
   def notify_event(event) do

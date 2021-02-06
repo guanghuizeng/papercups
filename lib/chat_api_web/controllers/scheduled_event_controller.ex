@@ -1,4 +1,4 @@
-defmodule ChatApiWeb.EventController do
+defmodule ChatApiWeb.ScheduledEventController do
   require Logger
   use ChatApiWeb, :controller
 

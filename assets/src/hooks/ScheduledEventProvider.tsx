@@ -1,6 +1,10 @@
 import React, {useContext} from 'react';
 
-export const ScheduledEventContext = React.createContext<{}>({});
+export const ScheduledEventContext = React.createContext<{
+  scheduledEventId: string;
+}>({
+  scheduledEventId: '',
+});
 
 export const useScheduledEvent = () => useContext(ScheduledEventContext);
 
@@ -14,7 +18,11 @@ const ScheduledEventProvider = (props: Props) => {
   // TODO read event info by scheduledEventId
 
   return (
-    <ScheduledEventContext.Provider value={{}}>
+    <ScheduledEventContext.Provider
+      value={{
+        scheduledEventId,
+      }}
+    >
       {props.children}
     </ScheduledEventContext.Provider>
   );

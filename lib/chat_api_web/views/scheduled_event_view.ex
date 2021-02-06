@@ -1,13 +1,13 @@
-defmodule ChatApiWeb.EventView do
+defmodule ChatApiWeb.ScheduledEventView do
   use ChatApiWeb, :view
-  alias ChatApiWeb.EventView
+  alias ChatApiWeb.ScheduledEventView
 
   def render("index.json", %{events: events}) do
-    %{data: render_many(events, EventView, "event.json")}
+    %{data: render_many(events, ScheduledEventView, "event.json")}
   end
 
   def render("show.json", %{event: event}) do
-    %{data: render_one(event, EventView, "event.json")}
+    %{data: render_one(event, ScheduledEventView, "event.json")}
   end
 
   def render("event.json", %{event: event}) do

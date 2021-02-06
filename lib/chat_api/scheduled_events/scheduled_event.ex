@@ -1,4 +1,4 @@
-defmodule ChatApi.Events.Event do
+defmodule ChatApi.ScheduledEvents.ScheduledEvent do
   use Ecto.Schema
   import Ecto.Changeset
 
