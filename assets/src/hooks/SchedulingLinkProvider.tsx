@@ -115,8 +115,8 @@ const SchedulingLinkProvider = (props: Props) => {
   };
 
   const updateSlug = async (value: string) => {
-    _update({slug: value});
-    await API.updateSchedulingLink(link.id, {slug: value});
+    _update({url: value});
+    await API.updateSchedulingLink(link.id, {url: value});
     _revalidate();
     return Promise.resolve();
   };

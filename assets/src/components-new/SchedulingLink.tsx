@@ -10,7 +10,7 @@ import WithTip from '../components-new/common/WithTip';
 import Calendar from './Calendar';
 import SchedulingLinkSettings from './SchedulingLinkSettings';
 import {useAppData} from '../hooks/AppDataProvider';
-import {useState, Fragment} from 'react';
+import {useState, Fragment, useEffect} from 'react';
 import {X} from '@geist-ui/react-icons';
 import {
   Button,
@@ -24,11 +24,22 @@ import {
 const URL = 'http://localhost:3000';
 
 function Header() {
-  const {settings} = useAppData();
-  const {slug: schedulingLinkSlug} = useSchedulingLink();
-  const userSlug = settings?.slug;
+  const {profile} = useAppData();
+  const {slug: schedulingLinkSlug, updateSlug} = useSchedulingLink();
+  const userSlug = profile?.slug;
 
-  const [editing, setEditing] = useState<boolean>(false);
+  const [slug, setSlug] = useState<string>('');
+  const [editing, setEditing] = useState(false);
+
+  useEffect(() => {
+    setSlug(schedulingLinkSlug);
+  }, [schedulingLinkSlug]);
+
+  const onSave = () => {
+    console.log('on save', slug);
+    updateSlug(slug);
+    setEditing(false);
+  };
 
   return (
     <div className="Header">
@@ -60,14 +71,17 @@ function Header() {
                   <Input
                     label={URL + '/@' + userSlug + '/'}
                     placeholder="必填"
-                    initialValue={schedulingLinkSlug}
+                    initialValue={slug}
                     autoFocus={true}
+                    onChange={(e) => {
+                      setSlug(e.target.value);
+                    }}
                   />
                 </div>
               ) : (
                 <Tooltip text={'点击复制链接'} type={'dark'} placement="bottom">
                   <span className="cursor-pointer text-gray-600 hover:text-blue-500 hover:bg-blue-100 py-2 px-2 rounded">
-                    {URL + '/@' + userSlug + '/' + schedulingLinkSlug}
+                    {URL + '/@' + userSlug + '/' + slug}
                   </span>
                 </Tooltip>
               )}
@@ -80,7 +94,7 @@ function Header() {
                       size={'small'}
                       type={'success'}
                       auto
-                      onClick={() => setEditing(true)}
+                      onClick={onSave}
                     >
                       保存
                     </Button>
