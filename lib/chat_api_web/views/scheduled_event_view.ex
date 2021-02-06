@@ -2,20 +2,20 @@ defmodule ChatApiWeb.ScheduledEventView do
   use ChatApiWeb, :view
   alias ChatApiWeb.ScheduledEventView
 
-  def render("index.json", %{events: events}) do
-    %{data: render_many(events, ScheduledEventView, "event.json")}
+  def render("index.json", %{scheduled_events: scheduled_events}) do
+    %{data: render_many(scheduled_events, ScheduledEventView, "scheduled_event.json")}
   end
 
-  def render("show.json", %{event: event}) do
-    %{data: render_one(event, ScheduledEventView, "event.json")}
+  def render("show.json", %{scheduled_event: scheduled_event}) do
+    %{data: render_one(scheduled_event, ScheduledEventView, "scheduled_event.json")}
   end
 
-  def render("event.json", %{event: event}) do
+  def render("scheduled_event.json", %{scheduled_event: scheduled_event}) do
     %{
-      id: event.id,
-      object: "event",
-      guest_name: event.guest_name,
-      start_time: event.start_time
+      id: scheduled_event.id,
+      object: "scheduled_event",
+      guest_name: scheduled_event.guest_name,
+      start_time: scheduled_event.start_time
     }
   end
 end

@@ -2,8 +2,8 @@ defmodule ChatApiWeb.ScheduledEventController do
   require Logger
   use ChatApiWeb, :controller
 
-  alias ChatApi.Events
-  alias ChatApi.Events.Event
+  alias ChatApi.ScheduledEvents
+  alias ChatApi.ScheduledEvents.ScheduledEvent
 
   alias ChatApi.SchedulingLinks
   alias ChatApi.SchedulingLinks.SchedulingLink
@@ -12,7 +12,7 @@ defmodule ChatApiWeb.ScheduledEventController do
   def index(conn, filters) do
     with %{id: user_id} <- conn.assigns.current_user do
       Logger.info(inspect(user_id))
-      events = Events.list_by_user(user_id)
+      events = ScheduledEvents.list_by_user(user_id)
       Logger.info(inspect(events))
       render(conn, "index.json", events: events)
     end
@@ -21,7 +21,7 @@ defmodule ChatApiWeb.ScheduledEventController do
   @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def show(conn, params) do
     with %{id: user_id} <- conn.assigns.current_user do
-      scheduled_events = Events.list_by_user(user_id)
+      scheduled_events = ScheduledEvents.list_by_user(user_id)
       render(conn, "show.json", events: scheduled_events)
     end
   end
@@ -40,8 +40,8 @@ defmodule ChatApiWeb.ScheduledEventController do
     Logger.info(inspect(scheduling_link))
 
     with {:ok, start_time, _offset} <- DateTime.from_iso8601(start_time),
-#         {:ok, %EventType{} = event_type} <- EventTypes.get_event_type!(event_type_id),
-         {:ok, %Event{} = event} <- Events.create_event(
+#         {:ok, %ScheduledEventType{} = event_type} <- ScheduledEventTypes.get_event_type!(event_type_id),
+         {:ok, %ScheduledEvent{} = event} <- ScheduledEvents.create_event(
            %{
              guest_name: guest_name,
              scheduling_link_id: scheduling_link_id,
@@ -51,7 +51,7 @@ defmodule ChatApiWeb.ScheduledEventController do
          ) do
       conn
       |> put_status(:created)
-      |> render("show.json", event: event)
+      |> render("show.json", scheduled_event: event)
     end
   end
 
