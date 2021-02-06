@@ -256,7 +256,9 @@ function GeneralSection() {
       >
         <Fragment>
           <span className="w-full gentle-flex">
-            <i className="fas fa-clock" />
+            <Tooltip text="时间" type="dark" placement={'top'}>
+              <i className="fas fa-clock" />
+            </Tooltip>
           </span>
           <Select
             className="w-full"
@@ -286,13 +288,17 @@ function GeneralSection() {
         </Fragment>
         <Fragment>
           <span className="w-full gentle-flex">
-            <i className="fas fa-calendar-check" />
+            <Tooltip text="可选时间" type="dark" placement={'top'}>
+              <i className="fas fa-calendar-check" />
+            </Tooltip>
           </span>
           <AvailabilitySelect />
         </Fragment>
         <Fragment>
           <span className="w-full gentle-flex">
-            <i className="fas fa-video" />
+            <Tooltip text="方式" type="dark" placement={'top'}>
+              <i className="fas fa-video" />
+            </Tooltip>
           </span>
           <SingleSelect
             defaultValue={location}
@@ -310,7 +316,9 @@ function GeneralSection() {
                 // <div className="hover:bg-gray-200 w-full px-2 py-2 rounded">
                 <>
                   <span className="w-full gentle-flex">
-                    <i className="fas fa-cog" />
+                    <Tooltip text="更多设置" type="dark" placement={'top'}>
+                      <i className="fas fa-cog" />
+                    </Tooltip>
                   </span>
                   <Link
                     to={`/links/${id}/more-settings`}
@@ -328,7 +336,9 @@ function GeneralSection() {
               component={() => (
                 <>
                   <span className="w-full gentle-flex">
-                    <i className="fas fa-cog" />
+                    <Tooltip text="更多设置" type="dark" placement={'top'}>
+                      <i className="fas fa-cog" />
+                    </Tooltip>
                   </span>
                   <span className="bg-blue-100 w-full px-2 py-2 rounded">
                     设置
@@ -360,7 +370,9 @@ function ControlSection() {
       >
         <Fragment>
           <span className="w-full gentle-flex">
-            <i className="fas fa-external-link-alt " />
+            <Tooltip text="在新页面打开预览" type="dark" placement={'top'}>
+              <i className="fas fa-external-link-alt " />
+            </Tooltip>
           </span>
           <Link to={bookingUrl} className="w-full px-2 py-2 hover:underline">
             预览
@@ -369,20 +381,22 @@ function ControlSection() {
 
         <Fragment>
           <span className="w-full gentle-flex">
-            <i className="fas fa-link" />
+            <Tooltip text="复制链接地址到剪贴板" type="dark" placement={'top'}>
+              <i className="fas fa-link" />
+            </Tooltip>
           </span>
           <div className="cursor-pointer w-full px-2 py-2 hover:bg-blue-100 rounded">
             <span>复制链接</span>
           </div>
         </Fragment>
-        <Fragment>
-          <span className="w-full gentle-flex">
-            <i className="far fa-clone " />
-          </span>
-          <div className="cursor-pointer w-full px-2 py-2 hover:bg-blue-100 rounded">
-            <span>另存为</span>
-          </div>
-        </Fragment>
+        {/*<Fragment>*/}
+        {/*  <span className="w-full gentle-flex">*/}
+        {/*    <i className="far fa-clone " />*/}
+        {/*  </span>*/}
+        {/*  <div className="cursor-pointer w-full px-2 py-2 hover:bg-blue-100 rounded">*/}
+        {/*    <span>另存为</span>*/}
+        {/*  </div>*/}
+        {/*</Fragment>*/}
         {/*<Fragment>*/}
         {/*  <span className="w-full gentle-flex">*/}
         {/*    <i className="fas fa-code " />*/}
@@ -391,7 +405,9 @@ function ControlSection() {
         {/*</Fragment>*/}
         <Fragment>
           <span className="w-full gentle-flex">
-            <i className="far fa-trash-alt" />
+            <Tooltip text="删除此链接" type="dark" placement={'top'}>
+              <i className="far fa-trash-alt" />
+            </Tooltip>
           </span>
           <div className="cursor-pointer w-full px-2 py-2 hover:bg-blue-100 hover:text-red-600 rounded">
             <span>删除</span>
