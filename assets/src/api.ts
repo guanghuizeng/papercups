@@ -3,6 +3,7 @@ import qs from 'query-string';
 import {getAuthTokens} from './storage';
 import {Conversation, User} from './types';
 import * as queryString from 'query-string';
+import {nanoid} from 'nanoid';
 
 // TODO: handle this on the server instead
 function now() {
@@ -1039,10 +1040,11 @@ export const createSchedule = async (token = getAccessToken()) => {
     .set('Authorization', token)
     .send({
       schedule: {
-        name: 'New schedule',
+        name: '未命名',
         timezone: 'Asia / Shanghai',
         rules: [
           {
+            id: nanoid(),
             byday: ['mo', 'tu', 'we', 'th', 'fr'],
             endTime: 1020,
             startTime: 540,

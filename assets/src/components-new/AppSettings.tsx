@@ -26,11 +26,17 @@ function SectionTitle(props: SectionTitleProps) {
 }
 
 function AvailabilitySection() {
-  const {availabilityPresets} = useAppData();
+  const {availabilityPresets, createSchedule} = useAppData();
 
   const format = (minutes: number) => {
     if (minutes) return convertMinToHrsMinString(minutes);
   };
+
+  const add = () => {
+    createSchedule();
+  };
+
+  console.log('availabilityPresets', availabilityPresets);
 
   return (
     <SettingSection>
@@ -82,20 +88,25 @@ function AvailabilitySection() {
                     })}
                   </div>
                 </div>
-                <div className="mt-2">
+                <div className="mt-2 flex flex-row">
                   <Link
                     to={`/availabilities/${preset.id}/edit`}
                     // className="btn-draft"
                   >
                     <Button size={'mini'}>编辑</Button>
                   </Link>
+                  <Button size={'mini'} className="ml-4">
+                    删除
+                  </Button>
                 </div>
               </div>
             );
           })}
       </div>
       <Spacer y={1.5} />
-      <Button size={'small'}>新建</Button>
+      <Button size={'small'} onClick={add}>
+        新建
+      </Button>
     </SettingSection>
   );
 }

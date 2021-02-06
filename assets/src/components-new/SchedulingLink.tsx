@@ -127,7 +127,7 @@ const MenuList = (props: any) => {
   return (
     <components.MenuList {...props}>
       <div className="flex flex-row justify-end px-2 items-center ">
-        <Link to="/" className="text-gray-400 hover:text-black">
+        <Link to="/settings/links" className="text-gray-400 hover:text-black">
           <i className="fas fa-external-link-alt" />
           <span className="px-2">编辑</span>
         </Link>
