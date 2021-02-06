@@ -168,6 +168,8 @@ const AppDataProvider = (props: Props) => {
     mutate(`/api/schedules/`);
   };
 
+  console.log('app data', profile, settings);
+
   return (
     <AppDataContext.Provider
       value={{

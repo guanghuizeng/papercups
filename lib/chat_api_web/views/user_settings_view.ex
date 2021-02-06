@@ -18,7 +18,6 @@ defmodule ChatApiWeb.UserSettingsView do
       schedule_id: user_settings.schedule_id,
       default_schedule_id: user_settings.default_schedule_id,
       email_alert_on_new_message: user_settings.email_alert_on_new_message,
-      slug: user_settings.slug
     }
   end
 end

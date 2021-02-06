@@ -20,7 +20,8 @@ defmodule ChatApiWeb.UserView do
           full_name: profile.full_name,
           display_name: profile.display_name,
           profile_photo_url: profile.profile_photo_url,
-          role: user.role
+          role: user.role,
+          slug: profile.slug
         }
 
       _ ->

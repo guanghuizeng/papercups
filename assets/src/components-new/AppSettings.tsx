@@ -182,7 +182,7 @@ function SlugSection() {
                 size={'small'}
                 auto
                 onClick={() => {
-                  setSlug(settings.slug);
+                  setSlug(profile.slug);
                   setEditing(false);
                 }}
               >
