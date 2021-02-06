@@ -210,7 +210,7 @@ function GeneralSection() {
       <div className="px-4 pt-8">
         <textarea
           className="-mx-2 px-2 py-2 rounded-lg text-2xl leading-6 font-bold border-transparent focus:outline-none focus:border-gray-300 focus:ring focus:ring-black focus:ring-opacity-50 text-gray-800 resize-none w-full placeholder-gray-600"
-          placeholder="Name this link"
+          placeholder="未命名"
           spellCheck="false"
           style={{minHeight: '42px !important'}}
           defaultValue={name}
@@ -226,7 +226,7 @@ function GeneralSection() {
         />
         <textarea
           className="-mx-2 mt-2 px-2 py-2 rounded-md block border-transparent focus:outline-none focus:border focus:border-gray-300 focus:ring focus:ring-black  focus:ring-opacity-50 w-full text-gray-600 resize-none leading-5 placeholder-gray-600"
-          placeholder="Enter a description"
+          placeholder="描述"
           spellCheck="false"
           style={{minHeight: '24px !important'}}
           defaultValue={description}
