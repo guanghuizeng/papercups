@@ -19,13 +19,10 @@ defmodule ChatApiWeb.ScheduledEventController do
   end
 
   @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
-  def show(conn, params) do
-    with %{id: user_id} <- conn.assigns.current_user do
-      scheduled_events = ScheduledEvents.list_by_user(user_id)
-      render(conn, "show.json", events: scheduled_events)
-    end
+  def show(conn, %{"id" => id}) do
+    scheduled_event = ScheduledEvents.get_event!(id)
+    render(conn, "show.json", scheduled_event: scheduled_event)
   end
-
 
   @spec create(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def create(conn, %{"event" => event_params}) do

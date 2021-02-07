@@ -11,6 +11,8 @@ const location = '方式';
 export default function ScheduledEvent() {
   const {id: scheduledEventId} = useParams();
 
+  console.log('scheduled_events', scheduledEventId);
+
   /**
    * useScheduledEvent(scheduledEventId)
    */

@@ -118,8 +118,6 @@ export function useIntervals(
   from: string,
   to: string
 ) {
-  console.log('use intervals', userSlug, linkSlug, from, to);
-
   const url = queryString.stringifyUrl({
     url: `/api/links/${userSlug}/${linkSlug}/intervals`,
     query: {
@@ -130,6 +128,19 @@ export function useIntervals(
   const {data, error} = useSWR(url, (url) => fetchWithoutToken(url));
 
   console.log('intervals', data);
+
+  return {
+    data: data && data.data,
+    isLoading: !error && !data,
+    isError: error,
+  };
+}
+
+export function useScheduledEvent(scheduledEventId: string) {
+  const {data, error} = useSWR(
+    `/api/scheduled_events/${scheduledEventId}`,
+    (url) => fetchWithoutToken(url)
+  );
 
   return {
     data: data && data.data,
