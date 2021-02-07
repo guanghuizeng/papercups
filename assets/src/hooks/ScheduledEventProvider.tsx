@@ -3,8 +3,10 @@ import {useScheduledEvent as _useScheduledEvent} from '../api-hooks';
 
 export const ScheduledEventContext = React.createContext<{
   scheduledEventId: string;
+  scheduledEvent: any;
 }>({
   scheduledEventId: '',
+  scheduledEvent: {},
 });
 
 export const useScheduledEvent = () => useContext(ScheduledEventContext);
@@ -26,6 +28,7 @@ const ScheduledEventProvider = (props: Props) => {
     <ScheduledEventContext.Provider
       value={{
         scheduledEventId,
+        scheduledEvent,
       }}
     >
       {props.children}
