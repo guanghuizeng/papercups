@@ -14,6 +14,23 @@ defmodule ChatApiWeb.ScheduledEventView do
     %{
       id: scheduled_event.id,
       object: "scheduled_event",
+      invitee_full_name: scheduled_event.invitee_full_name,
+      invitee_email: scheduled_event.invitee_email,
+      guest_name: scheduled_event.guest_name,
+      start_time: scheduled_event.start_time
+    }
+  end
+
+  def render("show_public.json", %{scheduled_event: scheduled_event}) do
+    %{data: render_one(scheduled_event, ScheduledEventView, "scheduled_event_public.json")}
+  end
+
+  def render("scheduled_event_public.json", %{scheduled_event: scheduled_event}) do
+    %{
+      id: scheduled_event.id,
+      object: "scheduled_event",
+      invitee_full_name: scheduled_event.invitee_full_name,
+      invitee_email: scheduled_event.invitee_email,
       guest_name: scheduled_event.guest_name,
       start_time: scheduled_event.start_time
     }
