@@ -11,9 +11,7 @@ defmodule ChatApiWeb.ScheduledEventController do
   @spec index(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def index(conn, filters) do
     with %{id: user_id} <- conn.assigns.current_user do
-      Logger.info(inspect(user_id))
       events = ScheduledEvents.list_by_user(user_id)
-      Logger.info(inspect(events))
       render(conn, "index.json", scheduled_events: events)
     end
   end
@@ -31,10 +29,8 @@ defmodule ChatApiWeb.ScheduledEventController do
       "guest_name" => guest_name,
       "start_time" => start_time,
     } = event_params
-    Logger.info(inspect(event_params))
 
     scheduling_link = SchedulingLinks.get_scheduling_link!(scheduling_link_id)
-    Logger.info(inspect(scheduling_link))
 
     with {:ok, start_time, _offset} <- DateTime.from_iso8601(start_time),
 #         {:ok, %ScheduledEventType{} = event_type} <- ScheduledEventTypes.get_event_type!(event_type_id),
