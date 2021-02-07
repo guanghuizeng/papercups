@@ -121,7 +121,7 @@ defmodule ChatApiWeb.Router do
     resources("/personal_api_keys", PersonalApiKeyController, except: [:new, :edit, :update])
 
     resources("/scheduling_links", SchedulingLinkController, except: [:new, :edit])
-    resources("/scheduled_events", EventController, except: [:new, :edit])
+    resources("/scheduled_events", ScheduledEventController, except: [:new, :edit])
     resources("/schedules", ScheduleController, except: [:new, :edit])
 
 

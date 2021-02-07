@@ -6,6 +6,9 @@ import {days} from '../book/data';
 import dayjs from 'dayjs';
 import moment from 'moment';
 import {SearchBoxSmallExample} from '../EventTypes';
+import ScheduledEventsProvider, {
+  useScheduledEvents,
+} from '../../hooks/ScheduledEventsProvider';
 var weekOfYear = require('dayjs/plugin/weekOfYear');
 dayjs.extend(weekOfYear);
 
@@ -69,6 +72,9 @@ function NextEventCard() {
 }
 
 function UpcomingScheduledEvents() {
+  const {scheduledEvents} = useScheduledEvents();
+  console.log('scheduledEvents', scheduledEvents);
+
   return (
     <div className="h-full grid grid-cols-4 gap-px bg-gray-100">
       <div className="h-full bg-white pt-10 px-3" style={{}}>
@@ -183,60 +189,60 @@ function UpcomingScheduledEvents() {
 
 export default function ScheduledEvents() {
   const {pathname} = useLocation();
-  const {scheduledEvents, fetchScheduledEvents} = useEvents();
-
-  useEffect(() => {
-    fetchScheduledEvents().then((r) => {});
-  }, []);
 
   return (
-    <div className="h-full w-full flex flex-col">
-      <div className="Header">
-        <div className="flex flex-row">
-          {[
-            {url: '/events/upcoming', name: '待完成'},
-            {url: '/events/past', name: '已完成'},
-            {url: '/events/canceled', name: '已取消'},
-            {url: '/events/all', name: '全部'},
-          ].map(({url, name}) => {
-            return (
-              <div className="px-2 cursor-pointer" key={url}>
-                {pathname === url ? (
-                  <div className="gentle-flex py-1 w-24">
-                    <span>{name}</span>
-                  </div>
-                ) : (
-                  <Link to={url}>
-                    <span className="gentle-flex w-24 py-1 opacity-25 hover:opacity-100">
-                      {name}
-                    </span>
-                  </Link>
-                )}
-              </div>
-            );
-          })}
-        </div>
-        <div className="flex flex-row">
-          <div className="gentle-flex py-1 w-24 cursor-pointer">Horizons</div>
-          <div className="gentle-flex py-1 w-24 opacity-25 hover:opacity-100 cursor-pointer">
-            日历
+    <ScheduledEventsProvider>
+      <div className="h-full w-full flex flex-col">
+        <div className="Header">
+          <div className="flex flex-row">
+            {[
+              {url: '/events/upcoming', name: '待完成'},
+              {url: '/events/past', name: '已完成'},
+              {url: '/events/canceled', name: '已取消'},
+              {url: '/events/all', name: '全部'},
+            ].map(({url, name}) => {
+              return (
+                <div className="px-2 cursor-pointer" key={url}>
+                  {pathname === url ? (
+                    <div className="gentle-flex py-1 w-24">
+                      <span>{name}</span>
+                    </div>
+                  ) : (
+                    <Link to={url}>
+                      <span className="gentle-flex w-24 py-1 opacity-25 hover:opacity-100">
+                        {name}
+                      </span>
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          <div className="flex flex-row">
+            <div className="gentle-flex py-1 w-24 cursor-pointer">Horizons</div>
+            <div className="gentle-flex py-1 w-24 opacity-25 hover:opacity-100 cursor-pointer">
+              日历
+            </div>
           </div>
         </div>
+        <div className="h-full">
+          <Switch>
+            <Route
+              path="/events/upcoming"
+              component={UpcomingScheduledEvents}
+            />
+            <Route path="/events/past" component={() => <div>past</div>} />
+            <Route
+              path="/events/canceled"
+              component={() => <div>canceled</div>}
+            />
+            <Route path="/events/all" component={() => <div>all</div>} />
+            <Route path="/events">
+              <Redirect to="/events/upcoming" />
+            </Route>
+          </Switch>
+        </div>
       </div>
-      <div className="h-full">
-        <Switch>
-          <Route path="/events/upcoming" component={UpcomingScheduledEvents} />
-          <Route path="/events/past" component={() => <div>past</div>} />
-          <Route
-            path="/events/canceled"
-            component={() => <div>canceled</div>}
-          />
-          <Route path="/events/all" component={() => <div>all</div>} />
-          <Route path="/events">
-            <Redirect to="/events/upcoming" />
-          </Route>
-        </Switch>
-      </div>
-    </div>
+    </ScheduledEventsProvider>
   );
 }

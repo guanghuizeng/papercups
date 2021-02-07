@@ -158,6 +158,8 @@ export function useScheduledEvents(token = getAccessToken()) {
     fetchWithToken(url, token)
   );
 
+  console.log('useScheduledEvents', data);
+
   return {
     data: data && data.data,
     isLoading: !error && !data,

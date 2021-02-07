@@ -14,7 +14,7 @@ defmodule ChatApiWeb.ScheduledEventController do
       Logger.info(inspect(user_id))
       events = ScheduledEvents.list_by_user(user_id)
       Logger.info(inspect(events))
-      render(conn, "index.json", events: events)
+      render(conn, "index.json", scheduled_events: events)
     end
   end
 
