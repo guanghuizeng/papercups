@@ -10,8 +10,8 @@ export function ScheduledEventCard() {
     return <div>Loading</div>;
   }
 
-  const event = '产品咨询';
   const title = '预约成功';
+  const event = '产品咨询';
   const time = '时间';
   const attendee = '参与者';
   const location = '方式';
