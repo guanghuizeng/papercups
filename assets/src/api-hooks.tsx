@@ -148,3 +148,19 @@ export function useScheduledEvent(scheduledEventId: string) {
     isError: error,
   };
 }
+
+export function useScheduledEvents(token = getAccessToken()) {
+  if (!token) {
+    throw new Error('Invalid token!');
+  }
+
+  const {data, error} = useSWR(`/api/scheduled_events/`, (url) =>
+    fetchWithToken(url, token)
+  );
+
+  return {
+    data: data && data.data,
+    isLoading: !error && !data,
+    isError: error,
+  };
+}
