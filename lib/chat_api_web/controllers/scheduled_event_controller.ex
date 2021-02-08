@@ -47,7 +47,6 @@ defmodule ChatApiWeb.ScheduledEventController do
                fields: fields,
 
                user_id: scheduling_link.user_id,
-               start_time: start_time
              }
            )
         do
