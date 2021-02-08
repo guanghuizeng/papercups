@@ -56,25 +56,7 @@ defmodule ChatApiWeb.ScheduledEventController do
       end
     else
     end
-
-#    scheduling_link = SchedulingLinks.get_scheduling_link!(scheduling_link_id)
-
-#    with {:ok, start_time, _offset} <- DateTime.from_iso8601(start_time),
-##         {:ok, %ScheduledEventType{} = event_type} <- ScheduledEventTypes.get_event_type!(event_type_id),
-#         {:ok, %ScheduledEvent{} = event} <- ScheduledEvents.create_event(
-#           %{
-#
-#
-#             guest_name: guest_name,
-#             scheduling_link_id: scheduling_link_id,
-#             user_id: scheduling_link.user_id,
-#             start_time: start_time
-#           }
-#         ) do
-#      conn
-#      |> put_status(:created)
-#      |> render("show.json", scheduled_event: event)
-#    end
+    
   end
 
   @spec update(Plug.Conn.t(), map()) :: Plug.Conn.t()
