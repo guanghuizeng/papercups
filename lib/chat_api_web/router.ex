@@ -76,6 +76,7 @@ defmodule ChatApiWeb.Router do
     post("/scheduled_events", ScheduledEventController, :create)
     get("/booking/scheduling_links/:scheduling_link_id/calendar/range", BookingController, :show)
     get("/links/:user/:link/intervals", SchedulingLinkController, :intervals)
+    post("/links/:user/:link/events", ScheduledEventController, :create)
 
   end
 

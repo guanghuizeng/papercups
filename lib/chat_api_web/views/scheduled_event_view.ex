@@ -14,10 +14,18 @@ defmodule ChatApiWeb.ScheduledEventView do
     %{
       id: scheduled_event.id,
       object: "scheduled_event",
-      invitee_full_name: scheduled_event.invitee_full_name,
-      invitee_email: scheduled_event.invitee_email,
-      guest_name: scheduled_event.guest_name,
-      start_time: scheduled_event.start_time
+
+      start_at: scheduled_event.start_at,
+      end_at: scheduled_event.end_at,
+      state: scheduled_event.state,
+      duration: scheduled_event.duration,
+      link_description: scheduled_event.link_description,
+      link_description_html: scheduled_event.link_description_html,
+      summary: scheduled_event.summary,
+      cancel_reason: scheduled_event.cancel_reason,
+      cancel_reason_html: scheduled_event.cancel_reason_html,
+      conferencing: scheduled_event.conferencing,
+      attendees: scheduled_event.attendees,
     }
   end
 
@@ -29,10 +37,18 @@ defmodule ChatApiWeb.ScheduledEventView do
     %{
       id: scheduled_event.id,
       object: "scheduled_event",
-      invitee_full_name: scheduled_event.invitee_full_name,
-      invitee_email: scheduled_event.invitee_email,
-      guest_name: scheduled_event.guest_name,
-      start_time: scheduled_event.start_time
+
+      start_at: scheduled_event.start_at,
+      end_at: scheduled_event.end_at,
+      state: scheduled_event.state,
+      duration: scheduled_event.duration,
+      link_description: scheduled_event.link_description,
+      link_description_html: scheduled_event.link_description_html,
+      summary: scheduled_event.summary,
+      cancel_reason: scheduled_event.cancel_reason,
+      cancel_reason_html: scheduled_event.cancel_reason_html,
+      conferencing: scheduled_event.conferencing,
+      attendees: scheduled_event.attendees,
     }
   end
 end

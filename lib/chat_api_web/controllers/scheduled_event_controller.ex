@@ -23,19 +23,23 @@ defmodule ChatApiWeb.ScheduledEventController do
   end
 
   @spec create(Plug.Conn.t(), map()) :: Plug.Conn.t()
-  def create(conn, %{"event" => event_params}) do
+  def create(conn, %{"user" => user, "link"  => link, "event" => event_params}) do
     %{
-      "scheduling_link_id" => scheduling_link_id,
-      "guest_name" => guest_name,
-      "start_time" => start_time,
+      "displayName" => display_name,
+      "email" => email,
+      "startAt" => start_at,
+      "endAt" => end_at,
+      "fields" => fields
     } = event_params
-
+    
     scheduling_link = SchedulingLinks.get_scheduling_link!(scheduling_link_id)
 
     with {:ok, start_time, _offset} <- DateTime.from_iso8601(start_time),
 #         {:ok, %ScheduledEventType{} = event_type} <- ScheduledEventTypes.get_event_type!(event_type_id),
          {:ok, %ScheduledEvent{} = event} <- ScheduledEvents.create_event(
            %{
+
+
              guest_name: guest_name,
              scheduling_link_id: scheduling_link_id,
              user_id: scheduling_link.user_id,
