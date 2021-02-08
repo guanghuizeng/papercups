@@ -16,6 +16,7 @@ defmodule ChatApi.ScheduledEvents.ScheduledEvent do
     field :cancel_reason_html, :string
     field :conferencing, :map
     field :attendees, {:array, :binary_id}
+    field :fields, {:array, :map}
 
     belongs_to(:scheduling_link, SchedulingLink, type: :binary_id)
     belongs_to(:user, User, type: :integer)
