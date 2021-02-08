@@ -42,6 +42,9 @@ defmodule ChatApiWeb.ScheduledEventController do
                start_at: start_time,
                end_at: end_time,
                fields: fields,
+               state: "confirmed",
+               duration: scheduling_link.duration,
+               fields: fields,
 
                user_id: scheduling_link.user_id,
                start_time: start_time
