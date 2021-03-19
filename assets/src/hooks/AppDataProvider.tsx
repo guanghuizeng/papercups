@@ -163,10 +163,25 @@ const AppDataProvider = (props: Props) => {
   };
 
   const createSchedule = async () => {
-    // mutate(`/api/profile/`, {data: [...schedules]}, false);
-    await API.createSchedule();
+    const schedule = {
+      name: '未命名',
+      timezone: 'Asia / Shanghai',
+      rules: [
+        {
+          id: nanoid(),
+          byday: ['mo', 'tu', 'we', 'th', 'fr'],
+          endTime: 1020,
+          startTime: 540,
+        },
+      ],
+    };
+    schedules.push(schedule);
+    mutate(`/api/schedules/`, {data: schedules}, false);
+    await API.createSchedule(schedule);
     mutate(`/api/schedules/`);
   };
+
+  const removeSchedule = async () => {};
 
   return (
     <AppDataContext.Provider

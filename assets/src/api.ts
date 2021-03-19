@@ -1030,7 +1030,10 @@ export const fetchSchedulingLinksBrief = async (user: string) => {
     .then((res) => res.body.data);
 };
 
-export const createSchedule = async (token = getAccessToken()) => {
+export const createSchedule = async (
+  schedule: any,
+  token = getAccessToken()
+) => {
   if (!token) {
     throw new Error('Invalid token!');
   }
@@ -1039,18 +1042,7 @@ export const createSchedule = async (token = getAccessToken()) => {
     .post(`/api/schedules/`)
     .set('Authorization', token)
     .send({
-      schedule: {
-        name: '未命名',
-        timezone: 'Asia / Shanghai',
-        rules: [
-          {
-            id: nanoid(),
-            byday: ['mo', 'tu', 'we', 'th', 'fr'],
-            endTime: 1020,
-            startTime: 540,
-          },
-        ],
-      },
+      schedule,
     })
     .then((res) => res.body.data);
 };
