@@ -56,7 +56,7 @@ defmodule ChatApiWeb.ScheduledEventController do
       end
     else
     end
-    
+
   end
 
   @spec update(Plug.Conn.t(), map()) :: Plug.Conn.t()
