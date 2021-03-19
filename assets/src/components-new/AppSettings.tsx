@@ -284,7 +284,11 @@ export function AppSettings() {
     <div className="w-full flex flex-row">
       <NavSidebar />
       <div className="w-full">
-        <div className="Header">设置</div>
+        <div className="Header bg-gray-100">
+          <div className="gentle-flex py-1 w-24">
+            <div className="font-bold">设置</div>
+          </div>
+        </div>
         <div className="border-primary border-b border-solid">
           <div className="mx-auto w-128">
             <div className={'flex flex-row'}>

@@ -77,113 +77,35 @@ function UpcomingScheduledEvents() {
   console.log('scheduledEvents', scheduledEvents);
 
   return (
-    <div className="h-full grid grid-cols-4 gap-px bg-gray-100">
-      <div className="h-full bg-white pt-10 px-3" style={{}}>
-        <div className="flex flex-row justify-between">
-          <div className="gentle-flex text-5xl font-medium">今天</div>
-          <div className="gentle-flex text-base">
-            {moment().format('dddd, M[月]DD[日] HH:mm ')}
+    <div className="w-full flex flex-col">
+      <ul>
+        <li className="px-6 py-3 border-b grid grid-cols-10 gap-4 hover:bg-gray-50 transition ease-in-out duration-150 text-sm">
+          <div className="text-gray-700 col-span-2 lg:col-span-1">
+            Thu, Feb 11
           </div>
-        </div>
-        <div className="flex flex-col  pt-5">
-          <div className="pb-8">
-            <div className="flex flex-row justify-between ">
-              <span />
-              <div className="mr-4 opacity-50">3</div>
-            </div>
-            <NextEventCard />
-            <EventCard />
-            <EventCard />
+          <div className="text-gray-700 col-span-4 lg:col-span-2">
+            12:00 pm – 2:00 pm
           </div>
-        </div>
-      </div>
-      <div className="bg-white pt-5 px-3" style={{}}>
-        <div className="">
-          <div className="text-2xl pb-2 font-medium">本周</div>
-          <div className="flex flex-row justify-between">
-            <div className="text-base">
-              {dayjs().format('M 月')} {dayjs().startOf('week').format('D')} -{' '}
-              {dayjs().endOf('week').format('D')} 日, 第 {moment().week()} / 52
-              周
+          <div className="col-span-4 lg:col-span-6 text-sm leading-5">
+            <div className="pb-1 flex items-center">
+              <div className="pr-2">
+                <span className="inline-flex flex-shrink-0 items-center justify-center h-5 w-5  rounded-full text-white ring-2 ring-white bg-gray-500 select-none">
+                  <span className="text-xxs font-medium leading-none">YZ</span>
+                </span>
+              </div>
+              <a
+                href="/events/b3a6b143-5493-48d2-aefd-689570e22b5a"
+                className="text-gray-900 font-bold mr-2 leading-5 hover:underline truncate transition ease-in-out duration-150"
+              >
+                Chat with Yuanyuan
+              </a>
             </div>
-            <div className="flex flex-row">
-              {['一', '二', '三', '四', '五', '六', '日'].map((d) => {
-                return (
-                  <div key={d} className="mr-2 opacity-75">
-                    {d === '四' || d === '五' ? (
-                      <div className="cursor-pointer">
-                        <span className="">{d}</span>
-                        <div
-                          className="w-full gentle-flex rounded-full bg-red-400"
-                          style={{height: '2px'}}
-                        />
-                      </div>
-                    ) : (
-                      <span className="opacity-50">{d}</span>
-                    )}
-                  </div>
-                );
-              })}
+            <div className="ml-7 text-gray-600 truncate">
+              Yuanyuan Zhang and Yuanyuan Zhang
             </div>
           </div>
-        </div>
-        <div className="flex flex-col pt-5">
-          <div className="pb-8">
-            <div className="flex flex-row justify-between">
-              <div>星期四，1 月 14</div>
-              <div className="mr-4  opacity-50">2</div>
-            </div>
-            <EventCard />
-            <EventCard />
-          </div>
-          <div className="pb-8">
-            <div className="flex flex-row justify-between ">
-              <div>星期五，1 月 15</div>
-              <div className="mr-4 opacity-50">1</div>
-            </div>
-            <EventCard />
-          </div>
-        </div>
-      </div>
-      <div className="bg-white pt-5 p-3" style={{}}>
-        <div>
-          <div className="text-2xl pb-2 font-medium">1 月</div>
-          <div className="flex flex-row justify-between">
-            <span />
-            <div className="opacity-75 cursor-pointer">日期</div>
-          </div>
-        </div>
-        <div className="flex flex-col pt-5">
-          <div className="pb-8">
-            <div className="flex flex-row justify-between ">
-              <div>1 月 17，星期日</div>
-              <div className="mr-4 opacity-50">2</div>
-            </div>
-            <EventCard />
-            <EventCard />
-          </div>
-          <div className="pb-8">
-            <div className="flex flex-row justify-between ">
-              <div>1 月 18，星期五</div>
-              <div className="mr-4 opacity-50">1</div>
-            </div>
-            <EventCard />
-          </div>
-        </div>
-      </div>
-      <div className="bg-white pt-5 p-2" style={{}}>
-        <div className="text-2xl pb-2 font-medium">2021 年</div>
-        <div className="flex flex-col pt-5">
-          <div className="my-2">
-            <div>2 月</div>
-            <div>
-              <div>2 月 1，星期日</div>
-              <EventCard />
-              <EventCard />
-            </div>
-          </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   );
 }
@@ -197,13 +119,17 @@ export default function ScheduledEvents() {
 
       <ScheduledEventsProvider>
         <div className="h-full w-full flex flex-col">
-          <div className="Header">
+          <div className="Header bg-gray-100">
             <div className="flex flex-row">
+              <div className="gentle-flex py-1 w-24">
+                <div className="font-bold">日程</div>
+              </div>
+
               {[
                 {url: '/events/upcoming', name: '待完成'},
                 {url: '/events/past', name: '已完成'},
                 {url: '/events/canceled', name: '已取消'},
-                {url: '/events/all', name: '全部'},
+                // {url: '/events/all', name: '全部'},
               ].map(({url, name}) => {
                 return (
                   <div className="px-2 cursor-pointer" key={url}>
@@ -223,9 +149,6 @@ export default function ScheduledEvents() {
               })}
             </div>
             <div className="flex flex-row">
-              <div className="gentle-flex py-1 w-24 cursor-pointer">
-                Horizons
-              </div>
               <div className="gentle-flex py-1 w-24 opacity-25 hover:opacity-100 cursor-pointer">
                 日历
               </div>

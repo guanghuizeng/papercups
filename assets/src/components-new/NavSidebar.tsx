@@ -7,10 +7,7 @@ export default function NavSidebar() {
   const auth = useAuth();
   const {pathname} = useLocation();
   return (
-    <div
-      className="w-full md:w-64 border-r-2 border-solid border-gray-100 pt-5"
-      style={{backgroundColor: '#f2f2f2'}}
-    >
+    <div className="w-full md:w-64 border-r-2 border-solid border-gray-100 pt-5">
       <div className="flex flex-col">
         <div className="pt-4 pb-4 pl-4">
           <div>曾光晖</div>
