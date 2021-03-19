@@ -30,11 +30,6 @@ export default function NavSidebar() {
               url: '/settings',
               name: '设置',
             },
-            {
-              icon: () => <i className="fas fa-cog mr-2" />,
-              url: '/ycy/chat',
-              name: 'Booking Page Preview',
-            },
             // {url: '/availability', name: '时间管理'},
             // {url: '/workflows', name: '工作流'},
           ].map(({icon, url, name}) => {
@@ -56,17 +51,6 @@ export default function NavSidebar() {
             );
           })}
         </div>
-      </div>
-
-      <div
-        className="cursor-pointer hover:bg-gray-200 mt-20"
-        onClick={() => {
-          API.createSchedule().then((r) => {
-            console.log('createSchedule', r);
-          });
-        }}
-      >
-        Create schedule
       </div>
 
       <div
