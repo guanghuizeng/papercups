@@ -8,6 +8,7 @@ import {
   dayConvertToZh,
 } from '../utils';
 import dayjs from 'dayjs';
+import NavSidebar from './NavSidebar';
 
 function SettingSection(props: any) {
   return (
@@ -280,58 +281,65 @@ export function AppSettings() {
   const {pathname} = useLocation();
 
   return (
-    <div className="w-full">
-      <div className="Header">设置</div>
-      <div className="border-primary border-b border-solid">
-        <div className="mx-auto w-128">
-          <div className={'flex flex-row'}>
-            {[
-              {
-                url: '/settings/profile',
-                name: '账号',
-              },
-              {
-                url: '/settings/links',
-                name: '链接',
-              },
-              {
-                url: '/settings/teams',
-                name: '团队',
-              },
-            ].map(({url, name}) => {
-              return (
-                <Link to={url} key={url}>
-                  <div
-                    className={`${
-                      pathname === url ||
-                      pathname.startsWith(url) ||
-                      (pathname === '/' && url === '/links')
-                        ? 'border-primary border-b-4 border-pink-400 text-black'
-                        : 'opacity-75'
-                    } px-4 py-2`}
-                  >
-                    {name}
-                  </div>
-                </Link>
-              );
-            })}
+    <div className="w-full flex flex-row">
+      <NavSidebar />
+      <div className="w-full">
+        <div className="Header">设置</div>
+        <div className="border-primary border-b border-solid">
+          <div className="mx-auto w-128">
+            <div className={'flex flex-row'}>
+              {[
+                {
+                  url: '/settings/profile',
+                  name: '账号',
+                },
+                {
+                  url: '/settings/links',
+                  name: '链接',
+                },
+                {
+                  url: '/settings/teams',
+                  name: '团队',
+                },
+              ].map(({url, name}) => {
+                return (
+                  <Link to={url} key={url}>
+                    <div
+                      className={`${
+                        pathname === url ||
+                        pathname.startsWith(url) ||
+                        (pathname === '/' && url === '/links')
+                          ? 'border-primary border-b-4 border-pink-400 text-black'
+                          : 'opacity-75'
+                      } px-4 py-2`}
+                    >
+                      {name}
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
+        <Switch>
+          <Route
+            exact
+            path="/settings"
+            component={() => <Redirect to={'/settings/profile'} />}
+          />
+          <Route exact path="/settings/profile" component={ProfileSection} />
+          <Route
+            exact
+            path="/settings/links"
+            component={LinksSettingsSection}
+          />
+          <Route
+            exact
+            path="/settings/teams"
+            component={() => <div>teams</div>}
+          />
+        </Switch>
       </div>
-      <Switch>
-        <Route
-          exact
-          path="/settings"
-          component={() => <Redirect to={'/settings/profile'} />}
-        />
-        <Route exact path="/settings/profile" component={ProfileSection} />
-        <Route exact path="/settings/links" component={LinksSettingsSection} />
-        <Route
-          exact
-          path="/settings/teams"
-          component={() => <div>teams</div>}
-        />
-      </Switch>
     </div>
   );
 }

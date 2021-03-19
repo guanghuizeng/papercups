@@ -28,7 +28,7 @@ function Dashboard(props: RouteComponentProps) {
     >
       <div className="flex flex-row w-full">
         <Switch>
-          <Route exact path="/" component={SchedulingLinksBoard} />
+          <Route exact path="/" component={() => <Redirect to={'/links'} />} />
           <Route exact path="/links" component={SchedulingLinksBoard} />
           <Route exact path="/links_new" component={SchedulingLinkNew} />
           <Route
@@ -42,7 +42,7 @@ function Dashboard(props: RouteComponentProps) {
           <Route path="/events" component={ScheduledEvents} />
           <Route path="/settings" component={AppSettings} />
           <Route path="/availabilities/:id/edit" component={Availability} />
-          <Route path="/apps" component={() => <div>apps</div>} />
+          {/*<Route path="/apps" component={() => <div>apps</div>} />*/}
           <Route
             path="/:userSlug/:schedulingLinkSlug"
             component={BookingPage}
