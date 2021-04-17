@@ -30,6 +30,7 @@ defmodule ChatApiWeb.SchedulingLinkView do
       durations: scheduling_link.durations,
       before_buffer_time: scheduling_link.before_buffer_time,
       after_buffer_time: scheduling_link.after_buffer_time,
+      created_at: scheduling_link.inserted_at,
     }
   end
 end

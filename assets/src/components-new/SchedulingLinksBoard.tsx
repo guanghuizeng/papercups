@@ -89,13 +89,15 @@ export function SchedulingLinksBoard() {
         </div>
         <div className="flex flex-row flex-wrap">
           {schedulingLinks &&
-            schedulingLinks.map((link: any) => {
-              return (
-                <div key={link.id} className="py-4 pl-4 mb-4 w-64 h-32">
-                  <SchedulingLinkCard schedulingLink={link} />
-                </div>
-              );
-            })}
+            schedulingLinks
+              // .sort((link1: any, link2: any) => link1.created_at < link2.created_at)
+              .map((link: any) => {
+                return (
+                  <div key={link.id} className="py-4 pl-4 mb-4 w-64 h-32">
+                    <SchedulingLinkCard schedulingLink={link} />
+                  </div>
+                );
+              })}
           <div className="py-4 pl-4 w-64 h-32">
             {/*<button className="w-full h-full hover:bg-light-blue-200 hover:text-light-blue-800 group flex items-center rounded-md bg-light-blue-100 text-light-blue-600 text-sm font-medium px-4 py-2">*/}
             {/*    <svg*/}

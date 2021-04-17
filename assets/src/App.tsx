@@ -13,16 +13,10 @@ import EmailVerification from './components/auth/EmailVerification';
 import PasswordReset from './components/auth/PasswordReset';
 import RequestPasswordReset from './components/auth/RequestPasswordReset';
 import PasswordResetRequested from './components/auth/PasswordResetRequested';
-import Demo from './components/demo/Demo';
-import BotDemo from './components/demo/BotDemo';
 import Dashboard from './components-new/Dashboard';
-import Pricing from './components/billing/PricingOverview';
-import Sandbox from './components/Sandbox';
-import SharedConversation from './components/conversations/SharedConversation';
 import './App.css';
 import './tailwind.css';
 import LadingPage from './components/landing/LadingPage';
-import Live from './components-new/book/Live';
 import {initializeIcons} from '@fluentui/react';
 import Book from './components-new/book/Book';
 import BookingPage from './components-new/booking/BookingPage';
@@ -43,8 +37,6 @@ const App = () => {
       <Router>
         <Switch>
           <Route exact={true} path="/" component={LadingPage} />
-          <Route path="/demo" component={Demo} />
-          <Route path="/bot/demo" component={BotDemo} />
           <Route path="/login" component={Login} />
           <Route path="/register/:invite" component={Register} />
           <Route path="/register" component={Register} />
@@ -55,10 +47,6 @@ const App = () => {
             path="/reset-password-requested"
             component={PasswordResetRequested}
           />
-          <Route path="/pricing" component={Pricing} />
-          <Route path="/sandbox" component={Sandbox} />
-          <Route path="/share" component={SharedConversation} />
-          <Route path="/live" component={Live} />
           <Route path="/event/:id" component={ScheduledEvent} />
           <Route path="/@:user" component={Book} />
           <Route
@@ -86,12 +74,6 @@ const App = () => {
           path="/reset-password-requested"
           component={PasswordResetRequested}
         />
-        <Route path="/demo" component={Demo} />
-        <Route path="/bot/demo" component={BotDemo} />
-        <Route path="/pricing" component={Pricing} />
-        <Route path="/sandbox" component={Sandbox} />
-        <Route path="/share" component={SharedConversation} />
-        <Route path="/live" component={Live} />
         <Route path="/@:userSlug/:schedulingLinkSlug" component={BookingPage} />
         <Route path="/event/:id" component={ScheduledEvent} />
         <Route path="/" component={Dashboard} />
