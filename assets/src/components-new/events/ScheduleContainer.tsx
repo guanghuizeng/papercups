@@ -9,7 +9,6 @@ import CheckboxStateless from '../common/CheckboxStateless';
 import Select from 'react-select';
 import * as Popover from '@radix-ui/react-popover';
 
-import {useQuery} from '../../store';
 import dayjs from 'dayjs';
 import {listOfTime, listOfTime24, WEEKDAYS} from '../constants';
 import {EditingContext} from '../../hooks/EditingContext';

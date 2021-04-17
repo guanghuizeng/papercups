@@ -2,16 +2,12 @@ import React, {useContext, useEffect} from 'react';
 import _ from 'lodash';
 import useSWR, {mutate} from 'swr';
 import * as API from '../api';
-import {getAccessToken} from '../api';
-import {fetchWithToken} from './utils';
-import {useAuth} from '../components/auth/AuthProvider';
 import {
   useSchedules,
   useSchedulingLinks,
   useUserProfile,
   useUserSettings,
 } from '../api-hooks';
-import {useSchedulingLink} from './SchedulingLinkProvider';
 import {useHistory} from 'react-router-dom';
 import {nanoid} from 'nanoid';
 

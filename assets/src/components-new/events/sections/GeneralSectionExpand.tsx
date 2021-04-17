@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {useTransact} from '../../../store';
 import CancelButton from '../CancelButton';
 import SingleSelect from '../EventLocationSelect';
 import Editor from '../../common/Editor';

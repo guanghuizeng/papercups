@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {useQuery, useQueryOne, useStore} from '../store';
 import {Link} from 'react-router-dom';
 import {useEvents} from './EventsProvider';
 import {fetchSchedules, fetchUserProfile} from '../api';
