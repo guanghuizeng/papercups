@@ -2,6 +2,8 @@ defmodule ChatApiWeb.ScheduledEventController do
   require Logger
   use ChatApiWeb, :controller
 
+  alias ChatApi.Users
+
   alias ChatApi.ScheduledEvents
   alias ChatApi.ScheduledEvents.ScheduledEvent
 
@@ -33,20 +35,25 @@ defmodule ChatApiWeb.ScheduledEventController do
     } = event_params
 
     user_info = Users.get_user_info_by_slug(user)
+    Logger.info(inspect(user_info))
+    Logger.info(inspect(link))
+
     if user_info do
       with {:ok, start_time, _offset} <- DateTime.from_iso8601(start_at),
            {:ok, end_time, _offset} <- DateTime.from_iso8601(end_at),
            scheduling_link <- SchedulingLinks.get_scheduling_link_by_url(user_info.user_id, link),
+#           Logger.info(inspect(link))
+#           Logger.info(inspect(scheduling_link))
            {:ok, %ScheduledEvent{} = event} <- ScheduledEvents.create_event(
              %{
+               scheduling_link_id: scheduling_link.id,
                start_at: start_time,
                end_at: end_time,
-               fields: fields,
                state: "confirmed",
-               duration: scheduling_link.duration,
+#               duration: scheduling_link.duration,
                fields: fields,
 
-               user_id: scheduling_link.user_id,
+               user_id: user_info.user_id,
              }
            )
         do

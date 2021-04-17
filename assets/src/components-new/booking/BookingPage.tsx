@@ -27,6 +27,7 @@ import {nanoid} from 'nanoid';
 import _ from 'lodash';
 import * as API from '../../api';
 import {EventInput} from '@fullcalendar/common';
+import {EMAIL, USERNAME} from '../../const';
 
 var localizedFormat = require('dayjs/plugin/localizedFormat');
 dayjs.extend(localizedFormat);
@@ -117,11 +118,19 @@ function EventSection() {
   const onSubmit = () => {
     if (eventStartTime) {
       console.log('scheduling link', schedulingLink);
-      API.createScheduledEvent(
-        schedulingLink.id,
-        eventStartTime.toISOString(),
-        'guest_name'
-      ).then((r) => {
+      API.createEvent({
+        user: USERNAME,
+        link: schedulingLink.url,
+        event: {
+          displayName: 'guest',
+          email: EMAIL,
+          startAt: eventStartTime.toISOString(),
+          endAt: dayjs(eventStartTime)
+            .add(eventDuration, 'minutes')
+            .toISOString(),
+          fields: {},
+        },
+      }).then((r) => {
         console.log('createScheduledEvent response', r);
       });
     }

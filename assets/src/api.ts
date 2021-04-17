@@ -1097,20 +1097,22 @@ export const fetchSchedulingLinkByUrl = async (user: string, url: string) => {
     .then((res) => res.body.data);
 };
 
-export const createEvent = async (
-  event_type_id: string,
-  start_time: string,
-  guest_name: string
-) => {
+export interface CreateEventParams {
+  user: string;
+  link: string;
+  event: {
+    displayName: string;
+    email: string;
+    startAt: string;
+    endAt: string;
+    fields: any;
+  };
+}
+
+export const createEvent = async (params: CreateEventParams) => {
   return request
-    .post(`/api/events`)
-    .send({
-      event: {
-        guest_name: 'guest_1',
-        event_type_id,
-        start_time,
-      },
-    })
+    .post(`/api/scheduled_events`)
+    .send(params)
     .then((res) => res.body.data);
 };
 

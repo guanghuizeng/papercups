@@ -102,7 +102,7 @@ defmodule ChatApiWeb.RegistrationController do
   end
 
   def create_default_user_profile(conn, user_id) do
-    Users.update_user_profile(user_id, %{user_id: user_id, slug: "slug"})
+    Users.update_user_profile(user_id, %{user_id: user_id, slug: "guanghuizeng"})
   end
 
   def create_default_user_setting(conn, user_id) do

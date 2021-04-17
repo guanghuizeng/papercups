@@ -2,6 +2,7 @@ import React from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import * as API from '../api';
 import {useAuth} from '../components/auth/AuthProvider';
+import {USERNAME} from '../const';
 
 export default function NavSidebar() {
   const auth = useAuth();
@@ -11,7 +12,7 @@ export default function NavSidebar() {
       <div className="flex flex-col">
         <div className="pt-4 pb-4 pl-4">
           <div>曾光晖</div>
-          <div className="text-sm text-blue-500">localhost/zgh</div>
+          <div className="text-sm text-blue-500">localhost/@{USERNAME}</div>
         </div>
         <div>
           {[
