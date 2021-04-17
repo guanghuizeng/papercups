@@ -42,8 +42,6 @@ defmodule ChatApiWeb.ScheduledEventController do
       with {:ok, start_time, _offset} <- DateTime.from_iso8601(start_at),
            {:ok, end_time, _offset} <- DateTime.from_iso8601(end_at),
            scheduling_link <- SchedulingLinks.get_scheduling_link_by_url(user_info.user_id, link),
-#           Logger.info(inspect(link))
-#           Logger.info(inspect(scheduling_link))
            {:ok, %ScheduledEvent{} = event} <- ScheduledEvents.create_event(
              %{
                scheduling_link_id: scheduling_link.id,

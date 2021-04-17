@@ -1,5 +1,5 @@
 import React, {useState, Fragment, RefObject} from 'react';
-import {useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import BookingProvider, {useBooking} from './BookingProvider';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -110,6 +110,8 @@ function EventSection() {
     setEventId,
     cancelEventDrafted,
   } = useBooking();
+  const history = useHistory();
+
   const durationDisplay = humanizeDuration(eventDuration * 60 * 1000, {
     units: ['h', 'm'],
     language: 'zh_CN',
@@ -130,8 +132,8 @@ function EventSection() {
             .toISOString(),
           fields: {},
         },
-      }).then((r) => {
-        console.log('createScheduledEvent response', r);
+      }).then((data) => {
+        history.push(`/event/${data.id}`);
       });
     }
   };
