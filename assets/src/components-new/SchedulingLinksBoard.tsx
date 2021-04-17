@@ -16,28 +16,13 @@ export function SchedulingLinksBoard() {
             <div className="gentle-flex py-1 w-24">
               <div className="font-bold">预约链接</div>
             </div>
-
-            <button
-              className="cursor-pointer hover:bg-light-blue-200 hover:text-light-blue-800 group flex items-center rounded-md bg-light-blue-100 text-light-blue-600 text-sm font-medium px-4 py-2"
-              onClick={createSchedulingLinkAndRedirect}
-            >
-              <svg
-                className="group-hover:text-light-blue-600 text-light-blue-500 mr-2"
-                width="12"
-                height="20"
-                fill="currentColor"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M6 5a1 1 0 011 1v3h3a1 1 0 110 2H7v3a1 1 0 11-2 0v-3H2a1 1 0 110-2h3V6a1 1 0 011-1z"
-                />
-              </svg>
-              New
-            </button>
           </div>
         </div>
         <div className="grid grid-cols-4 gap-y-1 flex-wrap">
+          <div className="px-3 py-1">名称</div>
+          <div className="px-3 py-1">时长</div>
+          <div className="px-3 py-1">链接</div>
+          <div className="px-3 py-1">操作</div>
           {schedulingLinks &&
             schedulingLinks.map((link: any) => {
               const {id, durations, url, name} = link;
@@ -64,7 +49,8 @@ export function SchedulingLinksBoard() {
               );
             })}
         </div>
-        <div>
+
+        <div className="mt-2 p-2">
           <Button onClick={createSchedulingLinkAndRedirect}>新建</Button>
         </div>
       </div>

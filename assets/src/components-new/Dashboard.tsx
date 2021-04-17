@@ -13,7 +13,6 @@ import ScheduledEvents from './events/ScheduledEvents';
 import SchedulingLink from './SchedulingLink';
 import AppDataProvider from '../hooks/AppDataProvider';
 import {SchedulingLinksBoard} from './SchedulingLinksBoard';
-import SchedulingLinkNew from './SchedulingLinkNew';
 import {AppSettings} from './AppSettings';
 import {Availability} from './Availability';
 import BookingPage from './booking/BookingPage';
@@ -30,7 +29,6 @@ function Dashboard(props: RouteComponentProps) {
         <Switch>
           <Route exact path="/" component={() => <Redirect to={'/links'} />} />
           <Route exact path="/links" component={SchedulingLinksBoard} />
-          <Route exact path="/links_new" component={SchedulingLinkNew} />
           <Route
             path="/links/:id"
             component={() => (
