@@ -29,7 +29,7 @@ defmodule ChatApi.ScheduledEvents do
   def list_by_user(user_id) do
     ScheduledEvent
     |> where(user_id: ^user_id)
-    |> order_by(asc: :start_time)
+    |> order_by(asc: :start_at)
     |> Repo.all()
   end
 
