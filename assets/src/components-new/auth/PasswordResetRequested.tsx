@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Box, Flex} from 'theme-ui';
-import {Button, Result} from '../common';
+import {Button, Result} from '../../components/common';
 
 export const PasswordResetRequested = () => {
   return (

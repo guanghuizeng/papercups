@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import * as API from '../api';
-import {useAuth} from '../components/auth/AuthProvider';
+import {useAuth} from './auth/AuthProvider';
 import {USERNAME} from '../const';
 
 export default function NavSidebar() {

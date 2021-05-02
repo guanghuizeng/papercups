@@ -9,7 +9,7 @@ import {useEffect, useState} from 'react';
 import GeneralSectionCollapsed from './events/sections/GeneralSectionCollapsed';
 import AvailabilitySectionExpand from './events/sections/AvailabilitySectionExpand';
 import AvailabilitySectionCollapsed from './events/sections/AvailabilitySectionCollapsed';
-import {useAuth} from '../components/auth/AuthProvider';
+import {useAuth} from './auth/AuthProvider';
 import InviteeQuestionsSection from './events/sections/InviteeQuestionsSection';
 import NotifyPolicySection from './events/sections/NotifyPolicySection';
 import Calendar from '@toast-ui/react-calendar';

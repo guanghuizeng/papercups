@@ -1,7 +1,7 @@
 import React from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
-import {useAuth} from '../components/auth/AuthProvider';
+import {useAuth} from './auth/AuthProvider';
 
 function StyledItem(props: any) {
   return (

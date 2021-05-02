@@ -1,7 +1,7 @@
 import React from 'react';
 import {RouteComponentProps, Link} from 'react-router-dom';
 import {Box, Flex} from 'theme-ui';
-import {Button, Input, Text, Title} from '../common';
+import {Button, Input, Text, Title} from '../../components/common';
 import * as API from '../../api';
 import logger from '../../logger';
 

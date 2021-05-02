@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {RouteComponentProps, Link} from 'react-router-dom';
 import {Box, Flex} from 'theme-ui';
 import qs from 'query-string';
-import {Button, Input, Text, Title} from '../common';
+import {Button, Input, Text, Title} from '../../components/common';
 import {useAuth} from './AuthProvider';
 import logger from '../../logger';
 import {

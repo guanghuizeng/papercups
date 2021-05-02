@@ -11,7 +11,7 @@ import {
   MessageBarType,
   DefaultButton,
 } from '@fluentui/react';
-import {Button, Input, Text, Title} from '../common';
+import {Button, Input, Text, Title} from '../../components/common';
 import {useAuth} from './AuthProvider';
 import logger from '../../logger';
 

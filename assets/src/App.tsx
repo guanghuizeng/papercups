@@ -6,13 +6,13 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import {useAuth} from './components/auth/AuthProvider';
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import EmailVerification from './components/auth/EmailVerification';
-import PasswordReset from './components/auth/PasswordReset';
-import RequestPasswordReset from './components/auth/RequestPasswordReset';
-import PasswordResetRequested from './components/auth/PasswordResetRequested';
+import {useAuth} from './components-new/auth/AuthProvider';
+import Login from './components-new/auth/Login';
+import Register from './components-new/auth/Register';
+import EmailVerification from './components-new/auth/EmailVerification';
+import PasswordReset from './components-new/auth/PasswordReset';
+import RequestPasswordReset from './components-new/auth/RequestPasswordReset';
+import PasswordResetRequested from './components-new/auth/PasswordResetRequested';
 import Dashboard from './components-new/Dashboard';
 import './App.css';
 import './tailwind.css';

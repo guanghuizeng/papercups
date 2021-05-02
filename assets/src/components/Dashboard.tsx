@@ -27,7 +27,7 @@ import {
 import {BASE_URL, isDev, isHostedProd} from '../config';
 import analytics from '../analytics';
 import {hasValidStripeKey} from '../utils';
-import {useAuth} from './auth/AuthProvider';
+import {useAuth} from '../components-new/auth/AuthProvider';
 import AccountOverview from './account/AccountOverview';
 import UserProfile from './account/UserProfile';
 import GettingStartedOverview from './account/GettingStartedOverview';
