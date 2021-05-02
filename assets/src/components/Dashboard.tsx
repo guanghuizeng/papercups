@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import {Switch, Redirect, Route, RouteComponentProps} from 'react-router-dom';
-import ScheduledEvents from './ScheduledEvents';
-import SchedulingLink from './SchedulingLink';
+import ScheduledEvents from './events/ScheduledEvents';
+import SchedulingLink from './links/SchedulingLink';
 import AppDataProvider from '../hooks/AppDataProvider';
-import {SchedulingLinksBoard} from './SchedulingLinksBoard';
+import {SchedulingLinksBoard} from './links/SchedulingLinksBoard';
 import {AppSettings} from './AppSettings';
-import {Availability} from './Availability';
+import {Availability} from './availability/Availability';
 import BookingPage from './booking/BookingPage';
 
 function Dashboard(props: RouteComponentProps) {

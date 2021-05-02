@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 import _ from 'lodash';
-import {useSchedulingLink} from '../hooks/SchedulingLinkProvider';
+import {useSchedulingLink} from '../../hooks/SchedulingLinkProvider';
 import Select from 'react-select';
 import {nanoid} from 'nanoid';
 import {X} from '@geist-ui/react-icons';

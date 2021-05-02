@@ -8,7 +8,7 @@ import {
   dayConvertToZh,
 } from '../utils';
 import dayjs from 'dayjs';
-import NavSidebar from './NavSidebar';
+import NavSidebar from './common/NavSidebar';
 
 function SettingSection(props: any) {
   return (

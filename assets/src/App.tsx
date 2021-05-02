@@ -19,7 +19,7 @@ import './tailwind.css';
 import LandingPage from './components/landing/LandingPage';
 import {initializeIcons} from '@fluentui/react';
 import BookingPage from './components/booking/BookingPage';
-import ScheduledEvent from './components/ScheduledEvent';
+import ScheduledEvent from './components/events/ScheduledEvent';
 
 initializeIcons();
 

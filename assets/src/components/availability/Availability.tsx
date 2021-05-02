@@ -1,8 +1,7 @@
 import React from 'react';
 import {useParams, Link} from 'react-router-dom';
-import {useAppData} from '../hooks/AppDataProvider';
-import TextField from './common/TextField';
-import {listOfTime24, listOfTime24Options} from './constants';
+import {useAppData} from '../../hooks/AppDataProvider';
+import {listOfTime24, listOfTime24Options} from '../constants';
 import Select from 'react-select';
 import FullCalendar, {DayHeaderContentArg} from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -12,14 +11,13 @@ import {
   complementIntervals,
   createEventId,
   eliminateIntervals,
-  INITIAL_EVENTS,
-} from './event-utils';
+} from '../event-utils';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import {Button, Checkbox, Input} from '@geist-ui/react';
 import dayjs, {Dayjs} from 'dayjs';
 import produce, {Draft} from 'immer';
 
-import {dayConvertToEn, dayConvertToZh} from '../utils';
+import {dayConvertToEn, dayConvertToZh} from '../../utils';
 import _ from 'lodash';
 import {nanoid} from 'nanoid';
 import {X} from '@geist-ui/react-icons';

@@ -1,7 +1,7 @@
 import React from 'react';
-import {useAppData} from '../hooks/AppDataProvider';
+import {useAppData} from '../../hooks/AppDataProvider';
 import {Link} from 'react-router-dom';
-import NavSidebar from './NavSidebar';
+import NavSidebar from '../common/NavSidebar';
 import {Button} from '@geist-ui/react';
 
 export function SchedulingLinksBoard() {

@@ -2,7 +2,7 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import ScheduledEventProvider, {
   useScheduledEvent,
-} from '../hooks/ScheduledEventProvider';
+} from '../../hooks/ScheduledEventProvider';
 
 export function ScheduledEventCard() {
   const {scheduledEvent} = useScheduledEvent();

@@ -1,8 +1,7 @@
 import React from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import * as API from '../api';
-import {useAuth} from './auth/AuthProvider';
-import {USERNAME} from '../const';
+import {useAuth} from '../auth/AuthProvider';
+import {USERNAME} from '../../const';
 
 export default function NavSidebar() {
   const auth = useAuth();

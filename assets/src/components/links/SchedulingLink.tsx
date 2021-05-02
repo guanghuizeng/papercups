@@ -3,12 +3,12 @@ import {Link, Route, Switch, useParams} from 'react-router-dom';
 import 'tui-calendar/dist/tui-calendar.css';
 import SchedulingLinkProvider, {
   useSchedulingLink,
-} from '../hooks/SchedulingLinkProvider';
-import SingleSelect from './common/EventLocationSelect';
+} from '../../hooks/SchedulingLinkProvider';
+import SingleSelect from '../common/EventLocationSelect';
 import Select, {components} from 'react-select';
-import Calendar from './Calendar';
+import Calendar from '../common/Calendar';
 import SchedulingLinkSettings from './SchedulingLinkSettings';
-import {useAppData} from '../hooks/AppDataProvider';
+import {useAppData} from '../../hooks/AppDataProvider';
 import {useState, Fragment, useEffect} from 'react';
 import {X} from '@geist-ui/react-icons';
 import {

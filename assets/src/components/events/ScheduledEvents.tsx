@@ -3,8 +3,8 @@ import {Switch, Route, Link, useLocation, Redirect} from 'react-router-dom';
 import dayjs from 'dayjs';
 import ScheduledEventsProvider, {
   useScheduledEvents,
-} from '../hooks/ScheduledEventsProvider';
-import NavSidebar from './NavSidebar';
+} from '../../hooks/ScheduledEventsProvider';
+import NavSidebar from '../common/NavSidebar';
 
 const weekOfYear = require('dayjs/plugin/weekOfYear');
 dayjs.extend(weekOfYear);
