@@ -1,76 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Switch, Route, Link, useLocation, Redirect} from 'react-router-dom';
-import {DefaultButton} from '@fluentui/react';
-import {useEvents} from '../EventsProvider';
-import {days} from '../book/data';
 import dayjs from 'dayjs';
-import moment from 'moment';
-import {SearchBoxSmallExample} from '../EventTypes';
 import ScheduledEventsProvider, {
   useScheduledEvents,
-} from '../../hooks/ScheduledEventsProvider';
-import NavSidebar from '../NavSidebar';
-var weekOfYear = require('dayjs/plugin/weekOfYear');
+} from '../hooks/ScheduledEventsProvider';
+import NavSidebar from './NavSidebar';
+
+const weekOfYear = require('dayjs/plugin/weekOfYear');
 dayjs.extend(weekOfYear);
-
-function EventCard() {
-  const [hovered, setHovered] = useState(false);
-  const [expanded, setExpanded] = useState(false);
-  return (
-    <div
-      className="border-primary border-solid border flex flex-row justify-between w-full h-24"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <div
-        className="my-2 p-4 flex flex-row justify-between"
-        style={{width: 'calc(100% - 10px)'}}
-      >
-        <div className="w-1/2">09:30 - 09:45</div>
-        <div className="w-1/2">
-          <div>张三</div>
-          <div className="text-gray-500">30 分钟约见</div>
-        </div>
-      </div>
-      <div className="h-full w-8">
-        {hovered && (
-          <div className="cursor-pointer opacity-25 hover:opacity-100 h-full bg-red-300 gentle-flex">
-            <i className="fas fa-expand-alt fa-sm" />
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function NextEventCard() {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <div
-      className="border-red-300 border-solid border flex flex-row justify-between w-full h-24"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <div
-        className="my-2 p-4 flex flex-row justify-between"
-        style={{width: 'calc(100% - 10px)'}}
-      >
-        <div className="w-1/2">09:30 - 09:45</div>
-        <div className="w-1/2">
-          <div>张三</div>
-          <div className="text-gray-500">30 分钟约见</div>
-        </div>
-      </div>
-      <div className="h-full w-8">
-        {hovered && (
-          <div className="cursor-pointer opacity-25 hover:opacity-100 h-full bg-red-300 gentle-flex">
-            <i className="fas fa-expand-alt fa-sm" />
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
 
 function UpcomingScheduledEvents() {
   const {scheduledEvents} = useScheduledEvents();

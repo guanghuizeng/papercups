@@ -18,7 +18,6 @@ import './App.css';
 import './tailwind.css';
 import LandingPage from './components-new/landing/LandingPage';
 import {initializeIcons} from '@fluentui/react';
-import Book from './components-new/book/Book';
 import BookingPage from './components-new/booking/BookingPage';
 import ScheduledEvent from './components-new/ScheduledEvent';
 
@@ -48,7 +47,7 @@ const App = () => {
             component={PasswordResetRequested}
           />
           <Route path="/event/:id" component={ScheduledEvent} />
-          <Route path="/@:user" component={Book} />
+          {/*<Route path="/@:user" component={Book} />*/}
           <Route
             path="*"
             render={(props: RouteComponentProps<{}>) => (

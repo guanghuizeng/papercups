@@ -1,15 +1,6 @@
 import React, {useEffect} from 'react';
-import Header from './Header';
-import {
-  useLocation,
-  Switch,
-  Redirect,
-  Route,
-  Link,
-  RouteComponentProps,
-  BrowserRouter as Router,
-} from 'react-router-dom';
-import ScheduledEvents from './events/ScheduledEvents';
+import {Switch, Redirect, Route, RouteComponentProps} from 'react-router-dom';
+import ScheduledEvents from './ScheduledEvents';
 import SchedulingLink from './SchedulingLink';
 import AppDataProvider from '../hooks/AppDataProvider';
 import {SchedulingLinksBoard} from './SchedulingLinksBoard';

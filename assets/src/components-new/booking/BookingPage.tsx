@@ -3,28 +3,17 @@ import {useHistory, useParams} from 'react-router-dom';
 import BookingProvider, {useBooking} from './BookingProvider';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
-import FullCalendar, {
-  DateSelectArg,
-  DayHeaderContentArg,
-  EventApi,
-} from '@fullcalendar/react';
+import FullCalendar, {DayHeaderContentArg, EventApi} from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin, {DateClickArg} from '@fullcalendar/interaction';
-import {
-  complementIntervals,
-  createEventId,
-  eliminateIntervals,
-  INITIAL_EVENTS,
-} from '../event-utils';
+import {complementIntervals, createEventId} from '../event-utils';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import dayjs, {Dayjs} from 'dayjs';
 import {Button, Input, Text} from '@geist-ui/react';
 import humanizeDuration from 'humanize-duration';
-import {colourOptions} from '../events/data';
-import {convertMinToHrsMin, dayConvertToEn} from '../../utils';
+import {colourOptions} from '../data';
 import {nanoid} from 'nanoid';
-import _ from 'lodash';
 import * as API from '../../api';
 import {EventInput} from '@fullcalendar/common';
 import {EMAIL, USERNAME} from '../../const';

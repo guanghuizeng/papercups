@@ -4,9 +4,8 @@ import 'tui-calendar/dist/tui-calendar.css';
 import SchedulingLinkProvider, {
   useSchedulingLink,
 } from '../hooks/SchedulingLinkProvider';
-import SingleSelect from './events/EventLocationSelect';
+import SingleSelect from './common/EventLocationSelect';
 import Select, {components} from 'react-select';
-import WithTip from '../components-new/common/WithTip';
 import Calendar from './Calendar';
 import SchedulingLinkSettings from './SchedulingLinkSettings';
 import {useAppData} from '../hooks/AppDataProvider';
