@@ -3,7 +3,6 @@ import {Box} from 'theme-ui';
 import qs from 'query-string';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {atomOneLight} from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import {notification, Divider} from './components/common';
 import {isHostedProd} from './config';
 
 const noop = () => {};
@@ -113,26 +112,26 @@ const callback = (type: Level, ...args: any) => {
     return (
       <Box key={idx}>
         {stringify(arg)}
-        {isLast ? null : <Divider style={{margin: '8px 0'}} />}
+        {isLast ? null : <div style={{margin: '8px 0'}} />}
       </Box>
     );
   });
 
   switch (type) {
     case 'error':
-      return notification.error({
+      return console.log({
         message: 'Something went wrong!',
         duration: null,
         description,
       });
     case 'warn':
-      return notification.warn({
+      return console.log({
         message: 'Warning',
         duration: null,
         description,
       });
     case 'info':
-      return notification.info({
+      return console.log({
         message: 'Debug info',
         duration: null,
         description,
@@ -140,7 +139,7 @@ const callback = (type: Level, ...args: any) => {
     case 'log':
     case 'debug':
     default:
-      return notification.open({
+      return console.log({
         message: 'Debug',
         duration: null,
         description,

@@ -8,7 +8,7 @@ import {
   RouteComponentProps,
 } from 'react-router-dom';
 
-export default function LadingPage() {
+export default function LandingPage() {
   return (
     <div className="flex flex-col">
       <header className="text-gray-600 body-font">

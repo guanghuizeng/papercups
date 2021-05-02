@@ -3,7 +3,6 @@ import {useLocation} from 'react-router-dom';
 import qs from 'query-string';
 import {Flex} from 'theme-ui';
 import * as API from '../../api';
-import {Result} from '../../components/common';
 
 // Currently unused, but would like to introduce email verification for our users soon
 export const EmailVerification = () => {
@@ -31,15 +30,7 @@ export const EmailVerification = () => {
 
   return (
     <Flex my={5} sx={{justifyContent: 'center'}}>
-      <Result
-        status={isVerified ? 'success' : 'error'}
-        title={isVerified ? 'Email verified!' : 'Email verification failed.'}
-        subTitle={
-          isVerified
-            ? 'Thanks for verifying your email address 😊'
-            : 'Something went wrong. '
-        }
-      />
+      Email verification TODO
     </Flex>
   );
 };

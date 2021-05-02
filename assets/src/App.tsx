@@ -16,7 +16,7 @@ import PasswordResetRequested from './components-new/auth/PasswordResetRequested
 import Dashboard from './components-new/Dashboard';
 import './App.css';
 import './tailwind.css';
-import LadingPage from './components/landing/LadingPage';
+import LandingPage from './components-new/landing/LandingPage';
 import {initializeIcons} from '@fluentui/react';
 import Book from './components-new/book/Book';
 import BookingPage from './components-new/booking/BookingPage';
@@ -36,7 +36,7 @@ const App = () => {
     return (
       <Router>
         <Switch>
-          <Route exact={true} path="/" component={LadingPage} />
+          <Route exact={true} path="/" component={LandingPage} />
           <Route path="/login" component={Login} />
           <Route path="/register/:invite" component={Register} />
           <Route path="/register" component={Register} />
