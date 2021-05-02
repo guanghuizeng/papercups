@@ -47,7 +47,10 @@ const App = () => {
             component={PasswordResetRequested}
           />
           <Route path="/event/:id" component={ScheduledEvent} />
-          {/*<Route path="/@:user" component={Book} />*/}
+          <Route
+            path="/@:userSlug/:schedulingLinkSlug"
+            component={BookingPage}
+          />
           <Route
             path="*"
             render={(props: RouteComponentProps<{}>) => (
