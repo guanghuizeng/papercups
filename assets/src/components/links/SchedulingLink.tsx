@@ -11,14 +11,7 @@ import SchedulingLinkSettings from './SchedulingLinkSettings';
 import {useAppData} from '../../hooks/AppDataProvider';
 import {useState, Fragment, useEffect} from 'react';
 import {X} from '@geist-ui/react-icons';
-import {
-  Button,
-  Input,
-  Toggle,
-  Link as LinkPlain,
-  Tooltip,
-  Textarea,
-} from '@geist-ui/react';
+import {Button, Input, Toggle, Tooltip} from '@geist-ui/react';
 
 const URL = 'http://localhost:3000';
 
