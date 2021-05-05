@@ -357,7 +357,7 @@ function ControlSection() {
   const {profile} = useAppData();
   const {slug: schedulingLinkSlug} = useSchedulingLink();
   const userSlug = profile?.slug;
-  const bookingUrl = '/@' + userSlug + '/' + schedulingLinkSlug;
+  const bookingUrl = '/' + userSlug + '/' + schedulingLinkSlug;
   return (
     <div className="border-primary border-t border-solid mt-8">
       <div

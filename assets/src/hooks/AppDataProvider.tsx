@@ -108,7 +108,7 @@ const AppDataProvider = (props: Props) => {
     }).then((r) => {
       console.log('Resp', r);
       mutate(`/api/scheduling_links/`);
-      history.push(`/links/${r.id}`);
+      history.push(`/links/${r.id}/edit`);
       return r;
     });
   };
