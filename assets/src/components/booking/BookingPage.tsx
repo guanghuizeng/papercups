@@ -219,18 +219,21 @@ function EventSection() {
 }
 
 function CalendarMonthView() {
-  const [selectedDay, handleDayClick] = useState<Date>(new Date());
+  const {daySelected, updateDaySelected} = useBooking();
 
   return (
     <div className="absolute bottom-0 border-t border-primary border-solid">
       <DayPicker
-        selectedDays={selectedDay}
-        onDayClick={handleDayClick}
+        selectedDays={daySelected}
+        onDayClick={updateDaySelected}
         todayButton="今天"
         modifiers={{
           foo: new Date(),
         }}
-        onTodayButtonClick={(day, modifiers) => console.log(day, modifiers)}
+        onTodayButtonClick={(day, modifiers) => {
+          console.log('click', day);
+          updateDaySelected(day);
+        }}
       />
     </div>
   );
@@ -449,6 +452,12 @@ function CalendarSection() {
   );
 }
 
+/**
+ * Booking Page
+ *
+ *
+ *
+ */
 export default function BookingPage() {
   const {userSlug, schedulingLinkSlug} = useParams();
 

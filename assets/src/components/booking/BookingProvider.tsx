@@ -26,6 +26,7 @@ const BookingContext = React.createContext<{
   draftEvent: () => void;
   calendarRef: any;
 
+  daySelected: any;
   eventStartTime: Date | null;
   setEventStartTime: (start: Date) => void;
 
@@ -41,6 +42,7 @@ const BookingContext = React.createContext<{
   submitScheduledEvent: () => Promise<any>;
   cancelEventDrafted: () => Promise<any>;
   getIntervals: (start: Date, end: Date) => Interval[];
+  updateDaySelected: (date: Date) => void;
 }>({
   userSlug: '',
   schedulingLinkSlug: '',
@@ -51,6 +53,7 @@ const BookingContext = React.createContext<{
   draftEvent: () => {},
   calendarRef: {},
 
+  daySelected: {},
   eventStartTime: null,
   setEventStartTime: (start: Date) => {},
   timeSelected: null,
@@ -65,6 +68,7 @@ const BookingContext = React.createContext<{
   submitScheduledEvent: () => Promise.resolve(),
   cancelEventDrafted: () => Promise.resolve(),
   getIntervals: (start: Date, end: Date) => [],
+  updateDaySelected: (date: Date) => {},
 });
 
 export const useBooking = () => useContext(BookingContext);
@@ -103,6 +107,12 @@ function BookingProvider(props: Props) {
 
   const [eventDrafted, setEventDrafted] = useState<boolean>(false);
   const calendarRef = React.createRef<any>();
+
+  const [daySelected, setDaySelected] = useState<Date>(new Date()); // today
+
+  const updateDaySelected = (date: Date) => {
+    setDaySelected(date);
+  };
 
   useEffect(() => {
     if (schedulingLink) {
@@ -163,6 +173,9 @@ function BookingProvider(props: Props) {
 
         eventId,
         setEventId,
+
+        daySelected,
+        updateDaySelected,
 
         setEventTime,
         setEventStartTime,
