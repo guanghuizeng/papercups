@@ -1,14 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Switch, Route, Link, useLocation, Redirect} from 'react-router-dom';
-import {useAppData} from '../hooks/AppDataProvider';
+import {useAppData} from '../../hooks/AppDataProvider';
 import {Button, Input, Spacer, Text} from '@geist-ui/react';
 import {
   convertMinToHrsMin,
   convertMinToHrsMinString,
   dayConvertToZh,
-} from '../utils/utils';
-import dayjs from 'dayjs';
-import NavSidebar from './common/NavSidebar';
+} from '../../utils/utils';
+import NavSidebar from '../common/NavSidebar';
 
 function SettingSection(props: any) {
   return (

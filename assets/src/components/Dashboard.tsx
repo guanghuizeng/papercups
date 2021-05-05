@@ -4,7 +4,7 @@ import ScheduledEvents from './events/ScheduledEvents';
 import SchedulingLink from './links/SchedulingLink';
 import AppDataProvider from '../hooks/AppDataProvider';
 import {SchedulingLinksBoard} from './links/SchedulingLinksBoard';
-import {AppSettings} from './AppSettings';
+import {AppSettings} from './settings/AppSettings';
 import {Availability} from './availability/Availability';
 import BookingPage from './booking/BookingPage';
 
