@@ -75,7 +75,6 @@ const App = () => {
           path="/reset-password-requested"
           component={PasswordResetRequested}
         />
-        <Route path="/@:userSlug/:schedulingLinkSlug" component={BookingPage} />
         <Route path="/event/:id" component={ScheduledEvent} />
         <Route path="/" component={Dashboard} />
       </Switch>

@@ -478,7 +478,7 @@ function SchedulingLink() {
               />
               <Route
                 exact
-                path="/links/:id"
+                path="/links/:id/edit"
                 component={() => (
                   <div className="w-full h-full flex flex-col bg-white pt-8">
                     <Calendar />

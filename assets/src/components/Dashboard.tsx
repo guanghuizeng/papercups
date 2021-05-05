@@ -21,7 +21,7 @@ function Dashboard(props: RouteComponentProps) {
           <Route exact path="/" component={() => <Redirect to={'/links'} />} />
           <Route exact path="/links" component={SchedulingLinksBoard} />
           <Route
-            path="/links/:id"
+            path="/links/:id/edit"
             component={() => (
               <div className="w-full border-l border-gray-200 border-solid">
                 <SchedulingLink />

@@ -41,7 +41,7 @@ export function SchedulingLinksBoard() {
                   </div>
 
                   <div className="px-3 py-1">
-                    <Link to={`/links/${id}`}>
+                    <Link to={`/links/${id}/edit`}>
                       <Button size="mini">编辑</Button>
                     </Link>
                   </div>
