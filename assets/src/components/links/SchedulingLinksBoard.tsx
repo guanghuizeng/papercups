@@ -11,7 +11,7 @@ import {useHistory} from 'react-router-dom';
 export function SchedulingLinksBoard() {
   const history = useHistory();
   const {data: schedulingLinks} = useSchedulingLinks();
-  const createSchedulingLinkAndRedirect = async () => {
+  const createLinkAndRedirect = async () => {
     return API.createSchedulingLink({
       name: '未命名',
       description: '',
@@ -90,7 +90,7 @@ export function SchedulingLinksBoard() {
         </div>
 
         <div className="mt-2 p-2">
-          <Button onClick={createSchedulingLinkAndRedirect}>新建</Button>
+          <Button onClick={createLinkAndRedirect}>新建</Button>
         </div>
       </div>
     </div>
