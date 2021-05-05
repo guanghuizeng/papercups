@@ -4,6 +4,7 @@ import {useAppData} from '../../hooks/AppDataProvider';
 import {Button, Input, Spacer, Text} from '@geist-ui/react';
 import {convertMinToHrsMinString, dayConvertToZh} from '../../utils/utils';
 import NavSidebar from '../common/NavSidebar';
+import {HOST} from '../constants';
 
 function SettingSection(props: any) {
   return (
@@ -127,8 +128,6 @@ function LinksSettingsSection() {
   );
 }
 
-const URL = 'http://localhost:3000';
-
 function SlugSection() {
   const {profile, updateSlug} = useAppData();
   const [slug, setSlug] = useState<string>('');
@@ -148,7 +147,7 @@ function SlugSection() {
       <div className="pt-4 flex flex-row justify-between">
         {editing ? (
           <Input
-            label={URL + '/@'}
+            label={HOST + '/'}
             initialValue={slug}
             autoFocus={true}
             onChange={(e) => {
@@ -156,7 +155,7 @@ function SlugSection() {
             }}
           />
         ) : (
-          <div className="my-auto">{URL + '/@' + slug} </div>
+          <div className="my-auto">{HOST + '/' + slug} </div>
         )}
         {editing ? (
           <div className="flex flex-row">
