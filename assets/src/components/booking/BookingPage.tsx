@@ -1,4 +1,4 @@
-import React, {useState, Fragment, RefObject} from 'react';
+import React, {useState, Fragment, RefObject, useEffect} from 'react';
 import {useHistory, useParams} from 'react-router-dom';
 import BookingProvider, {useBooking} from './BookingProvider';
 import DayPicker from 'react-day-picker';
@@ -16,9 +16,10 @@ import {colourOptions} from '../constants';
 import {nanoid} from 'nanoid';
 import * as API from '../../api/api';
 import {EventInput} from '@fullcalendar/common';
+import $ from 'cash-dom';
 import {EMAIL, USERNAME} from '../../const';
 
-var localizedFormat = require('dayjs/plugin/localizedFormat');
+const localizedFormat = require('dayjs/plugin/localizedFormat');
 dayjs.extend(localizedFormat);
 dayjs().format('L LT');
 
@@ -227,11 +228,7 @@ function CalendarMonthView() {
         selectedDays={daySelected}
         onDayClick={updateDaySelected}
         todayButton="今天"
-        modifiers={{
-          foo: new Date(),
-        }}
         onTodayButtonClick={(day, modifiers) => {
-          console.log('click', day);
           updateDaySelected(day);
         }}
       />
@@ -250,6 +247,7 @@ function ControlSection() {
 
 function CalendarSection() {
   const {
+    daySelected,
     eventDuration,
     eventStartTime,
     setEventStartTime,
@@ -257,7 +255,28 @@ function CalendarSection() {
     calendarRef,
     eventDrafted,
     getIntervals,
+    updateDaySelected,
   } = useBooking();
+
+  useEffect(() => {
+    if (calendarRef.current) {
+      calendarRef.current.getApi().gotoDate(daySelected);
+    }
+  }, [daySelected]);
+
+  // useEffect(() => {
+  //   if (calendarRef.current) {
+  //     calendarRef.current.getApi().on('datesSet', (p) => {
+  //       console.log('datesSet', p);
+  //     });
+  //   }
+  // }, [calendarRef]);
+
+  useEffect(() => {
+    $('.fc-today-button').on('click', (e) => {
+      updateDaySelected(new Date());
+    });
+  }, []);
 
   const renderDayHeaderContent = (props: DayHeaderContentArg) => {
     const date = dayjs(props.date);
@@ -295,7 +314,6 @@ function CalendarSection() {
 
   const handleDateClick = (info: DateClickArg) => {
     let calendarApi = info.view.calendar;
-    // calendarApi.
     // calendarApi.removeAllEvents();
     setEventStartTime(info.date);
     //
@@ -312,7 +330,7 @@ function CalendarSection() {
   };
 
   const handleEvents = (events: EventApi[]) => {
-    console.log('handleEvents', events);
+    // console.log('handleEvents', events);
   };
 
   /**
@@ -331,8 +349,6 @@ function CalendarSection() {
     successCallback: (events: EventInput[]) => void,
     failureCallback: (error: any) => any
   ) => {
-    console.log('get intervals', getIntervals(arg.start, arg.end));
-
     const intervals = getIntervals(arg.start, arg.end);
 
     const now = dayjs();
@@ -392,6 +408,8 @@ function CalendarSection() {
         : []
     );
   };
+
+  console.log('cal', calendarRef);
 
   return (
     <div className="pt-8 w-full h-full">
