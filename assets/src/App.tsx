@@ -57,9 +57,7 @@ const App = () => {
           />
           <Route
             path="*"
-            render={(props: RouteComponentProps<{}>) => (
-              <Redirect to={`/login?redirect=${props.location.pathname}`} />
-            )}
+            render={(props: RouteComponentProps<{}>) => <div>Nothing here</div>}
           />
         </Switch>
       </Router>
