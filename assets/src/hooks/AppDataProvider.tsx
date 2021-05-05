@@ -23,7 +23,6 @@ export const AppDataContext = React.createContext<{
   createSchedule: () => Promise<any>;
   updateDisplayName: (value: string) => Promise<any>;
   updateSlug: (value: string) => Promise<any>;
-  updateAvailabilityPreset: (id: string, update: any) => Promise<any>;
 }>({
   profile: {},
   settings: {},
@@ -31,7 +30,6 @@ export const AppDataContext = React.createContext<{
   createSchedule: () => Promise.resolve(),
   updateDisplayName: (value: string) => Promise.resolve(),
   updateSlug: (value: string) => Promise.resolve(),
-  updateAvailabilityPreset: (value: string, update: any) => Promise.resolve(),
 });
 
 export const useAppData = () => useContext(AppDataContext);
@@ -91,18 +89,6 @@ const AppDataProvider = (props: Props) => {
     return Promise.resolve();
   };
 
-  const updateAvailabilityPreset = async (id: string, updates: any) => {
-    const clone = _.cloneDeep(schedules);
-    const targetIndex = clone.findIndex((schedule: any) => schedule.id === id);
-    clone[targetIndex] = {
-      ...clone[targetIndex],
-      ...updates,
-    };
-    mutate(`/api/schedules/`, {data: clone}, false);
-    await API.updateSchedule(id, updates);
-    mutate(`/api/schedules/`);
-  };
-
   const createSchedule = async () => {
     const schedule = {
       name: '未命名',
@@ -127,8 +113,6 @@ const AppDataProvider = (props: Props) => {
       value={{
         profile,
         settings,
-
-        updateAvailabilityPreset,
 
         createSchedule,
         updateDisplayName,

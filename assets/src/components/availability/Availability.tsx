@@ -22,8 +22,10 @@ import _ from 'lodash';
 import {nanoid} from 'nanoid';
 import {X} from '@geist-ui/react-icons';
 import {EventInput} from '@fullcalendar/common';
+import {useSchedules} from '../../hooks/api-hooks';
+import {mutate} from 'swr';
+import * as API from '../../api/api';
 
-const sliceOfTime = listOfTime24.slice(0, 24 * 4);
 const timeOptions = listOfTime24Options;
 
 function AvailabilityByDay({
@@ -101,10 +103,22 @@ function AvailabilityByDay({
 
 export function Availability() {
   const {id} = useParams();
+  const {data: availabilityPresets} = useSchedules();
 
-  const {availabilityPresets, updateAvailabilityPreset} = useAppData();
+  const updateAvailabilityPreset = async (id: string, updates: any) => {
+    const clone = _.cloneDeep(availabilityPresets);
+    const targetIndex = clone.findIndex((schedule: any) => schedule.id === id);
+    clone[targetIndex] = {
+      ...clone[targetIndex],
+      ...updates,
+    };
+    mutate(`/api/schedules/`, {data: clone}, false);
+    await API.updateSchedule(id, updates);
+    mutate(`/api/schedules/`);
+  };
+
   const preset = availabilityPresets
-    ? availabilityPresets.find((p) => p.id === id)
+    ? availabilityPresets.find((p: any) => p.id === id)
     : null;
 
   const renderDayHeaderContent = (props: DayHeaderContentArg) => {
