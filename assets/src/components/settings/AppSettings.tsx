@@ -193,12 +193,6 @@ function SlugSection() {
   );
 }
 
-function LinkUrlSection() {
-  const {profile, settings, updateDisplayName, updateSlug} = useAppData();
-
-  const [editing, setEditing] = useState<boolean>(false);
-}
-
 function EmailSection() {
   const {profile, settings, updateDisplayName, updateSlug} = useAppData();
 
