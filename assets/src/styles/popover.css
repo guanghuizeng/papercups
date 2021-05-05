@@ -1,0 +1,100 @@
+#modal-root {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 9999;
+}
+#modal-root > .popover-container {
+  position: absolute;
+}
+
+main {
+  padding: 50px 20px 20px;
+  max-width: 1036px;
+}
+
+.alert {
+  width: 100%;
+}
+
+section .card .card-section {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+.card-text {
+  flex: 1;
+}
+.card-actions button {
+  line-height: 1;
+}
+
+.popover {
+  position: relative;
+  z-index: 9999;
+  margin: 0;
+  opacity: 1;
+  box-shadow: 0 0 0 1px rgba(6, 44, 82, 0.1), 0 2px 16px rgba(33, 43, 54, 0.08);
+  border-radius: 6px;
+  backface-visibility: hidden;
+}
+.popover-content {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 2rem;
+  text-align: left;
+}
+.popover-arrow {
+  position: absolute;
+  transform: translateX(-50%) rotate(45deg);
+  height: 14px;
+  width: 14px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(6, 44, 82, 0.1), 0 2px 16px rgba(33, 43, 54, 0.08);
+  z-index: -1;
+}
+
+[x-placement='left'] .popover,
+[x-placement='left-start'] .popover,
+[x-placement='left-end'] .popover {
+  margin-right: 14px;
+}
+[x-placement='left'] .popover-arrow,
+[x-placement='left-start'] .popover-arrow,
+[x-placement='left-end'] .popover-arrow {
+  right: -14px;
+  margin: 7px 0;
+}
+
+[x-placement='right'] .popover,
+[x-placement='right-start'] .popover,
+[x-placement='right-end'] .popover {
+  margin-left: 14px;
+}
+[x-placement='right'] .popover-arrow,
+[x-placement='right-start'] .popover-arrow,
+[x-placement='right-end'] .popover-arrow {
+  left: 0;
+}
+
+[data-transition-name='popover'][data-transition-state='entering'] .popover {
+  opacity: 0;
+  transform: scale(0.3);
+}
+[data-transition-name='popover'][data-transition-state='enter'] .popover {
+  opacity: 1;
+  transform: scale(1);
+  transition: 0.3s cubic-bezier(0.54, 1.12, 0.38, 1.11);
+  transition-property: opacity, transform;
+}
+[data-transition-name='popover'][data-transition-state='exiting'] .popover {
+  opacity: 1;
+  transform: scale(1);
+}
+[data-transition-name='popover'][data-transition-state='exit'] .popover {
+  opacity: 0;
+  transform: scale(0.3);
+  transition: 0.1s cubic-bezier(0.4, 1, 0.75, 0.9);
+  transition-property: opacity, transform;
+}

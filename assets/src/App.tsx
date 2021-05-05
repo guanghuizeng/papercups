@@ -24,6 +24,7 @@ import SchedulingLink from './components/links/SchedulingLink';
 import ScheduledEvents from './components/events/ScheduledEvents';
 import {AppSettings} from './components/settings/AppSettings';
 import {Availability} from './components/availability/Availability';
+import PopoverDemo from './components/common/PopoverDemo';
 
 initializeIcons();
 
@@ -69,6 +70,7 @@ const App = () => {
     <AppDataProvider>
       <Router>
         <Switch>
+          <Route path="/pop" component={PopoverDemo} />
           <Route path="/login" component={Login} />
           <Route path="/register/:invite" component={Register} />
           <Route path="/register" component={Register} />
@@ -117,6 +119,7 @@ const App = () => {
           </div>
         </Switch>
       </Router>
+      <div id={'modal-root'} />
     </AppDataProvider>
   );
 };
