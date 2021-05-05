@@ -139,8 +139,6 @@ function SlugSection() {
     }
   }, [profile]);
 
-  console.log('slug', profile);
-
   return (
     <SettingSection>
       <SectionTitle title={'链接地址'} />
@@ -186,26 +184,6 @@ function SlugSection() {
             </div>
           </div>
         ) : (
-          // <div className="flex flex-row">
-          //   <div
-          //     className="btn-draft"
-          //     onClick={() => {
-          //       updateSlug(slug);
-          //       setEditing(false);
-          //     }}
-          //   >
-          //     保存
-          //   </div>
-          //   <div
-          //     className="btn-draft"
-          //     onClick={() => {
-          //       setSlug(settings.slug);
-          //       setEditing(false);
-          //     }}
-          //   >
-          //     取消
-          //   </div>
-          // </div>
           <Button size={'small'} onClick={() => setEditing(true)}>
             编辑
           </Button>
@@ -235,7 +213,7 @@ function EmailSection() {
 }
 
 function NameSection() {
-  const {profile, settings, updateDisplayName, updateSlug} = useAppData();
+  const {profile, updateDisplayName} = useAppData();
 
   return (
     <SettingSection>
