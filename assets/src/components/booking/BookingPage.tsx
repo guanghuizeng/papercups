@@ -280,15 +280,35 @@ function CalendarSection() {
     });
   }, []);
 
+  useEffect(() => {}, []);
+
   const openEventPopover = (target: any, info: DateClickArg) => {
     return openPopover(
       ({close}: any) => (
         <Popover style={{minWidth: 340}}>
-          Date: <strong>{info.dateStr}</strong>
-          <br />
-          <br />
           <button className="secondary" onClick={close}>
-            Dismiss
+            取消
+          </button>
+          <div className="flex flex-col">
+            <div>Confirm your details</div>
+            <div>
+              Date: <strong>{info.dateStr}</strong>
+            </div>
+            <div>
+              <div>Your full name: </div>
+              <div>Your Email address: </div>
+            </div>
+          </div>
+          <br />
+          <br />
+
+          <button
+            className="secondary"
+            onClick={() => {
+              console.log('submit');
+            }}
+          >
+            确定
           </button>
         </Popover>
       ),
