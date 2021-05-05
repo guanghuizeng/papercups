@@ -12,7 +12,7 @@ import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import dayjs, {Dayjs} from 'dayjs';
 import {Button, Input, Text} from '@geist-ui/react';
 import humanizeDuration from 'humanize-duration';
-import {colourOptions} from '../data';
+import {colourOptions} from '../constants';
 import {nanoid} from 'nanoid';
 import * as API from '../../api/api';
 import {EventInput} from '@fullcalendar/common';

@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 
 import Select from 'react-select';
-import {colourOptions} from '../data';
+import {colourOptions} from '../constants';
 
 export default function SingleSelect(props: any) {
   const {defaultValue, onChange} = props;
