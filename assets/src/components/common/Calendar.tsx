@@ -368,7 +368,6 @@ function Calendar(props: CalendarProps) {
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           headerToolbar={{
             left: 'title',
-            // center: '',
             right: 'today prev,next',
           }}
           weekNumberCalculation="ISO"

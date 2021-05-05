@@ -247,6 +247,8 @@ function ControlSection() {
   );
 }
 
+function Calendar() {}
+
 function CalendarSection() {
   const {
     daySelected,
@@ -449,8 +451,6 @@ function CalendarSection() {
         : []
     );
   };
-
-  console.log('cal', calendarRef);
 
   return (
     <div className="pt-8 w-full h-full">

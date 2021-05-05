@@ -356,7 +356,7 @@ defmodule ChatApiWeb.SchedulingLinkController do
            %{"overrides" => overrides, "presets" => presets} <- availability,
            schedules <- Schedules.list_schedules_by_ids(presets)
         do
-        scheduled_events = []
+        scheduled_events = [] # TODO query events with start and end time, add them to block overrides
         json(
           conn,
           %{
