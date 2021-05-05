@@ -19,10 +19,8 @@ import {nanoid} from 'nanoid';
 export const AppDataContext = React.createContext<{
   profile: any;
   settings: any;
-  schedulingLinks: any[];
   availabilityPresets: any[];
 
-  createSchedulingLinkAndRedirect: () => Promise<any>;
   createSchedule: () => Promise<any>;
   updateDisplayName: (value: string) => Promise<any>;
   updateSlug: (value: string) => Promise<any>;
@@ -31,10 +29,8 @@ export const AppDataContext = React.createContext<{
 }>({
   profile: {},
   settings: {},
-  schedulingLinks: [],
   availabilityPresets: [],
 
-  createSchedulingLinkAndRedirect: () => Promise.resolve(),
   createSchedule: () => Promise.resolve(),
   updateDisplayName: (value: string) => Promise.resolve(),
   updateSlug: (value: string) => Promise.resolve(),
@@ -64,7 +60,6 @@ const AppDataProvider = (props: Props) => {
   let history = useHistory();
   const {data: profile} = useUserProfile();
   const {data: settings} = useUserSettings();
-  const {data: schedulingLinks} = useSchedulingLinks();
   const {data: schedules} = useSchedules();
 
   const getAvailabilityPresetsById = (presets: string[]) => {
@@ -76,41 +71,6 @@ const AppDataProvider = (props: Props) => {
       );
     }
     return [];
-  };
-
-  const createSchedulingLinkAndRedirect = async () => {
-    return API.createSchedulingLink({
-      name: '未命名',
-      description: '',
-      durations: [30],
-      location: 'loc1',
-      url: nanoid(7),
-      color: 'red',
-      fields: [],
-      email_reminders: [
-        {
-          quantity: 1,
-          units: 'hours',
-        },
-      ],
-      organizer: {
-        availability: {
-          mode: 'ranked',
-          overrides: [],
-          presets: ['39f52432cfa64661', 'ed0eb79a82ba137e', 'ff9e7d4dd2f506c5'],
-          recurringIntervals: [],
-        },
-        avatarUrl:
-          'https://secure.gravatar.com/avatar/fcb9bbfe7fa822090dce8a194ed9730d?s=256&d=404',
-        calendarId: null,
-        displayName: 'Yuanyuan Zhang',
-      },
-    }).then((r) => {
-      console.log('Resp', r);
-      mutate(`/api/scheduling_links/`);
-      history.push(`/links/${r.id}/edit`);
-      return r;
-    });
   };
 
   const _updateProfile = (newValue: any) => {
@@ -184,12 +144,10 @@ const AppDataProvider = (props: Props) => {
       value={{
         profile,
         settings,
-        schedulingLinks,
 
         availabilityPresets: schedules,
         updateAvailabilityPreset,
 
-        createSchedulingLinkAndRedirect,
         createSchedule,
         getAvailabilityPresetsById,
         updateDisplayName,

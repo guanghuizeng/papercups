@@ -1,11 +1,50 @@
 import React from 'react';
-import {useAppData} from '../../hooks/AppDataProvider';
 import {Link} from 'react-router-dom';
 import NavSidebar from '../common/NavSidebar';
 import {Button} from '@geist-ui/react';
+import {useSchedulingLinks} from '../../hooks/api-hooks';
+import * as API from '../../api/api';
+import {nanoid} from 'nanoid';
+import {mutate} from 'swr';
+import {useHistory} from 'react-router-dom';
 
 export function SchedulingLinksBoard() {
-  const {schedulingLinks, createSchedulingLinkAndRedirect} = useAppData();
+  const history = useHistory();
+  const {data: schedulingLinks} = useSchedulingLinks();
+  const createSchedulingLinkAndRedirect = async () => {
+    return API.createSchedulingLink({
+      name: '未命名',
+      description: '',
+      durations: [30],
+      location: 'loc1',
+      url: nanoid(7),
+      color: 'red',
+      fields: [],
+      email_reminders: [
+        {
+          quantity: 1,
+          units: 'hours',
+        },
+      ],
+      organizer: {
+        availability: {
+          mode: 'ranked',
+          overrides: [],
+          presets: ['39f52432cfa64661', 'ed0eb79a82ba137e', 'ff9e7d4dd2f506c5'],
+          recurringIntervals: [],
+        },
+        avatarUrl:
+          'https://secure.gravatar.com/avatar/fcb9bbfe7fa822090dce8a194ed9730d?s=256&d=404',
+        calendarId: null,
+        displayName: 'Yuanyuan Zhang',
+      },
+    }).then((r) => {
+      console.log('Resp', r);
+      mutate(`/api/scheduling_links/`);
+      history.push(`/links/${r.id}/edit`);
+      return r;
+    });
+  };
 
   return (
     <div className="w-full flex flex-row">
