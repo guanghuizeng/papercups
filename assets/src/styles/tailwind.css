@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import '~@fortawesome/fontawesome-free/css/all.css';
+@import '../../node_modules/@fortawesome/fontawesome-free/css/all.css';
 
 /*body, label {*/
 /*  font-family: Palatino, 'Palatino Linotype', 'Palatino LT STD', Georgia,*/

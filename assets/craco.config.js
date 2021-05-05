@@ -8,7 +8,7 @@ module.exports = {
                 require('postcss-custom-properties')({ // for css vars
                     preserve: false, // completely reduce all css vars
                     importFrom: [
-                        'src/fullcalendar-vars.css'
+                        'src/styles/fullcalendar-vars.css'
                     ]
                 }),
                 require('postcss-calc'),

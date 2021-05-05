@@ -1,13 +1,13 @@
 import React, {useContext, useEffect} from 'react';
 import _ from 'lodash';
 import useSWR, {mutate} from 'swr';
-import * as API from '../api';
+import * as API from '../api/api';
 import {
   useSchedules,
   useSchedulingLinks,
   useUserProfile,
   useUserSettings,
-} from '../api-hooks';
+} from './api-hooks';
 import {useHistory} from 'react-router-dom';
 import {nanoid} from 'nanoid';
 

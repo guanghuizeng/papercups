@@ -6,7 +6,7 @@ import {
   convertMinToHrsMin,
   convertMinToHrsMinString,
   dayConvertToZh,
-} from '../utils';
+} from '../utils/utils';
 import dayjs from 'dayjs';
 import NavSidebar from './common/NavSidebar';
 

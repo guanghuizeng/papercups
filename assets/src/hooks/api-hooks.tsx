@@ -1,6 +1,6 @@
-import {getAccessToken} from './api';
+import {getAccessToken} from '../api/api';
 import useSWR from 'swr';
-import {fetchWithToken, fetchWithoutToken} from './hooks/utils';
+import {fetchWithToken, fetchWithoutToken} from './utils';
 import * as queryString from 'query-string';
 
 export function useSchedulingLinks(token = getAccessToken()) {

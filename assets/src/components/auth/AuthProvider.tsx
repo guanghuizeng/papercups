@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {getAuthTokens, setAuthTokens, removeAuthTokens} from '../../storage';
-import * as API from '../../api';
+import * as API from '../../api/api';
 import logger from '../../logger';
 
 export const AuthContext = React.createContext<{

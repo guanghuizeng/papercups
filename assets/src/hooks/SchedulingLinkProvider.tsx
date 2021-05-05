@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import useSWR, {mutate} from 'swr';
 import {useAppData} from './AppDataProvider';
-import {useLink} from '../api-hooks';
-import * as API from '../api';
+import {useLink} from './api-hooks';
+import * as API from '../api/api';
 import _ from 'lodash';
 
 export const SchedulingLinkContext = React.createContext<{

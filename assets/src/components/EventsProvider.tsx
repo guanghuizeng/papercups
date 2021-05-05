@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import _ from 'lodash';
 
-import * as API from '../api';
+import * as API from '../api/api';
 
 export const EventsContext = React.createContext<{
   loading: boolean;

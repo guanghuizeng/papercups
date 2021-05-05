@@ -19,7 +19,7 @@ import {
 import _ from 'lodash';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import {useSchedulingLink} from '../../hooks/SchedulingLinkProvider';
-import {dayConvertToEn} from '../../utils';
+import {dayConvertToEn} from '../../utils/utils';
 import {EventInput} from '@fullcalendar/common';
 
 require('dayjs/locale/zh-cn');

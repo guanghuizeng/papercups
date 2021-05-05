@@ -2,7 +2,7 @@ import React from 'react';
 import {useLocation} from 'react-router-dom';
 import qs from 'query-string';
 import {Flex} from 'theme-ui';
-import * as API from '../../api';
+import * as API from '../../api/api';
 
 // Currently unused, but would like to introduce email verification for our users soon
 export const EmailVerification = () => {

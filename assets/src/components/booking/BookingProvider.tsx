@@ -5,8 +5,8 @@ import {
   useLink,
   useSchedulingLinkBySlug,
   useUserProfileBySlug,
-} from '../../api-hooks';
-import * as API from '../../api';
+} from '../../hooks/api-hooks';
+import * as API from '../../api/api';
 import {useSchedulingLink} from '../../hooks/SchedulingLinkProvider';
 import dayjs, {Dayjs} from 'dayjs';
 import {useMap} from 'react-use';

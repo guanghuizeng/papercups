@@ -1,7 +1,7 @@
 import request from 'superagent';
 import qs from 'query-string';
-import {getAuthTokens} from './storage';
-import {Conversation, User} from './types';
+import {getAuthTokens} from '../storage';
+import {Conversation, User} from '../types';
 import * as queryString from 'query-string';
 import {nanoid} from 'nanoid';
 

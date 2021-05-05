@@ -14,7 +14,7 @@ import {Button, Input, Text} from '@geist-ui/react';
 import humanizeDuration from 'humanize-duration';
 import {colourOptions} from '../data';
 import {nanoid} from 'nanoid';
-import * as API from '../../api';
+import * as API from '../../api/api';
 import {EventInput} from '@fullcalendar/common';
 import {EMAIL, USERNAME} from '../../const';
 
@@ -83,7 +83,9 @@ function GeneralSection() {
         </Fragment>
       </div>
 
-      <div className="px-4 pt-8">当前登录用户：{user?.display_name}</div>
+      {user && (
+        <div className="px-4 pt-8">当前登录用户：{user.display_name}</div>
+      )}
     </div>
   );
 }
@@ -235,10 +237,9 @@ function CalendarMonthView() {
 }
 
 function ControlSection() {
-  const {eventDrafted} = useBooking();
   return (
     <div className="flex flex-col w-96">
-      {eventDrafted ? <EventSection /> : <GeneralSection />}
+      <GeneralSection />
       <CalendarMonthView />
     </div>
   );
@@ -450,13 +451,6 @@ function CalendarSection() {
 
 export default function BookingPage() {
   const {userSlug, schedulingLinkSlug} = useParams();
-
-  console.log('userSlug', userSlug);
-
-  // read scheduling link
-  // - name
-  // - description
-  // - ...
 
   return (
     <BookingProvider

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {useScheduledEvent as _useScheduledEvent} from '../api-hooks';
+import {useScheduledEvent as _useScheduledEvent} from './api-hooks';
 
 export const ScheduledEventContext = React.createContext<{
   scheduledEventId: string;
