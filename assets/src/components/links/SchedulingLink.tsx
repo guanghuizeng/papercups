@@ -385,20 +385,20 @@ function ControlSection() {
             <span>复制链接</span>
           </div>
         </Fragment>
-        {/*<Fragment>*/}
-        {/*  <span className="w-full gentle-flex">*/}
-        {/*    <i className="far fa-clone " />*/}
-        {/*  </span>*/}
-        {/*  <div className="cursor-pointer w-full px-2 py-2 hover:bg-blue-100 rounded">*/}
-        {/*    <span>另存为</span>*/}
-        {/*  </div>*/}
-        {/*</Fragment>*/}
-        {/*<Fragment>*/}
-        {/*  <span className="w-full gentle-flex">*/}
-        {/*    <i className="fas fa-code " />*/}
-        {/*  </span>*/}
-        {/*  <span>嵌入</span>*/}
-        {/*</Fragment>*/}
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="far fa-clone " />
+          </span>
+          <div className="cursor-pointer w-full px-2 py-2 hover:bg-blue-100 rounded">
+            <span>另存为</span>
+          </div>
+        </Fragment>
+        <Fragment>
+          <span className="w-full gentle-flex">
+            <i className="fas fa-code " />
+          </span>
+          <span>嵌入</span>
+        </Fragment>
         <Fragment>
           <span className="w-full gentle-flex">
             <Tooltip text="删除此链接" type="dark" placement={'top'}>
@@ -414,7 +414,22 @@ function ControlSection() {
   );
 }
 
-function CalendarSection() {}
+function CalendarSection() {
+  const {
+    availabilityPresetsIntervals,
+    availabilityOverrides,
+    updateAvailabilityOverrides,
+  } = useSchedulingLink();
+  return (
+    <Calendar
+      start={''}
+      end={''}
+      availabilityOverrides={availabilityOverrides}
+      availabilityPresetsIntervals={availabilityPresetsIntervals}
+      updateAvailabilityOverrides={updateAvailabilityOverrides}
+    />
+  );
+}
 
 /**
  * Manage scheduling link
@@ -481,7 +496,7 @@ function SchedulingLink() {
                 path="/links/:id/edit"
                 component={() => (
                   <div className="w-full h-full flex flex-col bg-white pt-8">
-                    <Calendar />
+                    <CalendarSection />
                   </div>
                 )}
               />

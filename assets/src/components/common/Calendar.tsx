@@ -18,7 +18,6 @@ import {
 } from '../event-utils';
 import _ from 'lodash';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
-import {useSchedulingLink} from '../../hooks/SchedulingLinkProvider';
 import {dayConvertToEn} from '../../utils/utils';
 import {EventInput} from '@fullcalendar/common';
 
@@ -425,23 +424,4 @@ function renderEventContent(eventContent: EventContentArg) {
   );
 }
 
-function CalendarWrapper() {
-  // read availability from scheduling link
-  // presets, id => value
-  const {
-    availabilityPresetsIntervals,
-    availabilityOverrides,
-    updateAvailabilityOverrides,
-  } = useSchedulingLink();
-  return (
-    <Calendar
-      start={''}
-      end={''}
-      availabilityOverrides={availabilityOverrides}
-      availabilityPresetsIntervals={availabilityPresetsIntervals}
-      updateAvailabilityOverrides={updateAvailabilityOverrides}
-    />
-  );
-}
-
-export default CalendarWrapper;
+export default Calendar;
