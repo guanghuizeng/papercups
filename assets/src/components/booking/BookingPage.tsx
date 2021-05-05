@@ -18,6 +18,8 @@ import * as API from '../../api/api';
 import {EventInput} from '@fullcalendar/common';
 import $ from 'cash-dom';
 import {EMAIL, USERNAME} from '../../const';
+import {openPopover} from '../common/popovers';
+import Popover from '../common/Popover';
 
 const localizedFormat = require('dayjs/plugin/localizedFormat');
 dayjs.extend(localizedFormat);
@@ -278,6 +280,23 @@ function CalendarSection() {
     });
   }, []);
 
+  const openEventPopover = (target: any, info: DateClickArg) => {
+    return openPopover(
+      ({close}: any) => (
+        <Popover style={{minWidth: 340}}>
+          Date: <strong>{info.dateStr}</strong>
+          <br />
+          <br />
+          <button className="secondary" onClick={close}>
+            Dismiss
+          </button>
+        </Popover>
+      ),
+      target,
+      {placement: 'left'}
+    );
+  };
+
   const renderDayHeaderContent = (props: DayHeaderContentArg) => {
     const date = dayjs(props.date);
     return (
@@ -327,6 +346,8 @@ function CalendarSection() {
     //   start: info.dateStr,
     //   end: dayjs(info.date).add(eventDuration, 'minutes').toISOString(),
     // });
+    console.log('date click', info);
+    openEventPopover(info.dayEl, info);
   };
 
   const handleEvents = (events: EventApi[]) => {
