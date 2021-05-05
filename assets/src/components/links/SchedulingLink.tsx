@@ -12,8 +12,7 @@ import {useAppData} from '../../hooks/AppDataProvider';
 import {useState, Fragment, useEffect} from 'react';
 import {X} from '@geist-ui/react-icons';
 import {Button, Input, Toggle, Tooltip} from '@geist-ui/react';
-
-const URL = 'http://localhost:3000';
+import {HOST} from '../constants';
 
 function Header() {
   const {profile} = useAppData();
@@ -61,7 +60,7 @@ function Header() {
               {editing ? (
                 <div>
                   <Input
-                    label={URL + '/@' + userSlug + '/'}
+                    label={HOST + '/@' + userSlug + '/'}
                     placeholder="必填"
                     initialValue={slug}
                     autoFocus={true}
@@ -73,7 +72,7 @@ function Header() {
               ) : (
                 <Tooltip text={'点击复制链接'} type={'dark'} placement="bottom">
                   <span className="cursor-pointer text-gray-600 hover:text-blue-500 hover:bg-blue-100 py-2 px-2 rounded">
-                    {URL + '/@' + userSlug + '/' + slug}
+                    {HOST + '/@' + userSlug + '/' + slug}
                   </span>
                 </Tooltip>
               )}

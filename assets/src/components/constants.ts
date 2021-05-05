@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
 
+export const HOST = 'http://localhost:3000';
+
 export const PERIOD_TYPE_MOVING = 'moving';
 export const PERIOD_TYPE_AVAILABLE_MOVING = 'available_moving';
 export const PERIOD_TYPE_FIXED = 'fixed';
