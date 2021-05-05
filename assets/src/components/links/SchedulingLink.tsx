@@ -60,7 +60,7 @@ function Header() {
               {editing ? (
                 <div>
                   <Input
-                    label={HOST + '/@' + userSlug + '/'}
+                    label={HOST + '/' + userSlug + '/'}
                     placeholder="必填"
                     initialValue={slug}
                     autoFocus={true}
@@ -72,7 +72,7 @@ function Header() {
               ) : (
                 <Tooltip text={'点击复制链接'} type={'dark'} placement="bottom">
                   <span className="cursor-pointer text-gray-600 hover:text-blue-500 hover:bg-blue-100 py-2 px-2 rounded">
-                    {HOST + '/@' + userSlug + '/' + slug}
+                    {HOST + '/' + userSlug + '/' + slug}
                   </span>
                 </Tooltip>
               )}
