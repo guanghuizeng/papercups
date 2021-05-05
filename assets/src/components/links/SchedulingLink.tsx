@@ -196,6 +196,9 @@ function AvailabilitySelect() {
   );
 }
 
+/**
+ *
+ */
 function GeneralSection() {
   let {id} = useParams();
   const {
