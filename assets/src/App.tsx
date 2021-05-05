@@ -68,19 +68,19 @@ const App = () => {
 
   // Private routes
   return (
-    <Router>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/register/:invite" component={Register} />
-        <Route path="/register" component={Register} />
-        <Route path="/verify" component={EmailVerification} />
-        <Route path="/reset-password" component={RequestPasswordReset} />
-        <Route path="/reset" component={PasswordReset} />
-        <Route
-          path="/reset-password-requested"
-          component={PasswordResetRequested}
-        />
-        <AppDataProvider>
+    <AppDataProvider>
+      <Router>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/register/:invite" component={Register} />
+          <Route path="/register" component={Register} />
+          <Route path="/verify" component={EmailVerification} />
+          <Route path="/reset-password" component={RequestPasswordReset} />
+          <Route path="/reset" component={PasswordReset} />
+          <Route
+            path="/reset-password-requested"
+            component={PasswordResetRequested}
+          />
           <div
             className="flex flex-col md:flex-row h-full w-screen"
             style={{
@@ -110,7 +110,6 @@ const App = () => {
                   path="/availabilities/:id/edit"
                   component={Availability}
                 />
-                {/*<Route path="/apps" component={() => <div>apps</div>} />*/}
                 <Route
                   path="/:userSlug/:schedulingLinkSlug"
                   component={BookingPage}
@@ -118,9 +117,9 @@ const App = () => {
               </Switch>
             </div>
           </div>
-        </AppDataProvider>
-      </Switch>
-    </Router>
+        </Switch>
+      </Router>
+    </AppDataProvider>
   );
 };
 
