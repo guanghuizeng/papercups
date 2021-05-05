@@ -20,14 +20,12 @@ export const AppDataContext = React.createContext<{
   profile: any;
   settings: any;
 
-  createSchedule: () => Promise<any>;
   updateDisplayName: (value: string) => Promise<any>;
   updateSlug: (value: string) => Promise<any>;
 }>({
   profile: {},
   settings: {},
 
-  createSchedule: () => Promise.resolve(),
   updateDisplayName: (value: string) => Promise.resolve(),
   updateSlug: (value: string) => Promise.resolve(),
 });
@@ -89,32 +87,12 @@ const AppDataProvider = (props: Props) => {
     return Promise.resolve();
   };
 
-  const createSchedule = async () => {
-    const schedule = {
-      name: '未命名',
-      timezone: 'Asia / Shanghai',
-      rules: [
-        {
-          id: nanoid(),
-          byday: ['mo', 'tu', 'we', 'th', 'fr'],
-          endTime: 1020,
-          startTime: 540,
-        },
-      ],
-    };
-    schedules.push(schedule);
-    mutate(`/api/schedules/`, {data: schedules}, false);
-    await API.createSchedule(schedule);
-    mutate(`/api/schedules/`);
-  };
-
   return (
     <AppDataContext.Provider
       value={{
         profile,
         settings,
 
-        createSchedule,
         updateDisplayName,
         updateSlug,
       }}

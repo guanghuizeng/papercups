@@ -5,6 +5,11 @@ import {Button, Input, Spacer, Text} from '@geist-ui/react';
 import {convertMinToHrsMinString, dayConvertToZh} from '../../utils/utils';
 import NavSidebar from '../common/NavSidebar';
 import {HOST} from '../constants';
+import {useSchedules} from '../../hooks/api-hooks';
+import {nanoid} from 'nanoid';
+import {mutate} from 'swr';
+import _ from 'lodash';
+import * as API from '../../api/api';
 
 function SettingSection(props: any) {
   return (
@@ -23,24 +28,38 @@ function SectionTitle(props: SectionTitleProps) {
 }
 
 function AvailabilitySection() {
-  const {availabilityPresets, createSchedule} = useAppData();
+  const {data: availabilityPresets} = useSchedules();
 
   const format = (minutes: number) => {
     if (minutes) return convertMinToHrsMinString(minutes);
   };
 
-  const add = () => {
-    createSchedule();
+  const createSchedule = async () => {
+    const schedule = {
+      name: '未命名',
+      timezone: 'Asia / Shanghai',
+      rules: [
+        {
+          id: nanoid(),
+          byday: ['mo', 'tu', 'we', 'th', 'fr'],
+          endTime: 1020,
+          startTime: 540,
+        },
+      ],
+    };
+    const newSchedules = _.cloneDeep(availabilityPresets);
+    newSchedules.push(schedule);
+    mutate(`/api/schedules/`, {data: newSchedules}, false);
+    await API.createSchedule(schedule);
+    mutate(`/api/schedules/`);
   };
-
-  console.log('availabilityPresets', availabilityPresets);
 
   return (
     <SettingSection>
       <SectionTitle title={'时间管理'} />
       <div className="border-primary border-b border-solid py-2">
         {availabilityPresets &&
-          availabilityPresets.map((preset) => {
+          availabilityPresets.map((preset: any) => {
             return (
               <div
                 key={preset.id}
@@ -101,7 +120,7 @@ function AvailabilitySection() {
           })}
       </div>
       <Spacer y={1.5} />
-      <Button size={'small'} onClick={add}>
+      <Button size={'small'} onClick={createSchedule}>
         新建
       </Button>
     </SettingSection>
