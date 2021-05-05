@@ -19,23 +19,19 @@ import {nanoid} from 'nanoid';
 export const AppDataContext = React.createContext<{
   profile: any;
   settings: any;
-  availabilityPresets: any[];
 
   createSchedule: () => Promise<any>;
   updateDisplayName: (value: string) => Promise<any>;
   updateSlug: (value: string) => Promise<any>;
   updateAvailabilityPreset: (id: string, update: any) => Promise<any>;
-  getAvailabilityPresetsById: (presets: string[]) => any[];
 }>({
   profile: {},
   settings: {},
-  availabilityPresets: [],
 
   createSchedule: () => Promise.resolve(),
   updateDisplayName: (value: string) => Promise.resolve(),
   updateSlug: (value: string) => Promise.resolve(),
   updateAvailabilityPreset: (value: string, update: any) => Promise.resolve(),
-  getAvailabilityPresetsById: (presets) => [],
 });
 
 export const useAppData = () => useContext(AppDataContext);
@@ -61,17 +57,6 @@ const AppDataProvider = (props: Props) => {
   const {data: profile} = useUserProfile();
   const {data: settings} = useUserSettings();
   const {data: schedules} = useSchedules();
-
-  const getAvailabilityPresetsById = (presets: string[]) => {
-    if (schedules && presets) {
-      return _.flatten(
-        schedules
-          .filter((schedule: any) => presets.includes(schedule.id))
-          .map((schedule: any) => schedule.rules)
-      );
-    }
-    return [];
-  };
 
   const _updateProfile = (newValue: any) => {
     return mutate(`/api/profile/`, {data: {...profile, ...newValue}}, false);
@@ -143,11 +128,9 @@ const AppDataProvider = (props: Props) => {
         profile,
         settings,
 
-        availabilityPresets: schedules,
         updateAvailabilityPreset,
 
         createSchedule,
-        getAvailabilityPresetsById,
         updateDisplayName,
         updateSlug,
       }}

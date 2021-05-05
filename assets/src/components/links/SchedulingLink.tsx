@@ -13,6 +13,7 @@ import {useState, Fragment, useEffect} from 'react';
 import {X} from '@geist-ui/react-icons';
 import {Button, Input, Toggle, Tooltip} from '@geist-ui/react';
 import {HOST} from '../constants';
+import {useSchedules} from '../../hooks/api-hooks';
 
 function Header() {
   const {profile} = useAppData();
@@ -151,27 +152,28 @@ const NoOptionsMessage = (props: any) => {
 };
 
 function AvailabilitySelect() {
-  const {availabilityPresets} = useAppData();
+  const {data: allAvailabilityPresets} = useSchedules();
+
   const {
-    availabilityPresets: organizerAvailabilityPresets,
-    updateAvailabilityPresets,
+    availabilityPresets: currentLinkAvailabilityPresets,
+    updateAvailabilityPresets: updateCurrentAvailabilityPresets,
   } = useSchedulingLink();
 
-  const options = availabilityPresets
-    ? availabilityPresets.map((preset) => ({
+  const options = allAvailabilityPresets
+    ? allAvailabilityPresets.map((preset: any) => ({
         value: preset.id,
         label: preset.name,
       }))
     : [];
 
-  const defaultValue = organizerAvailabilityPresets
-    ? organizerAvailabilityPresets.map((scheduleId) => {
-        return options.find((opt) => opt.value === scheduleId);
+  const defaultValue = currentLinkAvailabilityPresets
+    ? currentLinkAvailabilityPresets.map((scheduleId) => {
+        return options.find((opt: any) => opt.value === scheduleId);
       })
     : null;
 
   const updatePresets = async (value: string[] | null) => {
-    return updateAvailabilityPresets(value);
+    return updateCurrentAvailabilityPresets(value);
     // updateSchedulingLink()
   };
 

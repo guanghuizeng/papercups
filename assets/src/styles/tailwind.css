@@ -20,15 +20,15 @@ label {
   -webkit-font-smoothing: antialiased;
 }
 
-.grid div {
-  border: 1px dotted red;
-  z-index: 999;
-}
+/*.grid div {*/
+/*  border: 1px dotted red;*/
+/*  z-index: 999;*/
+/*}*/
 
-.flex div {
-  border: 1px dotted red;
-  z-index: 999;
-}
+/*.flex div {*/
+/*  border: 1px dotted red;*/
+/*  z-index: 999;*/
+/*}*/
 
 .header {
   font-family: Georgia, 'Noto Serif CJK SC', 'Source Han Serif SC',

@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import useSWR, {mutate} from 'swr';
 import {useAppData} from './AppDataProvider';
-import {useLink} from './api-hooks';
+import {useLink, useSchedules, useUserSettings} from './api-hooks';
 import * as API from '../api/api';
 import _ from 'lodash';
 
@@ -69,8 +69,21 @@ type Props = React.PropsWithChildren<{
 
 const SchedulingLinkProvider = (props: Props) => {
   const {data: link, isLoading, isError} = useLink(props.linkId);
-  const {settings, getAvailabilityPresetsById} = useAppData();
   const [presetsIntervals, setPresetsIntervals] = useState<any[]>([]);
+
+  const {data: settings} = useUserSettings();
+  const {data: schedules} = useSchedules();
+
+  const getAvailabilityPresetsById = (presets: string[]) => {
+    if (schedules && presets) {
+      return _.flatten(
+        schedules
+          .filter((schedule: any) => presets.includes(schedule.id))
+          .map((schedule: any) => schedule.rules)
+      );
+    }
+    return [];
+  };
 
   useEffect(() => {
     if (link && link.organizer && link.organizer.availability) {
