@@ -137,8 +137,6 @@ const AppDataProvider = (props: Props) => {
     mutate(`/api/schedules/`);
   };
 
-  const removeSchedule = async () => {};
-
   return (
     <AppDataContext.Provider
       value={{
